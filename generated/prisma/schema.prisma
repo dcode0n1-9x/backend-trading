@@ -1,0 +1,768 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../generated/prisma"
+  previewFeatures = ["fullTextSearchPostgres"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// USER MANAGEMENT
+// ============================================
+
+model User {
+  id               String            @id @default(cuid())
+  email            String?           @unique
+  phone            String            @unique
+  password         String?
+  firstName        String?
+  lastName         String?
+  panNumber        String?           @unique
+  aadhaarNumber    String?
+  dateOfBirth      DateTime?
+  kycStatus        KYCStatus?        @default(PENDING)
+  accountType      AccountType?      @default(INDIVIDUAL)
+  role             UserRole?         @default(USER)
+  isActive         Boolean?          @default(true)
+  twoFactorEnabled Boolean?          @default(false)
+  createdAt        DateTime?         @default(now())
+  updatedAt        DateTime?         @updatedAt
+  // Relations
+  profile          UserProfile?
+  bankAccounts     BankAccount[]
+  funds            FundTransaction[]
+  holdings         Holding[]
+  positions        Position[]
+  orders           Order[]
+  trades           Trade[]
+  watchlists       Watchlist[]
+  portfolios       Portfolio[]
+  gttOrders        GTTOrder[]
+  baskets          Basket[]
+  alerts           Alert[]
+  notifications    Notification[]
+  sessions         Session[]
+
+  @@index([email, phone])
+}
+
+model UserProfile {
+  id                String      @id @default(cuid())
+  userId            String      @unique
+  addressLine1      String
+  addressLine2      String?
+  city              String
+  state             String
+  pincode           String
+  fatherName        String?
+  motherName        String?
+  maritalStatus     String?
+  country           String      @default("India")
+  occupation        String?
+  annualIncome      String?
+  tradingExperience String?
+  riskProfile       RiskProfile @default(MODERATE)
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model BankAccount {
+  id                String          @id @default(cuid())
+  userId            String
+  accountNumber     String
+  ifscCode          String
+  bankName          String
+  branchName        String
+  accountHolderName String
+  accountType       BankAccountType
+  isPrimary         Boolean         @default(false)
+  isVerified        Boolean         @default(false)
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Session {
+  id         String   @id @default(cuid())
+  userId     String
+  token      String   @unique
+  ipAddress  String?
+  userAgent  String?
+  deviceType String?
+  isActive   Boolean  @default(true)
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, token])
+}
+
+// ============================================
+// FUNDS MANAGEMENT
+// ============================================
+
+model FundTransaction {
+  id              String              @id @default(cuid())
+  userId          String
+  transactionType FundTransactionType
+  amount          Float
+  status          TransactionStatus   @default(PENDING)
+  paymentMode     PaymentMode?
+  utrNumber       String?             @unique
+  bankAccountId   String?
+  remarks         String?
+  processedAt     DateTime?
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, transactionType, status])
+}
+
+model Margin {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  availableCash   Float    @default(0.0)
+  usedMargin      Float    @default(0.0)
+  availableMargin Float    @default(0.0)
+  collateralValue Float    @default(0.0)
+  openingBalance  Float    @default(0.0)
+  payin           Float    @default(0.0)
+  payout          Float    @default(0.0)
+  spanMargin      Float    @default(0.0)
+  exposureMargin  Float    @default(0.0)
+  optionPremium   Float    @default(0.0)
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId])
+}
+
+// ============================================
+// INSTRUMENTS & MARKET DATA
+// ============================================
+
+model Instrument {
+  id              String         @id @default(cuid())
+  instrumentToken String         @unique
+  exchangeToken   String
+  tradingSymbol   String
+  name            String
+  exchange        Exchange
+  segment         Segment
+  instrumentType  InstrumentType
+  tickSize        Float          @default(0.05)
+  lotSize         Int            @default(1)
+  expiry          DateTime?
+  strike          Float?
+  isin            String?
+  isActive        Boolean        @default(true)
+  lastPrice       Float          @default(0.0)
+  lastUpdated     DateTime       @default(now())
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  // Relations
+  holdings       Holding[]
+  positions      Position[]
+  orders         Order[]
+  trades         Trade[]
+  marketDepth    MarketDepth[]
+  priceHistory   PriceHistory[]
+  watchlistItems WatchlistItem[]
+
+  @@index([tradingSymbol, exchange])
+  @@index([instrumentToken])
+}
+
+model MarketDepth {
+  id           String    @id @default(cuid())
+  instrumentId String
+  side         OrderSide
+  price        Float
+  quantity     Int
+  orders       Int
+  timestamp    DateTime  @default(now())
+
+  instrument Instrument @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
+
+  @@index([instrumentId, side, timestamp])
+}
+
+model PriceHistory {
+  id           String   @id @default(cuid())
+  instrumentId String
+  open         Float
+  high         Float
+  low          Float
+  close        Float
+  volume       Int
+  ohlcDate     DateTime
+  interval     String // "1minute", "5minute", "day", etc.
+
+  instrument Instrument @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
+
+  @@unique([instrumentId, ohlcDate, interval])
+  @@index([instrumentId, ohlcDate])
+}
+
+// ============================================
+// PORTFOLIO & HOLDINGS
+// ============================================
+
+model Portfolio {
+  id               String   @id @default(cuid())
+  userId           String
+  totalValue       Float    @default(0.0)
+  investedValue    Float    @default(0.0)
+  currentValue     Float    @default(0.0)
+  dayChange        Float    @default(0.0)
+  dayChangePercent Float    @default(0.0)
+  totalPnl         Float    @default(0.0)
+  totalPnlPercent  Float    @default(0.0)
+  xirr             Float?
+  updatedAt        DateTime @updatedAt
+  createdAt        DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Holding {
+  id                 String      @id @default(cuid())
+  userId             String
+  instrumentId       String
+  quantity           Int
+  averagePrice       Float
+  lastPrice          Float
+  pnl                Float       @default(0.0)
+  dayChange          Float       @default(0.0)
+  dayChangePercent   Float       @default(0.0)
+  collateralQuantity Int         @default(0)
+  collateralType     String? // "margin" or "cover"
+  product            ProductType
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  instrument Instrument @relation(fields: [instrumentId], references: [id])
+
+  @@unique([userId, instrumentId, product])
+  @@index([userId])
+}
+
+model Position {
+  id                String       @id @default(cuid())
+  userId            String
+  instrumentId      String
+  product           ProductType
+  quantity          Int
+  overnightQuantity Int          @default(0)
+  averagePrice      Float
+  lastPrice         Float
+  value             Float
+  pnl               Float        @default(0.0)
+  m2m               Float        @default(0.0)
+  unrealised        Float        @default(0.0)
+  realised          Float        @default(0.0)
+  buyQuantity       Int          @default(0)
+  buyValue          Float        @default(0.0)
+  buyPrice          Float        @default(0.0)
+  sellQuantity      Int          @default(0)
+  sellValue         Float        @default(0.0)
+  sellPrice         Float        @default(0.0)
+  multiplier        Float        @default(1.0)
+  tradingSymbol     String
+  exchange          Exchange
+  positionType      PositionType
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  instrument Instrument @relation(fields: [instrumentId], references: [id])
+
+  @@unique([userId, instrumentId, product])
+  @@index([userId, tradingSymbol])
+}
+
+// ============================================
+// ORDER MANAGEMENT
+// ============================================
+
+model Order {
+  id                 String          @id @default(cuid())
+  orderId            String          @unique // Exchange order ID
+  userId             String
+  instrumentId       String
+  parentOrderId      String?
+  exchangeOrderId    String?
+  exchangeTimestamp  DateTime?
+  placedBy           String
+  variety            OrderVariety
+  orderType          OrderType
+  transactionType    TransactionType
+  validity           OrderValidity
+  product            ProductType
+  exchange           Exchange
+  tradingSymbol      String
+  quantity           Int
+  disclosedQuantity  Int             @default(0)
+  price              Float           @default(0.0)
+  triggerPrice       Float           @default(0.0)
+  averagePrice       Float           @default(0.0)
+  filledQuantity     Int             @default(0)
+  pendingQuantity    Int
+  cancelledQuantity  Int             @default(0)
+  status             OrderStatus
+  statusMessage      String?
+  tag                String?
+  clientOrderId      String?
+  orderTimestamp     DateTime        @default(now())
+  exchangeUpdateTime DateTime?
+  rejectedBy         String?
+  cancelledBy        String?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  instrument Instrument @relation(fields: [instrumentId], references: [id])
+  trades     Trade[]
+
+  @@index([userId, status])
+  @@index([orderId])
+  @@index([tradingSymbol, exchange])
+}
+
+model Trade {
+  id                String          @id @default(cuid())
+  tradeId           String          @unique
+  orderId           String
+  userId            String
+  instrumentId      String
+  exchange          Exchange
+  tradingSymbol     String
+  transactionType   TransactionType
+  product           ProductType
+  quantity          Int
+  price             Float
+  value             Float
+  exchangeTimestamp DateTime
+  createdAt         DateTime        @default(now())
+
+  order      Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  instrument Instrument    @relation(fields: [instrumentId], references: [id])
+  charges    TradeCharges?
+
+  @@index([userId, tradingSymbol])
+  @@index([tradeId])
+}
+
+model TradeCharges {
+  id                String @id @default(cuid())
+  tradeId           String @unique
+  brokerage         Float  @default(0.0)
+  stt               Float  @default(0.0)
+  exchangeTxnCharge Float  @default(0.0)
+  gst               Float  @default(0.0)
+  sebiTurnover      Float  @default(0.0)
+  stampDuty         Float  @default(0.0)
+  totalCharges      Float  @default(0.0)
+  netAmount         Float
+
+  trade Trade @relation(fields: [tradeId], references: [id], onDelete: Cascade)
+}
+
+model GTTOrder {
+  id            String      @id @default(cuid())
+  userId        String
+  gttType       GTTType
+  instrumentId  String
+  tradingSymbol String
+  exchange      Exchange
+  triggerType   TriggerType
+  triggerPrice  Float
+  lastPrice     Float
+  limitPrice    Float?
+  stopLossPrice Float?
+  quantity      Int
+  product       ProductType
+  orderType     OrderType
+  status        GTTStatus   @default(ACTIVE)
+  expiresAt     DateTime?
+  triggeredAt   DateTime?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+}
+
+// ============================================
+// WATCHLIST & ALERTS
+// ============================================
+
+model Watchlist {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user  User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items WatchlistItem[]
+
+  @@index([userId])
+}
+
+model WatchlistItem {
+  id           String   @id @default(cuid())
+  watchlistId  String
+  instrumentId String
+  sortOrder    Int      @default(0)
+  addedAt      DateTime @default(now())
+
+  watchlist  Watchlist  @relation(fields: [watchlistId], references: [id], onDelete: Cascade)
+  instrument Instrument @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
+
+  @@unique([watchlistId, instrumentId])
+  @@index([watchlistId])
+}
+
+model Alert {
+  id           String    @id @default(cuid())
+  userId       String
+  instrumentId String?
+  alertType    AlertType
+  message      String
+  triggerPrice Float?
+  condition    String? // "above", "below", "equals"
+  isTriggered  Boolean   @default(false)
+  isRead       Boolean   @default(false)
+  triggeredAt  DateTime?
+  expiresAt    DateTime?
+  createdAt    DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isTriggered, isRead])
+}
+
+model Notification {
+  id               String           @id @default(cuid())
+  userId           String
+  notificationType NotificationType
+  title            String
+  message          String
+  isRead           Boolean          @default(false)
+  priority         Priority         @default(NORMAL)
+  createdAt        DateTime         @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead])
+}
+
+// ============================================
+// BASKETS & STRATEGIES
+// ============================================
+
+model Basket {
+  id          String   @id @default(cuid())
+  userId      String
+  name        String
+  description String?
+  totalValue  Float    @default(0.0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user  User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items BasketItem[]
+
+  @@index([userId])
+}
+
+model BasketItem {
+  id              String          @id @default(cuid())
+  basketId        String
+  instrumentId    String
+  tradingSymbol   String
+  exchange        Exchange
+  transactionType TransactionType
+  quantity        Int
+  orderType       OrderType
+  price           Float?
+  triggerPrice    Float?
+  product         ProductType
+  sortOrder       Int             @default(0)
+
+  basket Basket @relation(fields: [basketId], references: [id], onDelete: Cascade)
+
+  @@index([basketId])
+}
+
+// ============================================
+// CORPORATE ACTIONS
+// ============================================
+
+model CorporateAction {
+  id               String              @id @default(cuid())
+  instrumentId     String
+  actionType       CorporateActionType
+  exDate           DateTime
+  recordDate       DateTime?
+  announcementDate DateTime
+  description      String
+  oldSymbol        String?
+  newSymbol        String?
+  ratio            String? // For splits/bonuses: "1:2"
+  dividendAmount   Float?
+  isProcessed      Boolean             @default(false)
+  processedAt      DateTime?
+  createdAt        DateTime            @default(now())
+
+  @@index([instrumentId, exDate])
+}
+
+// ============================================
+// REPORTS & ANALYTICS
+// ============================================
+
+model TradeJournal {
+  id             String   @id @default(cuid())
+  userId         String
+  tradeId        String?
+  orderId        String?
+  date           DateTime
+  notes          String
+  tags           String[] // Array of tags
+  strategy       String?
+  emotionalState String?
+  learnings      String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([userId, date])
+}
+
+model DailyPnL {
+  id            String   @id @default(cuid())
+  userId        String
+  date          DateTime @unique
+  realizedPnl   Float    @default(0.0)
+  unrealizedPnl Float    @default(0.0)
+  totalPnl      Float    @default(0.0)
+  equityPnl     Float    @default(0.0)
+  foPnl         Float    @default(0.0)
+  commodityPnl  Float    @default(0.0)
+  charges       Float    @default(0.0)
+  createdAt     DateTime @default(now())
+
+  @@index([userId, date])
+}
+
+// ============================================
+// ENUMS
+// ============================================
+
+enum UserRole {
+  USER
+  ADMIN
+  BROKER
+}
+
+enum KYCStatus {
+  PENDING
+  SUBMITTED
+  VERIFIED
+  REJECTED
+}
+
+enum AccountType {
+  INDIVIDUAL
+  CORPORATE
+  PARTNERSHIP
+  HUF
+}
+
+enum RiskProfile {
+  LOW
+  MODERATE
+  HIGH
+}
+
+enum BankAccountType {
+  SAVINGS
+  CURRENT
+}
+
+enum FundTransactionType {
+  DEPOSIT
+  WITHDRAWAL
+}
+
+enum TransactionStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum PaymentMode {
+  UPI
+  NET_BANKING
+  NEFT
+  RTGS
+  IMPS
+}
+
+enum Exchange {
+  NSE
+  BSE
+  NFO
+  BFO
+  CDS
+  MCX
+}
+
+enum Segment {
+  EQUITY
+  FUTURES
+  OPTIONS
+  CURRENCY
+  COMMODITY
+}
+
+enum InstrumentType {
+  EQ // Equity
+  FUTIDX // Index Futures
+  FUTSTK // Stock Futures
+  OPTIDX // Index Options
+  OPTSTK // Stock Options
+  FUTCOM // Commodity Futures
+  OPTCOM // Commodity Options
+  FUTCUR // Currency Futures
+  OPTCUR // Currency Options
+}
+
+enum OrderSide {
+  BUY
+  SELL
+}
+
+enum OrderVariety {
+  REGULAR
+  AMO
+  BO // Bracket Order
+  CO // Cover Order
+  ICEBERG
+}
+
+enum OrderType {
+  MARKET
+  LIMIT
+  SL // Stop Loss
+  SLM // Stop Loss Market
+}
+
+enum TransactionType {
+  BUY
+  SELL
+}
+
+enum OrderValidity {
+  DAY
+  IOC // Immediate or Cancel
+  TTL // Time to Live
+}
+
+enum ProductType {
+  CNC // Cash and Carry (Delivery)
+  MIS // Margin Intraday Squareoff
+  NRML // Normal (For F&O)
+}
+
+enum OrderStatus {
+  PENDING
+  OPEN
+  COMPLETE
+  CANCELLED
+  REJECTED
+  MODIFIED
+  TRIGGER_PENDING
+}
+
+enum PositionType {
+  DAY
+  OVERNIGHT
+}
+
+enum GTTType {
+  SINGLE
+  OCO // One Cancels Other
+}
+
+enum TriggerType {
+  SINGLE
+  TWO_LEG
+}
+
+enum GTTStatus {
+  ACTIVE
+  TRIGGERED
+  DISABLED
+  EXPIRED
+  CANCELLED
+  REJECTED
+}
+
+enum AlertType {
+  PRICE_ALERT
+  PERCENTAGE_CHANGE
+  VOLUME_SPIKE
+  NEWS
+  CORPORATE_ACTION
+  MARGIN_CALL
+  ORDER_UPDATE
+}
+
+enum NotificationType {
+  ORDER_UPDATE
+  TRADE_EXECUTED
+  FUND_UPDATE
+  MARGIN_CALL
+  GTT_TRIGGERED
+  CORPORATE_ACTION
+  SYSTEM_ALERT
+}
+
+enum Priority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+enum CorporateActionType {
+  DIVIDEND
+  BONUS
+  SPLIT
+  MERGER
+  RIGHTS
+  BUYBACK
+  DELISTING
+}
