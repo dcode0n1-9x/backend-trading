@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model UserVerification
+ * 
+ */
+export type UserVerification = $Result.DefaultSelection<Prisma.$UserVerificationPayload>
+/**
  * Model UserProfile
  * 
  */
@@ -409,6 +414,61 @@ export const CorporateActionType: {
 
 export type CorporateActionType = (typeof CorporateActionType)[keyof typeof CorporateActionType]
 
+
+export const MartialStatus: {
+  SINGLE: 'SINGLE',
+  MARRIED: 'MARRIED'
+};
+
+export type MartialStatus = (typeof MartialStatus)[keyof typeof MartialStatus]
+
+
+export const AnnualIncome: {
+  BELOW_1_LAKH: 'BELOW_1_LAKH',
+  BETWEEN_1_TO_5_LAKHS: 'BETWEEN_1_TO_5_LAKHS',
+  BETWEEN_5_TO_10_LAKHS: 'BETWEEN_5_TO_10_LAKHS',
+  BETWEEN_10_TO_25_LAKHS: 'BETWEEN_10_TO_25_LAKHS',
+  BETWEEN_25_TO_1_CRORE: 'BETWEEN_25_TO_1_CRORE',
+  ABOVE_1_CRORE: 'ABOVE_1_CRORE'
+};
+
+export type AnnualIncome = (typeof AnnualIncome)[keyof typeof AnnualIncome]
+
+
+export const TradingExperience: {
+  NEW: 'NEW',
+  BETWEEN_1_TO_5_YEARS: 'BETWEEN_1_TO_5_YEARS',
+  BETWEEN_5_TO_10_YEARS: 'BETWEEN_5_TO_10_YEARS',
+  BETWEEN_10_TO_15_YEARS: 'BETWEEN_10_TO_15_YEARS',
+  MORE_THAN_15_YEARS: 'MORE_THAN_15_YEARS'
+};
+
+export type TradingExperience = (typeof TradingExperience)[keyof typeof TradingExperience]
+
+
+export const Occupation: {
+  BUSINESS: 'BUSINESS',
+  HOUSEWIFE: 'HOUSEWIFE',
+  STUDENT: 'STUDENT',
+  PROFESSIONAL: 'PROFESSIONAL',
+  PRIVATE_SECTOR: 'PRIVATE_SECTOR',
+  AGRICULTURIST: 'AGRICULTURIST',
+  GOVERMENT_SERVICE: 'GOVERMENT_SERVICE',
+  PUBLIC_SECTOR: 'PUBLIC_SECTOR',
+  RETIRED: 'RETIRED',
+  OTHERS: 'OTHERS'
+};
+
+export type Occupation = (typeof Occupation)[keyof typeof Occupation]
+
+
+export const SettlementType: {
+  QUATERLY: 'QUATERLY',
+  MONTHLY: 'MONTHLY'
+};
+
+export type SettlementType = (typeof SettlementType)[keyof typeof SettlementType]
+
 }
 
 export type UserRole = $Enums.UserRole
@@ -514,6 +574,26 @@ export const Priority: typeof $Enums.Priority
 export type CorporateActionType = $Enums.CorporateActionType
 
 export const CorporateActionType: typeof $Enums.CorporateActionType
+
+export type MartialStatus = $Enums.MartialStatus
+
+export const MartialStatus: typeof $Enums.MartialStatus
+
+export type AnnualIncome = $Enums.AnnualIncome
+
+export const AnnualIncome: typeof $Enums.AnnualIncome
+
+export type TradingExperience = $Enums.TradingExperience
+
+export const TradingExperience: typeof $Enums.TradingExperience
+
+export type Occupation = $Enums.Occupation
+
+export const Occupation: typeof $Enums.Occupation
+
+export type SettlementType = $Enums.SettlementType
+
+export const SettlementType: typeof $Enums.SettlementType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -642,6 +722,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userVerification`: Exposes CRUD operations for the **UserVerification** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserVerifications
+    * const userVerifications = await prisma.userVerification.findMany()
+    * ```
+    */
+  get userVerification(): Prisma.UserVerificationDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.userProfile`: Exposes CRUD operations for the **UserProfile** model.
@@ -1324,6 +1414,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    UserVerification: 'UserVerification',
     UserProfile: 'UserProfile',
     BankAccount: 'BankAccount',
     Session: 'Session',
@@ -1366,7 +1457,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userProfile" | "bankAccount" | "session" | "fundTransaction" | "margin" | "instrument" | "marketDepth" | "priceHistory" | "portfolio" | "holding" | "position" | "order" | "trade" | "tradeCharges" | "gTTOrder" | "watchlist" | "watchlistItem" | "alert" | "notification" | "basket" | "basketItem" | "corporateAction" | "tradeJournal" | "dailyPnL"
+      modelProps: "user" | "userVerification" | "userProfile" | "bankAccount" | "session" | "fundTransaction" | "margin" | "instrument" | "marketDepth" | "priceHistory" | "portfolio" | "holding" | "position" | "order" | "trade" | "tradeCharges" | "gTTOrder" | "watchlist" | "watchlistItem" | "alert" | "notification" | "basket" | "basketItem" | "corporateAction" | "tradeJournal" | "dailyPnL"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1441,6 +1532,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserVerification: {
+        payload: Prisma.$UserVerificationPayload<ExtArgs>
+        fields: Prisma.UserVerificationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserVerificationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVerificationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserVerificationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVerificationPayload>
+          }
+          findFirst: {
+            args: Prisma.UserVerificationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVerificationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserVerificationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVerificationPayload>
+          }
+          findMany: {
+            args: Prisma.UserVerificationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVerificationPayload>[]
+          }
+          create: {
+            args: Prisma.UserVerificationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVerificationPayload>
+          }
+          createMany: {
+            args: Prisma.UserVerificationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserVerificationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVerificationPayload>[]
+          }
+          delete: {
+            args: Prisma.UserVerificationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVerificationPayload>
+          }
+          update: {
+            args: Prisma.UserVerificationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVerificationPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserVerificationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserVerificationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserVerificationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVerificationPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserVerificationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserVerificationPayload>
+          }
+          aggregate: {
+            args: Prisma.UserVerificationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserVerification>
+          }
+          groupBy: {
+            args: Prisma.UserVerificationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserVerificationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserVerificationCountArgs<ExtArgs>
+            result: $Utils.Optional<UserVerificationCountAggregateOutputType> | number
           }
         }
       }
@@ -3317,6 +3482,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    userVerification?: UserVerificationOmit
     userProfile?: UserProfileOmit
     bankAccount?: BankAccountOmit
     session?: SessionOmit
@@ -3764,6 +3930,7 @@ export namespace Prisma {
     twoFactorEnabled: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
+    isVerified: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -3783,6 +3950,7 @@ export namespace Prisma {
     twoFactorEnabled: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
+    isVerified: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -3802,6 +3970,7 @@ export namespace Prisma {
     twoFactorEnabled: number
     createdAt: number
     updatedAt: number
+    isVerified: number
     _all: number
   }
 
@@ -3823,6 +3992,7 @@ export namespace Prisma {
     twoFactorEnabled?: true
     createdAt?: true
     updatedAt?: true
+    isVerified?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -3842,6 +4012,7 @@ export namespace Prisma {
     twoFactorEnabled?: true
     createdAt?: true
     updatedAt?: true
+    isVerified?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -3861,6 +4032,7 @@ export namespace Prisma {
     twoFactorEnabled?: true
     createdAt?: true
     updatedAt?: true
+    isVerified?: true
     _all?: true
   }
 
@@ -3953,6 +4125,7 @@ export namespace Prisma {
     twoFactorEnabled: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
+    isVerified: boolean
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -3989,6 +4162,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    isVerified?: boolean
     profile?: boolean | User$profileArgs<ExtArgs>
     bankAccounts?: boolean | User$bankAccountsArgs<ExtArgs>
     funds?: boolean | User$fundsArgs<ExtArgs>
@@ -4003,6 +4177,7 @@ export namespace Prisma {
     alerts?: boolean | User$alertsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
+    UserVerification?: boolean | User$UserVerificationArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4023,6 +4198,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    isVerified?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4042,6 +4218,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    isVerified?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -4061,9 +4238,10 @@ export namespace Prisma {
     twoFactorEnabled?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    isVerified?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password" | "firstName" | "lastName" | "panNumber" | "aadhaarNumber" | "dateOfBirth" | "kycStatus" | "accountType" | "role" | "isActive" | "twoFactorEnabled" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password" | "firstName" | "lastName" | "panNumber" | "aadhaarNumber" | "dateOfBirth" | "kycStatus" | "accountType" | "role" | "isActive" | "twoFactorEnabled" | "createdAt" | "updatedAt" | "isVerified", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     profile?: boolean | User$profileArgs<ExtArgs>
     bankAccounts?: boolean | User$bankAccountsArgs<ExtArgs>
@@ -4079,6 +4257,7 @@ export namespace Prisma {
     alerts?: boolean | User$alertsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
+    UserVerification?: boolean | User$UserVerificationArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4101,6 +4280,7 @@ export namespace Prisma {
       alerts: Prisma.$AlertPayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
+      UserVerification: Prisma.$UserVerificationPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4119,6 +4299,7 @@ export namespace Prisma {
       twoFactorEnabled: boolean | null
       createdAt: Date | null
       updatedAt: Date | null
+      isVerified: boolean
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -4527,6 +4708,7 @@ export namespace Prisma {
     alerts<T extends User$alertsArgs<ExtArgs> = {}>(args?: Subset<T, User$alertsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlertPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    UserVerification<T extends User$UserVerificationArgs<ExtArgs> = {}>(args?: Subset<T, User$UserVerificationArgs<ExtArgs>>): Prisma__UserVerificationClient<$Result.GetResult<Prisma.$UserVerificationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4572,6 +4754,7 @@ export namespace Prisma {
     readonly twoFactorEnabled: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly isVerified: FieldRef<"User", 'Boolean'>
   }
     
 
@@ -5291,6 +5474,25 @@ export namespace Prisma {
   }
 
   /**
+   * User.UserVerification
+   */
+  export type User$UserVerificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVerification
+     */
+    select?: UserVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVerification
+     */
+    omit?: UserVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVerificationInclude<ExtArgs> | null
+    where?: UserVerificationWhereInput
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5306,6 +5508,1090 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserVerification
+   */
+
+  export type AggregateUserVerification = {
+    _count: UserVerificationCountAggregateOutputType | null
+    _min: UserVerificationMinAggregateOutputType | null
+    _max: UserVerificationMaxAggregateOutputType | null
+  }
+
+  export type UserVerificationMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    stage1: boolean | null
+    stage2: boolean | null
+    stage3: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserVerificationMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    stage1: boolean | null
+    stage2: boolean | null
+    stage3: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserVerificationCountAggregateOutputType = {
+    id: number
+    userId: number
+    stage1: number
+    stage2: number
+    stage3: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserVerificationMinAggregateInputType = {
+    id?: true
+    userId?: true
+    stage1?: true
+    stage2?: true
+    stage3?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserVerificationMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    stage1?: true
+    stage2?: true
+    stage3?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserVerificationCountAggregateInputType = {
+    id?: true
+    userId?: true
+    stage1?: true
+    stage2?: true
+    stage3?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserVerificationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserVerification to aggregate.
+     */
+    where?: UserVerificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserVerifications to fetch.
+     */
+    orderBy?: UserVerificationOrderByWithRelationInput | UserVerificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserVerificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserVerifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserVerifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserVerifications
+    **/
+    _count?: true | UserVerificationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserVerificationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserVerificationMaxAggregateInputType
+  }
+
+  export type GetUserVerificationAggregateType<T extends UserVerificationAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserVerification]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserVerification[P]>
+      : GetScalarType<T[P], AggregateUserVerification[P]>
+  }
+
+
+
+
+  export type UserVerificationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserVerificationWhereInput
+    orderBy?: UserVerificationOrderByWithAggregationInput | UserVerificationOrderByWithAggregationInput[]
+    by: UserVerificationScalarFieldEnum[] | UserVerificationScalarFieldEnum
+    having?: UserVerificationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserVerificationCountAggregateInputType | true
+    _min?: UserVerificationMinAggregateInputType
+    _max?: UserVerificationMaxAggregateInputType
+  }
+
+  export type UserVerificationGroupByOutputType = {
+    id: string
+    userId: string
+    stage1: boolean
+    stage2: boolean
+    stage3: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: UserVerificationCountAggregateOutputType | null
+    _min: UserVerificationMinAggregateOutputType | null
+    _max: UserVerificationMaxAggregateOutputType | null
+  }
+
+  type GetUserVerificationGroupByPayload<T extends UserVerificationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserVerificationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserVerificationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserVerificationGroupByOutputType[P]>
+            : GetScalarType<T[P], UserVerificationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserVerificationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    stage1?: boolean
+    stage2?: boolean
+    stage3?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userVerification"]>
+
+  export type UserVerificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    stage1?: boolean
+    stage2?: boolean
+    stage3?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userVerification"]>
+
+  export type UserVerificationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    stage1?: boolean
+    stage2?: boolean
+    stage3?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userVerification"]>
+
+  export type UserVerificationSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    stage1?: boolean
+    stage2?: boolean
+    stage3?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserVerificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "stage1" | "stage2" | "stage3" | "createdAt" | "updatedAt", ExtArgs["result"]["userVerification"]>
+  export type UserVerificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserVerificationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserVerificationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserVerificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserVerification"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      stage1: boolean
+      stage2: boolean
+      stage3: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["userVerification"]>
+    composites: {}
+  }
+
+  type UserVerificationGetPayload<S extends boolean | null | undefined | UserVerificationDefaultArgs> = $Result.GetResult<Prisma.$UserVerificationPayload, S>
+
+  type UserVerificationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserVerificationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserVerificationCountAggregateInputType | true
+    }
+
+  export interface UserVerificationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserVerification'], meta: { name: 'UserVerification' } }
+    /**
+     * Find zero or one UserVerification that matches the filter.
+     * @param {UserVerificationFindUniqueArgs} args - Arguments to find a UserVerification
+     * @example
+     * // Get one UserVerification
+     * const userVerification = await prisma.userVerification.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserVerificationFindUniqueArgs>(args: SelectSubset<T, UserVerificationFindUniqueArgs<ExtArgs>>): Prisma__UserVerificationClient<$Result.GetResult<Prisma.$UserVerificationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserVerification that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserVerificationFindUniqueOrThrowArgs} args - Arguments to find a UserVerification
+     * @example
+     * // Get one UserVerification
+     * const userVerification = await prisma.userVerification.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserVerificationFindUniqueOrThrowArgs>(args: SelectSubset<T, UserVerificationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserVerificationClient<$Result.GetResult<Prisma.$UserVerificationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserVerification that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserVerificationFindFirstArgs} args - Arguments to find a UserVerification
+     * @example
+     * // Get one UserVerification
+     * const userVerification = await prisma.userVerification.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserVerificationFindFirstArgs>(args?: SelectSubset<T, UserVerificationFindFirstArgs<ExtArgs>>): Prisma__UserVerificationClient<$Result.GetResult<Prisma.$UserVerificationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserVerification that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserVerificationFindFirstOrThrowArgs} args - Arguments to find a UserVerification
+     * @example
+     * // Get one UserVerification
+     * const userVerification = await prisma.userVerification.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserVerificationFindFirstOrThrowArgs>(args?: SelectSubset<T, UserVerificationFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserVerificationClient<$Result.GetResult<Prisma.$UserVerificationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserVerifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserVerificationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserVerifications
+     * const userVerifications = await prisma.userVerification.findMany()
+     * 
+     * // Get first 10 UserVerifications
+     * const userVerifications = await prisma.userVerification.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userVerificationWithIdOnly = await prisma.userVerification.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserVerificationFindManyArgs>(args?: SelectSubset<T, UserVerificationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserVerificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserVerification.
+     * @param {UserVerificationCreateArgs} args - Arguments to create a UserVerification.
+     * @example
+     * // Create one UserVerification
+     * const UserVerification = await prisma.userVerification.create({
+     *   data: {
+     *     // ... data to create a UserVerification
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserVerificationCreateArgs>(args: SelectSubset<T, UserVerificationCreateArgs<ExtArgs>>): Prisma__UserVerificationClient<$Result.GetResult<Prisma.$UserVerificationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserVerifications.
+     * @param {UserVerificationCreateManyArgs} args - Arguments to create many UserVerifications.
+     * @example
+     * // Create many UserVerifications
+     * const userVerification = await prisma.userVerification.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserVerificationCreateManyArgs>(args?: SelectSubset<T, UserVerificationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserVerifications and returns the data saved in the database.
+     * @param {UserVerificationCreateManyAndReturnArgs} args - Arguments to create many UserVerifications.
+     * @example
+     * // Create many UserVerifications
+     * const userVerification = await prisma.userVerification.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserVerifications and only return the `id`
+     * const userVerificationWithIdOnly = await prisma.userVerification.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserVerificationCreateManyAndReturnArgs>(args?: SelectSubset<T, UserVerificationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserVerificationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserVerification.
+     * @param {UserVerificationDeleteArgs} args - Arguments to delete one UserVerification.
+     * @example
+     * // Delete one UserVerification
+     * const UserVerification = await prisma.userVerification.delete({
+     *   where: {
+     *     // ... filter to delete one UserVerification
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserVerificationDeleteArgs>(args: SelectSubset<T, UserVerificationDeleteArgs<ExtArgs>>): Prisma__UserVerificationClient<$Result.GetResult<Prisma.$UserVerificationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserVerification.
+     * @param {UserVerificationUpdateArgs} args - Arguments to update one UserVerification.
+     * @example
+     * // Update one UserVerification
+     * const userVerification = await prisma.userVerification.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserVerificationUpdateArgs>(args: SelectSubset<T, UserVerificationUpdateArgs<ExtArgs>>): Prisma__UserVerificationClient<$Result.GetResult<Prisma.$UserVerificationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserVerifications.
+     * @param {UserVerificationDeleteManyArgs} args - Arguments to filter UserVerifications to delete.
+     * @example
+     * // Delete a few UserVerifications
+     * const { count } = await prisma.userVerification.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserVerificationDeleteManyArgs>(args?: SelectSubset<T, UserVerificationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserVerifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserVerificationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserVerifications
+     * const userVerification = await prisma.userVerification.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserVerificationUpdateManyArgs>(args: SelectSubset<T, UserVerificationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserVerifications and returns the data updated in the database.
+     * @param {UserVerificationUpdateManyAndReturnArgs} args - Arguments to update many UserVerifications.
+     * @example
+     * // Update many UserVerifications
+     * const userVerification = await prisma.userVerification.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserVerifications and only return the `id`
+     * const userVerificationWithIdOnly = await prisma.userVerification.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserVerificationUpdateManyAndReturnArgs>(args: SelectSubset<T, UserVerificationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserVerificationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserVerification.
+     * @param {UserVerificationUpsertArgs} args - Arguments to update or create a UserVerification.
+     * @example
+     * // Update or create a UserVerification
+     * const userVerification = await prisma.userVerification.upsert({
+     *   create: {
+     *     // ... data to create a UserVerification
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserVerification we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserVerificationUpsertArgs>(args: SelectSubset<T, UserVerificationUpsertArgs<ExtArgs>>): Prisma__UserVerificationClient<$Result.GetResult<Prisma.$UserVerificationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserVerifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserVerificationCountArgs} args - Arguments to filter UserVerifications to count.
+     * @example
+     * // Count the number of UserVerifications
+     * const count = await prisma.userVerification.count({
+     *   where: {
+     *     // ... the filter for the UserVerifications we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserVerificationCountArgs>(
+      args?: Subset<T, UserVerificationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserVerificationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserVerification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserVerificationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserVerificationAggregateArgs>(args: Subset<T, UserVerificationAggregateArgs>): Prisma.PrismaPromise<GetUserVerificationAggregateType<T>>
+
+    /**
+     * Group by UserVerification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserVerificationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserVerificationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserVerificationGroupByArgs['orderBy'] }
+        : { orderBy?: UserVerificationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserVerificationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserVerificationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserVerification model
+   */
+  readonly fields: UserVerificationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserVerification.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserVerificationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserVerification model
+   */
+  interface UserVerificationFieldRefs {
+    readonly id: FieldRef<"UserVerification", 'String'>
+    readonly userId: FieldRef<"UserVerification", 'String'>
+    readonly stage1: FieldRef<"UserVerification", 'Boolean'>
+    readonly stage2: FieldRef<"UserVerification", 'Boolean'>
+    readonly stage3: FieldRef<"UserVerification", 'Boolean'>
+    readonly createdAt: FieldRef<"UserVerification", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserVerification", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserVerification findUnique
+   */
+  export type UserVerificationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVerification
+     */
+    select?: UserVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVerification
+     */
+    omit?: UserVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVerificationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserVerification to fetch.
+     */
+    where: UserVerificationWhereUniqueInput
+  }
+
+  /**
+   * UserVerification findUniqueOrThrow
+   */
+  export type UserVerificationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVerification
+     */
+    select?: UserVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVerification
+     */
+    omit?: UserVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVerificationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserVerification to fetch.
+     */
+    where: UserVerificationWhereUniqueInput
+  }
+
+  /**
+   * UserVerification findFirst
+   */
+  export type UserVerificationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVerification
+     */
+    select?: UserVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVerification
+     */
+    omit?: UserVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVerificationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserVerification to fetch.
+     */
+    where?: UserVerificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserVerifications to fetch.
+     */
+    orderBy?: UserVerificationOrderByWithRelationInput | UserVerificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserVerifications.
+     */
+    cursor?: UserVerificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserVerifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserVerifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserVerifications.
+     */
+    distinct?: UserVerificationScalarFieldEnum | UserVerificationScalarFieldEnum[]
+  }
+
+  /**
+   * UserVerification findFirstOrThrow
+   */
+  export type UserVerificationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVerification
+     */
+    select?: UserVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVerification
+     */
+    omit?: UserVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVerificationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserVerification to fetch.
+     */
+    where?: UserVerificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserVerifications to fetch.
+     */
+    orderBy?: UserVerificationOrderByWithRelationInput | UserVerificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserVerifications.
+     */
+    cursor?: UserVerificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserVerifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserVerifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserVerifications.
+     */
+    distinct?: UserVerificationScalarFieldEnum | UserVerificationScalarFieldEnum[]
+  }
+
+  /**
+   * UserVerification findMany
+   */
+  export type UserVerificationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVerification
+     */
+    select?: UserVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVerification
+     */
+    omit?: UserVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVerificationInclude<ExtArgs> | null
+    /**
+     * Filter, which UserVerifications to fetch.
+     */
+    where?: UserVerificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserVerifications to fetch.
+     */
+    orderBy?: UserVerificationOrderByWithRelationInput | UserVerificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserVerifications.
+     */
+    cursor?: UserVerificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserVerifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserVerifications.
+     */
+    skip?: number
+    distinct?: UserVerificationScalarFieldEnum | UserVerificationScalarFieldEnum[]
+  }
+
+  /**
+   * UserVerification create
+   */
+  export type UserVerificationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVerification
+     */
+    select?: UserVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVerification
+     */
+    omit?: UserVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVerificationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserVerification.
+     */
+    data: XOR<UserVerificationCreateInput, UserVerificationUncheckedCreateInput>
+  }
+
+  /**
+   * UserVerification createMany
+   */
+  export type UserVerificationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserVerifications.
+     */
+    data: UserVerificationCreateManyInput | UserVerificationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserVerification createManyAndReturn
+   */
+  export type UserVerificationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVerification
+     */
+    select?: UserVerificationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVerification
+     */
+    omit?: UserVerificationOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserVerifications.
+     */
+    data: UserVerificationCreateManyInput | UserVerificationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVerificationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserVerification update
+   */
+  export type UserVerificationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVerification
+     */
+    select?: UserVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVerification
+     */
+    omit?: UserVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVerificationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserVerification.
+     */
+    data: XOR<UserVerificationUpdateInput, UserVerificationUncheckedUpdateInput>
+    /**
+     * Choose, which UserVerification to update.
+     */
+    where: UserVerificationWhereUniqueInput
+  }
+
+  /**
+   * UserVerification updateMany
+   */
+  export type UserVerificationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserVerifications.
+     */
+    data: XOR<UserVerificationUpdateManyMutationInput, UserVerificationUncheckedUpdateManyInput>
+    /**
+     * Filter which UserVerifications to update
+     */
+    where?: UserVerificationWhereInput
+    /**
+     * Limit how many UserVerifications to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserVerification updateManyAndReturn
+   */
+  export type UserVerificationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVerification
+     */
+    select?: UserVerificationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVerification
+     */
+    omit?: UserVerificationOmit<ExtArgs> | null
+    /**
+     * The data used to update UserVerifications.
+     */
+    data: XOR<UserVerificationUpdateManyMutationInput, UserVerificationUncheckedUpdateManyInput>
+    /**
+     * Filter which UserVerifications to update
+     */
+    where?: UserVerificationWhereInput
+    /**
+     * Limit how many UserVerifications to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVerificationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserVerification upsert
+   */
+  export type UserVerificationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVerification
+     */
+    select?: UserVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVerification
+     */
+    omit?: UserVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVerificationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserVerification to update in case it exists.
+     */
+    where: UserVerificationWhereUniqueInput
+    /**
+     * In case the UserVerification found by the `where` argument doesn't exist, create a new UserVerification with this data.
+     */
+    create: XOR<UserVerificationCreateInput, UserVerificationUncheckedCreateInput>
+    /**
+     * In case the UserVerification was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserVerificationUpdateInput, UserVerificationUncheckedUpdateInput>
+  }
+
+  /**
+   * UserVerification delete
+   */
+  export type UserVerificationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVerification
+     */
+    select?: UserVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVerification
+     */
+    omit?: UserVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVerificationInclude<ExtArgs> | null
+    /**
+     * Filter which UserVerification to delete.
+     */
+    where: UserVerificationWhereUniqueInput
+  }
+
+  /**
+   * UserVerification deleteMany
+   */
+  export type UserVerificationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserVerifications to delete
+     */
+    where?: UserVerificationWhereInput
+    /**
+     * Limit how many UserVerifications to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserVerification without action
+   */
+  export type UserVerificationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserVerification
+     */
+    select?: UserVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserVerification
+     */
+    omit?: UserVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserVerificationInclude<ExtArgs> | null
   }
 
 
@@ -34224,10 +35510,24 @@ export namespace Prisma {
     isActive: 'isActive',
     twoFactorEnabled: 'twoFactorEnabled',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    isVerified: 'isVerified'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const UserVerificationScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    stage1: 'stage1',
+    stage2: 'stage2',
+    stage3: 'stage3',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserVerificationScalarFieldEnum = (typeof UserVerificationScalarFieldEnum)[keyof typeof UserVerificationScalarFieldEnum]
 
 
   export const UserProfileScalarFieldEnum: {
@@ -34722,6 +36022,14 @@ export namespace Prisma {
   };
 
   export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
+
+
+  export const UserVerificationOrderByRelevanceFieldEnum: {
+    id: 'id',
+    userId: 'userId'
+  };
+
+  export type UserVerificationOrderByRelevanceFieldEnum = (typeof UserVerificationOrderByRelevanceFieldEnum)[keyof typeof UserVerificationOrderByRelevanceFieldEnum]
 
 
   export const UserProfileOrderByRelevanceFieldEnum: {
@@ -35443,6 +36751,7 @@ export namespace Prisma {
     twoFactorEnabled?: BoolNullableFilter<"User"> | boolean | null
     createdAt?: DateTimeNullableFilter<"User"> | Date | string | null
     updatedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    isVerified?: BoolFilter<"User"> | boolean
     profile?: XOR<UserProfileNullableScalarRelationFilter, UserProfileWhereInput> | null
     bankAccounts?: BankAccountListRelationFilter
     funds?: FundTransactionListRelationFilter
@@ -35457,6 +36766,7 @@ export namespace Prisma {
     alerts?: AlertListRelationFilter
     notifications?: NotificationListRelationFilter
     sessions?: SessionListRelationFilter
+    UserVerification?: XOR<UserVerificationNullableScalarRelationFilter, UserVerificationWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -35476,6 +36786,7 @@ export namespace Prisma {
     twoFactorEnabled?: SortOrderInput | SortOrder
     createdAt?: SortOrderInput | SortOrder
     updatedAt?: SortOrderInput | SortOrder
+    isVerified?: SortOrder
     profile?: UserProfileOrderByWithRelationInput
     bankAccounts?: BankAccountOrderByRelationAggregateInput
     funds?: FundTransactionOrderByRelationAggregateInput
@@ -35490,6 +36801,7 @@ export namespace Prisma {
     alerts?: AlertOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
+    UserVerification?: UserVerificationOrderByWithRelationInput
     _relevance?: UserOrderByRelevanceInput
   }
 
@@ -35513,6 +36825,7 @@ export namespace Prisma {
     twoFactorEnabled?: BoolNullableFilter<"User"> | boolean | null
     createdAt?: DateTimeNullableFilter<"User"> | Date | string | null
     updatedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    isVerified?: BoolFilter<"User"> | boolean
     profile?: XOR<UserProfileNullableScalarRelationFilter, UserProfileWhereInput> | null
     bankAccounts?: BankAccountListRelationFilter
     funds?: FundTransactionListRelationFilter
@@ -35527,6 +36840,7 @@ export namespace Prisma {
     alerts?: AlertListRelationFilter
     notifications?: NotificationListRelationFilter
     sessions?: SessionListRelationFilter
+    UserVerification?: XOR<UserVerificationNullableScalarRelationFilter, UserVerificationWhereInput> | null
   }, "id" | "email" | "phone" | "panNumber">
 
   export type UserOrderByWithAggregationInput = {
@@ -35546,6 +36860,7 @@ export namespace Prisma {
     twoFactorEnabled?: SortOrderInput | SortOrder
     createdAt?: SortOrderInput | SortOrder
     updatedAt?: SortOrderInput | SortOrder
+    isVerified?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -35571,6 +36886,73 @@ export namespace Prisma {
     twoFactorEnabled?: BoolNullableWithAggregatesFilter<"User"> | boolean | null
     createdAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     updatedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    isVerified?: BoolWithAggregatesFilter<"User"> | boolean
+  }
+
+  export type UserVerificationWhereInput = {
+    AND?: UserVerificationWhereInput | UserVerificationWhereInput[]
+    OR?: UserVerificationWhereInput[]
+    NOT?: UserVerificationWhereInput | UserVerificationWhereInput[]
+    id?: StringFilter<"UserVerification"> | string
+    userId?: StringFilter<"UserVerification"> | string
+    stage1?: BoolFilter<"UserVerification"> | boolean
+    stage2?: BoolFilter<"UserVerification"> | boolean
+    stage3?: BoolFilter<"UserVerification"> | boolean
+    createdAt?: DateTimeFilter<"UserVerification"> | Date | string
+    updatedAt?: DateTimeFilter<"UserVerification"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UserVerificationOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    stage1?: SortOrder
+    stage2?: SortOrder
+    stage3?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    _relevance?: UserVerificationOrderByRelevanceInput
+  }
+
+  export type UserVerificationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    AND?: UserVerificationWhereInput | UserVerificationWhereInput[]
+    OR?: UserVerificationWhereInput[]
+    NOT?: UserVerificationWhereInput | UserVerificationWhereInput[]
+    stage1?: BoolFilter<"UserVerification"> | boolean
+    stage2?: BoolFilter<"UserVerification"> | boolean
+    stage3?: BoolFilter<"UserVerification"> | boolean
+    createdAt?: DateTimeFilter<"UserVerification"> | Date | string
+    updatedAt?: DateTimeFilter<"UserVerification"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId">
+
+  export type UserVerificationOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    stage1?: SortOrder
+    stage2?: SortOrder
+    stage3?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserVerificationCountOrderByAggregateInput
+    _max?: UserVerificationMaxOrderByAggregateInput
+    _min?: UserVerificationMinOrderByAggregateInput
+  }
+
+  export type UserVerificationScalarWhereWithAggregatesInput = {
+    AND?: UserVerificationScalarWhereWithAggregatesInput | UserVerificationScalarWhereWithAggregatesInput[]
+    OR?: UserVerificationScalarWhereWithAggregatesInput[]
+    NOT?: UserVerificationScalarWhereWithAggregatesInput | UserVerificationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserVerification"> | string
+    userId?: StringWithAggregatesFilter<"UserVerification"> | string
+    stage1?: BoolWithAggregatesFilter<"UserVerification"> | boolean
+    stage2?: BoolWithAggregatesFilter<"UserVerification"> | boolean
+    stage3?: BoolWithAggregatesFilter<"UserVerification"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"UserVerification"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserVerification"> | Date | string
   }
 
   export type UserProfileWhereInput = {
@@ -37970,6 +39352,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
     funds?: FundTransactionCreateNestedManyWithoutUserInput
@@ -37984,6 +39367,7 @@ export namespace Prisma {
     alerts?: AlertCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -38003,6 +39387,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
     funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -38017,6 +39402,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -38036,6 +39422,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUpdateManyWithoutUserNestedInput
@@ -38050,6 +39437,7 @@ export namespace Prisma {
     alerts?: AlertUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -38069,6 +39457,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -38083,6 +39472,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -38102,6 +39492,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
   }
 
   export type UserUpdateManyMutationInput = {
@@ -38121,6 +39512,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -38140,6 +39532,76 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type UserVerificationCreateInput = {
+    id?: string
+    stage1?: boolean
+    stage2?: boolean
+    stage3?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutUserVerificationInput
+  }
+
+  export type UserVerificationUncheckedCreateInput = {
+    id?: string
+    userId: string
+    stage1?: boolean
+    stage2?: boolean
+    stage3?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserVerificationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stage1?: BoolFieldUpdateOperationsInput | boolean
+    stage2?: BoolFieldUpdateOperationsInput | boolean
+    stage3?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUserVerificationNestedInput
+  }
+
+  export type UserVerificationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    stage1?: BoolFieldUpdateOperationsInput | boolean
+    stage2?: BoolFieldUpdateOperationsInput | boolean
+    stage3?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserVerificationCreateManyInput = {
+    id?: string
+    userId: string
+    stage1?: boolean
+    stage2?: boolean
+    stage3?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserVerificationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stage1?: BoolFieldUpdateOperationsInput | boolean
+    stage2?: BoolFieldUpdateOperationsInput | boolean
+    stage3?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserVerificationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    stage1?: BoolFieldUpdateOperationsInput | boolean
+    stage2?: BoolFieldUpdateOperationsInput | boolean
+    stage3?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserProfileCreateInput = {
@@ -40918,6 +42380,11 @@ export namespace Prisma {
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type UserProfileNullableScalarRelationFilter = {
     is?: UserProfileWhereInput | null
     isNot?: UserProfileWhereInput | null
@@ -41001,6 +42468,11 @@ export namespace Prisma {
     none?: SessionWhereInput
   }
 
+  export type UserVerificationNullableScalarRelationFilter = {
+    is?: UserVerificationWhereInput | null
+    isNot?: UserVerificationWhereInput | null
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -41081,6 +42553,7 @@ export namespace Prisma {
     twoFactorEnabled?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    isVerified?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -41100,6 +42573,7 @@ export namespace Prisma {
     twoFactorEnabled?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    isVerified?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -41119,6 +42593,7 @@ export namespace Prisma {
     twoFactorEnabled?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    isVerified?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -41211,11 +42686,12 @@ export namespace Prisma {
     _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
-  export type EnumRiskProfileFilter<$PrismaModel = never> = {
-    equals?: $Enums.RiskProfile | EnumRiskProfileFieldRefInput<$PrismaModel>
-    in?: $Enums.RiskProfile[] | ListEnumRiskProfileFieldRefInput<$PrismaModel>
-    notIn?: $Enums.RiskProfile[] | ListEnumRiskProfileFieldRefInput<$PrismaModel>
-    not?: NestedEnumRiskProfileFilter<$PrismaModel> | $Enums.RiskProfile
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -41232,6 +42708,63 @@ export namespace Prisma {
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
+  }
+
+  export type UserVerificationOrderByRelevanceInput = {
+    fields: UserVerificationOrderByRelevanceFieldEnum | UserVerificationOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type UserVerificationCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    stage1?: SortOrder
+    stage2?: SortOrder
+    stage3?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserVerificationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    stage1?: SortOrder
+    stage2?: SortOrder
+    stage3?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserVerificationMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    stage1?: SortOrder
+    stage2?: SortOrder
+    stage3?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type EnumRiskProfileFilter<$PrismaModel = never> = {
+    equals?: $Enums.RiskProfile | EnumRiskProfileFieldRefInput<$PrismaModel>
+    in?: $Enums.RiskProfile[] | ListEnumRiskProfileFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RiskProfile[] | ListEnumRiskProfileFieldRefInput<$PrismaModel>
+    not?: NestedEnumRiskProfileFilter<$PrismaModel> | $Enums.RiskProfile
   }
 
   export type UserProfileOrderByRelevanceInput = {
@@ -41310,30 +42843,11 @@ export namespace Prisma {
     _max?: NestedEnumRiskProfileFilter<$PrismaModel>
   }
 
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type EnumBankAccountTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.BankAccountType | EnumBankAccountTypeFieldRefInput<$PrismaModel>
     in?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumBankAccountTypeFilter<$PrismaModel> | $Enums.BankAccountType
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type BankAccountOrderByRelevanceInput = {
@@ -41395,14 +42909,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumBankAccountTypeFilter<$PrismaModel>
     _max?: NestedEnumBankAccountTypeFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type SessionOrderByRelevanceInput = {
@@ -43512,6 +45018,12 @@ export namespace Prisma {
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
+  export type UserVerificationCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserVerificationCreateWithoutUserInput, UserVerificationUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserVerificationCreateOrConnectWithoutUserInput
+    connect?: UserVerificationWhereUniqueInput
+  }
+
   export type UserProfileUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
@@ -43609,6 +45121,12 @@ export namespace Prisma {
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
+  export type UserVerificationUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserVerificationCreateWithoutUserInput, UserVerificationUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserVerificationCreateOrConnectWithoutUserInput
+    connect?: UserVerificationWhereUniqueInput
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -43635,6 +45153,10 @@ export namespace Prisma {
 
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type UserProfileUpdateOneWithoutUserNestedInput = {
@@ -43829,6 +45351,16 @@ export namespace Prisma {
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
+  export type UserVerificationUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserVerificationCreateWithoutUserInput, UserVerificationUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserVerificationCreateOrConnectWithoutUserInput
+    upsert?: UserVerificationUpsertWithoutUserInput
+    disconnect?: UserVerificationWhereInput | boolean
+    delete?: UserVerificationWhereInput | boolean
+    connect?: UserVerificationWhereUniqueInput
+    update?: XOR<XOR<UserVerificationUpdateToOneWithWhereWithoutUserInput, UserVerificationUpdateWithoutUserInput>, UserVerificationUncheckedUpdateWithoutUserInput>
+  }
+
   export type UserProfileUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
@@ -44021,6 +45553,34 @@ export namespace Prisma {
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
+  export type UserVerificationUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserVerificationCreateWithoutUserInput, UserVerificationUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserVerificationCreateOrConnectWithoutUserInput
+    upsert?: UserVerificationUpsertWithoutUserInput
+    disconnect?: UserVerificationWhereInput | boolean
+    delete?: UserVerificationWhereInput | boolean
+    connect?: UserVerificationWhereUniqueInput
+    update?: XOR<XOR<UserVerificationUpdateToOneWithWhereWithoutUserInput, UserVerificationUpdateWithoutUserInput>, UserVerificationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserCreateNestedOneWithoutUserVerificationInput = {
+    create?: XOR<UserCreateWithoutUserVerificationInput, UserUncheckedCreateWithoutUserVerificationInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserVerificationInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type UserUpdateOneRequiredWithoutUserVerificationNestedInput = {
+    create?: XOR<UserCreateWithoutUserVerificationInput, UserUncheckedCreateWithoutUserVerificationInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserVerificationInput
+    upsert?: UserUpsertWithoutUserVerificationInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserVerificationInput, UserUpdateWithoutUserVerificationInput>, UserUncheckedUpdateWithoutUserVerificationInput>
+  }
+
   export type UserCreateNestedOneWithoutProfileInput = {
     create?: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
     connectOrCreate?: UserCreateOrConnectWithoutProfileInput
@@ -44029,10 +45589,6 @@ export namespace Prisma {
 
   export type EnumRiskProfileFieldUpdateOperationsInput = {
     set?: $Enums.RiskProfile
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
   }
 
   export type UserUpdateOneRequiredWithoutProfileNestedInput = {
@@ -44051,10 +45607,6 @@ export namespace Prisma {
 
   export type EnumBankAccountTypeFieldUpdateOperationsInput = {
     set?: $Enums.BankAccountType
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type UserUpdateOneRequiredWithoutBankAccountsNestedInput = {
@@ -45023,6 +46575,11 @@ export namespace Prisma {
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -45133,11 +46690,12 @@ export namespace Prisma {
     _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumRiskProfileFilter<$PrismaModel = never> = {
-    equals?: $Enums.RiskProfile | EnumRiskProfileFieldRefInput<$PrismaModel>
-    in?: $Enums.RiskProfile[] | ListEnumRiskProfileFieldRefInput<$PrismaModel>
-    notIn?: $Enums.RiskProfile[] | ListEnumRiskProfileFieldRefInput<$PrismaModel>
-    not?: NestedEnumRiskProfileFilter<$PrismaModel> | $Enums.RiskProfile
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -45149,16 +46707,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedEnumRiskProfileWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.RiskProfile | EnumRiskProfileFieldRefInput<$PrismaModel>
-    in?: $Enums.RiskProfile[] | ListEnumRiskProfileFieldRefInput<$PrismaModel>
-    notIn?: $Enums.RiskProfile[] | ListEnumRiskProfileFieldRefInput<$PrismaModel>
-    not?: NestedEnumRiskProfileWithAggregatesFilter<$PrismaModel> | $Enums.RiskProfile
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumRiskProfileFilter<$PrismaModel>
-    _max?: NestedEnumRiskProfileFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -45175,16 +46723,28 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedEnumRiskProfileFilter<$PrismaModel = never> = {
+    equals?: $Enums.RiskProfile | EnumRiskProfileFieldRefInput<$PrismaModel>
+    in?: $Enums.RiskProfile[] | ListEnumRiskProfileFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RiskProfile[] | ListEnumRiskProfileFieldRefInput<$PrismaModel>
+    not?: NestedEnumRiskProfileFilter<$PrismaModel> | $Enums.RiskProfile
+  }
+
+  export type NestedEnumRiskProfileWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RiskProfile | EnumRiskProfileFieldRefInput<$PrismaModel>
+    in?: $Enums.RiskProfile[] | ListEnumRiskProfileFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RiskProfile[] | ListEnumRiskProfileFieldRefInput<$PrismaModel>
+    not?: NestedEnumRiskProfileWithAggregatesFilter<$PrismaModel> | $Enums.RiskProfile
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRiskProfileFilter<$PrismaModel>
+    _max?: NestedEnumRiskProfileFilter<$PrismaModel>
+  }
+
   export type NestedEnumBankAccountTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.BankAccountType | EnumBankAccountTypeFieldRefInput<$PrismaModel>
     in?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumBankAccountTypeFilter<$PrismaModel> | $Enums.BankAccountType
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedEnumBankAccountTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -45195,14 +46755,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumBankAccountTypeFilter<$PrismaModel>
     _max?: NestedEnumBankAccountTypeFilter<$PrismaModel>
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedEnumFundTransactionTypeFilter<$PrismaModel = never> = {
@@ -46233,6 +47785,29 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserVerificationCreateWithoutUserInput = {
+    id?: string
+    stage1?: boolean
+    stage2?: boolean
+    stage3?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserVerificationUncheckedCreateWithoutUserInput = {
+    id?: string
+    stage1?: boolean
+    stage2?: boolean
+    stage3?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserVerificationCreateOrConnectWithoutUserInput = {
+    where: UserVerificationWhereUniqueInput
+    create: XOR<UserVerificationCreateWithoutUserInput, UserVerificationUncheckedCreateWithoutUserInput>
+  }
+
   export type UserProfileUpsertWithoutUserInput = {
     update: XOR<UserProfileUpdateWithoutUserInput, UserProfileUncheckedUpdateWithoutUserInput>
     create: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
@@ -46752,6 +48327,187 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Session"> | Date | string
   }
 
+  export type UserVerificationUpsertWithoutUserInput = {
+    update: XOR<UserVerificationUpdateWithoutUserInput, UserVerificationUncheckedUpdateWithoutUserInput>
+    create: XOR<UserVerificationCreateWithoutUserInput, UserVerificationUncheckedCreateWithoutUserInput>
+    where?: UserVerificationWhereInput
+  }
+
+  export type UserVerificationUpdateToOneWithWhereWithoutUserInput = {
+    where?: UserVerificationWhereInput
+    data: XOR<UserVerificationUpdateWithoutUserInput, UserVerificationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserVerificationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stage1?: BoolFieldUpdateOperationsInput | boolean
+    stage2?: BoolFieldUpdateOperationsInput | boolean
+    stage3?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserVerificationUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stage1?: BoolFieldUpdateOperationsInput | boolean
+    stage2?: BoolFieldUpdateOperationsInput | boolean
+    stage3?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCreateWithoutUserVerificationInput = {
+    id?: string
+    email?: string | null
+    phone: string
+    password?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    panNumber?: string | null
+    aadhaarNumber?: string | null
+    dateOfBirth?: Date | string | null
+    kycStatus?: $Enums.KYCStatus | null
+    accountType?: $Enums.AccountType | null
+    role?: $Enums.UserRole | null
+    isActive?: boolean | null
+    twoFactorEnabled?: boolean | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    isVerified?: boolean
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
+    funds?: FundTransactionCreateNestedManyWithoutUserInput
+    holdings?: HoldingCreateNestedManyWithoutUserInput
+    positions?: PositionCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    watchlists?: WatchlistCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
+    baskets?: BasketCreateNestedManyWithoutUserInput
+    alerts?: AlertCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutUserVerificationInput = {
+    id?: string
+    email?: string | null
+    phone: string
+    password?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    panNumber?: string | null
+    aadhaarNumber?: string | null
+    dateOfBirth?: Date | string | null
+    kycStatus?: $Enums.KYCStatus | null
+    accountType?: $Enums.AccountType | null
+    role?: $Enums.UserRole | null
+    isActive?: boolean | null
+    twoFactorEnabled?: boolean | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    isVerified?: boolean
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
+    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
+    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
+    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
+    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutUserVerificationInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUserVerificationInput, UserUncheckedCreateWithoutUserVerificationInput>
+  }
+
+  export type UserUpsertWithoutUserVerificationInput = {
+    update: XOR<UserUpdateWithoutUserVerificationInput, UserUncheckedUpdateWithoutUserVerificationInput>
+    create: XOR<UserCreateWithoutUserVerificationInput, UserUncheckedCreateWithoutUserVerificationInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUserVerificationInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUserVerificationInput, UserUncheckedUpdateWithoutUserVerificationInput>
+  }
+
+  export type UserUpdateWithoutUserVerificationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
+    accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
+    role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUpdateManyWithoutUserNestedInput
+    positions?: PositionUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
+    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
+    baskets?: BasketUpdateManyWithoutUserNestedInput
+    alerts?: AlertUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutUserVerificationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
+    accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
+    role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
+    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
+    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutProfileInput = {
     id?: string
     email?: string | null
@@ -46769,6 +48525,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
     funds?: FundTransactionCreateNestedManyWithoutUserInput
     holdings?: HoldingCreateNestedManyWithoutUserInput
@@ -46782,6 +48539,7 @@ export namespace Prisma {
     alerts?: AlertCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProfileInput = {
@@ -46801,6 +48559,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
     funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
     holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
@@ -46814,6 +48573,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProfileInput = {
@@ -46849,6 +48609,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUpdateManyWithoutUserNestedInput
     holdings?: HoldingUpdateManyWithoutUserNestedInput
@@ -46862,6 +48623,7 @@ export namespace Prisma {
     alerts?: AlertUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfileInput = {
@@ -46881,6 +48643,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
     holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
@@ -46894,6 +48657,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutBankAccountsInput = {
@@ -46913,6 +48677,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileCreateNestedOneWithoutUserInput
     funds?: FundTransactionCreateNestedManyWithoutUserInput
     holdings?: HoldingCreateNestedManyWithoutUserInput
@@ -46926,6 +48691,7 @@ export namespace Prisma {
     alerts?: AlertCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBankAccountsInput = {
@@ -46945,6 +48711,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
     holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
@@ -46958,6 +48725,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBankAccountsInput = {
@@ -46993,6 +48761,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     funds?: FundTransactionUpdateManyWithoutUserNestedInput
     holdings?: HoldingUpdateManyWithoutUserNestedInput
@@ -47006,6 +48775,7 @@ export namespace Prisma {
     alerts?: AlertUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBankAccountsInput = {
@@ -47025,6 +48795,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
     holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
@@ -47038,6 +48809,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -47057,6 +48829,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
     funds?: FundTransactionCreateNestedManyWithoutUserInput
@@ -47070,6 +48843,7 @@ export namespace Prisma {
     baskets?: BasketCreateNestedManyWithoutUserInput
     alerts?: AlertCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -47089,6 +48863,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
     funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -47102,6 +48877,7 @@ export namespace Prisma {
     baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -47137,6 +48913,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUpdateManyWithoutUserNestedInput
@@ -47150,6 +48927,7 @@ export namespace Prisma {
     baskets?: BasketUpdateManyWithoutUserNestedInput
     alerts?: AlertUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -47169,6 +48947,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -47182,6 +48961,7 @@ export namespace Prisma {
     baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutFundsInput = {
@@ -47201,6 +48981,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
     holdings?: HoldingCreateNestedManyWithoutUserInput
@@ -47214,6 +48995,7 @@ export namespace Prisma {
     alerts?: AlertCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFundsInput = {
@@ -47233,6 +49015,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
     holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
@@ -47246,6 +49029,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFundsInput = {
@@ -47281,6 +49065,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
     holdings?: HoldingUpdateManyWithoutUserNestedInput
@@ -47294,6 +49079,7 @@ export namespace Prisma {
     alerts?: AlertUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFundsInput = {
@@ -47313,6 +49099,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
     holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
@@ -47326,6 +49113,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type HoldingCreateWithoutInstrumentInput = {
@@ -48060,6 +49848,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
     funds?: FundTransactionCreateNestedManyWithoutUserInput
@@ -48073,6 +49862,7 @@ export namespace Prisma {
     alerts?: AlertCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPortfoliosInput = {
@@ -48092,6 +49882,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
     funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -48105,6 +49896,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPortfoliosInput = {
@@ -48140,6 +49932,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUpdateManyWithoutUserNestedInput
@@ -48153,6 +49946,7 @@ export namespace Prisma {
     alerts?: AlertUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPortfoliosInput = {
@@ -48172,6 +49966,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -48185,6 +49980,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutHoldingsInput = {
@@ -48204,6 +50000,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
     funds?: FundTransactionCreateNestedManyWithoutUserInput
@@ -48217,6 +50014,7 @@ export namespace Prisma {
     alerts?: AlertCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutHoldingsInput = {
@@ -48236,6 +50034,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
     funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -48249,6 +50048,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutHoldingsInput = {
@@ -48343,6 +50143,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUpdateManyWithoutUserNestedInput
@@ -48356,6 +50157,7 @@ export namespace Prisma {
     alerts?: AlertUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutHoldingsInput = {
@@ -48375,6 +50177,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -48388,6 +50191,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type InstrumentUpsertWithoutHoldingsInput = {
@@ -48472,6 +50276,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
     funds?: FundTransactionCreateNestedManyWithoutUserInput
@@ -48485,6 +50290,7 @@ export namespace Prisma {
     alerts?: AlertCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPositionsInput = {
@@ -48504,6 +50310,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
     funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -48517,6 +50324,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPositionsInput = {
@@ -48611,6 +50419,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUpdateManyWithoutUserNestedInput
@@ -48624,6 +50433,7 @@ export namespace Prisma {
     alerts?: AlertUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPositionsInput = {
@@ -48643,6 +50453,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -48656,6 +50467,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type InstrumentUpsertWithoutPositionsInput = {
@@ -48740,6 +50552,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
     funds?: FundTransactionCreateNestedManyWithoutUserInput
@@ -48753,6 +50566,7 @@ export namespace Prisma {
     alerts?: AlertCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOrdersInput = {
@@ -48772,6 +50586,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
     funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -48785,6 +50600,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOrdersInput = {
@@ -48923,6 +50739,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUpdateManyWithoutUserNestedInput
@@ -48936,6 +50753,7 @@ export namespace Prisma {
     alerts?: AlertUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -48955,6 +50773,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -48968,6 +50787,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type InstrumentUpsertWithoutOrdersInput = {
@@ -49145,6 +50965,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
     funds?: FundTransactionCreateNestedManyWithoutUserInput
@@ -49158,6 +50979,7 @@ export namespace Prisma {
     alerts?: AlertCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTradesInput = {
@@ -49177,6 +50999,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
     funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -49190,6 +51013,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTradesInput = {
@@ -49396,6 +51220,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUpdateManyWithoutUserNestedInput
@@ -49409,6 +51234,7 @@ export namespace Prisma {
     alerts?: AlertUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTradesInput = {
@@ -49428,6 +51254,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -49441,6 +51268,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type InstrumentUpsertWithoutTradesInput = {
@@ -49644,6 +51472,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
     funds?: FundTransactionCreateNestedManyWithoutUserInput
@@ -49657,6 +51486,7 @@ export namespace Prisma {
     alerts?: AlertCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutGttOrdersInput = {
@@ -49676,6 +51506,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
     funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -49689,6 +51520,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutGttOrdersInput = {
@@ -49724,6 +51556,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUpdateManyWithoutUserNestedInput
@@ -49737,6 +51570,7 @@ export namespace Prisma {
     alerts?: AlertUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGttOrdersInput = {
@@ -49756,6 +51590,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -49769,6 +51604,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutWatchlistsInput = {
@@ -49788,6 +51624,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
     funds?: FundTransactionCreateNestedManyWithoutUserInput
@@ -49801,6 +51638,7 @@ export namespace Prisma {
     alerts?: AlertCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWatchlistsInput = {
@@ -49820,6 +51658,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
     funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -49833,6 +51672,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWatchlistsInput = {
@@ -49892,6 +51732,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUpdateManyWithoutUserNestedInput
@@ -49905,6 +51746,7 @@ export namespace Prisma {
     alerts?: AlertUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWatchlistsInput = {
@@ -49924,6 +51766,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -49937,6 +51780,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type WatchlistItemUpsertWithWhereUniqueWithoutWatchlistInput = {
@@ -50148,6 +51992,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
     funds?: FundTransactionCreateNestedManyWithoutUserInput
@@ -50161,6 +52006,7 @@ export namespace Prisma {
     baskets?: BasketCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAlertsInput = {
@@ -50180,6 +52026,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
     funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -50193,6 +52040,7 @@ export namespace Prisma {
     baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAlertsInput = {
@@ -50228,6 +52076,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUpdateManyWithoutUserNestedInput
@@ -50241,6 +52090,7 @@ export namespace Prisma {
     baskets?: BasketUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAlertsInput = {
@@ -50260,6 +52110,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -50273,6 +52124,7 @@ export namespace Prisma {
     baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -50292,6 +52144,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
     funds?: FundTransactionCreateNestedManyWithoutUserInput
@@ -50305,6 +52158,7 @@ export namespace Prisma {
     baskets?: BasketCreateNestedManyWithoutUserInput
     alerts?: AlertCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -50324,6 +52178,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
     funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -50337,6 +52192,7 @@ export namespace Prisma {
     baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -50372,6 +52228,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUpdateManyWithoutUserNestedInput
@@ -50385,6 +52242,7 @@ export namespace Prisma {
     baskets?: BasketUpdateManyWithoutUserNestedInput
     alerts?: AlertUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -50404,6 +52262,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -50417,6 +52276,7 @@ export namespace Prisma {
     baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutBasketsInput = {
@@ -50436,6 +52296,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
     funds?: FundTransactionCreateNestedManyWithoutUserInput
@@ -50449,6 +52310,7 @@ export namespace Prisma {
     alerts?: AlertCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBasketsInput = {
@@ -50468,6 +52330,7 @@ export namespace Prisma {
     twoFactorEnabled?: boolean | null
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
+    isVerified?: boolean
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
     funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -50481,6 +52344,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBasketsInput = {
@@ -50554,6 +52418,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUpdateManyWithoutUserNestedInput
@@ -50567,6 +52432,7 @@ export namespace Prisma {
     alerts?: AlertUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBasketsInput = {
@@ -50586,6 +52452,7 @@ export namespace Prisma {
     twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -50599,6 +52466,7 @@ export namespace Prisma {
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type BasketItemUpsertWithWhereUniqueWithoutBasketInput = {

@@ -136,6 +136,17 @@ exports.Prisma.UserScalarFieldEnum = {
   isActive: 'isActive',
   twoFactorEnabled: 'twoFactorEnabled',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  isVerified: 'isVerified'
+};
+
+exports.Prisma.UserVerificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  stage1: 'stage1',
+  stage2: 'stage2',
+  stage3: 'stage3',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
@@ -549,6 +560,11 @@ exports.Prisma.UserOrderByRelevanceFieldEnum = {
   aadhaarNumber: 'aadhaarNumber'
 };
 
+exports.Prisma.UserVerificationOrderByRelevanceFieldEnum = {
+  id: 'id',
+  userId: 'userId'
+};
+
 exports.Prisma.UserProfileOrderByRelevanceFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -931,6 +947,7 @@ exports.CorporateActionType = exports.$Enums.CorporateActionType = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  UserVerification: 'UserVerification',
   UserProfile: 'UserProfile',
   BankAccount: 'BankAccount',
   Session: 'Session',

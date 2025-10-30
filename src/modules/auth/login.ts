@@ -2,9 +2,11 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import type { PrismaClient } from "../../../generated/prisma";
 import { config } from "../../config/generalconfig";
+import { HttpResponse } from "../../utils/response/success";
 
 interface LoginData {
-  email: string,
+  phone?: string,
+  email?: string,
   password: string
 }
 
@@ -15,18 +17,19 @@ interface ILoginProp {
 
 
 export async function login({ prisma, data }: ILoginProp) {
-  const { email, password } = data;
-  const user = await prisma.user.findUnique({
-    where: { email, OR: [{ password: { not: null } }] },
-    select : { id :  true , password : true}
+  const { email, phone, password } = data;
+  const user = await prisma.user.findFirst({
+    where: { OR: [{ email }, { phone }], password: { not: null } },
+    select: { id: true, password: true }
   });
   if (!user) {
-    throw new Error("User not found");
+    throw new HttpResponse(404, "USER_NOT_FOUND");
   }
   const isPasswordValid = await bcrypt.compare(password, user.password!);
   if (!isPasswordValid) {
-    throw new Error("Invalid password");
+    throw new HttpResponse(401, "INVALID_PASSWORD");
   }
-  const token = jwt.sign({ userId: user.id }, config.JWT.SECRET, { expiresIn: config.JWT.EXPIRY_IN });
-  return { token };
+  const accessToken = jwt.sign({ userId: user.id }, config.JWT.SECRET, { expiresIn: config.JWT.EXPIRY_IN });
+  const refreshToken = jwt.sign({ userId: user.id }, config.JWT.REFRESH_SECRET, { expiresIn: config.JWT.REFRESH_EXPIRY_IN });
+  return new HttpResponse(200, "LOGIN_SUCCESSFUL", { accessToken, refreshToken }).toResponse();
 }

@@ -1,8 +1,7 @@
 import type { PrismaClient } from "../../../generated/prisma";
 import { config } from "../../config/generalconfig";
 import { redis } from "../../config/redis/redis.config";
-import { errors, handleResponse } from "../../utils/responseCodec";
-import { sendSMS } from "../../utils/sendOTP_viaPhone";
+import { HttpResponse } from "../../utils/response/success";
 import { generateOTP } from "../../utils/utils";
 
 interface RegisterData {
@@ -14,26 +13,26 @@ interface IRegisterProp {
   data: RegisterData;
 }
 
-export async function sendOTPViaPhoneSignup({ prisma, data }: IRegisterProp) {
+export async function sendOTP({ prisma, data }: IRegisterProp) {
   const { phone } = data;
   const isUserExists = await prisma.user.findUnique({ where: { phone } });
   if (isUserExists)
-    return handleResponse(409, errors.user_exist);
+    return new HttpResponse(201, "USER_ALREADY_EXISTS").toResponse();
   const redisKey = `OTP:${phone}`;
   const redisCount = `OTP_COUNT:${phone}`;
   let counter = await redis.get(redisCount);
   console.log("OTP counter:", counter);
   if (Number(counter) > config.SMS.MAX_OTP_PER_DAY) {
-    return handleResponse(429, errors.otp_limit_exceeded);
+    return new HttpResponse(429, "OTP_LIMIT_EXCEEDED").toResponse();
   }
   redis.incr(redisCount);
   if (counter === null) {
     await redis.expire(redisCount, 86400);
   }
   const OTP = generateOTP();
-  //  sendSMS(phone, OTP);
+  //  sendSMS(phone, OTP);  // Send OTP via SMS
   await redis.set(redisKey, OTP, "EX", 90000);
-  return true;
+  return new HttpResponse(200, "OTP_SENT_SUCCESSFULLY").toResponse();
 }
 
 

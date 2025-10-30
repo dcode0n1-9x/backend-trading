@@ -8,7 +8,9 @@ export const config = {
     },
     JWT : {
         SECRET: process.env.JWT_SECRET || '',
-        EXPIRY_IN: 86400
+        EXPIRY_IN: 86400,
+        REFRESH_SECRET: process.env.JWT_REFRESH_SECRET || '',
+        REFRESH_EXPIRY_IN: 604800
     },
     SALT  : process.env.SALT || '',
     GOOGLE : {

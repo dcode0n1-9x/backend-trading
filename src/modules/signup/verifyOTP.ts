@@ -1,6 +1,6 @@
 import type { PrismaClient } from "../../../generated/prisma";
 import { redis } from "../../config/redis/redis.config";
-import { errors, handleResponse } from "../../utils/responseCodec";
+import { HttpResponse } from "../../utils/response/success";
 
 interface RegisterData {
     phone: string
@@ -16,18 +16,21 @@ export async function verifyOTP({ prisma, data }: IRegisterProp) {
     const { otp, phone } = data;
     const checkCache = await redis.get(`OTP:${phone}`);
     if (!checkCache) {
-        return handleResponse(400, errors.otp_expired);
+        return new HttpResponse(400, "OTP_EXPIRED").toResponse();
     }
     if (checkCache !== otp) {
-        return handleResponse(400, errors.invalid_otp);
+        return new HttpResponse(400, "INVALID_OTP").toResponse();
     }
-    const isUserExists = await prisma.user.findUnique({ where: { phone } });
-    if (isUserExists)
-        return handleResponse(409, errors.user_exist);
-    const user = await prisma.user.create({
-        data: { phone },
-    });
-    return { user }
-}
+    const checkUser = await prisma.user.findUnique({ where: { phone }, select: { isVerified: true, id: true } });
+    if (checkUser && checkUser.isVerified) {
+        return new HttpResponse(409, "USER_ALREADY_VERIFIED").toResponse();
+    }
+    if (checkUser && !checkUser.isVerified) {
+        await prisma.userVerification.findUniqueOrThrow({ where: { userId: checkUser.id } });
+        const user = await prisma.user.create({
+            data: { phone },
+        });
+        return new HttpResponse(201, "USER_CREATED", user).toResponse();
+    }
 
 

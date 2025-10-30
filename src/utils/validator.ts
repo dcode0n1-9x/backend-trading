@@ -1,4 +1,4 @@
-import { Segment } from "@prisma/client";
+import { Segment, AnnualIncome, Occupation, TradingExperience } from "../../generated/prisma";
 import { Elysia, t } from "elysia";
 
 
@@ -11,92 +11,55 @@ const verifyOTPLayer = t.Object({
   phone: t.String({ minLength: 10, maxLength: 15 }),
   otp: t.String({ minLength: 6, maxLength: 6 }),
 });
-
-const signUpPanLayer2 = t.Object({
+const verificationLayer1 = t.Object({
+  dob: t.String({ format: "date-time" }),
   panNumber: t.String({ minLength: 10, maxLength: 10 }),
+});
+const verificationLayer2 = t.Object({
+  name: t.String(),
+  email: t.String({ format: "email" }),
   segment: t.Enum(Segment),
   aadhaarNumber: t.String({ minLength: 12, maxLength: 12 }),
 });
-const signUpAddressLayer3 = t.Object({
+const verificationLayer3 = t.Object({
   fatherName: t.String(),
   motherName: t.String(),
   maritalStatus: t.String(),
-  annualIncome: t.String(),
-  tradingExperience: t.String(),
-  occupation: t.String(),
+  annualIncome: t.Enum(AnnualIncome),
+  tradingExperience: t.Enum(TradingExperience),
+  occupation: t.Enum(Occupation),
+});
+
+const verificationLayer4 = t.Object({
+  upiId: t.String(),
+  accountNumber: t.String(),
+  ifscCode: t.String(),
+  bankName: t.String(),
+  branchName: t.String(),
 });
 
 // Login Body
-const loginBody = t.Object({
-  email: t.String({ format: "email" }),
-  password: t.String({ minLength: 8 }),
-});
-
-const createEventTypeBody = t.Object({
-  title: t.String(),
-  duration: t.Number(),
-  userId: t.String(),
-});
-
-const updateEventTypeBody = t.Object({
-  title: t.String(),
-  duration: t.Number(),
-});
-
-const createBookingBody = t.Object({
-  eventTypeId: t.String(),
-  hostId: t.String(),
-  guestId: t.Optional(t.String()),
-  guestEmail: t.String({format: 'email'}),
-  startTime: t.String(),
-  endTime: t.String()
-})
-
-const updateBookingBody = t.Object({
-  startTime: t.String(),
-  endTime: t.String()
-})
-
-const createAvailabilityBody = t.Object({
-  days: t.Array(t.Number()),
-  startTime: t.String(),
-  endTime: t.String(),
-  userId: t.String(),
-  name: t.Optional(t.String()),
-  eventTypeId: t.Optional(t.String())
-})
-
-const updateAvailabilityBody = t.Object({
-  days: t.Array(t.Number()),
-  startTime: t.String(),
-  endTime: t.String()
-})
+const loginBody = t.Union([
+  t.Object({
+    email: t.String({ format: "email", error: "INVALID_EMAIL_FORMAT" }),
+    password: t.String({ minLength: 8, error: "INVALID_PASSWORD_FORMAT" })
+  }),
+  t.Object({
+    phone: t.String({ minLength: 10, maxLength: 15, error: "INVALID_PHONE_FORMAT" }),
+    password: t.String({ minLength: 8, error: "INVALID_PASSWORD_FORMAT" })
+  })
+]);
 
 
 
-export const signUpBody = new Elysia().model({
+export const signUpValidator = new Elysia().model({
   "auth.signup.sendotp": sendOTPLayer,
   "auth.signup.verifyotp": verifyOTPLayer,
-  "auth.signup.layer2": signUpPanLayer2,
-  "auth.signup.layer3": signUpAddressLayer3,
+  "auth.signup.layer1": verificationLayer1,
+  "auth.signup.layer2": verificationLayer2,
+  "auth.signup.layer3": verificationLayer3,
 });
 
-
-export const authModel = new Elysia().model({
+export const authValidator = new Elysia().model({
   "auth.login": loginBody,
 });
-
-export const eventModel = new Elysia().model({
-  "event.create": createEventTypeBody,
-  "event.update": updateEventTypeBody,
-});
-
-export const bookingModel = new Elysia().model({
-  'booking.create': createBookingBody,
-  'booking.update': updateBookingBody
-})
-
-export const availabilityModel = new Elysia().model({
-  'availability.create': createAvailabilityBody,
-  'availability.update': updateAvailabilityBody
-})

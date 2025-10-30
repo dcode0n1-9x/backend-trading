@@ -2,8 +2,11 @@ import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
 import { signUpRouter } from "./routes/signup.routes";
 import openapi from "@elysiajs/openapi";
-import { handleResponse, ILang, Lang } from "./utils/responseCodec";
+// import { handleResponse, ILang, Lang } from "./utils/responseCodec";
+// import { opentelemetry } from '@elysiajs/opentelemetry'
 import { config } from "./config/generalconfig";
+import { authRouter } from "./routes/Auth/login.routes";
+import { HttpResponse } from "./utils/response/success";
 
 
 const app = new Elysia({
@@ -25,7 +28,8 @@ const app = new Elysia({
   )
   .use(openapi())
   .get("/health", () => "Working fine")
-  .use(signUpRouter);
+  .use(signUpRouter)
+  .use(authRouter);
 
 export type App = typeof app;
 

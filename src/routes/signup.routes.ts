@@ -1,28 +1,22 @@
 import { Elysia, t } from "elysia";
 import { prisma } from "../db/index";
-import { signUpBody } from "../utils/validator";
+import { signUpValidator } from "../utils/validator";
 // import { setAuthCookies } from "../utils/setCookies";
-import { sendOTPViaPhoneSignup } from "../modules/signup/sendOTPSignup";
-import { errors, success } from "../utils/responseCodec";
+import { sendOTP } from "../modules/signup/sendOTP";
 import { verifyOTP } from "../modules/signup/verifyOTP";
 
 export const signUpRouter = new Elysia({
   name: "sign-up",
   prefix: "/sign-up",
 })
-  .use(signUpBody)
+  .use(signUpValidator)
   .post(
     "/send-otp",
     async ({ body }) => {
-      try {
-        await sendOTPViaPhoneSignup({
+      return await sendOTP({
           prisma,
           data: body,
         });
-        return success.user_create;
-      } catch (error) {
-        return errors.user_create;
-      }
     },
     {
       body: "auth.signup.sendotp",
@@ -30,16 +24,11 @@ export const signUpRouter = new Elysia({
   )
   .post(
     "/verify-otp",
-    async ({ body , status}) => {
-      try {
-        const result = await verifyOTP({
-          prisma,
-          data: body,
-        });
-        return status(200, result);
-      } catch (error) {
-        return error;
-      }
+    async ({ body }) => {
+      return await verifyOTP({
+        prisma,
+        data: body,
+      });
     },
     {
       body: "auth.signup.verifyotp",

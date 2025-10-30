@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  provider        = "prisma-client-js"
+  output          = "../generated/prisma"
   previewFeatures = ["fullTextSearchPostgres"]
 }
 
@@ -30,8 +30,9 @@ model User {
   twoFactorEnabled Boolean?          @default(false)
   createdAt        DateTime?         @default(now())
   updatedAt        DateTime?         @updatedAt
+  isVerified       Boolean           @default(false)
   // Relations
-  currency        String
+  // currency        String
   profile          UserProfile?
   bankAccounts     BankAccount[]
   funds            FundTransaction[]
@@ -46,8 +47,20 @@ model User {
   alerts           Alert[]
   notifications    Notification[]
   sessions         Session[]
+  UserVerification UserVerification?
 
   @@index([email, phone])
+}
+
+model UserVerification {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  stage1    Boolean  @default(false)
+  stage2    Boolean  @default(false)
+  stage3    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model UserProfile {
@@ -766,4 +779,44 @@ enum CorporateActionType {
   RIGHTS
   BUYBACK
   DELISTING
+}
+
+enum MartialStatus {
+  SINGLE
+  MARRIED
+}
+
+enum AnnualIncome {
+  BELOW_1_LAKH
+  BETWEEN_1_TO_5_LAKHS
+  BETWEEN_5_TO_10_LAKHS
+  BETWEEN_10_TO_25_LAKHS
+  BETWEEN_25_TO_1_CRORE
+  ABOVE_1_CRORE
+}
+
+enum TradingExperience {
+  NEW
+  BETWEEN_1_TO_5_YEARS
+  BETWEEN_5_TO_10_YEARS
+  BETWEEN_10_TO_15_YEARS
+  MORE_THAN_15_YEARS
+}
+
+enum Occupation {
+  BUSINESS
+  HOUSEWIFE
+  STUDENT
+  PROFESSIONAL
+  PRIVATE_SECTOR
+  AGRICULTURIST
+  GOVERMENT_SERVICE
+  PUBLIC_SECTOR
+  RETIRED
+  OTHERS
+}
+
+enum SettlementType {
+  QUATERLY
+  MONTHLY
 }
