@@ -16,19 +16,16 @@ interface IRegisterProp {
 export async function sendOTP({ prisma, data }: IRegisterProp) {
   const { phone } = data;
   const isUserExists = await prisma.user.findUnique({ where: { phone } });
-  if (isUserExists)
+  if (isUserExists){
     return new HttpResponse(201, "USER_ALREADY_EXISTS").toResponse();
+  }
   const redisKey = `OTP:${phone}`;
   const redisCount = `OTP_COUNT:${phone}`;
   let counter = await redis.get(redisCount);
-  console.log("OTP counter:", counter);
   if (Number(counter) > config.SMS.MAX_OTP_PER_DAY) {
     return new HttpResponse(429, "OTP_LIMIT_EXCEEDED").toResponse();
   }
-  redis.incr(redisCount);
-  if (counter === null) {
-    await redis.expire(redisCount, 86400);
-  }
+  await redis.incr(redisCount);
   const OTP = generateOTP();
   //  sendSMS(phone, OTP);  // Send OTP via SMS
   await redis.set(redisKey, OTP, "EX", 90000);

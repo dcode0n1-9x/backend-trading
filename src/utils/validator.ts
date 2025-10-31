@@ -1,4 +1,4 @@
-import { Segment, AnnualIncome, Occupation, TradingExperience } from "../../generated/prisma";
+import { Segment, AnnualIncome, Occupation, TradingExperience, MartialStatus } from "../../generated/prisma";
 import { Elysia, t } from "elysia";
 
 
@@ -14,30 +14,30 @@ const verifyOTPLayer = t.Object({
 const verificationLayer1 = t.Object({
   dob: t.String({ format: "date-time" }),
   panNumber: t.String({ minLength: 10, maxLength: 10 }),
+  email: t.String({ format: "email" }),
+  name: t.String(),
 });
 const verificationLayer2 = t.Object({
-  name: t.String(),
-  email: t.String({ format: "email" }),
   segment: t.Enum(Segment),
   aadhaarNumber: t.String({ minLength: 12, maxLength: 12 }),
 });
 const verificationLayer3 = t.Object({
   fatherName: t.String(),
   motherName: t.String(),
-  maritalStatus: t.String(),
+  maritalStatus: t.Enum(MartialStatus),
   annualIncome: t.Enum(AnnualIncome),
   tradingExperience: t.Enum(TradingExperience),
   occupation: t.Enum(Occupation),
-});
-
-const verificationLayer4 = t.Object({
-  upiId: t.String(),
-  accountNumber: t.String(),
-  ifscCode: t.String(),
+  upiId: t.String({ minLength: 5, maxLength: 15 }),
+  accountNumber: t.String({ minLength: 10, maxLength: 10 }),
+  ifscCode: t.String({ minLength: 11, maxLength: 11 }),
   bankName: t.String(),
   branchName: t.String(),
 });
 
+const presignedURLRequest = t.Object({
+  fileType: t.String(),
+}); 
 // Login Body
 const loginBody = t.Union([
   t.Object({
@@ -58,6 +58,7 @@ export const signUpValidator = new Elysia().model({
   "auth.signup.layer1": verificationLayer1,
   "auth.signup.layer2": verificationLayer2,
   "auth.signup.layer3": verificationLayer3,
+  "auth.signup.presigned": presignedURLRequest
 });
 
 export const authValidator = new Elysia().model({

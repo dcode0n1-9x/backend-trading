@@ -9,10 +9,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// ============================================
-// USER MANAGEMENT
-// ============================================
-
 model User {
   id               String            @id @default(cuid())
   email            String?           @unique
@@ -22,7 +18,7 @@ model User {
   lastName         String?
   panNumber        String?           @unique
   aadhaarNumber    String?
-  dateOfBirth      DateTime?
+  dob              DateTime?
   kycStatus        KYCStatus?        @default(PENDING)
   accountType      AccountType?      @default(INDIVIDUAL)
   role             UserRole?         @default(USER)
@@ -31,23 +27,22 @@ model User {
   createdAt        DateTime?         @default(now())
   updatedAt        DateTime?         @updatedAt
   isVerified       Boolean           @default(false)
-  // Relations
-  // currency        String
-  profile          UserProfile?
-  bankAccounts     BankAccount[]
-  funds            FundTransaction[]
-  holdings         Holding[]
-  positions        Position[]
-  orders           Order[]
-  trades           Trade[]
-  watchlists       Watchlist[]
-  portfolios       Portfolio[]
-  gttOrders        GTTOrder[]
-  baskets          Basket[]
+  segment          Segment           @default(EQUITY)
   alerts           Alert[]
+  bankAccounts     BankAccount[]
+  baskets          Basket[]
+  funds            FundTransaction[]
+  gttOrders        GTTOrder[]
+  holdings         Holding[]
   notifications    Notification[]
+  orders           Order[]
+  portfolios       Portfolio[]
+  positions        Position[]
   sessions         Session[]
+  trades           Trade[]
+  profile          UserProfile?
   UserVerification UserVerification?
+  watchlists       Watchlist[]
 
   @@index([email, phone])
 }
@@ -55,9 +50,34 @@ model User {
 model UserVerification {
   id        String   @id @default(cuid())
   userId    String   @unique
-  stage1    Boolean  @default(false)
-  stage2    Boolean  @default(false)
-  stage3    Boolean  @default(false)
+  stage     KYCStage @default(ONE)
+  /// Current verification stage for a user's onboarding/compliance process.
+  ///
+  /// Purpose:
+  /// - Represents the user's progress through a multi-step verification workflow.
+  /// - Useful for gating access to features, triggering reminders, and audit logging.
+  ///
+  /// Stages (integer values recommended, consider using an enum for clarity):
+  /// 1 — Initial verification: PAN card and email verification completed.
+  /// - Indicates basic identity & contact validation.
+  /// - Typical prerequisites: panCardVerified = true, emailVerified = true.
+  ///
+  /// 2 — Address verification: Address proof verified.
+  /// - Indicates proof of residence confirmed.
+  /// - Typical prerequisite: addressProofVerified = true.
+  ///
+  /// 3 — Income verification: Income / financial documents verified.
+  /// - Final stage for full KYC/compliance clearance.
+  /// - Typical prerequisite: incomeProofVerified = true.
+  ///
+  /// Notes & recommendations:
+  /// - Prefer using a Prisma enum (e.g., VerificationStage) instead of raw integers to improve readability.
+  /// - Store individual boolean flags for each proof (panCardVerified, emailVerified, addressProofVerified, incomeProofVerified)
+  /// alongside this stage value to make checks explicit and simplify queries.
+  /// - Ensure transitions are strictly ordered (1 → 2 → 3) and validated in application/business logic.
+  /// - Maintain an audit trail (timestamps and actor IDs) for each stage change to meet compliance requirements.
+  /// - Consider a separate "verificationStatus" (e.g., pending/failed/approved) per stage to capture in-progress or failed checks.
+  /// - When migrating schema or adding stages, map existing integer values carefully and provide a one-time migration script if needed.
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -81,8 +101,7 @@ model UserProfile {
   riskProfile       RiskProfile @default(MODERATE)
   createdAt         DateTime    @default(now())
   updatedAt         DateTime    @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model BankAccount {
@@ -98,8 +117,7 @@ model BankAccount {
   isVerified        Boolean         @default(false)
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
@@ -114,15 +132,10 @@ model Session {
   isActive   Boolean  @default(true)
   expiresAt  DateTime
   createdAt  DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, token])
 }
-
-// ============================================
-// FUNDS MANAGEMENT
-// ============================================
 
 model FundTransaction {
   id              String              @id @default(cuid())
@@ -137,8 +150,7 @@ model FundTransaction {
   processedAt     DateTime?
   createdAt       DateTime            @default(now())
   updatedAt       DateTime            @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, transactionType, status])
 }
@@ -161,59 +173,52 @@ model Margin {
   @@index([userId])
 }
 
-// ============================================
-// INSTRUMENTS & MARKET DATA
-// ============================================
-
 model Instrument {
-  id              String         @id @default(cuid())
-  instrumentToken String         @unique
+  id              String          @id @default(cuid())
+  instrumentToken String          @unique
   exchangeToken   String
   tradingSymbol   String
   name            String
   exchange        Exchange
   segment         Segment
   instrumentType  InstrumentType
-  tickSize        Float          @default(0.05)
-  lotSize         Int            @default(1)
+  tickSize        Float           @default(0.05)
+  lotSize         Int             @default(1)
   expiry          DateTime?
   strike          Float?
   isin            String?
-  isActive        Boolean        @default(true)
-  lastPrice       Float          @default(0.0)
-  lastUpdated     DateTime       @default(now())
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
-
-  // Relations
-  holdings       Holding[]
-  positions      Position[]
-  orders         Order[]
-  trades         Trade[]
-  marketDepth    MarketDepth[]
-  priceHistory   PriceHistory[]
-  watchlistItems WatchlistItem[]
+  isActive        Boolean         @default(true)
+  lastPrice       Float           @default(0.0)
+  lastUpdated     DateTime        @default(now())
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  holdings        Holding[]
+  marketDepth     MarketDepth[]
+  orders          Order[]
+  positions       Position[]
+  priceHistory    PriceHistory[]
+  trades          Trade[]
+  watchlistItems  WatchlistItem[]
 
   @@index([tradingSymbol, exchange])
   @@index([instrumentToken])
 }
 
 model MarketDepth {
-  id           String    @id @default(cuid())
+  id           String     @id @default(cuid())
   instrumentId String
   side         OrderSide
   price        Float
   quantity     Int
   orders       Int
-  timestamp    DateTime  @default(now())
-
-  instrument Instrument @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
+  timestamp    DateTime   @default(now())
+  instrument   Instrument @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
 
   @@index([instrumentId, side, timestamp])
 }
 
 model PriceHistory {
-  id           String   @id @default(cuid())
+  id           String     @id @default(cuid())
   instrumentId String
   open         Float
   high         Float
@@ -221,17 +226,12 @@ model PriceHistory {
   close        Float
   volume       Int
   ohlcDate     DateTime
-  interval     String // "1minute", "5minute", "day", etc.
-
-  instrument Instrument @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
+  interval     String
+  instrument   Instrument @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
 
   @@unique([instrumentId, ohlcDate, interval])
   @@index([instrumentId, ohlcDate])
 }
-
-// ============================================
-// PORTFOLIO & HOLDINGS
-// ============================================
 
 model Portfolio {
   id               String   @id @default(cuid())
@@ -246,8 +246,7 @@ model Portfolio {
   xirr             Float?
   updatedAt        DateTime @updatedAt
   createdAt        DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
@@ -263,13 +262,12 @@ model Holding {
   dayChange          Float       @default(0.0)
   dayChangePercent   Float       @default(0.0)
   collateralQuantity Int         @default(0)
-  collateralType     String? // "margin" or "cover"
+  collateralType     String?
   product            ProductType
   createdAt          DateTime    @default(now())
   updatedAt          DateTime    @updatedAt
-
-  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  instrument Instrument @relation(fields: [instrumentId], references: [id])
+  instrument         Instrument  @relation(fields: [instrumentId], references: [id])
+  user               User        @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, instrumentId, product])
   @@index([userId])
@@ -301,21 +299,16 @@ model Position {
   positionType      PositionType
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @updatedAt
-
-  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  instrument Instrument @relation(fields: [instrumentId], references: [id])
+  instrument        Instrument   @relation(fields: [instrumentId], references: [id])
+  user              User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, instrumentId, product])
   @@index([userId, tradingSymbol])
 }
 
-// ============================================
-// ORDER MANAGEMENT
-// ============================================
-
 model Order {
   id                 String          @id @default(cuid())
-  orderId            String          @unique // Exchange order ID
+  orderId            String          @unique
   userId             String
   instrumentId       String
   parentOrderId      String?
@@ -347,10 +340,9 @@ model Order {
   cancelledBy        String?
   createdAt          DateTime        @default(now())
   updatedAt          DateTime        @updatedAt
-
-  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  instrument Instrument @relation(fields: [instrumentId], references: [id])
-  trades     Trade[]
+  instrument         Instrument      @relation(fields: [instrumentId], references: [id])
+  user               User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trades             Trade[]
 
   @@index([userId, status])
   @@index([orderId])
@@ -372,11 +364,10 @@ model Trade {
   value             Float
   exchangeTimestamp DateTime
   createdAt         DateTime        @default(now())
-
-  order      Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  instrument Instrument    @relation(fields: [instrumentId], references: [id])
-  charges    TradeCharges?
+  instrument        Instrument      @relation(fields: [instrumentId], references: [id])
+  order             Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  charges           TradeCharges?
 
   @@index([userId, tradingSymbol])
   @@index([tradeId])
@@ -393,8 +384,7 @@ model TradeCharges {
   stampDuty         Float  @default(0.0)
   totalCharges      Float  @default(0.0)
   netAmount         Float
-
-  trade Trade @relation(fields: [tradeId], references: [id], onDelete: Cascade)
+  trade             Trade  @relation(fields: [tradeId], references: [id], onDelete: Cascade)
 }
 
 model GTTOrder {
@@ -417,39 +407,32 @@ model GTTOrder {
   triggeredAt   DateTime?
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, status])
 }
 
-// ============================================
-// WATCHLIST & ALERTS
-// ============================================
-
 model Watchlist {
-  id        String   @id @default(cuid())
+  id        String          @id @default(cuid())
   userId    String
   name      String
-  isDefault Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user  User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  items WatchlistItem[]
+  isDefault Boolean         @default(false)
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     WatchlistItem[]
 
   @@index([userId])
 }
 
 model WatchlistItem {
-  id           String   @id @default(cuid())
+  id           String     @id @default(cuid())
   watchlistId  String
   instrumentId String
-  sortOrder    Int      @default(0)
-  addedAt      DateTime @default(now())
-
-  watchlist  Watchlist  @relation(fields: [watchlistId], references: [id], onDelete: Cascade)
-  instrument Instrument @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
+  sortOrder    Int        @default(0)
+  addedAt      DateTime   @default(now())
+  instrument   Instrument @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
+  watchlist    Watchlist  @relation(fields: [watchlistId], references: [id], onDelete: Cascade)
 
   @@unique([watchlistId, instrumentId])
   @@index([watchlistId])
@@ -462,14 +445,13 @@ model Alert {
   alertType    AlertType
   message      String
   triggerPrice Float?
-  condition    String? // "above", "below", "equals"
+  condition    String?
   isTriggered  Boolean   @default(false)
   isRead       Boolean   @default(false)
   triggeredAt  DateTime?
   expiresAt    DateTime?
   createdAt    DateTime  @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, isTriggered, isRead])
 }
@@ -483,28 +465,22 @@ model Notification {
   isRead           Boolean          @default(false)
   priority         Priority         @default(NORMAL)
   createdAt        DateTime         @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, isRead])
 }
 
-// ============================================
-// BASKETS & STRATEGIES
-// ============================================
-
 model Basket {
-  id          String   @id @default(cuid())
+  id          String       @id @default(cuid())
   userId      String
   name        String
   description String?
-  totalValue  Float    @default(0.0)
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  user  User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  items BasketItem[]
+  totalValue  Float        @default(0.0)
+  isActive    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items       BasketItem[]
 
   @@index([userId])
 }
@@ -522,15 +498,10 @@ model BasketItem {
   triggerPrice    Float?
   product         ProductType
   sortOrder       Int             @default(0)
-
-  basket Basket @relation(fields: [basketId], references: [id], onDelete: Cascade)
+  basket          Basket          @relation(fields: [basketId], references: [id], onDelete: Cascade)
 
   @@index([basketId])
 }
-
-// ============================================
-// CORPORATE ACTIONS
-// ============================================
 
 model CorporateAction {
   id               String              @id @default(cuid())
@@ -542,7 +513,7 @@ model CorporateAction {
   description      String
   oldSymbol        String?
   newSymbol        String?
-  ratio            String? // For splits/bonuses: "1:2"
+  ratio            String?
   dividendAmount   Float?
   isProcessed      Boolean             @default(false)
   processedAt      DateTime?
@@ -551,10 +522,6 @@ model CorporateAction {
   @@index([instrumentId, exDate])
 }
 
-// ============================================
-// REPORTS & ANALYTICS
-// ============================================
-
 model TradeJournal {
   id             String   @id @default(cuid())
   userId         String
@@ -562,7 +529,7 @@ model TradeJournal {
   orderId        String?
   date           DateTime
   notes          String
-  tags           String[] // Array of tags
+  tags           String[]
   strategy       String?
   emotionalState String?
   learnings      String?
@@ -587,10 +554,6 @@ model DailyPnL {
 
   @@index([userId, date])
 }
-
-// ============================================
-// ENUMS
-// ============================================
 
 enum UserRole {
   USER
@@ -662,15 +625,15 @@ enum Segment {
 }
 
 enum InstrumentType {
-  EQ // Equity
-  FUTIDX // Index Futures
-  FUTSTK // Stock Futures
-  OPTIDX // Index Options
-  OPTSTK // Stock Options
-  FUTCOM // Commodity Futures
-  OPTCOM // Commodity Options
-  FUTCUR // Currency Futures
-  OPTCUR // Currency Options
+  EQ
+  FUTIDX
+  FUTSTK
+  OPTIDX
+  OPTSTK
+  FUTCOM
+  OPTCOM
+  FUTCUR
+  OPTCUR
 }
 
 enum OrderSide {
@@ -681,16 +644,16 @@ enum OrderSide {
 enum OrderVariety {
   REGULAR
   AMO
-  BO // Bracket Order
-  CO // Cover Order
+  BO
+  CO
   ICEBERG
 }
 
 enum OrderType {
   MARKET
   LIMIT
-  SL // Stop Loss
-  SLM // Stop Loss Market
+  SL
+  SLM
 }
 
 enum TransactionType {
@@ -700,14 +663,14 @@ enum TransactionType {
 
 enum OrderValidity {
   DAY
-  IOC // Immediate or Cancel
-  TTL // Time to Live
+  IOC
+  TTL
 }
 
 enum ProductType {
-  CNC // Cash and Carry (Delivery)
-  MIS // Margin Intraday Squareoff
-  NRML // Normal (For F&O)
+  CNC
+  MIS
+  NRML
 }
 
 enum OrderStatus {
@@ -727,7 +690,7 @@ enum PositionType {
 
 enum GTTType {
   SINGLE
-  OCO // One Cancels Other
+  OCO
 }
 
 enum TriggerType {
@@ -819,4 +782,11 @@ enum Occupation {
 enum SettlementType {
   QUATERLY
   MONTHLY
+}
+
+enum KYCStage {
+  ZERO
+  ONE
+  TWO
+  THREE
 }

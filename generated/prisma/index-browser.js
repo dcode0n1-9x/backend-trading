@@ -129,7 +129,7 @@ exports.Prisma.UserScalarFieldEnum = {
   lastName: 'lastName',
   panNumber: 'panNumber',
   aadhaarNumber: 'aadhaarNumber',
-  dateOfBirth: 'dateOfBirth',
+  dob: 'dob',
   kycStatus: 'kycStatus',
   accountType: 'accountType',
   role: 'role',
@@ -137,15 +137,14 @@ exports.Prisma.UserScalarFieldEnum = {
   twoFactorEnabled: 'twoFactorEnabled',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  isVerified: 'isVerified'
+  isVerified: 'isVerified',
+  segment: 'segment'
 };
 
 exports.Prisma.UserVerificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  stage1: 'stage1',
-  stage2: 'stage2',
-  stage3: 'stage3',
+  stage: 'stage',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -776,6 +775,21 @@ exports.UserRole = exports.$Enums.UserRole = {
   BROKER: 'BROKER'
 };
 
+exports.Segment = exports.$Enums.Segment = {
+  EQUITY: 'EQUITY',
+  FUTURES: 'FUTURES',
+  OPTIONS: 'OPTIONS',
+  CURRENCY: 'CURRENCY',
+  COMMODITY: 'COMMODITY'
+};
+
+exports.KYCStage = exports.$Enums.KYCStage = {
+  ZERO: 'ZERO',
+  ONE: 'ONE',
+  TWO: 'TWO',
+  THREE: 'THREE'
+};
+
 exports.RiskProfile = exports.$Enums.RiskProfile = {
   LOW: 'LOW',
   MODERATE: 'MODERATE',
@@ -815,14 +829,6 @@ exports.Exchange = exports.$Enums.Exchange = {
   BFO: 'BFO',
   CDS: 'CDS',
   MCX: 'MCX'
-};
-
-exports.Segment = exports.$Enums.Segment = {
-  EQUITY: 'EQUITY',
-  FUTURES: 'FUTURES',
-  OPTIONS: 'OPTIONS',
-  CURRENCY: 'CURRENCY',
-  COMMODITY: 'COMMODITY'
 };
 
 exports.InstrumentType = exports.$Enums.InstrumentType = {

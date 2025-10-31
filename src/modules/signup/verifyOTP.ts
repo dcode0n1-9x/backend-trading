@@ -16,21 +16,29 @@ export async function verifyOTP({ prisma, data }: IRegisterProp) {
     const { otp, phone } = data;
     const checkCache = await redis.get(`OTP:${phone}`);
     if (!checkCache) {
-        return new HttpResponse(400, "OTP_EXPIRED").toResponse();
+        throw new Error("OTP_EXPIRED");
     }
     if (checkCache !== otp) {
-        return new HttpResponse(400, "INVALID_OTP").toResponse();
+        return new Error("INVALID_OTP");
     }
     const checkUser = await prisma.user.findUnique({ where: { phone }, select: { isVerified: true, id: true } });
+    if (!checkUser) {
+        const createUser = await prisma.user.create({
+            data: {
+                phone
+            }
+        })
+        if (!createUser) {
+            return new Error("USER_CREATION_FAILED");
+        }   
+        return { userStage: "ZERO", id: createUser.id };
+    }
     if (checkUser && checkUser.isVerified) {
-        return new HttpResponse(409, "USER_ALREADY_VERIFIED").toResponse();
+        return new Error("USER_ALREADY_VERIFIED");
     }
     if (checkUser && !checkUser.isVerified) {
-        await prisma.userVerification.findUniqueOrThrow({ where: { userId: checkUser.id } });
-        const user = await prisma.user.create({
-            data: { phone },
-        });
-        return new HttpResponse(201, "USER_CREATED", user).toResponse();
+        const check = await prisma.userVerification.findUniqueOrThrow({ where: { userId: checkUser.id }, select: { stage: true, id: true } });
+        return { userStage: check.stage, id: checkUser.id };
     }
-
-
+    return { userStage: "ZERO" , id: checkUser.id };
+}

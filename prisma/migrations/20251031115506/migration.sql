@@ -76,26 +76,57 @@ CREATE TYPE "Priority" AS ENUM ('LOW', 'NORMAL', 'HIGH', 'URGENT');
 -- CreateEnum
 CREATE TYPE "CorporateActionType" AS ENUM ('DIVIDEND', 'BONUS', 'SPLIT', 'MERGER', 'RIGHTS', 'BUYBACK', 'DELISTING');
 
+-- CreateEnum
+CREATE TYPE "MartialStatus" AS ENUM ('SINGLE', 'MARRIED');
+
+-- CreateEnum
+CREATE TYPE "AnnualIncome" AS ENUM ('BELOW_1_LAKH', 'BETWEEN_1_TO_5_LAKHS', 'BETWEEN_5_TO_10_LAKHS', 'BETWEEN_10_TO_25_LAKHS', 'BETWEEN_25_TO_1_CRORE', 'ABOVE_1_CRORE');
+
+-- CreateEnum
+CREATE TYPE "TradingExperience" AS ENUM ('NEW', 'BETWEEN_1_TO_5_YEARS', 'BETWEEN_5_TO_10_YEARS', 'BETWEEN_10_TO_15_YEARS', 'MORE_THAN_15_YEARS');
+
+-- CreateEnum
+CREATE TYPE "Occupation" AS ENUM ('BUSINESS', 'HOUSEWIFE', 'STUDENT', 'PROFESSIONAL', 'PRIVATE_SECTOR', 'AGRICULTURIST', 'GOVERMENT_SERVICE', 'PUBLIC_SECTOR', 'RETIRED', 'OTHERS');
+
+-- CreateEnum
+CREATE TYPE "SettlementType" AS ENUM ('QUATERLY', 'MONTHLY');
+
+-- CreateEnum
+CREATE TYPE "KYCStage" AS ENUM ('ZERO', 'ONE', 'TWO', 'THREE');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
+    "email" TEXT,
     "phone" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
-    "firstName" TEXT NOT NULL,
-    "lastName" TEXT NOT NULL,
-    "panNumber" TEXT NOT NULL,
+    "password" TEXT,
+    "firstName" TEXT,
+    "lastName" TEXT,
+    "panNumber" TEXT,
     "aadhaarNumber" TEXT,
-    "dateOfBirth" TIMESTAMP(3) NOT NULL,
-    "kycStatus" "KYCStatus" NOT NULL DEFAULT 'PENDING',
-    "accountType" "AccountType" NOT NULL DEFAULT 'INDIVIDUAL',
-    "role" "UserRole" NOT NULL DEFAULT 'USER',
-    "isActive" BOOLEAN NOT NULL DEFAULT true,
-    "twoFactorEnabled" BOOLEAN NOT NULL DEFAULT false,
+    "dob" TIMESTAMP(3),
+    "kycStatus" "KYCStatus" DEFAULT 'PENDING',
+    "accountType" "AccountType" DEFAULT 'INDIVIDUAL',
+    "role" "UserRole" DEFAULT 'USER',
+    "isActive" BOOLEAN DEFAULT true,
+    "twoFactorEnabled" BOOLEAN DEFAULT false,
+    "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3),
+    "isVerified" BOOLEAN NOT NULL DEFAULT false,
+    "segment" "Segment" NOT NULL,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "UserVerification" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "stage" "KYCStage" NOT NULL DEFAULT 'ONE',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "UserVerification_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -567,6 +598,9 @@ CREATE UNIQUE INDEX "User_panNumber_key" ON "User"("panNumber");
 CREATE INDEX "User_email_phone_idx" ON "User"("email", "phone");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "UserVerification_userId_key" ON "UserVerification"("userId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "UserProfile_userId_key" ON "UserProfile"("userId");
 
 -- CreateIndex
@@ -682,6 +716,9 @@ CREATE UNIQUE INDEX "DailyPnL_date_key" ON "DailyPnL"("date");
 
 -- CreateIndex
 CREATE INDEX "DailyPnL_userId_date_idx" ON "DailyPnL"("userId", "date");
+
+-- AddForeignKey
+ALTER TABLE "UserVerification" ADD CONSTRAINT "UserVerification_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "UserProfile" ADD CONSTRAINT "UserProfile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

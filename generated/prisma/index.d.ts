@@ -469,6 +469,16 @@ export const SettlementType: {
 
 export type SettlementType = (typeof SettlementType)[keyof typeof SettlementType]
 
+
+export const KYCStage: {
+  ZERO: 'ZERO',
+  ONE: 'ONE',
+  TWO: 'TWO',
+  THREE: 'THREE'
+};
+
+export type KYCStage = (typeof KYCStage)[keyof typeof KYCStage]
+
 }
 
 export type UserRole = $Enums.UserRole
@@ -594,6 +604,10 @@ export const Occupation: typeof $Enums.Occupation
 export type SettlementType = $Enums.SettlementType
 
 export const SettlementType: typeof $Enums.SettlementType
+
+export type KYCStage = $Enums.KYCStage
+
+export const KYCStage: typeof $Enums.KYCStage
 
 /**
  * ##  Prisma Client ʲˢ
@@ -3587,35 +3601,35 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
+    alerts: number
     bankAccounts: number
+    baskets: number
     funds: number
+    gttOrders: number
     holdings: number
-    positions: number
+    notifications: number
     orders: number
+    portfolios: number
+    positions: number
+    sessions: number
     trades: number
     watchlists: number
-    portfolios: number
-    gttOrders: number
-    baskets: number
-    alerts: number
-    notifications: number
-    sessions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    alerts?: boolean | UserCountOutputTypeCountAlertsArgs
     bankAccounts?: boolean | UserCountOutputTypeCountBankAccountsArgs
+    baskets?: boolean | UserCountOutputTypeCountBasketsArgs
     funds?: boolean | UserCountOutputTypeCountFundsArgs
+    gttOrders?: boolean | UserCountOutputTypeCountGttOrdersArgs
     holdings?: boolean | UserCountOutputTypeCountHoldingsArgs
-    positions?: boolean | UserCountOutputTypeCountPositionsArgs
+    notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
     orders?: boolean | UserCountOutputTypeCountOrdersArgs
+    portfolios?: boolean | UserCountOutputTypeCountPortfoliosArgs
+    positions?: boolean | UserCountOutputTypeCountPositionsArgs
+    sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     trades?: boolean | UserCountOutputTypeCountTradesArgs
     watchlists?: boolean | UserCountOutputTypeCountWatchlistsArgs
-    portfolios?: boolean | UserCountOutputTypeCountPortfoliosArgs
-    gttOrders?: boolean | UserCountOutputTypeCountGttOrdersArgs
-    baskets?: boolean | UserCountOutputTypeCountBasketsArgs
-    alerts?: boolean | UserCountOutputTypeCountAlertsArgs
-    notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
-    sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   }
 
   // Custom InputTypes
@@ -3632,8 +3646,22 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
+  export type UserCountOutputTypeCountAlertsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AlertWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
   export type UserCountOutputTypeCountBankAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BankAccountWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountBasketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BasketWhereInput
   }
 
   /**
@@ -3646,8 +3674,36 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
+  export type UserCountOutputTypeCountGttOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GTTOrderWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
   export type UserCountOutputTypeCountHoldingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: HoldingWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrderWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPortfoliosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PortfolioWhereInput
   }
 
   /**
@@ -3660,8 +3716,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: OrderWhereInput
+  export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SessionWhereInput
   }
 
   /**
@@ -3678,48 +3734,6 @@ export namespace Prisma {
     where?: WatchlistWhereInput
   }
 
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountPortfoliosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PortfolioWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountGttOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: GTTOrderWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountBasketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: BasketWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountAlertsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AlertWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: NotificationWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SessionWhereInput
-  }
-
 
   /**
    * Count Type InstrumentCountOutputType
@@ -3727,21 +3741,21 @@ export namespace Prisma {
 
   export type InstrumentCountOutputType = {
     holdings: number
-    positions: number
-    orders: number
-    trades: number
     marketDepth: number
+    orders: number
+    positions: number
     priceHistory: number
+    trades: number
     watchlistItems: number
   }
 
   export type InstrumentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     holdings?: boolean | InstrumentCountOutputTypeCountHoldingsArgs
-    positions?: boolean | InstrumentCountOutputTypeCountPositionsArgs
-    orders?: boolean | InstrumentCountOutputTypeCountOrdersArgs
-    trades?: boolean | InstrumentCountOutputTypeCountTradesArgs
     marketDepth?: boolean | InstrumentCountOutputTypeCountMarketDepthArgs
+    orders?: boolean | InstrumentCountOutputTypeCountOrdersArgs
+    positions?: boolean | InstrumentCountOutputTypeCountPositionsArgs
     priceHistory?: boolean | InstrumentCountOutputTypeCountPriceHistoryArgs
+    trades?: boolean | InstrumentCountOutputTypeCountTradesArgs
     watchlistItems?: boolean | InstrumentCountOutputTypeCountWatchlistItemsArgs
   }
 
@@ -3766,8 +3780,8 @@ export namespace Prisma {
   /**
    * InstrumentCountOutputType without action
    */
-  export type InstrumentCountOutputTypeCountPositionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PositionWhereInput
+  export type InstrumentCountOutputTypeCountMarketDepthArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MarketDepthWhereInput
   }
 
   /**
@@ -3780,15 +3794,8 @@ export namespace Prisma {
   /**
    * InstrumentCountOutputType without action
    */
-  export type InstrumentCountOutputTypeCountTradesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TradeWhereInput
-  }
-
-  /**
-   * InstrumentCountOutputType without action
-   */
-  export type InstrumentCountOutputTypeCountMarketDepthArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MarketDepthWhereInput
+  export type InstrumentCountOutputTypeCountPositionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PositionWhereInput
   }
 
   /**
@@ -3796,6 +3803,13 @@ export namespace Prisma {
    */
   export type InstrumentCountOutputTypeCountPriceHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PriceHistoryWhereInput
+  }
+
+  /**
+   * InstrumentCountOutputType without action
+   */
+  export type InstrumentCountOutputTypeCountTradesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TradeWhereInput
   }
 
   /**
@@ -3922,7 +3936,7 @@ export namespace Prisma {
     lastName: string | null
     panNumber: string | null
     aadhaarNumber: string | null
-    dateOfBirth: Date | null
+    dob: Date | null
     kycStatus: $Enums.KYCStatus | null
     accountType: $Enums.AccountType | null
     role: $Enums.UserRole | null
@@ -3931,6 +3945,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     isVerified: boolean | null
+    segment: $Enums.Segment | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -3942,7 +3957,7 @@ export namespace Prisma {
     lastName: string | null
     panNumber: string | null
     aadhaarNumber: string | null
-    dateOfBirth: Date | null
+    dob: Date | null
     kycStatus: $Enums.KYCStatus | null
     accountType: $Enums.AccountType | null
     role: $Enums.UserRole | null
@@ -3951,6 +3966,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     isVerified: boolean | null
+    segment: $Enums.Segment | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -3962,7 +3978,7 @@ export namespace Prisma {
     lastName: number
     panNumber: number
     aadhaarNumber: number
-    dateOfBirth: number
+    dob: number
     kycStatus: number
     accountType: number
     role: number
@@ -3971,6 +3987,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     isVerified: number
+    segment: number
     _all: number
   }
 
@@ -3984,7 +4001,7 @@ export namespace Prisma {
     lastName?: true
     panNumber?: true
     aadhaarNumber?: true
-    dateOfBirth?: true
+    dob?: true
     kycStatus?: true
     accountType?: true
     role?: true
@@ -3993,6 +4010,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     isVerified?: true
+    segment?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -4004,7 +4022,7 @@ export namespace Prisma {
     lastName?: true
     panNumber?: true
     aadhaarNumber?: true
-    dateOfBirth?: true
+    dob?: true
     kycStatus?: true
     accountType?: true
     role?: true
@@ -4013,6 +4031,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     isVerified?: true
+    segment?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -4024,7 +4043,7 @@ export namespace Prisma {
     lastName?: true
     panNumber?: true
     aadhaarNumber?: true
-    dateOfBirth?: true
+    dob?: true
     kycStatus?: true
     accountType?: true
     role?: true
@@ -4033,6 +4052,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     isVerified?: true
+    segment?: true
     _all?: true
   }
 
@@ -4117,7 +4137,7 @@ export namespace Prisma {
     lastName: string | null
     panNumber: string | null
     aadhaarNumber: string | null
-    dateOfBirth: Date | null
+    dob: Date | null
     kycStatus: $Enums.KYCStatus | null
     accountType: $Enums.AccountType | null
     role: $Enums.UserRole | null
@@ -4126,6 +4146,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     isVerified: boolean
+    segment: $Enums.Segment
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -4154,7 +4175,7 @@ export namespace Prisma {
     lastName?: boolean
     panNumber?: boolean
     aadhaarNumber?: boolean
-    dateOfBirth?: boolean
+    dob?: boolean
     kycStatus?: boolean
     accountType?: boolean
     role?: boolean
@@ -4163,21 +4184,22 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     isVerified?: boolean
-    profile?: boolean | User$profileArgs<ExtArgs>
-    bankAccounts?: boolean | User$bankAccountsArgs<ExtArgs>
-    funds?: boolean | User$fundsArgs<ExtArgs>
-    holdings?: boolean | User$holdingsArgs<ExtArgs>
-    positions?: boolean | User$positionsArgs<ExtArgs>
-    orders?: boolean | User$ordersArgs<ExtArgs>
-    trades?: boolean | User$tradesArgs<ExtArgs>
-    watchlists?: boolean | User$watchlistsArgs<ExtArgs>
-    portfolios?: boolean | User$portfoliosArgs<ExtArgs>
-    gttOrders?: boolean | User$gttOrdersArgs<ExtArgs>
-    baskets?: boolean | User$basketsArgs<ExtArgs>
+    segment?: boolean
     alerts?: boolean | User$alertsArgs<ExtArgs>
+    bankAccounts?: boolean | User$bankAccountsArgs<ExtArgs>
+    baskets?: boolean | User$basketsArgs<ExtArgs>
+    funds?: boolean | User$fundsArgs<ExtArgs>
+    gttOrders?: boolean | User$gttOrdersArgs<ExtArgs>
+    holdings?: boolean | User$holdingsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
+    orders?: boolean | User$ordersArgs<ExtArgs>
+    portfolios?: boolean | User$portfoliosArgs<ExtArgs>
+    positions?: boolean | User$positionsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
+    trades?: boolean | User$tradesArgs<ExtArgs>
+    profile?: boolean | User$profileArgs<ExtArgs>
     UserVerification?: boolean | User$UserVerificationArgs<ExtArgs>
+    watchlists?: boolean | User$watchlistsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4190,7 +4212,7 @@ export namespace Prisma {
     lastName?: boolean
     panNumber?: boolean
     aadhaarNumber?: boolean
-    dateOfBirth?: boolean
+    dob?: boolean
     kycStatus?: boolean
     accountType?: boolean
     role?: boolean
@@ -4199,6 +4221,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     isVerified?: boolean
+    segment?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4210,7 +4233,7 @@ export namespace Prisma {
     lastName?: boolean
     panNumber?: boolean
     aadhaarNumber?: boolean
-    dateOfBirth?: boolean
+    dob?: boolean
     kycStatus?: boolean
     accountType?: boolean
     role?: boolean
@@ -4219,6 +4242,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     isVerified?: boolean
+    segment?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -4230,7 +4254,7 @@ export namespace Prisma {
     lastName?: boolean
     panNumber?: boolean
     aadhaarNumber?: boolean
-    dateOfBirth?: boolean
+    dob?: boolean
     kycStatus?: boolean
     accountType?: boolean
     role?: boolean
@@ -4239,25 +4263,26 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     isVerified?: boolean
+    segment?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password" | "firstName" | "lastName" | "panNumber" | "aadhaarNumber" | "dateOfBirth" | "kycStatus" | "accountType" | "role" | "isActive" | "twoFactorEnabled" | "createdAt" | "updatedAt" | "isVerified", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password" | "firstName" | "lastName" | "panNumber" | "aadhaarNumber" | "dob" | "kycStatus" | "accountType" | "role" | "isActive" | "twoFactorEnabled" | "createdAt" | "updatedAt" | "isVerified" | "segment", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    profile?: boolean | User$profileArgs<ExtArgs>
-    bankAccounts?: boolean | User$bankAccountsArgs<ExtArgs>
-    funds?: boolean | User$fundsArgs<ExtArgs>
-    holdings?: boolean | User$holdingsArgs<ExtArgs>
-    positions?: boolean | User$positionsArgs<ExtArgs>
-    orders?: boolean | User$ordersArgs<ExtArgs>
-    trades?: boolean | User$tradesArgs<ExtArgs>
-    watchlists?: boolean | User$watchlistsArgs<ExtArgs>
-    portfolios?: boolean | User$portfoliosArgs<ExtArgs>
-    gttOrders?: boolean | User$gttOrdersArgs<ExtArgs>
-    baskets?: boolean | User$basketsArgs<ExtArgs>
     alerts?: boolean | User$alertsArgs<ExtArgs>
+    bankAccounts?: boolean | User$bankAccountsArgs<ExtArgs>
+    baskets?: boolean | User$basketsArgs<ExtArgs>
+    funds?: boolean | User$fundsArgs<ExtArgs>
+    gttOrders?: boolean | User$gttOrdersArgs<ExtArgs>
+    holdings?: boolean | User$holdingsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
+    orders?: boolean | User$ordersArgs<ExtArgs>
+    portfolios?: boolean | User$portfoliosArgs<ExtArgs>
+    positions?: boolean | User$positionsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
+    trades?: boolean | User$tradesArgs<ExtArgs>
+    profile?: boolean | User$profileArgs<ExtArgs>
     UserVerification?: boolean | User$UserVerificationArgs<ExtArgs>
+    watchlists?: boolean | User$watchlistsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4266,21 +4291,21 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      profile: Prisma.$UserProfilePayload<ExtArgs> | null
-      bankAccounts: Prisma.$BankAccountPayload<ExtArgs>[]
-      funds: Prisma.$FundTransactionPayload<ExtArgs>[]
-      holdings: Prisma.$HoldingPayload<ExtArgs>[]
-      positions: Prisma.$PositionPayload<ExtArgs>[]
-      orders: Prisma.$OrderPayload<ExtArgs>[]
-      trades: Prisma.$TradePayload<ExtArgs>[]
-      watchlists: Prisma.$WatchlistPayload<ExtArgs>[]
-      portfolios: Prisma.$PortfolioPayload<ExtArgs>[]
-      gttOrders: Prisma.$GTTOrderPayload<ExtArgs>[]
-      baskets: Prisma.$BasketPayload<ExtArgs>[]
       alerts: Prisma.$AlertPayload<ExtArgs>[]
+      bankAccounts: Prisma.$BankAccountPayload<ExtArgs>[]
+      baskets: Prisma.$BasketPayload<ExtArgs>[]
+      funds: Prisma.$FundTransactionPayload<ExtArgs>[]
+      gttOrders: Prisma.$GTTOrderPayload<ExtArgs>[]
+      holdings: Prisma.$HoldingPayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
+      orders: Prisma.$OrderPayload<ExtArgs>[]
+      portfolios: Prisma.$PortfolioPayload<ExtArgs>[]
+      positions: Prisma.$PositionPayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
+      trades: Prisma.$TradePayload<ExtArgs>[]
+      profile: Prisma.$UserProfilePayload<ExtArgs> | null
       UserVerification: Prisma.$UserVerificationPayload<ExtArgs> | null
+      watchlists: Prisma.$WatchlistPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4291,7 +4316,7 @@ export namespace Prisma {
       lastName: string | null
       panNumber: string | null
       aadhaarNumber: string | null
-      dateOfBirth: Date | null
+      dob: Date | null
       kycStatus: $Enums.KYCStatus | null
       accountType: $Enums.AccountType | null
       role: $Enums.UserRole | null
@@ -4300,6 +4325,7 @@ export namespace Prisma {
       createdAt: Date | null
       updatedAt: Date | null
       isVerified: boolean
+      segment: $Enums.Segment
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -4694,21 +4720,21 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    profile<T extends User$profileArgs<ExtArgs> = {}>(args?: Subset<T, User$profileArgs<ExtArgs>>): Prisma__UserProfileClient<$Result.GetResult<Prisma.$UserProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    bankAccounts<T extends User$bankAccountsArgs<ExtArgs> = {}>(args?: Subset<T, User$bankAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    funds<T extends User$fundsArgs<ExtArgs> = {}>(args?: Subset<T, User$fundsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FundTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    holdings<T extends User$holdingsArgs<ExtArgs> = {}>(args?: Subset<T, User$holdingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HoldingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    positions<T extends User$positionsArgs<ExtArgs> = {}>(args?: Subset<T, User$positionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PositionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    orders<T extends User$ordersArgs<ExtArgs> = {}>(args?: Subset<T, User$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    trades<T extends User$tradesArgs<ExtArgs> = {}>(args?: Subset<T, User$tradesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TradePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    watchlists<T extends User$watchlistsArgs<ExtArgs> = {}>(args?: Subset<T, User$watchlistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    portfolios<T extends User$portfoliosArgs<ExtArgs> = {}>(args?: Subset<T, User$portfoliosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PortfolioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    gttOrders<T extends User$gttOrdersArgs<ExtArgs> = {}>(args?: Subset<T, User$gttOrdersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GTTOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    baskets<T extends User$basketsArgs<ExtArgs> = {}>(args?: Subset<T, User$basketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BasketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     alerts<T extends User$alertsArgs<ExtArgs> = {}>(args?: Subset<T, User$alertsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AlertPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    bankAccounts<T extends User$bankAccountsArgs<ExtArgs> = {}>(args?: Subset<T, User$bankAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankAccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    baskets<T extends User$basketsArgs<ExtArgs> = {}>(args?: Subset<T, User$basketsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BasketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    funds<T extends User$fundsArgs<ExtArgs> = {}>(args?: Subset<T, User$fundsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FundTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    gttOrders<T extends User$gttOrdersArgs<ExtArgs> = {}>(args?: Subset<T, User$gttOrdersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GTTOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    holdings<T extends User$holdingsArgs<ExtArgs> = {}>(args?: Subset<T, User$holdingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HoldingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    orders<T extends User$ordersArgs<ExtArgs> = {}>(args?: Subset<T, User$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    portfolios<T extends User$portfoliosArgs<ExtArgs> = {}>(args?: Subset<T, User$portfoliosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PortfolioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    positions<T extends User$positionsArgs<ExtArgs> = {}>(args?: Subset<T, User$positionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PositionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    trades<T extends User$tradesArgs<ExtArgs> = {}>(args?: Subset<T, User$tradesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TradePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    profile<T extends User$profileArgs<ExtArgs> = {}>(args?: Subset<T, User$profileArgs<ExtArgs>>): Prisma__UserProfileClient<$Result.GetResult<Prisma.$UserProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     UserVerification<T extends User$UserVerificationArgs<ExtArgs> = {}>(args?: Subset<T, User$UserVerificationArgs<ExtArgs>>): Prisma__UserVerificationClient<$Result.GetResult<Prisma.$UserVerificationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    watchlists<T extends User$watchlistsArgs<ExtArgs> = {}>(args?: Subset<T, User$watchlistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4746,7 +4772,7 @@ export namespace Prisma {
     readonly lastName: FieldRef<"User", 'String'>
     readonly panNumber: FieldRef<"User", 'String'>
     readonly aadhaarNumber: FieldRef<"User", 'String'>
-    readonly dateOfBirth: FieldRef<"User", 'DateTime'>
+    readonly dob: FieldRef<"User", 'DateTime'>
     readonly kycStatus: FieldRef<"User", 'KYCStatus'>
     readonly accountType: FieldRef<"User", 'AccountType'>
     readonly role: FieldRef<"User", 'UserRole'>
@@ -4755,6 +4781,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly isVerified: FieldRef<"User", 'Boolean'>
+    readonly segment: FieldRef<"User", 'Segment'>
   }
     
 
@@ -5143,22 +5170,27 @@ export namespace Prisma {
   }
 
   /**
-   * User.profile
+   * User.alerts
    */
-  export type User$profileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$alertsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserProfile
+     * Select specific fields to fetch from the Alert
      */
-    select?: UserProfileSelect<ExtArgs> | null
+    select?: AlertSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserProfile
+     * Omit specific fields from the Alert
      */
-    omit?: UserProfileOmit<ExtArgs> | null
+    omit?: AlertOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserProfileInclude<ExtArgs> | null
-    where?: UserProfileWhereInput
+    include?: AlertInclude<ExtArgs> | null
+    where?: AlertWhereInput
+    orderBy?: AlertOrderByWithRelationInput | AlertOrderByWithRelationInput[]
+    cursor?: AlertWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AlertScalarFieldEnum | AlertScalarFieldEnum[]
   }
 
   /**
@@ -5186,6 +5218,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.baskets
+   */
+  export type User$basketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Basket
+     */
+    select?: BasketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Basket
+     */
+    omit?: BasketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BasketInclude<ExtArgs> | null
+    where?: BasketWhereInput
+    orderBy?: BasketOrderByWithRelationInput | BasketOrderByWithRelationInput[]
+    cursor?: BasketWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BasketScalarFieldEnum | BasketScalarFieldEnum[]
+  }
+
+  /**
    * User.funds
    */
   export type User$fundsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5207,150 +5263,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: FundTransactionScalarFieldEnum | FundTransactionScalarFieldEnum[]
-  }
-
-  /**
-   * User.holdings
-   */
-  export type User$holdingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Holding
-     */
-    select?: HoldingSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Holding
-     */
-    omit?: HoldingOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HoldingInclude<ExtArgs> | null
-    where?: HoldingWhereInput
-    orderBy?: HoldingOrderByWithRelationInput | HoldingOrderByWithRelationInput[]
-    cursor?: HoldingWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: HoldingScalarFieldEnum | HoldingScalarFieldEnum[]
-  }
-
-  /**
-   * User.positions
-   */
-  export type User$positionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Position
-     */
-    select?: PositionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Position
-     */
-    omit?: PositionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PositionInclude<ExtArgs> | null
-    where?: PositionWhereInput
-    orderBy?: PositionOrderByWithRelationInput | PositionOrderByWithRelationInput[]
-    cursor?: PositionWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: PositionScalarFieldEnum | PositionScalarFieldEnum[]
-  }
-
-  /**
-   * User.orders
-   */
-  export type User$ordersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Order
-     */
-    select?: OrderSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Order
-     */
-    omit?: OrderOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: OrderInclude<ExtArgs> | null
-    where?: OrderWhereInput
-    orderBy?: OrderOrderByWithRelationInput | OrderOrderByWithRelationInput[]
-    cursor?: OrderWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: OrderScalarFieldEnum | OrderScalarFieldEnum[]
-  }
-
-  /**
-   * User.trades
-   */
-  export type User$tradesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Trade
-     */
-    select?: TradeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Trade
-     */
-    omit?: TradeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TradeInclude<ExtArgs> | null
-    where?: TradeWhereInput
-    orderBy?: TradeOrderByWithRelationInput | TradeOrderByWithRelationInput[]
-    cursor?: TradeWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: TradeScalarFieldEnum | TradeScalarFieldEnum[]
-  }
-
-  /**
-   * User.watchlists
-   */
-  export type User$watchlistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Watchlist
-     */
-    select?: WatchlistSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Watchlist
-     */
-    omit?: WatchlistOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WatchlistInclude<ExtArgs> | null
-    where?: WatchlistWhereInput
-    orderBy?: WatchlistOrderByWithRelationInput | WatchlistOrderByWithRelationInput[]
-    cursor?: WatchlistWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: WatchlistScalarFieldEnum | WatchlistScalarFieldEnum[]
-  }
-
-  /**
-   * User.portfolios
-   */
-  export type User$portfoliosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Portfolio
-     */
-    select?: PortfolioSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Portfolio
-     */
-    omit?: PortfolioOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: PortfolioInclude<ExtArgs> | null
-    where?: PortfolioWhereInput
-    orderBy?: PortfolioOrderByWithRelationInput | PortfolioOrderByWithRelationInput[]
-    cursor?: PortfolioWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: PortfolioScalarFieldEnum | PortfolioScalarFieldEnum[]
   }
 
   /**
@@ -5378,51 +5290,27 @@ export namespace Prisma {
   }
 
   /**
-   * User.baskets
+   * User.holdings
    */
-  export type User$basketsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$holdingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Basket
+     * Select specific fields to fetch from the Holding
      */
-    select?: BasketSelect<ExtArgs> | null
+    select?: HoldingSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Basket
+     * Omit specific fields from the Holding
      */
-    omit?: BasketOmit<ExtArgs> | null
+    omit?: HoldingOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: BasketInclude<ExtArgs> | null
-    where?: BasketWhereInput
-    orderBy?: BasketOrderByWithRelationInput | BasketOrderByWithRelationInput[]
-    cursor?: BasketWhereUniqueInput
+    include?: HoldingInclude<ExtArgs> | null
+    where?: HoldingWhereInput
+    orderBy?: HoldingOrderByWithRelationInput | HoldingOrderByWithRelationInput[]
+    cursor?: HoldingWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: BasketScalarFieldEnum | BasketScalarFieldEnum[]
-  }
-
-  /**
-   * User.alerts
-   */
-  export type User$alertsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Alert
-     */
-    select?: AlertSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Alert
-     */
-    omit?: AlertOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AlertInclude<ExtArgs> | null
-    where?: AlertWhereInput
-    orderBy?: AlertOrderByWithRelationInput | AlertOrderByWithRelationInput[]
-    cursor?: AlertWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AlertScalarFieldEnum | AlertScalarFieldEnum[]
+    distinct?: HoldingScalarFieldEnum | HoldingScalarFieldEnum[]
   }
 
   /**
@@ -5450,6 +5338,78 @@ export namespace Prisma {
   }
 
   /**
+   * User.orders
+   */
+  export type User$ordersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Order
+     */
+    select?: OrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Order
+     */
+    omit?: OrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderInclude<ExtArgs> | null
+    where?: OrderWhereInput
+    orderBy?: OrderOrderByWithRelationInput | OrderOrderByWithRelationInput[]
+    cursor?: OrderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OrderScalarFieldEnum | OrderScalarFieldEnum[]
+  }
+
+  /**
+   * User.portfolios
+   */
+  export type User$portfoliosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Portfolio
+     */
+    select?: PortfolioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Portfolio
+     */
+    omit?: PortfolioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PortfolioInclude<ExtArgs> | null
+    where?: PortfolioWhereInput
+    orderBy?: PortfolioOrderByWithRelationInput | PortfolioOrderByWithRelationInput[]
+    cursor?: PortfolioWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PortfolioScalarFieldEnum | PortfolioScalarFieldEnum[]
+  }
+
+  /**
+   * User.positions
+   */
+  export type User$positionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Position
+     */
+    select?: PositionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Position
+     */
+    omit?: PositionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PositionInclude<ExtArgs> | null
+    where?: PositionWhereInput
+    orderBy?: PositionOrderByWithRelationInput | PositionOrderByWithRelationInput[]
+    cursor?: PositionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PositionScalarFieldEnum | PositionScalarFieldEnum[]
+  }
+
+  /**
    * User.sessions
    */
   export type User$sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5474,6 +5434,49 @@ export namespace Prisma {
   }
 
   /**
+   * User.trades
+   */
+  export type User$tradesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trade
+     */
+    select?: TradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trade
+     */
+    omit?: TradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradeInclude<ExtArgs> | null
+    where?: TradeWhereInput
+    orderBy?: TradeOrderByWithRelationInput | TradeOrderByWithRelationInput[]
+    cursor?: TradeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TradeScalarFieldEnum | TradeScalarFieldEnum[]
+  }
+
+  /**
+   * User.profile
+   */
+  export type User$profileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserProfile
+     */
+    select?: UserProfileSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserProfile
+     */
+    omit?: UserProfileOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserProfileInclude<ExtArgs> | null
+    where?: UserProfileWhereInput
+  }
+
+  /**
    * User.UserVerification
    */
   export type User$UserVerificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5490,6 +5493,30 @@ export namespace Prisma {
      */
     include?: UserVerificationInclude<ExtArgs> | null
     where?: UserVerificationWhereInput
+  }
+
+  /**
+   * User.watchlists
+   */
+  export type User$watchlistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Watchlist
+     */
+    select?: WatchlistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Watchlist
+     */
+    omit?: WatchlistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WatchlistInclude<ExtArgs> | null
+    where?: WatchlistWhereInput
+    orderBy?: WatchlistOrderByWithRelationInput | WatchlistOrderByWithRelationInput[]
+    cursor?: WatchlistWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WatchlistScalarFieldEnum | WatchlistScalarFieldEnum[]
   }
 
   /**
@@ -5524,9 +5551,7 @@ export namespace Prisma {
   export type UserVerificationMinAggregateOutputType = {
     id: string | null
     userId: string | null
-    stage1: boolean | null
-    stage2: boolean | null
-    stage3: boolean | null
+    stage: $Enums.KYCStage | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5534,9 +5559,7 @@ export namespace Prisma {
   export type UserVerificationMaxAggregateOutputType = {
     id: string | null
     userId: string | null
-    stage1: boolean | null
-    stage2: boolean | null
-    stage3: boolean | null
+    stage: $Enums.KYCStage | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5544,9 +5567,7 @@ export namespace Prisma {
   export type UserVerificationCountAggregateOutputType = {
     id: number
     userId: number
-    stage1: number
-    stage2: number
-    stage3: number
+    stage: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -5556,9 +5577,7 @@ export namespace Prisma {
   export type UserVerificationMinAggregateInputType = {
     id?: true
     userId?: true
-    stage1?: true
-    stage2?: true
-    stage3?: true
+    stage?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5566,9 +5585,7 @@ export namespace Prisma {
   export type UserVerificationMaxAggregateInputType = {
     id?: true
     userId?: true
-    stage1?: true
-    stage2?: true
-    stage3?: true
+    stage?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5576,9 +5593,7 @@ export namespace Prisma {
   export type UserVerificationCountAggregateInputType = {
     id?: true
     userId?: true
-    stage1?: true
-    stage2?: true
-    stage3?: true
+    stage?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -5659,9 +5674,7 @@ export namespace Prisma {
   export type UserVerificationGroupByOutputType = {
     id: string
     userId: string
-    stage1: boolean
-    stage2: boolean
-    stage3: boolean
+    stage: $Enums.KYCStage
     createdAt: Date
     updatedAt: Date
     _count: UserVerificationCountAggregateOutputType | null
@@ -5686,9 +5699,7 @@ export namespace Prisma {
   export type UserVerificationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    stage1?: boolean
-    stage2?: boolean
-    stage3?: boolean
+    stage?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -5697,9 +5708,7 @@ export namespace Prisma {
   export type UserVerificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    stage1?: boolean
-    stage2?: boolean
-    stage3?: boolean
+    stage?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -5708,9 +5717,7 @@ export namespace Prisma {
   export type UserVerificationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    stage1?: boolean
-    stage2?: boolean
-    stage3?: boolean
+    stage?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -5719,14 +5726,12 @@ export namespace Prisma {
   export type UserVerificationSelectScalar = {
     id?: boolean
     userId?: boolean
-    stage1?: boolean
-    stage2?: boolean
-    stage3?: boolean
+    stage?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserVerificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "stage1" | "stage2" | "stage3" | "createdAt" | "updatedAt", ExtArgs["result"]["userVerification"]>
+  export type UserVerificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "stage" | "createdAt" | "updatedAt", ExtArgs["result"]["userVerification"]>
   export type UserVerificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -5745,9 +5750,36 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
-      stage1: boolean
-      stage2: boolean
-      stage3: boolean
+      stage: $Enums.KYCStage
+      /**
+       * Current verification stage for a user's onboarding/compliance process.
+       * 
+       * Purpose:
+       * - Represents the user's progress through a multi-step verification workflow.
+       * - Useful for gating access to features, triggering reminders, and audit logging.
+       * 
+       * Stages (integer values recommended, consider using an enum for clarity):
+       * 1 — Initial verification: PAN card and email verification completed.
+       * - Indicates basic identity & contact validation.
+       * - Typical prerequisites: panCardVerified = true, emailVerified = true.
+       * 
+       * 2 — Address verification: Address proof verified.
+       * - Indicates proof of residence confirmed.
+       * - Typical prerequisite: addressProofVerified = true.
+       * 
+       * 3 — Income verification: Income / financial documents verified.
+       * - Final stage for full KYC/compliance clearance.
+       * - Typical prerequisite: incomeProofVerified = true.
+       * 
+       * Notes & recommendations:
+       * - Prefer using a Prisma enum (e.g., VerificationStage) instead of raw integers to improve readability.
+       * - Store individual boolean flags for each proof (panCardVerified, emailVerified, addressProofVerified, incomeProofVerified)
+       * alongside this stage value to make checks explicit and simplify queries.
+       * - Ensure transitions are strictly ordered (1 → 2 → 3) and validated in application/business logic.
+       * - Maintain an audit trail (timestamps and actor IDs) for each stage change to meet compliance requirements.
+       * - Consider a separate "verificationStatus" (e.g., pending/failed/approved) per stage to capture in-progress or failed checks.
+       * - When migrating schema or adding stages, map existing integer values carefully and provide a one-time migration script if needed.
+       */
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["userVerification"]>
@@ -6176,9 +6208,7 @@ export namespace Prisma {
   interface UserVerificationFieldRefs {
     readonly id: FieldRef<"UserVerification", 'String'>
     readonly userId: FieldRef<"UserVerification", 'String'>
-    readonly stage1: FieldRef<"UserVerification", 'Boolean'>
-    readonly stage2: FieldRef<"UserVerification", 'Boolean'>
-    readonly stage3: FieldRef<"UserVerification", 'Boolean'>
+    readonly stage: FieldRef<"UserVerification", 'KYCStage'>
     readonly createdAt: FieldRef<"UserVerification", 'DateTime'>
     readonly updatedAt: FieldRef<"UserVerification", 'DateTime'>
   }
@@ -12735,11 +12765,11 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     holdings?: boolean | Instrument$holdingsArgs<ExtArgs>
-    positions?: boolean | Instrument$positionsArgs<ExtArgs>
-    orders?: boolean | Instrument$ordersArgs<ExtArgs>
-    trades?: boolean | Instrument$tradesArgs<ExtArgs>
     marketDepth?: boolean | Instrument$marketDepthArgs<ExtArgs>
+    orders?: boolean | Instrument$ordersArgs<ExtArgs>
+    positions?: boolean | Instrument$positionsArgs<ExtArgs>
     priceHistory?: boolean | Instrument$priceHistoryArgs<ExtArgs>
+    trades?: boolean | Instrument$tradesArgs<ExtArgs>
     watchlistItems?: boolean | Instrument$watchlistItemsArgs<ExtArgs>
     _count?: boolean | InstrumentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["instrument"]>
@@ -12810,11 +12840,11 @@ export namespace Prisma {
   export type InstrumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "instrumentToken" | "exchangeToken" | "tradingSymbol" | "name" | "exchange" | "segment" | "instrumentType" | "tickSize" | "lotSize" | "expiry" | "strike" | "isin" | "isActive" | "lastPrice" | "lastUpdated" | "createdAt" | "updatedAt", ExtArgs["result"]["instrument"]>
   export type InstrumentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     holdings?: boolean | Instrument$holdingsArgs<ExtArgs>
-    positions?: boolean | Instrument$positionsArgs<ExtArgs>
-    orders?: boolean | Instrument$ordersArgs<ExtArgs>
-    trades?: boolean | Instrument$tradesArgs<ExtArgs>
     marketDepth?: boolean | Instrument$marketDepthArgs<ExtArgs>
+    orders?: boolean | Instrument$ordersArgs<ExtArgs>
+    positions?: boolean | Instrument$positionsArgs<ExtArgs>
     priceHistory?: boolean | Instrument$priceHistoryArgs<ExtArgs>
+    trades?: boolean | Instrument$tradesArgs<ExtArgs>
     watchlistItems?: boolean | Instrument$watchlistItemsArgs<ExtArgs>
     _count?: boolean | InstrumentCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -12825,11 +12855,11 @@ export namespace Prisma {
     name: "Instrument"
     objects: {
       holdings: Prisma.$HoldingPayload<ExtArgs>[]
-      positions: Prisma.$PositionPayload<ExtArgs>[]
-      orders: Prisma.$OrderPayload<ExtArgs>[]
-      trades: Prisma.$TradePayload<ExtArgs>[]
       marketDepth: Prisma.$MarketDepthPayload<ExtArgs>[]
+      orders: Prisma.$OrderPayload<ExtArgs>[]
+      positions: Prisma.$PositionPayload<ExtArgs>[]
       priceHistory: Prisma.$PriceHistoryPayload<ExtArgs>[]
+      trades: Prisma.$TradePayload<ExtArgs>[]
       watchlistItems: Prisma.$WatchlistItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -13246,11 +13276,11 @@ export namespace Prisma {
   export interface Prisma__InstrumentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     holdings<T extends Instrument$holdingsArgs<ExtArgs> = {}>(args?: Subset<T, Instrument$holdingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HoldingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    positions<T extends Instrument$positionsArgs<ExtArgs> = {}>(args?: Subset<T, Instrument$positionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PositionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    orders<T extends Instrument$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Instrument$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    trades<T extends Instrument$tradesArgs<ExtArgs> = {}>(args?: Subset<T, Instrument$tradesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TradePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     marketDepth<T extends Instrument$marketDepthArgs<ExtArgs> = {}>(args?: Subset<T, Instrument$marketDepthArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MarketDepthPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    orders<T extends Instrument$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Instrument$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    positions<T extends Instrument$positionsArgs<ExtArgs> = {}>(args?: Subset<T, Instrument$positionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PositionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     priceHistory<T extends Instrument$priceHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Instrument$priceHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PriceHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    trades<T extends Instrument$tradesArgs<ExtArgs> = {}>(args?: Subset<T, Instrument$tradesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TradePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     watchlistItems<T extends Instrument$watchlistItemsArgs<ExtArgs> = {}>(args?: Subset<T, Instrument$watchlistItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WatchlistItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -13711,27 +13741,27 @@ export namespace Prisma {
   }
 
   /**
-   * Instrument.positions
+   * Instrument.marketDepth
    */
-  export type Instrument$positionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Instrument$marketDepthArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Position
+     * Select specific fields to fetch from the MarketDepth
      */
-    select?: PositionSelect<ExtArgs> | null
+    select?: MarketDepthSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Position
+     * Omit specific fields from the MarketDepth
      */
-    omit?: PositionOmit<ExtArgs> | null
+    omit?: MarketDepthOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PositionInclude<ExtArgs> | null
-    where?: PositionWhereInput
-    orderBy?: PositionOrderByWithRelationInput | PositionOrderByWithRelationInput[]
-    cursor?: PositionWhereUniqueInput
+    include?: MarketDepthInclude<ExtArgs> | null
+    where?: MarketDepthWhereInput
+    orderBy?: MarketDepthOrderByWithRelationInput | MarketDepthOrderByWithRelationInput[]
+    cursor?: MarketDepthWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: PositionScalarFieldEnum | PositionScalarFieldEnum[]
+    distinct?: MarketDepthScalarFieldEnum | MarketDepthScalarFieldEnum[]
   }
 
   /**
@@ -13759,51 +13789,27 @@ export namespace Prisma {
   }
 
   /**
-   * Instrument.trades
+   * Instrument.positions
    */
-  export type Instrument$tradesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Instrument$positionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Trade
+     * Select specific fields to fetch from the Position
      */
-    select?: TradeSelect<ExtArgs> | null
+    select?: PositionSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Trade
+     * Omit specific fields from the Position
      */
-    omit?: TradeOmit<ExtArgs> | null
+    omit?: PositionOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TradeInclude<ExtArgs> | null
-    where?: TradeWhereInput
-    orderBy?: TradeOrderByWithRelationInput | TradeOrderByWithRelationInput[]
-    cursor?: TradeWhereUniqueInput
+    include?: PositionInclude<ExtArgs> | null
+    where?: PositionWhereInput
+    orderBy?: PositionOrderByWithRelationInput | PositionOrderByWithRelationInput[]
+    cursor?: PositionWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: TradeScalarFieldEnum | TradeScalarFieldEnum[]
-  }
-
-  /**
-   * Instrument.marketDepth
-   */
-  export type Instrument$marketDepthArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MarketDepth
-     */
-    select?: MarketDepthSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MarketDepth
-     */
-    omit?: MarketDepthOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MarketDepthInclude<ExtArgs> | null
-    where?: MarketDepthWhereInput
-    orderBy?: MarketDepthOrderByWithRelationInput | MarketDepthOrderByWithRelationInput[]
-    cursor?: MarketDepthWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MarketDepthScalarFieldEnum | MarketDepthScalarFieldEnum[]
+    distinct?: PositionScalarFieldEnum | PositionScalarFieldEnum[]
   }
 
   /**
@@ -13828,6 +13834,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PriceHistoryScalarFieldEnum | PriceHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * Instrument.trades
+   */
+  export type Instrument$tradesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trade
+     */
+    select?: TradeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trade
+     */
+    omit?: TradeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TradeInclude<ExtArgs> | null
+    where?: TradeWhereInput
+    orderBy?: TradeOrderByWithRelationInput | TradeOrderByWithRelationInput[]
+    cursor?: TradeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TradeScalarFieldEnum | TradeScalarFieldEnum[]
   }
 
   /**
@@ -17664,8 +17694,8 @@ export namespace Prisma {
     product?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["holding"]>
 
   export type HoldingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -17683,8 +17713,8 @@ export namespace Prisma {
     product?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["holding"]>
 
   export type HoldingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -17702,8 +17732,8 @@ export namespace Prisma {
     product?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["holding"]>
 
   export type HoldingSelectScalar = {
@@ -17725,23 +17755,23 @@ export namespace Prisma {
 
   export type HoldingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "instrumentId" | "quantity" | "averagePrice" | "lastPrice" | "pnl" | "dayChange" | "dayChangePercent" | "collateralQuantity" | "collateralType" | "product" | "createdAt" | "updatedAt", ExtArgs["result"]["holding"]>
   export type HoldingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type HoldingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type HoldingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $HoldingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Holding"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       instrument: Prisma.$InstrumentPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -18152,8 +18182,8 @@ export namespace Prisma {
    */
   export interface Prisma__HoldingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     instrument<T extends InstrumentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InstrumentDefaultArgs<ExtArgs>>): Prisma__InstrumentClient<$Result.GetResult<Prisma.$InstrumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -19029,8 +19059,8 @@ export namespace Prisma {
     positionType?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["position"]>
 
   export type PositionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -19059,8 +19089,8 @@ export namespace Prisma {
     positionType?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["position"]>
 
   export type PositionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -19089,8 +19119,8 @@ export namespace Prisma {
     positionType?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["position"]>
 
   export type PositionSelectScalar = {
@@ -19123,23 +19153,23 @@ export namespace Prisma {
 
   export type PositionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "instrumentId" | "product" | "quantity" | "overnightQuantity" | "averagePrice" | "lastPrice" | "value" | "pnl" | "m2m" | "unrealised" | "realised" | "buyQuantity" | "buyValue" | "buyPrice" | "sellQuantity" | "sellValue" | "sellPrice" | "multiplier" | "tradingSymbol" | "exchange" | "positionType" | "createdAt" | "updatedAt", ExtArgs["result"]["position"]>
   export type PositionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type PositionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type PositionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $PositionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Position"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       instrument: Prisma.$InstrumentPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -19561,8 +19591,8 @@ export namespace Prisma {
    */
   export interface Prisma__PositionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     instrument<T extends InstrumentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InstrumentDefaultArgs<ExtArgs>>): Prisma__InstrumentClient<$Result.GetResult<Prisma.$InstrumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -20481,8 +20511,8 @@ export namespace Prisma {
     cancelledBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     trades?: boolean | Order$tradesArgs<ExtArgs>
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
@@ -20521,8 +20551,8 @@ export namespace Prisma {
     cancelledBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
 
   export type OrderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -20559,8 +20589,8 @@ export namespace Prisma {
     cancelledBy?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["order"]>
 
   export type OrderSelectScalar = {
@@ -20601,25 +20631,25 @@ export namespace Prisma {
 
   export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderId" | "userId" | "instrumentId" | "parentOrderId" | "exchangeOrderId" | "exchangeTimestamp" | "placedBy" | "variety" | "orderType" | "transactionType" | "validity" | "product" | "exchange" | "tradingSymbol" | "quantity" | "disclosedQuantity" | "price" | "triggerPrice" | "averagePrice" | "filledQuantity" | "pendingQuantity" | "cancelledQuantity" | "status" | "statusMessage" | "tag" | "clientOrderId" | "orderTimestamp" | "exchangeUpdateTime" | "rejectedBy" | "cancelledBy" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     trades?: boolean | Order$tradesArgs<ExtArgs>
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type OrderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type OrderIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $OrderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Order"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       instrument: Prisma.$InstrumentPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
       trades: Prisma.$TradePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -21050,8 +21080,8 @@ export namespace Prisma {
    */
   export interface Prisma__OrderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     instrument<T extends InstrumentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InstrumentDefaultArgs<ExtArgs>>): Prisma__InstrumentClient<$Result.GetResult<Prisma.$InstrumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     trades<T extends Order$tradesArgs<ExtArgs> = {}>(args?: Subset<T, Order$tradesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TradePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -21831,9 +21861,9 @@ export namespace Prisma {
     value?: boolean
     exchangeTimestamp?: boolean
     createdAt?: boolean
+    instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
     order?: boolean | OrderDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-    instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
     charges?: boolean | Trade$chargesArgs<ExtArgs>
   }, ExtArgs["result"]["trade"]>
 
@@ -21852,9 +21882,9 @@ export namespace Prisma {
     value?: boolean
     exchangeTimestamp?: boolean
     createdAt?: boolean
+    instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
     order?: boolean | OrderDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-    instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["trade"]>
 
   export type TradeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -21872,9 +21902,9 @@ export namespace Prisma {
     value?: boolean
     exchangeTimestamp?: boolean
     createdAt?: boolean
+    instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
     order?: boolean | OrderDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-    instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["trade"]>
 
   export type TradeSelectScalar = {
@@ -21896,28 +21926,28 @@ export namespace Prisma {
 
   export type TradeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tradeId" | "orderId" | "userId" | "instrumentId" | "exchange" | "tradingSymbol" | "transactionType" | "product" | "quantity" | "price" | "value" | "exchangeTimestamp" | "createdAt", ExtArgs["result"]["trade"]>
   export type TradeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
     order?: boolean | OrderDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-    instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
     charges?: boolean | Trade$chargesArgs<ExtArgs>
   }
   export type TradeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
     order?: boolean | OrderDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-    instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
   }
   export type TradeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
     order?: boolean | OrderDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-    instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
   }
 
   export type $TradePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Trade"
     objects: {
+      instrument: Prisma.$InstrumentPayload<ExtArgs>
       order: Prisma.$OrderPayload<ExtArgs>
       user: Prisma.$UserPayload<ExtArgs>
-      instrument: Prisma.$InstrumentPayload<ExtArgs>
       charges: Prisma.$TradeChargesPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -22329,9 +22359,9 @@ export namespace Prisma {
    */
   export interface Prisma__TradeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    instrument<T extends InstrumentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InstrumentDefaultArgs<ExtArgs>>): Prisma__InstrumentClient<$Result.GetResult<Prisma.$InstrumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     order<T extends OrderDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrderDefaultArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    instrument<T extends InstrumentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InstrumentDefaultArgs<ExtArgs>>): Prisma__InstrumentClient<$Result.GetResult<Prisma.$InstrumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     charges<T extends Trade$chargesArgs<ExtArgs> = {}>(args?: Subset<T, Trade$chargesArgs<ExtArgs>>): Prisma__TradeChargesClient<$Result.GetResult<Prisma.$TradeChargesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -26583,8 +26613,8 @@ export namespace Prisma {
     instrumentId?: boolean
     sortOrder?: boolean
     addedAt?: boolean
-    watchlist?: boolean | WatchlistDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    watchlist?: boolean | WatchlistDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["watchlistItem"]>
 
   export type WatchlistItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -26593,8 +26623,8 @@ export namespace Prisma {
     instrumentId?: boolean
     sortOrder?: boolean
     addedAt?: boolean
-    watchlist?: boolean | WatchlistDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    watchlist?: boolean | WatchlistDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["watchlistItem"]>
 
   export type WatchlistItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -26603,8 +26633,8 @@ export namespace Prisma {
     instrumentId?: boolean
     sortOrder?: boolean
     addedAt?: boolean
-    watchlist?: boolean | WatchlistDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    watchlist?: boolean | WatchlistDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["watchlistItem"]>
 
   export type WatchlistItemSelectScalar = {
@@ -26617,23 +26647,23 @@ export namespace Prisma {
 
   export type WatchlistItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "watchlistId" | "instrumentId" | "sortOrder" | "addedAt", ExtArgs["result"]["watchlistItem"]>
   export type WatchlistItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    watchlist?: boolean | WatchlistDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    watchlist?: boolean | WatchlistDefaultArgs<ExtArgs>
   }
   export type WatchlistItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    watchlist?: boolean | WatchlistDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    watchlist?: boolean | WatchlistDefaultArgs<ExtArgs>
   }
   export type WatchlistItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    watchlist?: boolean | WatchlistDefaultArgs<ExtArgs>
     instrument?: boolean | InstrumentDefaultArgs<ExtArgs>
+    watchlist?: boolean | WatchlistDefaultArgs<ExtArgs>
   }
 
   export type $WatchlistItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "WatchlistItem"
     objects: {
-      watchlist: Prisma.$WatchlistPayload<ExtArgs>
       instrument: Prisma.$InstrumentPayload<ExtArgs>
+      watchlist: Prisma.$WatchlistPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -27035,8 +27065,8 @@ export namespace Prisma {
    */
   export interface Prisma__WatchlistItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    watchlist<T extends WatchlistDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WatchlistDefaultArgs<ExtArgs>>): Prisma__WatchlistClient<$Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     instrument<T extends InstrumentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InstrumentDefaultArgs<ExtArgs>>): Prisma__InstrumentClient<$Result.GetResult<Prisma.$InstrumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    watchlist<T extends WatchlistDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WatchlistDefaultArgs<ExtArgs>>): Prisma__WatchlistClient<$Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -35503,7 +35533,7 @@ export namespace Prisma {
     lastName: 'lastName',
     panNumber: 'panNumber',
     aadhaarNumber: 'aadhaarNumber',
-    dateOfBirth: 'dateOfBirth',
+    dob: 'dob',
     kycStatus: 'kycStatus',
     accountType: 'accountType',
     role: 'role',
@@ -35511,7 +35541,8 @@ export namespace Prisma {
     twoFactorEnabled: 'twoFactorEnabled',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    isVerified: 'isVerified'
+    isVerified: 'isVerified',
+    segment: 'segment'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -35520,9 +35551,7 @@ export namespace Prisma {
   export const UserVerificationScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
-    stage1: 'stage1',
-    stage2: 'stage2',
-    stage3: 'stage3',
+    stage: 'stage',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -36379,6 +36408,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Segment'
+   */
+  export type EnumSegmentFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Segment'>
+    
+
+
+  /**
+   * Reference to a field of type 'Segment[]'
+   */
+  export type ListEnumSegmentFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Segment[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'KYCStage'
+   */
+  export type EnumKYCStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'KYCStage'>
+    
+
+
+  /**
+   * Reference to a field of type 'KYCStage[]'
+   */
+  export type ListEnumKYCStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'KYCStage[]'>
+    
+
+
+  /**
    * Reference to a field of type 'RiskProfile'
    */
   export type EnumRiskProfileFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RiskProfile'>
@@ -36473,20 +36530,6 @@ export namespace Prisma {
    * Reference to a field of type 'Exchange[]'
    */
   export type ListEnumExchangeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Exchange[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Segment'
-   */
-  export type EnumSegmentFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Segment'>
-    
-
-
-  /**
-   * Reference to a field of type 'Segment[]'
-   */
-  export type ListEnumSegmentFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Segment[]'>
     
 
 
@@ -36743,7 +36786,7 @@ export namespace Prisma {
     lastName?: StringNullableFilter<"User"> | string | null
     panNumber?: StringNullableFilter<"User"> | string | null
     aadhaarNumber?: StringNullableFilter<"User"> | string | null
-    dateOfBirth?: DateTimeNullableFilter<"User"> | Date | string | null
+    dob?: DateTimeNullableFilter<"User"> | Date | string | null
     kycStatus?: EnumKYCStatusNullableFilter<"User"> | $Enums.KYCStatus | null
     accountType?: EnumAccountTypeNullableFilter<"User"> | $Enums.AccountType | null
     role?: EnumUserRoleNullableFilter<"User"> | $Enums.UserRole | null
@@ -36752,21 +36795,22 @@ export namespace Prisma {
     createdAt?: DateTimeNullableFilter<"User"> | Date | string | null
     updatedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     isVerified?: BoolFilter<"User"> | boolean
-    profile?: XOR<UserProfileNullableScalarRelationFilter, UserProfileWhereInput> | null
-    bankAccounts?: BankAccountListRelationFilter
-    funds?: FundTransactionListRelationFilter
-    holdings?: HoldingListRelationFilter
-    positions?: PositionListRelationFilter
-    orders?: OrderListRelationFilter
-    trades?: TradeListRelationFilter
-    watchlists?: WatchlistListRelationFilter
-    portfolios?: PortfolioListRelationFilter
-    gttOrders?: GTTOrderListRelationFilter
-    baskets?: BasketListRelationFilter
+    segment?: EnumSegmentFilter<"User"> | $Enums.Segment
     alerts?: AlertListRelationFilter
+    bankAccounts?: BankAccountListRelationFilter
+    baskets?: BasketListRelationFilter
+    funds?: FundTransactionListRelationFilter
+    gttOrders?: GTTOrderListRelationFilter
+    holdings?: HoldingListRelationFilter
     notifications?: NotificationListRelationFilter
+    orders?: OrderListRelationFilter
+    portfolios?: PortfolioListRelationFilter
+    positions?: PositionListRelationFilter
     sessions?: SessionListRelationFilter
+    trades?: TradeListRelationFilter
+    profile?: XOR<UserProfileNullableScalarRelationFilter, UserProfileWhereInput> | null
     UserVerification?: XOR<UserVerificationNullableScalarRelationFilter, UserVerificationWhereInput> | null
+    watchlists?: WatchlistListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -36778,7 +36822,7 @@ export namespace Prisma {
     lastName?: SortOrderInput | SortOrder
     panNumber?: SortOrderInput | SortOrder
     aadhaarNumber?: SortOrderInput | SortOrder
-    dateOfBirth?: SortOrderInput | SortOrder
+    dob?: SortOrderInput | SortOrder
     kycStatus?: SortOrderInput | SortOrder
     accountType?: SortOrderInput | SortOrder
     role?: SortOrderInput | SortOrder
@@ -36787,21 +36831,22 @@ export namespace Prisma {
     createdAt?: SortOrderInput | SortOrder
     updatedAt?: SortOrderInput | SortOrder
     isVerified?: SortOrder
-    profile?: UserProfileOrderByWithRelationInput
-    bankAccounts?: BankAccountOrderByRelationAggregateInput
-    funds?: FundTransactionOrderByRelationAggregateInput
-    holdings?: HoldingOrderByRelationAggregateInput
-    positions?: PositionOrderByRelationAggregateInput
-    orders?: OrderOrderByRelationAggregateInput
-    trades?: TradeOrderByRelationAggregateInput
-    watchlists?: WatchlistOrderByRelationAggregateInput
-    portfolios?: PortfolioOrderByRelationAggregateInput
-    gttOrders?: GTTOrderOrderByRelationAggregateInput
-    baskets?: BasketOrderByRelationAggregateInput
+    segment?: SortOrder
     alerts?: AlertOrderByRelationAggregateInput
+    bankAccounts?: BankAccountOrderByRelationAggregateInput
+    baskets?: BasketOrderByRelationAggregateInput
+    funds?: FundTransactionOrderByRelationAggregateInput
+    gttOrders?: GTTOrderOrderByRelationAggregateInput
+    holdings?: HoldingOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
+    orders?: OrderOrderByRelationAggregateInput
+    portfolios?: PortfolioOrderByRelationAggregateInput
+    positions?: PositionOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
+    trades?: TradeOrderByRelationAggregateInput
+    profile?: UserProfileOrderByWithRelationInput
     UserVerification?: UserVerificationOrderByWithRelationInput
+    watchlists?: WatchlistOrderByRelationAggregateInput
     _relevance?: UserOrderByRelevanceInput
   }
 
@@ -36817,7 +36862,7 @@ export namespace Prisma {
     firstName?: StringNullableFilter<"User"> | string | null
     lastName?: StringNullableFilter<"User"> | string | null
     aadhaarNumber?: StringNullableFilter<"User"> | string | null
-    dateOfBirth?: DateTimeNullableFilter<"User"> | Date | string | null
+    dob?: DateTimeNullableFilter<"User"> | Date | string | null
     kycStatus?: EnumKYCStatusNullableFilter<"User"> | $Enums.KYCStatus | null
     accountType?: EnumAccountTypeNullableFilter<"User"> | $Enums.AccountType | null
     role?: EnumUserRoleNullableFilter<"User"> | $Enums.UserRole | null
@@ -36826,21 +36871,22 @@ export namespace Prisma {
     createdAt?: DateTimeNullableFilter<"User"> | Date | string | null
     updatedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     isVerified?: BoolFilter<"User"> | boolean
-    profile?: XOR<UserProfileNullableScalarRelationFilter, UserProfileWhereInput> | null
-    bankAccounts?: BankAccountListRelationFilter
-    funds?: FundTransactionListRelationFilter
-    holdings?: HoldingListRelationFilter
-    positions?: PositionListRelationFilter
-    orders?: OrderListRelationFilter
-    trades?: TradeListRelationFilter
-    watchlists?: WatchlistListRelationFilter
-    portfolios?: PortfolioListRelationFilter
-    gttOrders?: GTTOrderListRelationFilter
-    baskets?: BasketListRelationFilter
+    segment?: EnumSegmentFilter<"User"> | $Enums.Segment
     alerts?: AlertListRelationFilter
+    bankAccounts?: BankAccountListRelationFilter
+    baskets?: BasketListRelationFilter
+    funds?: FundTransactionListRelationFilter
+    gttOrders?: GTTOrderListRelationFilter
+    holdings?: HoldingListRelationFilter
     notifications?: NotificationListRelationFilter
+    orders?: OrderListRelationFilter
+    portfolios?: PortfolioListRelationFilter
+    positions?: PositionListRelationFilter
     sessions?: SessionListRelationFilter
+    trades?: TradeListRelationFilter
+    profile?: XOR<UserProfileNullableScalarRelationFilter, UserProfileWhereInput> | null
     UserVerification?: XOR<UserVerificationNullableScalarRelationFilter, UserVerificationWhereInput> | null
+    watchlists?: WatchlistListRelationFilter
   }, "id" | "email" | "phone" | "panNumber">
 
   export type UserOrderByWithAggregationInput = {
@@ -36852,7 +36898,7 @@ export namespace Prisma {
     lastName?: SortOrderInput | SortOrder
     panNumber?: SortOrderInput | SortOrder
     aadhaarNumber?: SortOrderInput | SortOrder
-    dateOfBirth?: SortOrderInput | SortOrder
+    dob?: SortOrderInput | SortOrder
     kycStatus?: SortOrderInput | SortOrder
     accountType?: SortOrderInput | SortOrder
     role?: SortOrderInput | SortOrder
@@ -36861,6 +36907,7 @@ export namespace Prisma {
     createdAt?: SortOrderInput | SortOrder
     updatedAt?: SortOrderInput | SortOrder
     isVerified?: SortOrder
+    segment?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -36878,7 +36925,7 @@ export namespace Prisma {
     lastName?: StringNullableWithAggregatesFilter<"User"> | string | null
     panNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
     aadhaarNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
-    dateOfBirth?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    dob?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     kycStatus?: EnumKYCStatusNullableWithAggregatesFilter<"User"> | $Enums.KYCStatus | null
     accountType?: EnumAccountTypeNullableWithAggregatesFilter<"User"> | $Enums.AccountType | null
     role?: EnumUserRoleNullableWithAggregatesFilter<"User"> | $Enums.UserRole | null
@@ -36887,6 +36934,7 @@ export namespace Prisma {
     createdAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     updatedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     isVerified?: BoolWithAggregatesFilter<"User"> | boolean
+    segment?: EnumSegmentWithAggregatesFilter<"User"> | $Enums.Segment
   }
 
   export type UserVerificationWhereInput = {
@@ -36895,9 +36943,7 @@ export namespace Prisma {
     NOT?: UserVerificationWhereInput | UserVerificationWhereInput[]
     id?: StringFilter<"UserVerification"> | string
     userId?: StringFilter<"UserVerification"> | string
-    stage1?: BoolFilter<"UserVerification"> | boolean
-    stage2?: BoolFilter<"UserVerification"> | boolean
-    stage3?: BoolFilter<"UserVerification"> | boolean
+    stage?: EnumKYCStageFilter<"UserVerification"> | $Enums.KYCStage
     createdAt?: DateTimeFilter<"UserVerification"> | Date | string
     updatedAt?: DateTimeFilter<"UserVerification"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -36906,9 +36952,7 @@ export namespace Prisma {
   export type UserVerificationOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    stage1?: SortOrder
-    stage2?: SortOrder
-    stage3?: SortOrder
+    stage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -36921,9 +36965,7 @@ export namespace Prisma {
     AND?: UserVerificationWhereInput | UserVerificationWhereInput[]
     OR?: UserVerificationWhereInput[]
     NOT?: UserVerificationWhereInput | UserVerificationWhereInput[]
-    stage1?: BoolFilter<"UserVerification"> | boolean
-    stage2?: BoolFilter<"UserVerification"> | boolean
-    stage3?: BoolFilter<"UserVerification"> | boolean
+    stage?: EnumKYCStageFilter<"UserVerification"> | $Enums.KYCStage
     createdAt?: DateTimeFilter<"UserVerification"> | Date | string
     updatedAt?: DateTimeFilter<"UserVerification"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -36932,9 +36974,7 @@ export namespace Prisma {
   export type UserVerificationOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    stage1?: SortOrder
-    stage2?: SortOrder
-    stage3?: SortOrder
+    stage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserVerificationCountOrderByAggregateInput
@@ -36948,9 +36988,7 @@ export namespace Prisma {
     NOT?: UserVerificationScalarWhereWithAggregatesInput | UserVerificationScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"UserVerification"> | string
     userId?: StringWithAggregatesFilter<"UserVerification"> | string
-    stage1?: BoolWithAggregatesFilter<"UserVerification"> | boolean
-    stage2?: BoolWithAggregatesFilter<"UserVerification"> | boolean
-    stage3?: BoolWithAggregatesFilter<"UserVerification"> | boolean
+    stage?: EnumKYCStageWithAggregatesFilter<"UserVerification"> | $Enums.KYCStage
     createdAt?: DateTimeWithAggregatesFilter<"UserVerification"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"UserVerification"> | Date | string
   }
@@ -37449,11 +37487,11 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Instrument"> | Date | string
     updatedAt?: DateTimeFilter<"Instrument"> | Date | string
     holdings?: HoldingListRelationFilter
-    positions?: PositionListRelationFilter
-    orders?: OrderListRelationFilter
-    trades?: TradeListRelationFilter
     marketDepth?: MarketDepthListRelationFilter
+    orders?: OrderListRelationFilter
+    positions?: PositionListRelationFilter
     priceHistory?: PriceHistoryListRelationFilter
+    trades?: TradeListRelationFilter
     watchlistItems?: WatchlistItemListRelationFilter
   }
 
@@ -37477,11 +37515,11 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     holdings?: HoldingOrderByRelationAggregateInput
-    positions?: PositionOrderByRelationAggregateInput
-    orders?: OrderOrderByRelationAggregateInput
-    trades?: TradeOrderByRelationAggregateInput
     marketDepth?: MarketDepthOrderByRelationAggregateInput
+    orders?: OrderOrderByRelationAggregateInput
+    positions?: PositionOrderByRelationAggregateInput
     priceHistory?: PriceHistoryOrderByRelationAggregateInput
+    trades?: TradeOrderByRelationAggregateInput
     watchlistItems?: WatchlistItemOrderByRelationAggregateInput
     _relevance?: InstrumentOrderByRelevanceInput
   }
@@ -37509,11 +37547,11 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Instrument"> | Date | string
     updatedAt?: DateTimeFilter<"Instrument"> | Date | string
     holdings?: HoldingListRelationFilter
-    positions?: PositionListRelationFilter
-    orders?: OrderListRelationFilter
-    trades?: TradeListRelationFilter
     marketDepth?: MarketDepthListRelationFilter
+    orders?: OrderListRelationFilter
+    positions?: PositionListRelationFilter
     priceHistory?: PriceHistoryListRelationFilter
+    trades?: TradeListRelationFilter
     watchlistItems?: WatchlistItemListRelationFilter
   }, "id" | "instrumentToken">
 
@@ -37825,8 +37863,8 @@ export namespace Prisma {
     product?: EnumProductTypeFilter<"Holding"> | $Enums.ProductType
     createdAt?: DateTimeFilter<"Holding"> | Date | string
     updatedAt?: DateTimeFilter<"Holding"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     instrument?: XOR<InstrumentScalarRelationFilter, InstrumentWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type HoldingOrderByWithRelationInput = {
@@ -37844,8 +37882,8 @@ export namespace Prisma {
     product?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user?: UserOrderByWithRelationInput
     instrument?: InstrumentOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
     _relevance?: HoldingOrderByRelevanceInput
   }
 
@@ -37868,8 +37906,8 @@ export namespace Prisma {
     product?: EnumProductTypeFilter<"Holding"> | $Enums.ProductType
     createdAt?: DateTimeFilter<"Holding"> | Date | string
     updatedAt?: DateTimeFilter<"Holding"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     instrument?: XOR<InstrumentScalarRelationFilter, InstrumentWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId_instrumentId_product">
 
   export type HoldingOrderByWithAggregationInput = {
@@ -37943,8 +37981,8 @@ export namespace Prisma {
     positionType?: EnumPositionTypeFilter<"Position"> | $Enums.PositionType
     createdAt?: DateTimeFilter<"Position"> | Date | string
     updatedAt?: DateTimeFilter<"Position"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     instrument?: XOR<InstrumentScalarRelationFilter, InstrumentWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type PositionOrderByWithRelationInput = {
@@ -37973,8 +38011,8 @@ export namespace Prisma {
     positionType?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user?: UserOrderByWithRelationInput
     instrument?: InstrumentOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
     _relevance?: PositionOrderByRelevanceInput
   }
 
@@ -38008,8 +38046,8 @@ export namespace Prisma {
     positionType?: EnumPositionTypeFilter<"Position"> | $Enums.PositionType
     createdAt?: DateTimeFilter<"Position"> | Date | string
     updatedAt?: DateTimeFilter<"Position"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     instrument?: XOR<InstrumentScalarRelationFilter, InstrumentWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId_instrumentId_product">
 
   export type PositionOrderByWithAggregationInput = {
@@ -38113,8 +38151,8 @@ export namespace Prisma {
     cancelledBy?: StringNullableFilter<"Order"> | string | null
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     instrument?: XOR<InstrumentScalarRelationFilter, InstrumentWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     trades?: TradeListRelationFilter
   }
 
@@ -38152,8 +38190,8 @@ export namespace Prisma {
     cancelledBy?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user?: UserOrderByWithRelationInput
     instrument?: InstrumentOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
     trades?: TradeOrderByRelationAggregateInput
     _relevance?: OrderOrderByRelevanceInput
   }
@@ -38195,8 +38233,8 @@ export namespace Prisma {
     cancelledBy?: StringNullableFilter<"Order"> | string | null
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     instrument?: XOR<InstrumentScalarRelationFilter, InstrumentWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     trades?: TradeListRelationFilter
   }, "id" | "orderId">
 
@@ -38298,9 +38336,9 @@ export namespace Prisma {
     value?: FloatFilter<"Trade"> | number
     exchangeTimestamp?: DateTimeFilter<"Trade"> | Date | string
     createdAt?: DateTimeFilter<"Trade"> | Date | string
+    instrument?: XOR<InstrumentScalarRelationFilter, InstrumentWhereInput>
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    instrument?: XOR<InstrumentScalarRelationFilter, InstrumentWhereInput>
     charges?: XOR<TradeChargesNullableScalarRelationFilter, TradeChargesWhereInput> | null
   }
 
@@ -38319,9 +38357,9 @@ export namespace Prisma {
     value?: SortOrder
     exchangeTimestamp?: SortOrder
     createdAt?: SortOrder
+    instrument?: InstrumentOrderByWithRelationInput
     order?: OrderOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
-    instrument?: InstrumentOrderByWithRelationInput
     charges?: TradeChargesOrderByWithRelationInput
     _relevance?: TradeOrderByRelevanceInput
   }
@@ -38344,9 +38382,9 @@ export namespace Prisma {
     value?: FloatFilter<"Trade"> | number
     exchangeTimestamp?: DateTimeFilter<"Trade"> | Date | string
     createdAt?: DateTimeFilter<"Trade"> | Date | string
+    instrument?: XOR<InstrumentScalarRelationFilter, InstrumentWhereInput>
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    instrument?: XOR<InstrumentScalarRelationFilter, InstrumentWhereInput>
     charges?: XOR<TradeChargesNullableScalarRelationFilter, TradeChargesWhereInput> | null
   }, "id" | "tradeId">
 
@@ -38676,8 +38714,8 @@ export namespace Prisma {
     instrumentId?: StringFilter<"WatchlistItem"> | string
     sortOrder?: IntFilter<"WatchlistItem"> | number
     addedAt?: DateTimeFilter<"WatchlistItem"> | Date | string
-    watchlist?: XOR<WatchlistScalarRelationFilter, WatchlistWhereInput>
     instrument?: XOR<InstrumentScalarRelationFilter, InstrumentWhereInput>
+    watchlist?: XOR<WatchlistScalarRelationFilter, WatchlistWhereInput>
   }
 
   export type WatchlistItemOrderByWithRelationInput = {
@@ -38686,8 +38724,8 @@ export namespace Prisma {
     instrumentId?: SortOrder
     sortOrder?: SortOrder
     addedAt?: SortOrder
-    watchlist?: WatchlistOrderByWithRelationInput
     instrument?: InstrumentOrderByWithRelationInput
+    watchlist?: WatchlistOrderByWithRelationInput
     _relevance?: WatchlistItemOrderByRelevanceInput
   }
 
@@ -38701,8 +38739,8 @@ export namespace Prisma {
     instrumentId?: StringFilter<"WatchlistItem"> | string
     sortOrder?: IntFilter<"WatchlistItem"> | number
     addedAt?: DateTimeFilter<"WatchlistItem"> | Date | string
-    watchlist?: XOR<WatchlistScalarRelationFilter, WatchlistWhereInput>
     instrument?: XOR<InstrumentScalarRelationFilter, InstrumentWhereInput>
+    watchlist?: XOR<WatchlistScalarRelationFilter, WatchlistWhereInput>
   }, "id" | "watchlistId_instrumentId">
 
   export type WatchlistItemOrderByWithAggregationInput = {
@@ -39344,7 +39382,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -39353,21 +39391,22 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
-    funds?: FundTransactionCreateNestedManyWithoutUserInput
-    holdings?: HoldingCreateNestedManyWithoutUserInput
-    positions?: PositionCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
-    trades?: TradeCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
-    baskets?: BasketCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
+    baskets?: BasketCreateNestedManyWithoutUserInput
+    funds?: FundTransactionCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
+    holdings?: HoldingCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioCreateNestedManyWithoutUserInput
+    positions?: PositionCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -39379,7 +39418,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -39388,21 +39427,22 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
-    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
-    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
-    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
-    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
+    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
+    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
+    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -39414,7 +39454,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -39423,21 +39463,22 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUpdateManyWithoutUserNestedInput
-    positions?: PositionUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
-    trades?: TradeUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
-    baskets?: BasketUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
+    baskets?: BasketUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
+    positions?: PositionUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -39449,7 +39490,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -39458,21 +39499,22 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
-    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
+    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -39484,7 +39526,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -39493,6 +39535,7 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
+    segment?: $Enums.Segment
   }
 
   export type UserUpdateManyMutationInput = {
@@ -39504,7 +39547,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -39513,6 +39556,7 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -39524,7 +39568,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -39533,13 +39577,12 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
   }
 
   export type UserVerificationCreateInput = {
     id?: string
-    stage1?: boolean
-    stage2?: boolean
-    stage3?: boolean
+    stage?: $Enums.KYCStage
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutUserVerificationInput
@@ -39548,18 +39591,14 @@ export namespace Prisma {
   export type UserVerificationUncheckedCreateInput = {
     id?: string
     userId: string
-    stage1?: boolean
-    stage2?: boolean
-    stage3?: boolean
+    stage?: $Enums.KYCStage
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type UserVerificationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    stage1?: BoolFieldUpdateOperationsInput | boolean
-    stage2?: BoolFieldUpdateOperationsInput | boolean
-    stage3?: BoolFieldUpdateOperationsInput | boolean
+    stage?: EnumKYCStageFieldUpdateOperationsInput | $Enums.KYCStage
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutUserVerificationNestedInput
@@ -39568,9 +39607,7 @@ export namespace Prisma {
   export type UserVerificationUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    stage1?: BoolFieldUpdateOperationsInput | boolean
-    stage2?: BoolFieldUpdateOperationsInput | boolean
-    stage3?: BoolFieldUpdateOperationsInput | boolean
+    stage?: EnumKYCStageFieldUpdateOperationsInput | $Enums.KYCStage
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -39578,18 +39615,14 @@ export namespace Prisma {
   export type UserVerificationCreateManyInput = {
     id?: string
     userId: string
-    stage1?: boolean
-    stage2?: boolean
-    stage3?: boolean
+    stage?: $Enums.KYCStage
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type UserVerificationUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    stage1?: BoolFieldUpdateOperationsInput | boolean
-    stage2?: BoolFieldUpdateOperationsInput | boolean
-    stage3?: BoolFieldUpdateOperationsInput | boolean
+    stage?: EnumKYCStageFieldUpdateOperationsInput | $Enums.KYCStage
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -39597,9 +39630,7 @@ export namespace Prisma {
   export type UserVerificationUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    stage1?: BoolFieldUpdateOperationsInput | boolean
-    stage2?: BoolFieldUpdateOperationsInput | boolean
-    stage3?: BoolFieldUpdateOperationsInput | boolean
+    stage?: EnumKYCStageFieldUpdateOperationsInput | $Enums.KYCStage
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -40166,11 +40197,11 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     holdings?: HoldingCreateNestedManyWithoutInstrumentInput
-    positions?: PositionCreateNestedManyWithoutInstrumentInput
-    orders?: OrderCreateNestedManyWithoutInstrumentInput
-    trades?: TradeCreateNestedManyWithoutInstrumentInput
     marketDepth?: MarketDepthCreateNestedManyWithoutInstrumentInput
+    orders?: OrderCreateNestedManyWithoutInstrumentInput
+    positions?: PositionCreateNestedManyWithoutInstrumentInput
     priceHistory?: PriceHistoryCreateNestedManyWithoutInstrumentInput
+    trades?: TradeCreateNestedManyWithoutInstrumentInput
     watchlistItems?: WatchlistItemCreateNestedManyWithoutInstrumentInput
   }
 
@@ -40194,11 +40225,11 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     holdings?: HoldingUncheckedCreateNestedManyWithoutInstrumentInput
-    positions?: PositionUncheckedCreateNestedManyWithoutInstrumentInput
-    orders?: OrderUncheckedCreateNestedManyWithoutInstrumentInput
-    trades?: TradeUncheckedCreateNestedManyWithoutInstrumentInput
     marketDepth?: MarketDepthUncheckedCreateNestedManyWithoutInstrumentInput
+    orders?: OrderUncheckedCreateNestedManyWithoutInstrumentInput
+    positions?: PositionUncheckedCreateNestedManyWithoutInstrumentInput
     priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutInstrumentInput
+    trades?: TradeUncheckedCreateNestedManyWithoutInstrumentInput
     watchlistItems?: WatchlistItemUncheckedCreateNestedManyWithoutInstrumentInput
   }
 
@@ -40222,11 +40253,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     holdings?: HoldingUpdateManyWithoutInstrumentNestedInput
-    positions?: PositionUpdateManyWithoutInstrumentNestedInput
-    orders?: OrderUpdateManyWithoutInstrumentNestedInput
-    trades?: TradeUpdateManyWithoutInstrumentNestedInput
     marketDepth?: MarketDepthUpdateManyWithoutInstrumentNestedInput
+    orders?: OrderUpdateManyWithoutInstrumentNestedInput
+    positions?: PositionUpdateManyWithoutInstrumentNestedInput
     priceHistory?: PriceHistoryUpdateManyWithoutInstrumentNestedInput
+    trades?: TradeUpdateManyWithoutInstrumentNestedInput
     watchlistItems?: WatchlistItemUpdateManyWithoutInstrumentNestedInput
   }
 
@@ -40250,11 +40281,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     holdings?: HoldingUncheckedUpdateManyWithoutInstrumentNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutInstrumentNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutInstrumentNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutInstrumentNestedInput
     marketDepth?: MarketDepthUncheckedUpdateManyWithoutInstrumentNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutInstrumentNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutInstrumentNestedInput
     priceHistory?: PriceHistoryUncheckedUpdateManyWithoutInstrumentNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutInstrumentNestedInput
     watchlistItems?: WatchlistItemUncheckedUpdateManyWithoutInstrumentNestedInput
   }
 
@@ -40590,8 +40621,8 @@ export namespace Prisma {
     product: $Enums.ProductType
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutHoldingsInput
     instrument: InstrumentCreateNestedOneWithoutHoldingsInput
+    user: UserCreateNestedOneWithoutHoldingsInput
   }
 
   export type HoldingUncheckedCreateInput = {
@@ -40624,8 +40655,8 @@ export namespace Prisma {
     product?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutHoldingsNestedInput
     instrument?: InstrumentUpdateOneRequiredWithoutHoldingsNestedInput
+    user?: UserUpdateOneRequiredWithoutHoldingsNestedInput
   }
 
   export type HoldingUncheckedUpdateInput = {
@@ -40718,8 +40749,8 @@ export namespace Prisma {
     positionType: $Enums.PositionType
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutPositionsInput
     instrument: InstrumentCreateNestedOneWithoutPositionsInput
+    user: UserCreateNestedOneWithoutPositionsInput
   }
 
   export type PositionUncheckedCreateInput = {
@@ -40774,8 +40805,8 @@ export namespace Prisma {
     positionType?: EnumPositionTypeFieldUpdateOperationsInput | $Enums.PositionType
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutPositionsNestedInput
     instrument?: InstrumentUpdateOneRequiredWithoutPositionsNestedInput
+    user?: UserUpdateOneRequiredWithoutPositionsNestedInput
   }
 
   export type PositionUncheckedUpdateInput = {
@@ -40920,8 +40951,8 @@ export namespace Prisma {
     cancelledBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutOrdersInput
     instrument: InstrumentCreateNestedOneWithoutOrdersInput
+    user: UserCreateNestedOneWithoutOrdersInput
     trades?: TradeCreateNestedManyWithoutOrderInput
   }
 
@@ -40994,8 +41025,8 @@ export namespace Prisma {
     cancelledBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutOrdersNestedInput
     instrument?: InstrumentUpdateOneRequiredWithoutOrdersNestedInput
+    user?: UserUpdateOneRequiredWithoutOrdersNestedInput
     trades?: TradeUpdateManyWithoutOrderNestedInput
   }
 
@@ -41154,9 +41185,9 @@ export namespace Prisma {
     value: number
     exchangeTimestamp: Date | string
     createdAt?: Date | string
+    instrument: InstrumentCreateNestedOneWithoutTradesInput
     order: OrderCreateNestedOneWithoutTradesInput
     user: UserCreateNestedOneWithoutTradesInput
-    instrument: InstrumentCreateNestedOneWithoutTradesInput
     charges?: TradeChargesCreateNestedOneWithoutTradeInput
   }
 
@@ -41190,9 +41221,9 @@ export namespace Prisma {
     value?: FloatFieldUpdateOperationsInput | number
     exchangeTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    instrument?: InstrumentUpdateOneRequiredWithoutTradesNestedInput
     order?: OrderUpdateOneRequiredWithoutTradesNestedInput
     user?: UserUpdateOneRequiredWithoutTradesNestedInput
-    instrument?: InstrumentUpdateOneRequiredWithoutTradesNestedInput
     charges?: TradeChargesUpdateOneWithoutTradeNestedInput
   }
 
@@ -41575,8 +41606,8 @@ export namespace Prisma {
     id?: string
     sortOrder?: number
     addedAt?: Date | string
-    watchlist: WatchlistCreateNestedOneWithoutItemsInput
     instrument: InstrumentCreateNestedOneWithoutWatchlistItemsInput
+    watchlist: WatchlistCreateNestedOneWithoutItemsInput
   }
 
   export type WatchlistItemUncheckedCreateInput = {
@@ -41591,8 +41622,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     sortOrder?: IntFieldUpdateOperationsInput | number
     addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    watchlist?: WatchlistUpdateOneRequiredWithoutItemsNestedInput
     instrument?: InstrumentUpdateOneRequiredWithoutWatchlistItemsNestedInput
+    watchlist?: WatchlistUpdateOneRequiredWithoutItemsNestedInput
   }
 
   export type WatchlistItemUncheckedUpdateInput = {
@@ -42385,69 +42416,11 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type UserProfileNullableScalarRelationFilter = {
-    is?: UserProfileWhereInput | null
-    isNot?: UserProfileWhereInput | null
-  }
-
-  export type BankAccountListRelationFilter = {
-    every?: BankAccountWhereInput
-    some?: BankAccountWhereInput
-    none?: BankAccountWhereInput
-  }
-
-  export type FundTransactionListRelationFilter = {
-    every?: FundTransactionWhereInput
-    some?: FundTransactionWhereInput
-    none?: FundTransactionWhereInput
-  }
-
-  export type HoldingListRelationFilter = {
-    every?: HoldingWhereInput
-    some?: HoldingWhereInput
-    none?: HoldingWhereInput
-  }
-
-  export type PositionListRelationFilter = {
-    every?: PositionWhereInput
-    some?: PositionWhereInput
-    none?: PositionWhereInput
-  }
-
-  export type OrderListRelationFilter = {
-    every?: OrderWhereInput
-    some?: OrderWhereInput
-    none?: OrderWhereInput
-  }
-
-  export type TradeListRelationFilter = {
-    every?: TradeWhereInput
-    some?: TradeWhereInput
-    none?: TradeWhereInput
-  }
-
-  export type WatchlistListRelationFilter = {
-    every?: WatchlistWhereInput
-    some?: WatchlistWhereInput
-    none?: WatchlistWhereInput
-  }
-
-  export type PortfolioListRelationFilter = {
-    every?: PortfolioWhereInput
-    some?: PortfolioWhereInput
-    none?: PortfolioWhereInput
-  }
-
-  export type GTTOrderListRelationFilter = {
-    every?: GTTOrderWhereInput
-    some?: GTTOrderWhereInput
-    none?: GTTOrderWhereInput
-  }
-
-  export type BasketListRelationFilter = {
-    every?: BasketWhereInput
-    some?: BasketWhereInput
-    none?: BasketWhereInput
+  export type EnumSegmentFilter<$PrismaModel = never> = {
+    equals?: $Enums.Segment | EnumSegmentFieldRefInput<$PrismaModel>
+    in?: $Enums.Segment[] | ListEnumSegmentFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Segment[] | ListEnumSegmentFieldRefInput<$PrismaModel>
+    not?: NestedEnumSegmentFilter<$PrismaModel> | $Enums.Segment
   }
 
   export type AlertListRelationFilter = {
@@ -42456,10 +42429,58 @@ export namespace Prisma {
     none?: AlertWhereInput
   }
 
+  export type BankAccountListRelationFilter = {
+    every?: BankAccountWhereInput
+    some?: BankAccountWhereInput
+    none?: BankAccountWhereInput
+  }
+
+  export type BasketListRelationFilter = {
+    every?: BasketWhereInput
+    some?: BasketWhereInput
+    none?: BasketWhereInput
+  }
+
+  export type FundTransactionListRelationFilter = {
+    every?: FundTransactionWhereInput
+    some?: FundTransactionWhereInput
+    none?: FundTransactionWhereInput
+  }
+
+  export type GTTOrderListRelationFilter = {
+    every?: GTTOrderWhereInput
+    some?: GTTOrderWhereInput
+    none?: GTTOrderWhereInput
+  }
+
+  export type HoldingListRelationFilter = {
+    every?: HoldingWhereInput
+    some?: HoldingWhereInput
+    none?: HoldingWhereInput
+  }
+
   export type NotificationListRelationFilter = {
     every?: NotificationWhereInput
     some?: NotificationWhereInput
     none?: NotificationWhereInput
+  }
+
+  export type OrderListRelationFilter = {
+    every?: OrderWhereInput
+    some?: OrderWhereInput
+    none?: OrderWhereInput
+  }
+
+  export type PortfolioListRelationFilter = {
+    every?: PortfolioWhereInput
+    some?: PortfolioWhereInput
+    none?: PortfolioWhereInput
+  }
+
+  export type PositionListRelationFilter = {
+    every?: PositionWhereInput
+    some?: PositionWhereInput
+    none?: PositionWhereInput
   }
 
   export type SessionListRelationFilter = {
@@ -42468,9 +42489,26 @@ export namespace Prisma {
     none?: SessionWhereInput
   }
 
+  export type TradeListRelationFilter = {
+    every?: TradeWhereInput
+    some?: TradeWhereInput
+    none?: TradeWhereInput
+  }
+
+  export type UserProfileNullableScalarRelationFilter = {
+    is?: UserProfileWhereInput | null
+    isNot?: UserProfileWhereInput | null
+  }
+
   export type UserVerificationNullableScalarRelationFilter = {
     is?: UserVerificationWhereInput | null
     isNot?: UserVerificationWhereInput | null
+  }
+
+  export type WatchlistListRelationFilter = {
+    every?: WatchlistWhereInput
+    some?: WatchlistWhereInput
+    none?: WatchlistWhereInput
   }
 
   export type SortOrderInput = {
@@ -42478,7 +42516,15 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
+  export type AlertOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type BankAccountOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BasketOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -42486,7 +42532,23 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type GTTOrderOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type HoldingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type NotificationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OrderOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PortfolioOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -42494,7 +42556,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type OrderOrderByRelationAggregateInput = {
+  export type SessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -42503,30 +42565,6 @@ export namespace Prisma {
   }
 
   export type WatchlistOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type PortfolioOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type GTTOrderOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type BasketOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type AlertOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type NotificationOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type SessionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -42545,7 +42583,7 @@ export namespace Prisma {
     lastName?: SortOrder
     panNumber?: SortOrder
     aadhaarNumber?: SortOrder
-    dateOfBirth?: SortOrder
+    dob?: SortOrder
     kycStatus?: SortOrder
     accountType?: SortOrder
     role?: SortOrder
@@ -42554,6 +42592,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isVerified?: SortOrder
+    segment?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -42565,7 +42604,7 @@ export namespace Prisma {
     lastName?: SortOrder
     panNumber?: SortOrder
     aadhaarNumber?: SortOrder
-    dateOfBirth?: SortOrder
+    dob?: SortOrder
     kycStatus?: SortOrder
     accountType?: SortOrder
     role?: SortOrder
@@ -42574,6 +42613,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isVerified?: SortOrder
+    segment?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -42585,7 +42625,7 @@ export namespace Prisma {
     lastName?: SortOrder
     panNumber?: SortOrder
     aadhaarNumber?: SortOrder
-    dateOfBirth?: SortOrder
+    dob?: SortOrder
     kycStatus?: SortOrder
     accountType?: SortOrder
     role?: SortOrder
@@ -42594,6 +42634,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isVerified?: SortOrder
+    segment?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -42694,6 +42735,23 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type EnumSegmentWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Segment | EnumSegmentFieldRefInput<$PrismaModel>
+    in?: $Enums.Segment[] | ListEnumSegmentFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Segment[] | ListEnumSegmentFieldRefInput<$PrismaModel>
+    not?: NestedEnumSegmentWithAggregatesFilter<$PrismaModel> | $Enums.Segment
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSegmentFilter<$PrismaModel>
+    _max?: NestedEnumSegmentFilter<$PrismaModel>
+  }
+
+  export type EnumKYCStageFilter<$PrismaModel = never> = {
+    equals?: $Enums.KYCStage | EnumKYCStageFieldRefInput<$PrismaModel>
+    in?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumKYCStageFilter<$PrismaModel> | $Enums.KYCStage
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -42719,9 +42777,7 @@ export namespace Prisma {
   export type UserVerificationCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    stage1?: SortOrder
-    stage2?: SortOrder
-    stage3?: SortOrder
+    stage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -42729,9 +42785,7 @@ export namespace Prisma {
   export type UserVerificationMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    stage1?: SortOrder
-    stage2?: SortOrder
-    stage3?: SortOrder
+    stage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -42739,11 +42793,19 @@ export namespace Prisma {
   export type UserVerificationMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    stage1?: SortOrder
-    stage2?: SortOrder
-    stage3?: SortOrder
+    stage?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumKYCStageWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.KYCStage | EnumKYCStageFieldRefInput<$PrismaModel>
+    in?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumKYCStageWithAggregatesFilter<$PrismaModel> | $Enums.KYCStage
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumKYCStageFilter<$PrismaModel>
+    _max?: NestedEnumKYCStageFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -43177,13 +43239,6 @@ export namespace Prisma {
     not?: NestedEnumExchangeFilter<$PrismaModel> | $Enums.Exchange
   }
 
-  export type EnumSegmentFilter<$PrismaModel = never> = {
-    equals?: $Enums.Segment | EnumSegmentFieldRefInput<$PrismaModel>
-    in?: $Enums.Segment[] | ListEnumSegmentFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Segment[] | ListEnumSegmentFieldRefInput<$PrismaModel>
-    not?: NestedEnumSegmentFilter<$PrismaModel> | $Enums.Segment
-  }
-
   export type EnumInstrumentTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.InstrumentType | EnumInstrumentTypeFieldRefInput<$PrismaModel>
     in?: $Enums.InstrumentType[] | ListEnumInstrumentTypeFieldRefInput<$PrismaModel>
@@ -43334,16 +43389,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumExchangeFilter<$PrismaModel>
     _max?: NestedEnumExchangeFilter<$PrismaModel>
-  }
-
-  export type EnumSegmentWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Segment | EnumSegmentFieldRefInput<$PrismaModel>
-    in?: $Enums.Segment[] | ListEnumSegmentFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Segment[] | ListEnumSegmentFieldRefInput<$PrismaModel>
-    not?: NestedEnumSegmentWithAggregatesFilter<$PrismaModel> | $Enums.Segment
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumSegmentFilter<$PrismaModel>
-    _max?: NestedEnumSegmentFilter<$PrismaModel>
   }
 
   export type EnumInstrumentTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -44921,10 +44966,11 @@ export namespace Prisma {
     charges?: SortOrder
   }
 
-  export type UserProfileCreateNestedOneWithoutUserInput = {
-    create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
-    connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
-    connect?: UserProfileWhereUniqueInput
+  export type AlertCreateNestedManyWithoutUserInput = {
+    create?: XOR<AlertCreateWithoutUserInput, AlertUncheckedCreateWithoutUserInput> | AlertCreateWithoutUserInput[] | AlertUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AlertCreateOrConnectWithoutUserInput | AlertCreateOrConnectWithoutUserInput[]
+    createMany?: AlertCreateManyUserInputEnvelope
+    connect?: AlertWhereUniqueInput | AlertWhereUniqueInput[]
   }
 
   export type BankAccountCreateNestedManyWithoutUserInput = {
@@ -44934,53 +44980,18 @@ export namespace Prisma {
     connect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
   }
 
+  export type BasketCreateNestedManyWithoutUserInput = {
+    create?: XOR<BasketCreateWithoutUserInput, BasketUncheckedCreateWithoutUserInput> | BasketCreateWithoutUserInput[] | BasketUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BasketCreateOrConnectWithoutUserInput | BasketCreateOrConnectWithoutUserInput[]
+    createMany?: BasketCreateManyUserInputEnvelope
+    connect?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
+  }
+
   export type FundTransactionCreateNestedManyWithoutUserInput = {
     create?: XOR<FundTransactionCreateWithoutUserInput, FundTransactionUncheckedCreateWithoutUserInput> | FundTransactionCreateWithoutUserInput[] | FundTransactionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: FundTransactionCreateOrConnectWithoutUserInput | FundTransactionCreateOrConnectWithoutUserInput[]
     createMany?: FundTransactionCreateManyUserInputEnvelope
     connect?: FundTransactionWhereUniqueInput | FundTransactionWhereUniqueInput[]
-  }
-
-  export type HoldingCreateNestedManyWithoutUserInput = {
-    create?: XOR<HoldingCreateWithoutUserInput, HoldingUncheckedCreateWithoutUserInput> | HoldingCreateWithoutUserInput[] | HoldingUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: HoldingCreateOrConnectWithoutUserInput | HoldingCreateOrConnectWithoutUserInput[]
-    createMany?: HoldingCreateManyUserInputEnvelope
-    connect?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
-  }
-
-  export type PositionCreateNestedManyWithoutUserInput = {
-    create?: XOR<PositionCreateWithoutUserInput, PositionUncheckedCreateWithoutUserInput> | PositionCreateWithoutUserInput[] | PositionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PositionCreateOrConnectWithoutUserInput | PositionCreateOrConnectWithoutUserInput[]
-    createMany?: PositionCreateManyUserInputEnvelope
-    connect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
-  }
-
-  export type OrderCreateNestedManyWithoutUserInput = {
-    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
-    createMany?: OrderCreateManyUserInputEnvelope
-    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-  }
-
-  export type TradeCreateNestedManyWithoutUserInput = {
-    create?: XOR<TradeCreateWithoutUserInput, TradeUncheckedCreateWithoutUserInput> | TradeCreateWithoutUserInput[] | TradeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: TradeCreateOrConnectWithoutUserInput | TradeCreateOrConnectWithoutUserInput[]
-    createMany?: TradeCreateManyUserInputEnvelope
-    connect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
-  }
-
-  export type WatchlistCreateNestedManyWithoutUserInput = {
-    create?: XOR<WatchlistCreateWithoutUserInput, WatchlistUncheckedCreateWithoutUserInput> | WatchlistCreateWithoutUserInput[] | WatchlistUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: WatchlistCreateOrConnectWithoutUserInput | WatchlistCreateOrConnectWithoutUserInput[]
-    createMany?: WatchlistCreateManyUserInputEnvelope
-    connect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
-  }
-
-  export type PortfolioCreateNestedManyWithoutUserInput = {
-    create?: XOR<PortfolioCreateWithoutUserInput, PortfolioUncheckedCreateWithoutUserInput> | PortfolioCreateWithoutUserInput[] | PortfolioUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PortfolioCreateOrConnectWithoutUserInput | PortfolioCreateOrConnectWithoutUserInput[]
-    createMany?: PortfolioCreateManyUserInputEnvelope
-    connect?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
   }
 
   export type GTTOrderCreateNestedManyWithoutUserInput = {
@@ -44990,18 +45001,11 @@ export namespace Prisma {
     connect?: GTTOrderWhereUniqueInput | GTTOrderWhereUniqueInput[]
   }
 
-  export type BasketCreateNestedManyWithoutUserInput = {
-    create?: XOR<BasketCreateWithoutUserInput, BasketUncheckedCreateWithoutUserInput> | BasketCreateWithoutUserInput[] | BasketUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: BasketCreateOrConnectWithoutUserInput | BasketCreateOrConnectWithoutUserInput[]
-    createMany?: BasketCreateManyUserInputEnvelope
-    connect?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
-  }
-
-  export type AlertCreateNestedManyWithoutUserInput = {
-    create?: XOR<AlertCreateWithoutUserInput, AlertUncheckedCreateWithoutUserInput> | AlertCreateWithoutUserInput[] | AlertUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: AlertCreateOrConnectWithoutUserInput | AlertCreateOrConnectWithoutUserInput[]
-    createMany?: AlertCreateManyUserInputEnvelope
-    connect?: AlertWhereUniqueInput | AlertWhereUniqueInput[]
+  export type HoldingCreateNestedManyWithoutUserInput = {
+    create?: XOR<HoldingCreateWithoutUserInput, HoldingUncheckedCreateWithoutUserInput> | HoldingCreateWithoutUserInput[] | HoldingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HoldingCreateOrConnectWithoutUserInput | HoldingCreateOrConnectWithoutUserInput[]
+    createMany?: HoldingCreateManyUserInputEnvelope
+    connect?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
   }
 
   export type NotificationCreateNestedManyWithoutUserInput = {
@@ -45011,11 +45015,45 @@ export namespace Prisma {
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
+  export type OrderCreateNestedManyWithoutUserInput = {
+    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
+    createMany?: OrderCreateManyUserInputEnvelope
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+  }
+
+  export type PortfolioCreateNestedManyWithoutUserInput = {
+    create?: XOR<PortfolioCreateWithoutUserInput, PortfolioUncheckedCreateWithoutUserInput> | PortfolioCreateWithoutUserInput[] | PortfolioUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PortfolioCreateOrConnectWithoutUserInput | PortfolioCreateOrConnectWithoutUserInput[]
+    createMany?: PortfolioCreateManyUserInputEnvelope
+    connect?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
+  }
+
+  export type PositionCreateNestedManyWithoutUserInput = {
+    create?: XOR<PositionCreateWithoutUserInput, PositionUncheckedCreateWithoutUserInput> | PositionCreateWithoutUserInput[] | PositionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PositionCreateOrConnectWithoutUserInput | PositionCreateOrConnectWithoutUserInput[]
+    createMany?: PositionCreateManyUserInputEnvelope
+    connect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
+  }
+
   export type SessionCreateNestedManyWithoutUserInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
     createMany?: SessionCreateManyUserInputEnvelope
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
+  export type TradeCreateNestedManyWithoutUserInput = {
+    create?: XOR<TradeCreateWithoutUserInput, TradeUncheckedCreateWithoutUserInput> | TradeCreateWithoutUserInput[] | TradeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TradeCreateOrConnectWithoutUserInput | TradeCreateOrConnectWithoutUserInput[]
+    createMany?: TradeCreateManyUserInputEnvelope
+    connect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+  }
+
+  export type UserProfileCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
+    connect?: UserProfileWhereUniqueInput
   }
 
   export type UserVerificationCreateNestedOneWithoutUserInput = {
@@ -45024,80 +45062,11 @@ export namespace Prisma {
     connect?: UserVerificationWhereUniqueInput
   }
 
-  export type UserProfileUncheckedCreateNestedOneWithoutUserInput = {
-    create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
-    connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
-    connect?: UserProfileWhereUniqueInput
-  }
-
-  export type BankAccountUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<BankAccountCreateWithoutUserInput, BankAccountUncheckedCreateWithoutUserInput> | BankAccountCreateWithoutUserInput[] | BankAccountUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: BankAccountCreateOrConnectWithoutUserInput | BankAccountCreateOrConnectWithoutUserInput[]
-    createMany?: BankAccountCreateManyUserInputEnvelope
-    connect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
-  }
-
-  export type FundTransactionUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<FundTransactionCreateWithoutUserInput, FundTransactionUncheckedCreateWithoutUserInput> | FundTransactionCreateWithoutUserInput[] | FundTransactionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: FundTransactionCreateOrConnectWithoutUserInput | FundTransactionCreateOrConnectWithoutUserInput[]
-    createMany?: FundTransactionCreateManyUserInputEnvelope
-    connect?: FundTransactionWhereUniqueInput | FundTransactionWhereUniqueInput[]
-  }
-
-  export type HoldingUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<HoldingCreateWithoutUserInput, HoldingUncheckedCreateWithoutUserInput> | HoldingCreateWithoutUserInput[] | HoldingUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: HoldingCreateOrConnectWithoutUserInput | HoldingCreateOrConnectWithoutUserInput[]
-    createMany?: HoldingCreateManyUserInputEnvelope
-    connect?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
-  }
-
-  export type PositionUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<PositionCreateWithoutUserInput, PositionUncheckedCreateWithoutUserInput> | PositionCreateWithoutUserInput[] | PositionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PositionCreateOrConnectWithoutUserInput | PositionCreateOrConnectWithoutUserInput[]
-    createMany?: PositionCreateManyUserInputEnvelope
-    connect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
-  }
-
-  export type OrderUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
-    createMany?: OrderCreateManyUserInputEnvelope
-    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-  }
-
-  export type TradeUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<TradeCreateWithoutUserInput, TradeUncheckedCreateWithoutUserInput> | TradeCreateWithoutUserInput[] | TradeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: TradeCreateOrConnectWithoutUserInput | TradeCreateOrConnectWithoutUserInput[]
-    createMany?: TradeCreateManyUserInputEnvelope
-    connect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
-  }
-
-  export type WatchlistUncheckedCreateNestedManyWithoutUserInput = {
+  export type WatchlistCreateNestedManyWithoutUserInput = {
     create?: XOR<WatchlistCreateWithoutUserInput, WatchlistUncheckedCreateWithoutUserInput> | WatchlistCreateWithoutUserInput[] | WatchlistUncheckedCreateWithoutUserInput[]
     connectOrCreate?: WatchlistCreateOrConnectWithoutUserInput | WatchlistCreateOrConnectWithoutUserInput[]
     createMany?: WatchlistCreateManyUserInputEnvelope
     connect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
-  }
-
-  export type PortfolioUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<PortfolioCreateWithoutUserInput, PortfolioUncheckedCreateWithoutUserInput> | PortfolioCreateWithoutUserInput[] | PortfolioUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PortfolioCreateOrConnectWithoutUserInput | PortfolioCreateOrConnectWithoutUserInput[]
-    createMany?: PortfolioCreateManyUserInputEnvelope
-    connect?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
-  }
-
-  export type GTTOrderUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<GTTOrderCreateWithoutUserInput, GTTOrderUncheckedCreateWithoutUserInput> | GTTOrderCreateWithoutUserInput[] | GTTOrderUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: GTTOrderCreateOrConnectWithoutUserInput | GTTOrderCreateOrConnectWithoutUserInput[]
-    createMany?: GTTOrderCreateManyUserInputEnvelope
-    connect?: GTTOrderWhereUniqueInput | GTTOrderWhereUniqueInput[]
-  }
-
-  export type BasketUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<BasketCreateWithoutUserInput, BasketUncheckedCreateWithoutUserInput> | BasketCreateWithoutUserInput[] | BasketUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: BasketCreateOrConnectWithoutUserInput | BasketCreateOrConnectWithoutUserInput[]
-    createMany?: BasketCreateManyUserInputEnvelope
-    connect?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
   }
 
   export type AlertUncheckedCreateNestedManyWithoutUserInput = {
@@ -45107,11 +45076,67 @@ export namespace Prisma {
     connect?: AlertWhereUniqueInput | AlertWhereUniqueInput[]
   }
 
+  export type BankAccountUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<BankAccountCreateWithoutUserInput, BankAccountUncheckedCreateWithoutUserInput> | BankAccountCreateWithoutUserInput[] | BankAccountUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BankAccountCreateOrConnectWithoutUserInput | BankAccountCreateOrConnectWithoutUserInput[]
+    createMany?: BankAccountCreateManyUserInputEnvelope
+    connect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+  }
+
+  export type BasketUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<BasketCreateWithoutUserInput, BasketUncheckedCreateWithoutUserInput> | BasketCreateWithoutUserInput[] | BasketUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BasketCreateOrConnectWithoutUserInput | BasketCreateOrConnectWithoutUserInput[]
+    createMany?: BasketCreateManyUserInputEnvelope
+    connect?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
+  }
+
+  export type FundTransactionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<FundTransactionCreateWithoutUserInput, FundTransactionUncheckedCreateWithoutUserInput> | FundTransactionCreateWithoutUserInput[] | FundTransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FundTransactionCreateOrConnectWithoutUserInput | FundTransactionCreateOrConnectWithoutUserInput[]
+    createMany?: FundTransactionCreateManyUserInputEnvelope
+    connect?: FundTransactionWhereUniqueInput | FundTransactionWhereUniqueInput[]
+  }
+
+  export type GTTOrderUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<GTTOrderCreateWithoutUserInput, GTTOrderUncheckedCreateWithoutUserInput> | GTTOrderCreateWithoutUserInput[] | GTTOrderUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GTTOrderCreateOrConnectWithoutUserInput | GTTOrderCreateOrConnectWithoutUserInput[]
+    createMany?: GTTOrderCreateManyUserInputEnvelope
+    connect?: GTTOrderWhereUniqueInput | GTTOrderWhereUniqueInput[]
+  }
+
+  export type HoldingUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<HoldingCreateWithoutUserInput, HoldingUncheckedCreateWithoutUserInput> | HoldingCreateWithoutUserInput[] | HoldingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HoldingCreateOrConnectWithoutUserInput | HoldingCreateOrConnectWithoutUserInput[]
+    createMany?: HoldingCreateManyUserInputEnvelope
+    connect?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
+  }
+
   export type NotificationUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
     createMany?: NotificationCreateManyUserInputEnvelope
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type OrderUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
+    createMany?: OrderCreateManyUserInputEnvelope
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+  }
+
+  export type PortfolioUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PortfolioCreateWithoutUserInput, PortfolioUncheckedCreateWithoutUserInput> | PortfolioCreateWithoutUserInput[] | PortfolioUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PortfolioCreateOrConnectWithoutUserInput | PortfolioCreateOrConnectWithoutUserInput[]
+    createMany?: PortfolioCreateManyUserInputEnvelope
+    connect?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
+  }
+
+  export type PositionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PositionCreateWithoutUserInput, PositionUncheckedCreateWithoutUserInput> | PositionCreateWithoutUserInput[] | PositionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PositionCreateOrConnectWithoutUserInput | PositionCreateOrConnectWithoutUserInput[]
+    createMany?: PositionCreateManyUserInputEnvelope
+    connect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
   }
 
   export type SessionUncheckedCreateNestedManyWithoutUserInput = {
@@ -45121,10 +45146,30 @@ export namespace Prisma {
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
+  export type TradeUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<TradeCreateWithoutUserInput, TradeUncheckedCreateWithoutUserInput> | TradeCreateWithoutUserInput[] | TradeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TradeCreateOrConnectWithoutUserInput | TradeCreateOrConnectWithoutUserInput[]
+    createMany?: TradeCreateManyUserInputEnvelope
+    connect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+  }
+
+  export type UserProfileUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
+    connect?: UserProfileWhereUniqueInput
+  }
+
   export type UserVerificationUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<UserVerificationCreateWithoutUserInput, UserVerificationUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserVerificationCreateOrConnectWithoutUserInput
     connect?: UserVerificationWhereUniqueInput
+  }
+
+  export type WatchlistUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<WatchlistCreateWithoutUserInput, WatchlistUncheckedCreateWithoutUserInput> | WatchlistCreateWithoutUserInput[] | WatchlistUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WatchlistCreateOrConnectWithoutUserInput | WatchlistCreateOrConnectWithoutUserInput[]
+    createMany?: WatchlistCreateManyUserInputEnvelope
+    connect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -45159,154 +45204,8 @@ export namespace Prisma {
     set?: boolean
   }
 
-  export type UserProfileUpdateOneWithoutUserNestedInput = {
-    create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
-    connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
-    upsert?: UserProfileUpsertWithoutUserInput
-    disconnect?: UserProfileWhereInput | boolean
-    delete?: UserProfileWhereInput | boolean
-    connect?: UserProfileWhereUniqueInput
-    update?: XOR<XOR<UserProfileUpdateToOneWithWhereWithoutUserInput, UserProfileUpdateWithoutUserInput>, UserProfileUncheckedUpdateWithoutUserInput>
-  }
-
-  export type BankAccountUpdateManyWithoutUserNestedInput = {
-    create?: XOR<BankAccountCreateWithoutUserInput, BankAccountUncheckedCreateWithoutUserInput> | BankAccountCreateWithoutUserInput[] | BankAccountUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: BankAccountCreateOrConnectWithoutUserInput | BankAccountCreateOrConnectWithoutUserInput[]
-    upsert?: BankAccountUpsertWithWhereUniqueWithoutUserInput | BankAccountUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: BankAccountCreateManyUserInputEnvelope
-    set?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
-    disconnect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
-    delete?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
-    connect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
-    update?: BankAccountUpdateWithWhereUniqueWithoutUserInput | BankAccountUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: BankAccountUpdateManyWithWhereWithoutUserInput | BankAccountUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: BankAccountScalarWhereInput | BankAccountScalarWhereInput[]
-  }
-
-  export type FundTransactionUpdateManyWithoutUserNestedInput = {
-    create?: XOR<FundTransactionCreateWithoutUserInput, FundTransactionUncheckedCreateWithoutUserInput> | FundTransactionCreateWithoutUserInput[] | FundTransactionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: FundTransactionCreateOrConnectWithoutUserInput | FundTransactionCreateOrConnectWithoutUserInput[]
-    upsert?: FundTransactionUpsertWithWhereUniqueWithoutUserInput | FundTransactionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: FundTransactionCreateManyUserInputEnvelope
-    set?: FundTransactionWhereUniqueInput | FundTransactionWhereUniqueInput[]
-    disconnect?: FundTransactionWhereUniqueInput | FundTransactionWhereUniqueInput[]
-    delete?: FundTransactionWhereUniqueInput | FundTransactionWhereUniqueInput[]
-    connect?: FundTransactionWhereUniqueInput | FundTransactionWhereUniqueInput[]
-    update?: FundTransactionUpdateWithWhereUniqueWithoutUserInput | FundTransactionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: FundTransactionUpdateManyWithWhereWithoutUserInput | FundTransactionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: FundTransactionScalarWhereInput | FundTransactionScalarWhereInput[]
-  }
-
-  export type HoldingUpdateManyWithoutUserNestedInput = {
-    create?: XOR<HoldingCreateWithoutUserInput, HoldingUncheckedCreateWithoutUserInput> | HoldingCreateWithoutUserInput[] | HoldingUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: HoldingCreateOrConnectWithoutUserInput | HoldingCreateOrConnectWithoutUserInput[]
-    upsert?: HoldingUpsertWithWhereUniqueWithoutUserInput | HoldingUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: HoldingCreateManyUserInputEnvelope
-    set?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
-    disconnect?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
-    delete?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
-    connect?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
-    update?: HoldingUpdateWithWhereUniqueWithoutUserInput | HoldingUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: HoldingUpdateManyWithWhereWithoutUserInput | HoldingUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: HoldingScalarWhereInput | HoldingScalarWhereInput[]
-  }
-
-  export type PositionUpdateManyWithoutUserNestedInput = {
-    create?: XOR<PositionCreateWithoutUserInput, PositionUncheckedCreateWithoutUserInput> | PositionCreateWithoutUserInput[] | PositionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PositionCreateOrConnectWithoutUserInput | PositionCreateOrConnectWithoutUserInput[]
-    upsert?: PositionUpsertWithWhereUniqueWithoutUserInput | PositionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: PositionCreateManyUserInputEnvelope
-    set?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
-    disconnect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
-    delete?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
-    connect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
-    update?: PositionUpdateWithWhereUniqueWithoutUserInput | PositionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: PositionUpdateManyWithWhereWithoutUserInput | PositionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: PositionScalarWhereInput | PositionScalarWhereInput[]
-  }
-
-  export type OrderUpdateManyWithoutUserNestedInput = {
-    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
-    upsert?: OrderUpsertWithWhereUniqueWithoutUserInput | OrderUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: OrderCreateManyUserInputEnvelope
-    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    update?: OrderUpdateWithWhereUniqueWithoutUserInput | OrderUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: OrderUpdateManyWithWhereWithoutUserInput | OrderUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
-  }
-
-  export type TradeUpdateManyWithoutUserNestedInput = {
-    create?: XOR<TradeCreateWithoutUserInput, TradeUncheckedCreateWithoutUserInput> | TradeCreateWithoutUserInput[] | TradeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: TradeCreateOrConnectWithoutUserInput | TradeCreateOrConnectWithoutUserInput[]
-    upsert?: TradeUpsertWithWhereUniqueWithoutUserInput | TradeUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: TradeCreateManyUserInputEnvelope
-    set?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
-    disconnect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
-    delete?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
-    connect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
-    update?: TradeUpdateWithWhereUniqueWithoutUserInput | TradeUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: TradeUpdateManyWithWhereWithoutUserInput | TradeUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: TradeScalarWhereInput | TradeScalarWhereInput[]
-  }
-
-  export type WatchlistUpdateManyWithoutUserNestedInput = {
-    create?: XOR<WatchlistCreateWithoutUserInput, WatchlistUncheckedCreateWithoutUserInput> | WatchlistCreateWithoutUserInput[] | WatchlistUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: WatchlistCreateOrConnectWithoutUserInput | WatchlistCreateOrConnectWithoutUserInput[]
-    upsert?: WatchlistUpsertWithWhereUniqueWithoutUserInput | WatchlistUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: WatchlistCreateManyUserInputEnvelope
-    set?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
-    disconnect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
-    delete?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
-    connect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
-    update?: WatchlistUpdateWithWhereUniqueWithoutUserInput | WatchlistUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: WatchlistUpdateManyWithWhereWithoutUserInput | WatchlistUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: WatchlistScalarWhereInput | WatchlistScalarWhereInput[]
-  }
-
-  export type PortfolioUpdateManyWithoutUserNestedInput = {
-    create?: XOR<PortfolioCreateWithoutUserInput, PortfolioUncheckedCreateWithoutUserInput> | PortfolioCreateWithoutUserInput[] | PortfolioUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PortfolioCreateOrConnectWithoutUserInput | PortfolioCreateOrConnectWithoutUserInput[]
-    upsert?: PortfolioUpsertWithWhereUniqueWithoutUserInput | PortfolioUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: PortfolioCreateManyUserInputEnvelope
-    set?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
-    disconnect?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
-    delete?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
-    connect?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
-    update?: PortfolioUpdateWithWhereUniqueWithoutUserInput | PortfolioUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: PortfolioUpdateManyWithWhereWithoutUserInput | PortfolioUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: PortfolioScalarWhereInput | PortfolioScalarWhereInput[]
-  }
-
-  export type GTTOrderUpdateManyWithoutUserNestedInput = {
-    create?: XOR<GTTOrderCreateWithoutUserInput, GTTOrderUncheckedCreateWithoutUserInput> | GTTOrderCreateWithoutUserInput[] | GTTOrderUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: GTTOrderCreateOrConnectWithoutUserInput | GTTOrderCreateOrConnectWithoutUserInput[]
-    upsert?: GTTOrderUpsertWithWhereUniqueWithoutUserInput | GTTOrderUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: GTTOrderCreateManyUserInputEnvelope
-    set?: GTTOrderWhereUniqueInput | GTTOrderWhereUniqueInput[]
-    disconnect?: GTTOrderWhereUniqueInput | GTTOrderWhereUniqueInput[]
-    delete?: GTTOrderWhereUniqueInput | GTTOrderWhereUniqueInput[]
-    connect?: GTTOrderWhereUniqueInput | GTTOrderWhereUniqueInput[]
-    update?: GTTOrderUpdateWithWhereUniqueWithoutUserInput | GTTOrderUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: GTTOrderUpdateManyWithWhereWithoutUserInput | GTTOrderUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: GTTOrderScalarWhereInput | GTTOrderScalarWhereInput[]
-  }
-
-  export type BasketUpdateManyWithoutUserNestedInput = {
-    create?: XOR<BasketCreateWithoutUserInput, BasketUncheckedCreateWithoutUserInput> | BasketCreateWithoutUserInput[] | BasketUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: BasketCreateOrConnectWithoutUserInput | BasketCreateOrConnectWithoutUserInput[]
-    upsert?: BasketUpsertWithWhereUniqueWithoutUserInput | BasketUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: BasketCreateManyUserInputEnvelope
-    set?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
-    disconnect?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
-    delete?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
-    connect?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
-    update?: BasketUpdateWithWhereUniqueWithoutUserInput | BasketUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: BasketUpdateManyWithWhereWithoutUserInput | BasketUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: BasketScalarWhereInput | BasketScalarWhereInput[]
+  export type EnumSegmentFieldUpdateOperationsInput = {
+    set?: $Enums.Segment
   }
 
   export type AlertUpdateManyWithoutUserNestedInput = {
@@ -45323,6 +45222,76 @@ export namespace Prisma {
     deleteMany?: AlertScalarWhereInput | AlertScalarWhereInput[]
   }
 
+  export type BankAccountUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BankAccountCreateWithoutUserInput, BankAccountUncheckedCreateWithoutUserInput> | BankAccountCreateWithoutUserInput[] | BankAccountUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BankAccountCreateOrConnectWithoutUserInput | BankAccountCreateOrConnectWithoutUserInput[]
+    upsert?: BankAccountUpsertWithWhereUniqueWithoutUserInput | BankAccountUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BankAccountCreateManyUserInputEnvelope
+    set?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    disconnect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    delete?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    connect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    update?: BankAccountUpdateWithWhereUniqueWithoutUserInput | BankAccountUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BankAccountUpdateManyWithWhereWithoutUserInput | BankAccountUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BankAccountScalarWhereInput | BankAccountScalarWhereInput[]
+  }
+
+  export type BasketUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BasketCreateWithoutUserInput, BasketUncheckedCreateWithoutUserInput> | BasketCreateWithoutUserInput[] | BasketUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BasketCreateOrConnectWithoutUserInput | BasketCreateOrConnectWithoutUserInput[]
+    upsert?: BasketUpsertWithWhereUniqueWithoutUserInput | BasketUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BasketCreateManyUserInputEnvelope
+    set?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
+    disconnect?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
+    delete?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
+    connect?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
+    update?: BasketUpdateWithWhereUniqueWithoutUserInput | BasketUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BasketUpdateManyWithWhereWithoutUserInput | BasketUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BasketScalarWhereInput | BasketScalarWhereInput[]
+  }
+
+  export type FundTransactionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FundTransactionCreateWithoutUserInput, FundTransactionUncheckedCreateWithoutUserInput> | FundTransactionCreateWithoutUserInput[] | FundTransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FundTransactionCreateOrConnectWithoutUserInput | FundTransactionCreateOrConnectWithoutUserInput[]
+    upsert?: FundTransactionUpsertWithWhereUniqueWithoutUserInput | FundTransactionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: FundTransactionCreateManyUserInputEnvelope
+    set?: FundTransactionWhereUniqueInput | FundTransactionWhereUniqueInput[]
+    disconnect?: FundTransactionWhereUniqueInput | FundTransactionWhereUniqueInput[]
+    delete?: FundTransactionWhereUniqueInput | FundTransactionWhereUniqueInput[]
+    connect?: FundTransactionWhereUniqueInput | FundTransactionWhereUniqueInput[]
+    update?: FundTransactionUpdateWithWhereUniqueWithoutUserInput | FundTransactionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FundTransactionUpdateManyWithWhereWithoutUserInput | FundTransactionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FundTransactionScalarWhereInput | FundTransactionScalarWhereInput[]
+  }
+
+  export type GTTOrderUpdateManyWithoutUserNestedInput = {
+    create?: XOR<GTTOrderCreateWithoutUserInput, GTTOrderUncheckedCreateWithoutUserInput> | GTTOrderCreateWithoutUserInput[] | GTTOrderUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GTTOrderCreateOrConnectWithoutUserInput | GTTOrderCreateOrConnectWithoutUserInput[]
+    upsert?: GTTOrderUpsertWithWhereUniqueWithoutUserInput | GTTOrderUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: GTTOrderCreateManyUserInputEnvelope
+    set?: GTTOrderWhereUniqueInput | GTTOrderWhereUniqueInput[]
+    disconnect?: GTTOrderWhereUniqueInput | GTTOrderWhereUniqueInput[]
+    delete?: GTTOrderWhereUniqueInput | GTTOrderWhereUniqueInput[]
+    connect?: GTTOrderWhereUniqueInput | GTTOrderWhereUniqueInput[]
+    update?: GTTOrderUpdateWithWhereUniqueWithoutUserInput | GTTOrderUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: GTTOrderUpdateManyWithWhereWithoutUserInput | GTTOrderUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: GTTOrderScalarWhereInput | GTTOrderScalarWhereInput[]
+  }
+
+  export type HoldingUpdateManyWithoutUserNestedInput = {
+    create?: XOR<HoldingCreateWithoutUserInput, HoldingUncheckedCreateWithoutUserInput> | HoldingCreateWithoutUserInput[] | HoldingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HoldingCreateOrConnectWithoutUserInput | HoldingCreateOrConnectWithoutUserInput[]
+    upsert?: HoldingUpsertWithWhereUniqueWithoutUserInput | HoldingUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: HoldingCreateManyUserInputEnvelope
+    set?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
+    disconnect?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
+    delete?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
+    connect?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
+    update?: HoldingUpdateWithWhereUniqueWithoutUserInput | HoldingUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: HoldingUpdateManyWithWhereWithoutUserInput | HoldingUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: HoldingScalarWhereInput | HoldingScalarWhereInput[]
+  }
+
   export type NotificationUpdateManyWithoutUserNestedInput = {
     create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
@@ -45335,6 +45304,48 @@ export namespace Prisma {
     update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type OrderUpdateManyWithoutUserNestedInput = {
+    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutUserInput | OrderUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: OrderCreateManyUserInputEnvelope
+    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutUserInput | OrderUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutUserInput | OrderUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
+  }
+
+  export type PortfolioUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PortfolioCreateWithoutUserInput, PortfolioUncheckedCreateWithoutUserInput> | PortfolioCreateWithoutUserInput[] | PortfolioUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PortfolioCreateOrConnectWithoutUserInput | PortfolioCreateOrConnectWithoutUserInput[]
+    upsert?: PortfolioUpsertWithWhereUniqueWithoutUserInput | PortfolioUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PortfolioCreateManyUserInputEnvelope
+    set?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
+    disconnect?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
+    delete?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
+    connect?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
+    update?: PortfolioUpdateWithWhereUniqueWithoutUserInput | PortfolioUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PortfolioUpdateManyWithWhereWithoutUserInput | PortfolioUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PortfolioScalarWhereInput | PortfolioScalarWhereInput[]
+  }
+
+  export type PositionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PositionCreateWithoutUserInput, PositionUncheckedCreateWithoutUserInput> | PositionCreateWithoutUserInput[] | PositionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PositionCreateOrConnectWithoutUserInput | PositionCreateOrConnectWithoutUserInput[]
+    upsert?: PositionUpsertWithWhereUniqueWithoutUserInput | PositionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PositionCreateManyUserInputEnvelope
+    set?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
+    disconnect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
+    delete?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
+    connect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
+    update?: PositionUpdateWithWhereUniqueWithoutUserInput | PositionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PositionUpdateManyWithWhereWithoutUserInput | PositionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PositionScalarWhereInput | PositionScalarWhereInput[]
   }
 
   export type SessionUpdateManyWithoutUserNestedInput = {
@@ -45351,97 +45362,7 @@ export namespace Prisma {
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
-  export type UserVerificationUpdateOneWithoutUserNestedInput = {
-    create?: XOR<UserVerificationCreateWithoutUserInput, UserVerificationUncheckedCreateWithoutUserInput>
-    connectOrCreate?: UserVerificationCreateOrConnectWithoutUserInput
-    upsert?: UserVerificationUpsertWithoutUserInput
-    disconnect?: UserVerificationWhereInput | boolean
-    delete?: UserVerificationWhereInput | boolean
-    connect?: UserVerificationWhereUniqueInput
-    update?: XOR<XOR<UserVerificationUpdateToOneWithWhereWithoutUserInput, UserVerificationUpdateWithoutUserInput>, UserVerificationUncheckedUpdateWithoutUserInput>
-  }
-
-  export type UserProfileUncheckedUpdateOneWithoutUserNestedInput = {
-    create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
-    connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
-    upsert?: UserProfileUpsertWithoutUserInput
-    disconnect?: UserProfileWhereInput | boolean
-    delete?: UserProfileWhereInput | boolean
-    connect?: UserProfileWhereUniqueInput
-    update?: XOR<XOR<UserProfileUpdateToOneWithWhereWithoutUserInput, UserProfileUpdateWithoutUserInput>, UserProfileUncheckedUpdateWithoutUserInput>
-  }
-
-  export type BankAccountUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<BankAccountCreateWithoutUserInput, BankAccountUncheckedCreateWithoutUserInput> | BankAccountCreateWithoutUserInput[] | BankAccountUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: BankAccountCreateOrConnectWithoutUserInput | BankAccountCreateOrConnectWithoutUserInput[]
-    upsert?: BankAccountUpsertWithWhereUniqueWithoutUserInput | BankAccountUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: BankAccountCreateManyUserInputEnvelope
-    set?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
-    disconnect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
-    delete?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
-    connect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
-    update?: BankAccountUpdateWithWhereUniqueWithoutUserInput | BankAccountUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: BankAccountUpdateManyWithWhereWithoutUserInput | BankAccountUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: BankAccountScalarWhereInput | BankAccountScalarWhereInput[]
-  }
-
-  export type FundTransactionUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<FundTransactionCreateWithoutUserInput, FundTransactionUncheckedCreateWithoutUserInput> | FundTransactionCreateWithoutUserInput[] | FundTransactionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: FundTransactionCreateOrConnectWithoutUserInput | FundTransactionCreateOrConnectWithoutUserInput[]
-    upsert?: FundTransactionUpsertWithWhereUniqueWithoutUserInput | FundTransactionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: FundTransactionCreateManyUserInputEnvelope
-    set?: FundTransactionWhereUniqueInput | FundTransactionWhereUniqueInput[]
-    disconnect?: FundTransactionWhereUniqueInput | FundTransactionWhereUniqueInput[]
-    delete?: FundTransactionWhereUniqueInput | FundTransactionWhereUniqueInput[]
-    connect?: FundTransactionWhereUniqueInput | FundTransactionWhereUniqueInput[]
-    update?: FundTransactionUpdateWithWhereUniqueWithoutUserInput | FundTransactionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: FundTransactionUpdateManyWithWhereWithoutUserInput | FundTransactionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: FundTransactionScalarWhereInput | FundTransactionScalarWhereInput[]
-  }
-
-  export type HoldingUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<HoldingCreateWithoutUserInput, HoldingUncheckedCreateWithoutUserInput> | HoldingCreateWithoutUserInput[] | HoldingUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: HoldingCreateOrConnectWithoutUserInput | HoldingCreateOrConnectWithoutUserInput[]
-    upsert?: HoldingUpsertWithWhereUniqueWithoutUserInput | HoldingUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: HoldingCreateManyUserInputEnvelope
-    set?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
-    disconnect?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
-    delete?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
-    connect?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
-    update?: HoldingUpdateWithWhereUniqueWithoutUserInput | HoldingUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: HoldingUpdateManyWithWhereWithoutUserInput | HoldingUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: HoldingScalarWhereInput | HoldingScalarWhereInput[]
-  }
-
-  export type PositionUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<PositionCreateWithoutUserInput, PositionUncheckedCreateWithoutUserInput> | PositionCreateWithoutUserInput[] | PositionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PositionCreateOrConnectWithoutUserInput | PositionCreateOrConnectWithoutUserInput[]
-    upsert?: PositionUpsertWithWhereUniqueWithoutUserInput | PositionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: PositionCreateManyUserInputEnvelope
-    set?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
-    disconnect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
-    delete?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
-    connect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
-    update?: PositionUpdateWithWhereUniqueWithoutUserInput | PositionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: PositionUpdateManyWithWhereWithoutUserInput | PositionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: PositionScalarWhereInput | PositionScalarWhereInput[]
-  }
-
-  export type OrderUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
-    upsert?: OrderUpsertWithWhereUniqueWithoutUserInput | OrderUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: OrderCreateManyUserInputEnvelope
-    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
-    update?: OrderUpdateWithWhereUniqueWithoutUserInput | OrderUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: OrderUpdateManyWithWhereWithoutUserInput | OrderUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
-  }
-
-  export type TradeUncheckedUpdateManyWithoutUserNestedInput = {
+  export type TradeUpdateManyWithoutUserNestedInput = {
     create?: XOR<TradeCreateWithoutUserInput, TradeUncheckedCreateWithoutUserInput> | TradeCreateWithoutUserInput[] | TradeUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TradeCreateOrConnectWithoutUserInput | TradeCreateOrConnectWithoutUserInput[]
     upsert?: TradeUpsertWithWhereUniqueWithoutUserInput | TradeUpsertWithWhereUniqueWithoutUserInput[]
@@ -45455,7 +45376,27 @@ export namespace Prisma {
     deleteMany?: TradeScalarWhereInput | TradeScalarWhereInput[]
   }
 
-  export type WatchlistUncheckedUpdateManyWithoutUserNestedInput = {
+  export type UserProfileUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
+    upsert?: UserProfileUpsertWithoutUserInput
+    disconnect?: UserProfileWhereInput | boolean
+    delete?: UserProfileWhereInput | boolean
+    connect?: UserProfileWhereUniqueInput
+    update?: XOR<XOR<UserProfileUpdateToOneWithWhereWithoutUserInput, UserProfileUpdateWithoutUserInput>, UserProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserVerificationUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserVerificationCreateWithoutUserInput, UserVerificationUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserVerificationCreateOrConnectWithoutUserInput
+    upsert?: UserVerificationUpsertWithoutUserInput
+    disconnect?: UserVerificationWhereInput | boolean
+    delete?: UserVerificationWhereInput | boolean
+    connect?: UserVerificationWhereUniqueInput
+    update?: XOR<XOR<UserVerificationUpdateToOneWithWhereWithoutUserInput, UserVerificationUpdateWithoutUserInput>, UserVerificationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type WatchlistUpdateManyWithoutUserNestedInput = {
     create?: XOR<WatchlistCreateWithoutUserInput, WatchlistUncheckedCreateWithoutUserInput> | WatchlistCreateWithoutUserInput[] | WatchlistUncheckedCreateWithoutUserInput[]
     connectOrCreate?: WatchlistCreateOrConnectWithoutUserInput | WatchlistCreateOrConnectWithoutUserInput[]
     upsert?: WatchlistUpsertWithWhereUniqueWithoutUserInput | WatchlistUpsertWithWhereUniqueWithoutUserInput[]
@@ -45467,48 +45408,6 @@ export namespace Prisma {
     update?: WatchlistUpdateWithWhereUniqueWithoutUserInput | WatchlistUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: WatchlistUpdateManyWithWhereWithoutUserInput | WatchlistUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: WatchlistScalarWhereInput | WatchlistScalarWhereInput[]
-  }
-
-  export type PortfolioUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<PortfolioCreateWithoutUserInput, PortfolioUncheckedCreateWithoutUserInput> | PortfolioCreateWithoutUserInput[] | PortfolioUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PortfolioCreateOrConnectWithoutUserInput | PortfolioCreateOrConnectWithoutUserInput[]
-    upsert?: PortfolioUpsertWithWhereUniqueWithoutUserInput | PortfolioUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: PortfolioCreateManyUserInputEnvelope
-    set?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
-    disconnect?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
-    delete?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
-    connect?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
-    update?: PortfolioUpdateWithWhereUniqueWithoutUserInput | PortfolioUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: PortfolioUpdateManyWithWhereWithoutUserInput | PortfolioUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: PortfolioScalarWhereInput | PortfolioScalarWhereInput[]
-  }
-
-  export type GTTOrderUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<GTTOrderCreateWithoutUserInput, GTTOrderUncheckedCreateWithoutUserInput> | GTTOrderCreateWithoutUserInput[] | GTTOrderUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: GTTOrderCreateOrConnectWithoutUserInput | GTTOrderCreateOrConnectWithoutUserInput[]
-    upsert?: GTTOrderUpsertWithWhereUniqueWithoutUserInput | GTTOrderUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: GTTOrderCreateManyUserInputEnvelope
-    set?: GTTOrderWhereUniqueInput | GTTOrderWhereUniqueInput[]
-    disconnect?: GTTOrderWhereUniqueInput | GTTOrderWhereUniqueInput[]
-    delete?: GTTOrderWhereUniqueInput | GTTOrderWhereUniqueInput[]
-    connect?: GTTOrderWhereUniqueInput | GTTOrderWhereUniqueInput[]
-    update?: GTTOrderUpdateWithWhereUniqueWithoutUserInput | GTTOrderUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: GTTOrderUpdateManyWithWhereWithoutUserInput | GTTOrderUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: GTTOrderScalarWhereInput | GTTOrderScalarWhereInput[]
-  }
-
-  export type BasketUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<BasketCreateWithoutUserInput, BasketUncheckedCreateWithoutUserInput> | BasketCreateWithoutUserInput[] | BasketUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: BasketCreateOrConnectWithoutUserInput | BasketCreateOrConnectWithoutUserInput[]
-    upsert?: BasketUpsertWithWhereUniqueWithoutUserInput | BasketUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: BasketCreateManyUserInputEnvelope
-    set?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
-    disconnect?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
-    delete?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
-    connect?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
-    update?: BasketUpdateWithWhereUniqueWithoutUserInput | BasketUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: BasketUpdateManyWithWhereWithoutUserInput | BasketUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: BasketScalarWhereInput | BasketScalarWhereInput[]
   }
 
   export type AlertUncheckedUpdateManyWithoutUserNestedInput = {
@@ -45525,6 +45424,76 @@ export namespace Prisma {
     deleteMany?: AlertScalarWhereInput | AlertScalarWhereInput[]
   }
 
+  export type BankAccountUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BankAccountCreateWithoutUserInput, BankAccountUncheckedCreateWithoutUserInput> | BankAccountCreateWithoutUserInput[] | BankAccountUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BankAccountCreateOrConnectWithoutUserInput | BankAccountCreateOrConnectWithoutUserInput[]
+    upsert?: BankAccountUpsertWithWhereUniqueWithoutUserInput | BankAccountUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BankAccountCreateManyUserInputEnvelope
+    set?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    disconnect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    delete?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    connect?: BankAccountWhereUniqueInput | BankAccountWhereUniqueInput[]
+    update?: BankAccountUpdateWithWhereUniqueWithoutUserInput | BankAccountUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BankAccountUpdateManyWithWhereWithoutUserInput | BankAccountUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BankAccountScalarWhereInput | BankAccountScalarWhereInput[]
+  }
+
+  export type BasketUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BasketCreateWithoutUserInput, BasketUncheckedCreateWithoutUserInput> | BasketCreateWithoutUserInput[] | BasketUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BasketCreateOrConnectWithoutUserInput | BasketCreateOrConnectWithoutUserInput[]
+    upsert?: BasketUpsertWithWhereUniqueWithoutUserInput | BasketUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BasketCreateManyUserInputEnvelope
+    set?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
+    disconnect?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
+    delete?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
+    connect?: BasketWhereUniqueInput | BasketWhereUniqueInput[]
+    update?: BasketUpdateWithWhereUniqueWithoutUserInput | BasketUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BasketUpdateManyWithWhereWithoutUserInput | BasketUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BasketScalarWhereInput | BasketScalarWhereInput[]
+  }
+
+  export type FundTransactionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FundTransactionCreateWithoutUserInput, FundTransactionUncheckedCreateWithoutUserInput> | FundTransactionCreateWithoutUserInput[] | FundTransactionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FundTransactionCreateOrConnectWithoutUserInput | FundTransactionCreateOrConnectWithoutUserInput[]
+    upsert?: FundTransactionUpsertWithWhereUniqueWithoutUserInput | FundTransactionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: FundTransactionCreateManyUserInputEnvelope
+    set?: FundTransactionWhereUniqueInput | FundTransactionWhereUniqueInput[]
+    disconnect?: FundTransactionWhereUniqueInput | FundTransactionWhereUniqueInput[]
+    delete?: FundTransactionWhereUniqueInput | FundTransactionWhereUniqueInput[]
+    connect?: FundTransactionWhereUniqueInput | FundTransactionWhereUniqueInput[]
+    update?: FundTransactionUpdateWithWhereUniqueWithoutUserInput | FundTransactionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FundTransactionUpdateManyWithWhereWithoutUserInput | FundTransactionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FundTransactionScalarWhereInput | FundTransactionScalarWhereInput[]
+  }
+
+  export type GTTOrderUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<GTTOrderCreateWithoutUserInput, GTTOrderUncheckedCreateWithoutUserInput> | GTTOrderCreateWithoutUserInput[] | GTTOrderUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: GTTOrderCreateOrConnectWithoutUserInput | GTTOrderCreateOrConnectWithoutUserInput[]
+    upsert?: GTTOrderUpsertWithWhereUniqueWithoutUserInput | GTTOrderUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: GTTOrderCreateManyUserInputEnvelope
+    set?: GTTOrderWhereUniqueInput | GTTOrderWhereUniqueInput[]
+    disconnect?: GTTOrderWhereUniqueInput | GTTOrderWhereUniqueInput[]
+    delete?: GTTOrderWhereUniqueInput | GTTOrderWhereUniqueInput[]
+    connect?: GTTOrderWhereUniqueInput | GTTOrderWhereUniqueInput[]
+    update?: GTTOrderUpdateWithWhereUniqueWithoutUserInput | GTTOrderUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: GTTOrderUpdateManyWithWhereWithoutUserInput | GTTOrderUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: GTTOrderScalarWhereInput | GTTOrderScalarWhereInput[]
+  }
+
+  export type HoldingUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<HoldingCreateWithoutUserInput, HoldingUncheckedCreateWithoutUserInput> | HoldingCreateWithoutUserInput[] | HoldingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: HoldingCreateOrConnectWithoutUserInput | HoldingCreateOrConnectWithoutUserInput[]
+    upsert?: HoldingUpsertWithWhereUniqueWithoutUserInput | HoldingUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: HoldingCreateManyUserInputEnvelope
+    set?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
+    disconnect?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
+    delete?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
+    connect?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
+    update?: HoldingUpdateWithWhereUniqueWithoutUserInput | HoldingUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: HoldingUpdateManyWithWhereWithoutUserInput | HoldingUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: HoldingScalarWhereInput | HoldingScalarWhereInput[]
+  }
+
   export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
@@ -45537,6 +45506,48 @@ export namespace Prisma {
     update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type OrderUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<OrderCreateWithoutUserInput, OrderUncheckedCreateWithoutUserInput> | OrderCreateWithoutUserInput[] | OrderUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: OrderCreateOrConnectWithoutUserInput | OrderCreateOrConnectWithoutUserInput[]
+    upsert?: OrderUpsertWithWhereUniqueWithoutUserInput | OrderUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: OrderCreateManyUserInputEnvelope
+    set?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    disconnect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    delete?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
+    update?: OrderUpdateWithWhereUniqueWithoutUserInput | OrderUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: OrderUpdateManyWithWhereWithoutUserInput | OrderUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
+  }
+
+  export type PortfolioUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PortfolioCreateWithoutUserInput, PortfolioUncheckedCreateWithoutUserInput> | PortfolioCreateWithoutUserInput[] | PortfolioUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PortfolioCreateOrConnectWithoutUserInput | PortfolioCreateOrConnectWithoutUserInput[]
+    upsert?: PortfolioUpsertWithWhereUniqueWithoutUserInput | PortfolioUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PortfolioCreateManyUserInputEnvelope
+    set?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
+    disconnect?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
+    delete?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
+    connect?: PortfolioWhereUniqueInput | PortfolioWhereUniqueInput[]
+    update?: PortfolioUpdateWithWhereUniqueWithoutUserInput | PortfolioUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PortfolioUpdateManyWithWhereWithoutUserInput | PortfolioUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PortfolioScalarWhereInput | PortfolioScalarWhereInput[]
+  }
+
+  export type PositionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PositionCreateWithoutUserInput, PositionUncheckedCreateWithoutUserInput> | PositionCreateWithoutUserInput[] | PositionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PositionCreateOrConnectWithoutUserInput | PositionCreateOrConnectWithoutUserInput[]
+    upsert?: PositionUpsertWithWhereUniqueWithoutUserInput | PositionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PositionCreateManyUserInputEnvelope
+    set?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
+    disconnect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
+    delete?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
+    connect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
+    update?: PositionUpdateWithWhereUniqueWithoutUserInput | PositionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PositionUpdateManyWithWhereWithoutUserInput | PositionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PositionScalarWhereInput | PositionScalarWhereInput[]
   }
 
   export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
@@ -45553,6 +45564,30 @@ export namespace Prisma {
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
   }
 
+  export type TradeUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TradeCreateWithoutUserInput, TradeUncheckedCreateWithoutUserInput> | TradeCreateWithoutUserInput[] | TradeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TradeCreateOrConnectWithoutUserInput | TradeCreateOrConnectWithoutUserInput[]
+    upsert?: TradeUpsertWithWhereUniqueWithoutUserInput | TradeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TradeCreateManyUserInputEnvelope
+    set?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    disconnect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    delete?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    connect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    update?: TradeUpdateWithWhereUniqueWithoutUserInput | TradeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TradeUpdateManyWithWhereWithoutUserInput | TradeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TradeScalarWhereInput | TradeScalarWhereInput[]
+  }
+
+  export type UserProfileUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserProfileCreateOrConnectWithoutUserInput
+    upsert?: UserProfileUpsertWithoutUserInput
+    disconnect?: UserProfileWhereInput | boolean
+    delete?: UserProfileWhereInput | boolean
+    connect?: UserProfileWhereUniqueInput
+    update?: XOR<XOR<UserProfileUpdateToOneWithWhereWithoutUserInput, UserProfileUpdateWithoutUserInput>, UserProfileUncheckedUpdateWithoutUserInput>
+  }
+
   export type UserVerificationUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<UserVerificationCreateWithoutUserInput, UserVerificationUncheckedCreateWithoutUserInput>
     connectOrCreate?: UserVerificationCreateOrConnectWithoutUserInput
@@ -45563,10 +45598,28 @@ export namespace Prisma {
     update?: XOR<XOR<UserVerificationUpdateToOneWithWhereWithoutUserInput, UserVerificationUpdateWithoutUserInput>, UserVerificationUncheckedUpdateWithoutUserInput>
   }
 
+  export type WatchlistUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WatchlistCreateWithoutUserInput, WatchlistUncheckedCreateWithoutUserInput> | WatchlistCreateWithoutUserInput[] | WatchlistUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WatchlistCreateOrConnectWithoutUserInput | WatchlistCreateOrConnectWithoutUserInput[]
+    upsert?: WatchlistUpsertWithWhereUniqueWithoutUserInput | WatchlistUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WatchlistCreateManyUserInputEnvelope
+    set?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    disconnect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    delete?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    connect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+    update?: WatchlistUpdateWithWhereUniqueWithoutUserInput | WatchlistUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WatchlistUpdateManyWithWhereWithoutUserInput | WatchlistUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WatchlistScalarWhereInput | WatchlistScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutUserVerificationInput = {
     create?: XOR<UserCreateWithoutUserVerificationInput, UserUncheckedCreateWithoutUserVerificationInput>
     connectOrCreate?: UserCreateOrConnectWithoutUserVerificationInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type EnumKYCStageFieldUpdateOperationsInput = {
+    set?: $Enums.KYCStage
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -45672,11 +45725,11 @@ export namespace Prisma {
     connect?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
   }
 
-  export type PositionCreateNestedManyWithoutInstrumentInput = {
-    create?: XOR<PositionCreateWithoutInstrumentInput, PositionUncheckedCreateWithoutInstrumentInput> | PositionCreateWithoutInstrumentInput[] | PositionUncheckedCreateWithoutInstrumentInput[]
-    connectOrCreate?: PositionCreateOrConnectWithoutInstrumentInput | PositionCreateOrConnectWithoutInstrumentInput[]
-    createMany?: PositionCreateManyInstrumentInputEnvelope
-    connect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
+  export type MarketDepthCreateNestedManyWithoutInstrumentInput = {
+    create?: XOR<MarketDepthCreateWithoutInstrumentInput, MarketDepthUncheckedCreateWithoutInstrumentInput> | MarketDepthCreateWithoutInstrumentInput[] | MarketDepthUncheckedCreateWithoutInstrumentInput[]
+    connectOrCreate?: MarketDepthCreateOrConnectWithoutInstrumentInput | MarketDepthCreateOrConnectWithoutInstrumentInput[]
+    createMany?: MarketDepthCreateManyInstrumentInputEnvelope
+    connect?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
   }
 
   export type OrderCreateNestedManyWithoutInstrumentInput = {
@@ -45686,18 +45739,11 @@ export namespace Prisma {
     connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
   }
 
-  export type TradeCreateNestedManyWithoutInstrumentInput = {
-    create?: XOR<TradeCreateWithoutInstrumentInput, TradeUncheckedCreateWithoutInstrumentInput> | TradeCreateWithoutInstrumentInput[] | TradeUncheckedCreateWithoutInstrumentInput[]
-    connectOrCreate?: TradeCreateOrConnectWithoutInstrumentInput | TradeCreateOrConnectWithoutInstrumentInput[]
-    createMany?: TradeCreateManyInstrumentInputEnvelope
-    connect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
-  }
-
-  export type MarketDepthCreateNestedManyWithoutInstrumentInput = {
-    create?: XOR<MarketDepthCreateWithoutInstrumentInput, MarketDepthUncheckedCreateWithoutInstrumentInput> | MarketDepthCreateWithoutInstrumentInput[] | MarketDepthUncheckedCreateWithoutInstrumentInput[]
-    connectOrCreate?: MarketDepthCreateOrConnectWithoutInstrumentInput | MarketDepthCreateOrConnectWithoutInstrumentInput[]
-    createMany?: MarketDepthCreateManyInstrumentInputEnvelope
-    connect?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
+  export type PositionCreateNestedManyWithoutInstrumentInput = {
+    create?: XOR<PositionCreateWithoutInstrumentInput, PositionUncheckedCreateWithoutInstrumentInput> | PositionCreateWithoutInstrumentInput[] | PositionUncheckedCreateWithoutInstrumentInput[]
+    connectOrCreate?: PositionCreateOrConnectWithoutInstrumentInput | PositionCreateOrConnectWithoutInstrumentInput[]
+    createMany?: PositionCreateManyInstrumentInputEnvelope
+    connect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
   }
 
   export type PriceHistoryCreateNestedManyWithoutInstrumentInput = {
@@ -45705,6 +45751,13 @@ export namespace Prisma {
     connectOrCreate?: PriceHistoryCreateOrConnectWithoutInstrumentInput | PriceHistoryCreateOrConnectWithoutInstrumentInput[]
     createMany?: PriceHistoryCreateManyInstrumentInputEnvelope
     connect?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+  }
+
+  export type TradeCreateNestedManyWithoutInstrumentInput = {
+    create?: XOR<TradeCreateWithoutInstrumentInput, TradeUncheckedCreateWithoutInstrumentInput> | TradeCreateWithoutInstrumentInput[] | TradeUncheckedCreateWithoutInstrumentInput[]
+    connectOrCreate?: TradeCreateOrConnectWithoutInstrumentInput | TradeCreateOrConnectWithoutInstrumentInput[]
+    createMany?: TradeCreateManyInstrumentInputEnvelope
+    connect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
   }
 
   export type WatchlistItemCreateNestedManyWithoutInstrumentInput = {
@@ -45721,11 +45774,11 @@ export namespace Prisma {
     connect?: HoldingWhereUniqueInput | HoldingWhereUniqueInput[]
   }
 
-  export type PositionUncheckedCreateNestedManyWithoutInstrumentInput = {
-    create?: XOR<PositionCreateWithoutInstrumentInput, PositionUncheckedCreateWithoutInstrumentInput> | PositionCreateWithoutInstrumentInput[] | PositionUncheckedCreateWithoutInstrumentInput[]
-    connectOrCreate?: PositionCreateOrConnectWithoutInstrumentInput | PositionCreateOrConnectWithoutInstrumentInput[]
-    createMany?: PositionCreateManyInstrumentInputEnvelope
-    connect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
+  export type MarketDepthUncheckedCreateNestedManyWithoutInstrumentInput = {
+    create?: XOR<MarketDepthCreateWithoutInstrumentInput, MarketDepthUncheckedCreateWithoutInstrumentInput> | MarketDepthCreateWithoutInstrumentInput[] | MarketDepthUncheckedCreateWithoutInstrumentInput[]
+    connectOrCreate?: MarketDepthCreateOrConnectWithoutInstrumentInput | MarketDepthCreateOrConnectWithoutInstrumentInput[]
+    createMany?: MarketDepthCreateManyInstrumentInputEnvelope
+    connect?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
   }
 
   export type OrderUncheckedCreateNestedManyWithoutInstrumentInput = {
@@ -45735,18 +45788,11 @@ export namespace Prisma {
     connect?: OrderWhereUniqueInput | OrderWhereUniqueInput[]
   }
 
-  export type TradeUncheckedCreateNestedManyWithoutInstrumentInput = {
-    create?: XOR<TradeCreateWithoutInstrumentInput, TradeUncheckedCreateWithoutInstrumentInput> | TradeCreateWithoutInstrumentInput[] | TradeUncheckedCreateWithoutInstrumentInput[]
-    connectOrCreate?: TradeCreateOrConnectWithoutInstrumentInput | TradeCreateOrConnectWithoutInstrumentInput[]
-    createMany?: TradeCreateManyInstrumentInputEnvelope
-    connect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
-  }
-
-  export type MarketDepthUncheckedCreateNestedManyWithoutInstrumentInput = {
-    create?: XOR<MarketDepthCreateWithoutInstrumentInput, MarketDepthUncheckedCreateWithoutInstrumentInput> | MarketDepthCreateWithoutInstrumentInput[] | MarketDepthUncheckedCreateWithoutInstrumentInput[]
-    connectOrCreate?: MarketDepthCreateOrConnectWithoutInstrumentInput | MarketDepthCreateOrConnectWithoutInstrumentInput[]
-    createMany?: MarketDepthCreateManyInstrumentInputEnvelope
-    connect?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
+  export type PositionUncheckedCreateNestedManyWithoutInstrumentInput = {
+    create?: XOR<PositionCreateWithoutInstrumentInput, PositionUncheckedCreateWithoutInstrumentInput> | PositionCreateWithoutInstrumentInput[] | PositionUncheckedCreateWithoutInstrumentInput[]
+    connectOrCreate?: PositionCreateOrConnectWithoutInstrumentInput | PositionCreateOrConnectWithoutInstrumentInput[]
+    createMany?: PositionCreateManyInstrumentInputEnvelope
+    connect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
   }
 
   export type PriceHistoryUncheckedCreateNestedManyWithoutInstrumentInput = {
@@ -45754,6 +45800,13 @@ export namespace Prisma {
     connectOrCreate?: PriceHistoryCreateOrConnectWithoutInstrumentInput | PriceHistoryCreateOrConnectWithoutInstrumentInput[]
     createMany?: PriceHistoryCreateManyInstrumentInputEnvelope
     connect?: PriceHistoryWhereUniqueInput | PriceHistoryWhereUniqueInput[]
+  }
+
+  export type TradeUncheckedCreateNestedManyWithoutInstrumentInput = {
+    create?: XOR<TradeCreateWithoutInstrumentInput, TradeUncheckedCreateWithoutInstrumentInput> | TradeCreateWithoutInstrumentInput[] | TradeUncheckedCreateWithoutInstrumentInput[]
+    connectOrCreate?: TradeCreateOrConnectWithoutInstrumentInput | TradeCreateOrConnectWithoutInstrumentInput[]
+    createMany?: TradeCreateManyInstrumentInputEnvelope
+    connect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
   }
 
   export type WatchlistItemUncheckedCreateNestedManyWithoutInstrumentInput = {
@@ -45765,10 +45818,6 @@ export namespace Prisma {
 
   export type EnumExchangeFieldUpdateOperationsInput = {
     set?: $Enums.Exchange
-  }
-
-  export type EnumSegmentFieldUpdateOperationsInput = {
-    set?: $Enums.Segment
   }
 
   export type EnumInstrumentTypeFieldUpdateOperationsInput = {
@@ -45805,18 +45854,18 @@ export namespace Prisma {
     deleteMany?: HoldingScalarWhereInput | HoldingScalarWhereInput[]
   }
 
-  export type PositionUpdateManyWithoutInstrumentNestedInput = {
-    create?: XOR<PositionCreateWithoutInstrumentInput, PositionUncheckedCreateWithoutInstrumentInput> | PositionCreateWithoutInstrumentInput[] | PositionUncheckedCreateWithoutInstrumentInput[]
-    connectOrCreate?: PositionCreateOrConnectWithoutInstrumentInput | PositionCreateOrConnectWithoutInstrumentInput[]
-    upsert?: PositionUpsertWithWhereUniqueWithoutInstrumentInput | PositionUpsertWithWhereUniqueWithoutInstrumentInput[]
-    createMany?: PositionCreateManyInstrumentInputEnvelope
-    set?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
-    disconnect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
-    delete?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
-    connect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
-    update?: PositionUpdateWithWhereUniqueWithoutInstrumentInput | PositionUpdateWithWhereUniqueWithoutInstrumentInput[]
-    updateMany?: PositionUpdateManyWithWhereWithoutInstrumentInput | PositionUpdateManyWithWhereWithoutInstrumentInput[]
-    deleteMany?: PositionScalarWhereInput | PositionScalarWhereInput[]
+  export type MarketDepthUpdateManyWithoutInstrumentNestedInput = {
+    create?: XOR<MarketDepthCreateWithoutInstrumentInput, MarketDepthUncheckedCreateWithoutInstrumentInput> | MarketDepthCreateWithoutInstrumentInput[] | MarketDepthUncheckedCreateWithoutInstrumentInput[]
+    connectOrCreate?: MarketDepthCreateOrConnectWithoutInstrumentInput | MarketDepthCreateOrConnectWithoutInstrumentInput[]
+    upsert?: MarketDepthUpsertWithWhereUniqueWithoutInstrumentInput | MarketDepthUpsertWithWhereUniqueWithoutInstrumentInput[]
+    createMany?: MarketDepthCreateManyInstrumentInputEnvelope
+    set?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
+    disconnect?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
+    delete?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
+    connect?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
+    update?: MarketDepthUpdateWithWhereUniqueWithoutInstrumentInput | MarketDepthUpdateWithWhereUniqueWithoutInstrumentInput[]
+    updateMany?: MarketDepthUpdateManyWithWhereWithoutInstrumentInput | MarketDepthUpdateManyWithWhereWithoutInstrumentInput[]
+    deleteMany?: MarketDepthScalarWhereInput | MarketDepthScalarWhereInput[]
   }
 
   export type OrderUpdateManyWithoutInstrumentNestedInput = {
@@ -45833,32 +45882,18 @@ export namespace Prisma {
     deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
   }
 
-  export type TradeUpdateManyWithoutInstrumentNestedInput = {
-    create?: XOR<TradeCreateWithoutInstrumentInput, TradeUncheckedCreateWithoutInstrumentInput> | TradeCreateWithoutInstrumentInput[] | TradeUncheckedCreateWithoutInstrumentInput[]
-    connectOrCreate?: TradeCreateOrConnectWithoutInstrumentInput | TradeCreateOrConnectWithoutInstrumentInput[]
-    upsert?: TradeUpsertWithWhereUniqueWithoutInstrumentInput | TradeUpsertWithWhereUniqueWithoutInstrumentInput[]
-    createMany?: TradeCreateManyInstrumentInputEnvelope
-    set?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
-    disconnect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
-    delete?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
-    connect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
-    update?: TradeUpdateWithWhereUniqueWithoutInstrumentInput | TradeUpdateWithWhereUniqueWithoutInstrumentInput[]
-    updateMany?: TradeUpdateManyWithWhereWithoutInstrumentInput | TradeUpdateManyWithWhereWithoutInstrumentInput[]
-    deleteMany?: TradeScalarWhereInput | TradeScalarWhereInput[]
-  }
-
-  export type MarketDepthUpdateManyWithoutInstrumentNestedInput = {
-    create?: XOR<MarketDepthCreateWithoutInstrumentInput, MarketDepthUncheckedCreateWithoutInstrumentInput> | MarketDepthCreateWithoutInstrumentInput[] | MarketDepthUncheckedCreateWithoutInstrumentInput[]
-    connectOrCreate?: MarketDepthCreateOrConnectWithoutInstrumentInput | MarketDepthCreateOrConnectWithoutInstrumentInput[]
-    upsert?: MarketDepthUpsertWithWhereUniqueWithoutInstrumentInput | MarketDepthUpsertWithWhereUniqueWithoutInstrumentInput[]
-    createMany?: MarketDepthCreateManyInstrumentInputEnvelope
-    set?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
-    disconnect?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
-    delete?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
-    connect?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
-    update?: MarketDepthUpdateWithWhereUniqueWithoutInstrumentInput | MarketDepthUpdateWithWhereUniqueWithoutInstrumentInput[]
-    updateMany?: MarketDepthUpdateManyWithWhereWithoutInstrumentInput | MarketDepthUpdateManyWithWhereWithoutInstrumentInput[]
-    deleteMany?: MarketDepthScalarWhereInput | MarketDepthScalarWhereInput[]
+  export type PositionUpdateManyWithoutInstrumentNestedInput = {
+    create?: XOR<PositionCreateWithoutInstrumentInput, PositionUncheckedCreateWithoutInstrumentInput> | PositionCreateWithoutInstrumentInput[] | PositionUncheckedCreateWithoutInstrumentInput[]
+    connectOrCreate?: PositionCreateOrConnectWithoutInstrumentInput | PositionCreateOrConnectWithoutInstrumentInput[]
+    upsert?: PositionUpsertWithWhereUniqueWithoutInstrumentInput | PositionUpsertWithWhereUniqueWithoutInstrumentInput[]
+    createMany?: PositionCreateManyInstrumentInputEnvelope
+    set?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
+    disconnect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
+    delete?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
+    connect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
+    update?: PositionUpdateWithWhereUniqueWithoutInstrumentInput | PositionUpdateWithWhereUniqueWithoutInstrumentInput[]
+    updateMany?: PositionUpdateManyWithWhereWithoutInstrumentInput | PositionUpdateManyWithWhereWithoutInstrumentInput[]
+    deleteMany?: PositionScalarWhereInput | PositionScalarWhereInput[]
   }
 
   export type PriceHistoryUpdateManyWithoutInstrumentNestedInput = {
@@ -45873,6 +45908,20 @@ export namespace Prisma {
     update?: PriceHistoryUpdateWithWhereUniqueWithoutInstrumentInput | PriceHistoryUpdateWithWhereUniqueWithoutInstrumentInput[]
     updateMany?: PriceHistoryUpdateManyWithWhereWithoutInstrumentInput | PriceHistoryUpdateManyWithWhereWithoutInstrumentInput[]
     deleteMany?: PriceHistoryScalarWhereInput | PriceHistoryScalarWhereInput[]
+  }
+
+  export type TradeUpdateManyWithoutInstrumentNestedInput = {
+    create?: XOR<TradeCreateWithoutInstrumentInput, TradeUncheckedCreateWithoutInstrumentInput> | TradeCreateWithoutInstrumentInput[] | TradeUncheckedCreateWithoutInstrumentInput[]
+    connectOrCreate?: TradeCreateOrConnectWithoutInstrumentInput | TradeCreateOrConnectWithoutInstrumentInput[]
+    upsert?: TradeUpsertWithWhereUniqueWithoutInstrumentInput | TradeUpsertWithWhereUniqueWithoutInstrumentInput[]
+    createMany?: TradeCreateManyInstrumentInputEnvelope
+    set?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    disconnect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    delete?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    connect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    update?: TradeUpdateWithWhereUniqueWithoutInstrumentInput | TradeUpdateWithWhereUniqueWithoutInstrumentInput[]
+    updateMany?: TradeUpdateManyWithWhereWithoutInstrumentInput | TradeUpdateManyWithWhereWithoutInstrumentInput[]
+    deleteMany?: TradeScalarWhereInput | TradeScalarWhereInput[]
   }
 
   export type WatchlistItemUpdateManyWithoutInstrumentNestedInput = {
@@ -45903,18 +45952,18 @@ export namespace Prisma {
     deleteMany?: HoldingScalarWhereInput | HoldingScalarWhereInput[]
   }
 
-  export type PositionUncheckedUpdateManyWithoutInstrumentNestedInput = {
-    create?: XOR<PositionCreateWithoutInstrumentInput, PositionUncheckedCreateWithoutInstrumentInput> | PositionCreateWithoutInstrumentInput[] | PositionUncheckedCreateWithoutInstrumentInput[]
-    connectOrCreate?: PositionCreateOrConnectWithoutInstrumentInput | PositionCreateOrConnectWithoutInstrumentInput[]
-    upsert?: PositionUpsertWithWhereUniqueWithoutInstrumentInput | PositionUpsertWithWhereUniqueWithoutInstrumentInput[]
-    createMany?: PositionCreateManyInstrumentInputEnvelope
-    set?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
-    disconnect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
-    delete?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
-    connect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
-    update?: PositionUpdateWithWhereUniqueWithoutInstrumentInput | PositionUpdateWithWhereUniqueWithoutInstrumentInput[]
-    updateMany?: PositionUpdateManyWithWhereWithoutInstrumentInput | PositionUpdateManyWithWhereWithoutInstrumentInput[]
-    deleteMany?: PositionScalarWhereInput | PositionScalarWhereInput[]
+  export type MarketDepthUncheckedUpdateManyWithoutInstrumentNestedInput = {
+    create?: XOR<MarketDepthCreateWithoutInstrumentInput, MarketDepthUncheckedCreateWithoutInstrumentInput> | MarketDepthCreateWithoutInstrumentInput[] | MarketDepthUncheckedCreateWithoutInstrumentInput[]
+    connectOrCreate?: MarketDepthCreateOrConnectWithoutInstrumentInput | MarketDepthCreateOrConnectWithoutInstrumentInput[]
+    upsert?: MarketDepthUpsertWithWhereUniqueWithoutInstrumentInput | MarketDepthUpsertWithWhereUniqueWithoutInstrumentInput[]
+    createMany?: MarketDepthCreateManyInstrumentInputEnvelope
+    set?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
+    disconnect?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
+    delete?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
+    connect?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
+    update?: MarketDepthUpdateWithWhereUniqueWithoutInstrumentInput | MarketDepthUpdateWithWhereUniqueWithoutInstrumentInput[]
+    updateMany?: MarketDepthUpdateManyWithWhereWithoutInstrumentInput | MarketDepthUpdateManyWithWhereWithoutInstrumentInput[]
+    deleteMany?: MarketDepthScalarWhereInput | MarketDepthScalarWhereInput[]
   }
 
   export type OrderUncheckedUpdateManyWithoutInstrumentNestedInput = {
@@ -45931,32 +45980,18 @@ export namespace Prisma {
     deleteMany?: OrderScalarWhereInput | OrderScalarWhereInput[]
   }
 
-  export type TradeUncheckedUpdateManyWithoutInstrumentNestedInput = {
-    create?: XOR<TradeCreateWithoutInstrumentInput, TradeUncheckedCreateWithoutInstrumentInput> | TradeCreateWithoutInstrumentInput[] | TradeUncheckedCreateWithoutInstrumentInput[]
-    connectOrCreate?: TradeCreateOrConnectWithoutInstrumentInput | TradeCreateOrConnectWithoutInstrumentInput[]
-    upsert?: TradeUpsertWithWhereUniqueWithoutInstrumentInput | TradeUpsertWithWhereUniqueWithoutInstrumentInput[]
-    createMany?: TradeCreateManyInstrumentInputEnvelope
-    set?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
-    disconnect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
-    delete?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
-    connect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
-    update?: TradeUpdateWithWhereUniqueWithoutInstrumentInput | TradeUpdateWithWhereUniqueWithoutInstrumentInput[]
-    updateMany?: TradeUpdateManyWithWhereWithoutInstrumentInput | TradeUpdateManyWithWhereWithoutInstrumentInput[]
-    deleteMany?: TradeScalarWhereInput | TradeScalarWhereInput[]
-  }
-
-  export type MarketDepthUncheckedUpdateManyWithoutInstrumentNestedInput = {
-    create?: XOR<MarketDepthCreateWithoutInstrumentInput, MarketDepthUncheckedCreateWithoutInstrumentInput> | MarketDepthCreateWithoutInstrumentInput[] | MarketDepthUncheckedCreateWithoutInstrumentInput[]
-    connectOrCreate?: MarketDepthCreateOrConnectWithoutInstrumentInput | MarketDepthCreateOrConnectWithoutInstrumentInput[]
-    upsert?: MarketDepthUpsertWithWhereUniqueWithoutInstrumentInput | MarketDepthUpsertWithWhereUniqueWithoutInstrumentInput[]
-    createMany?: MarketDepthCreateManyInstrumentInputEnvelope
-    set?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
-    disconnect?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
-    delete?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
-    connect?: MarketDepthWhereUniqueInput | MarketDepthWhereUniqueInput[]
-    update?: MarketDepthUpdateWithWhereUniqueWithoutInstrumentInput | MarketDepthUpdateWithWhereUniqueWithoutInstrumentInput[]
-    updateMany?: MarketDepthUpdateManyWithWhereWithoutInstrumentInput | MarketDepthUpdateManyWithWhereWithoutInstrumentInput[]
-    deleteMany?: MarketDepthScalarWhereInput | MarketDepthScalarWhereInput[]
+  export type PositionUncheckedUpdateManyWithoutInstrumentNestedInput = {
+    create?: XOR<PositionCreateWithoutInstrumentInput, PositionUncheckedCreateWithoutInstrumentInput> | PositionCreateWithoutInstrumentInput[] | PositionUncheckedCreateWithoutInstrumentInput[]
+    connectOrCreate?: PositionCreateOrConnectWithoutInstrumentInput | PositionCreateOrConnectWithoutInstrumentInput[]
+    upsert?: PositionUpsertWithWhereUniqueWithoutInstrumentInput | PositionUpsertWithWhereUniqueWithoutInstrumentInput[]
+    createMany?: PositionCreateManyInstrumentInputEnvelope
+    set?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
+    disconnect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
+    delete?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
+    connect?: PositionWhereUniqueInput | PositionWhereUniqueInput[]
+    update?: PositionUpdateWithWhereUniqueWithoutInstrumentInput | PositionUpdateWithWhereUniqueWithoutInstrumentInput[]
+    updateMany?: PositionUpdateManyWithWhereWithoutInstrumentInput | PositionUpdateManyWithWhereWithoutInstrumentInput[]
+    deleteMany?: PositionScalarWhereInput | PositionScalarWhereInput[]
   }
 
   export type PriceHistoryUncheckedUpdateManyWithoutInstrumentNestedInput = {
@@ -45971,6 +46006,20 @@ export namespace Prisma {
     update?: PriceHistoryUpdateWithWhereUniqueWithoutInstrumentInput | PriceHistoryUpdateWithWhereUniqueWithoutInstrumentInput[]
     updateMany?: PriceHistoryUpdateManyWithWhereWithoutInstrumentInput | PriceHistoryUpdateManyWithWhereWithoutInstrumentInput[]
     deleteMany?: PriceHistoryScalarWhereInput | PriceHistoryScalarWhereInput[]
+  }
+
+  export type TradeUncheckedUpdateManyWithoutInstrumentNestedInput = {
+    create?: XOR<TradeCreateWithoutInstrumentInput, TradeUncheckedCreateWithoutInstrumentInput> | TradeCreateWithoutInstrumentInput[] | TradeUncheckedCreateWithoutInstrumentInput[]
+    connectOrCreate?: TradeCreateOrConnectWithoutInstrumentInput | TradeCreateOrConnectWithoutInstrumentInput[]
+    upsert?: TradeUpsertWithWhereUniqueWithoutInstrumentInput | TradeUpsertWithWhereUniqueWithoutInstrumentInput[]
+    createMany?: TradeCreateManyInstrumentInputEnvelope
+    set?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    disconnect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    delete?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    connect?: TradeWhereUniqueInput | TradeWhereUniqueInput[]
+    update?: TradeUpdateWithWhereUniqueWithoutInstrumentInput | TradeUpdateWithWhereUniqueWithoutInstrumentInput[]
+    updateMany?: TradeUpdateManyWithWhereWithoutInstrumentInput | TradeUpdateManyWithWhereWithoutInstrumentInput[]
+    deleteMany?: TradeScalarWhereInput | TradeScalarWhereInput[]
   }
 
   export type WatchlistItemUncheckedUpdateManyWithoutInstrumentNestedInput = {
@@ -46033,28 +46082,20 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPortfoliosInput, UserUpdateWithoutPortfoliosInput>, UserUncheckedUpdateWithoutPortfoliosInput>
   }
 
-  export type UserCreateNestedOneWithoutHoldingsInput = {
-    create?: XOR<UserCreateWithoutHoldingsInput, UserUncheckedCreateWithoutHoldingsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutHoldingsInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type InstrumentCreateNestedOneWithoutHoldingsInput = {
     create?: XOR<InstrumentCreateWithoutHoldingsInput, InstrumentUncheckedCreateWithoutHoldingsInput>
     connectOrCreate?: InstrumentCreateOrConnectWithoutHoldingsInput
     connect?: InstrumentWhereUniqueInput
   }
 
-  export type EnumProductTypeFieldUpdateOperationsInput = {
-    set?: $Enums.ProductType
-  }
-
-  export type UserUpdateOneRequiredWithoutHoldingsNestedInput = {
+  export type UserCreateNestedOneWithoutHoldingsInput = {
     create?: XOR<UserCreateWithoutHoldingsInput, UserUncheckedCreateWithoutHoldingsInput>
     connectOrCreate?: UserCreateOrConnectWithoutHoldingsInput
-    upsert?: UserUpsertWithoutHoldingsInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutHoldingsInput, UserUpdateWithoutHoldingsInput>, UserUncheckedUpdateWithoutHoldingsInput>
+  }
+
+  export type EnumProductTypeFieldUpdateOperationsInput = {
+    set?: $Enums.ProductType
   }
 
   export type InstrumentUpdateOneRequiredWithoutHoldingsNestedInput = {
@@ -46065,10 +46106,12 @@ export namespace Prisma {
     update?: XOR<XOR<InstrumentUpdateToOneWithWhereWithoutHoldingsInput, InstrumentUpdateWithoutHoldingsInput>, InstrumentUncheckedUpdateWithoutHoldingsInput>
   }
 
-  export type UserCreateNestedOneWithoutPositionsInput = {
-    create?: XOR<UserCreateWithoutPositionsInput, UserUncheckedCreateWithoutPositionsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPositionsInput
+  export type UserUpdateOneRequiredWithoutHoldingsNestedInput = {
+    create?: XOR<UserCreateWithoutHoldingsInput, UserUncheckedCreateWithoutHoldingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutHoldingsInput
+    upsert?: UserUpsertWithoutHoldingsInput
     connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutHoldingsInput, UserUpdateWithoutHoldingsInput>, UserUncheckedUpdateWithoutHoldingsInput>
   }
 
   export type InstrumentCreateNestedOneWithoutPositionsInput = {
@@ -46077,16 +46120,14 @@ export namespace Prisma {
     connect?: InstrumentWhereUniqueInput
   }
 
-  export type EnumPositionTypeFieldUpdateOperationsInput = {
-    set?: $Enums.PositionType
-  }
-
-  export type UserUpdateOneRequiredWithoutPositionsNestedInput = {
+  export type UserCreateNestedOneWithoutPositionsInput = {
     create?: XOR<UserCreateWithoutPositionsInput, UserUncheckedCreateWithoutPositionsInput>
     connectOrCreate?: UserCreateOrConnectWithoutPositionsInput
-    upsert?: UserUpsertWithoutPositionsInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPositionsInput, UserUpdateWithoutPositionsInput>, UserUncheckedUpdateWithoutPositionsInput>
+  }
+
+  export type EnumPositionTypeFieldUpdateOperationsInput = {
+    set?: $Enums.PositionType
   }
 
   export type InstrumentUpdateOneRequiredWithoutPositionsNestedInput = {
@@ -46097,16 +46138,24 @@ export namespace Prisma {
     update?: XOR<XOR<InstrumentUpdateToOneWithWhereWithoutPositionsInput, InstrumentUpdateWithoutPositionsInput>, InstrumentUncheckedUpdateWithoutPositionsInput>
   }
 
-  export type UserCreateNestedOneWithoutOrdersInput = {
-    create?: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
-    connectOrCreate?: UserCreateOrConnectWithoutOrdersInput
+  export type UserUpdateOneRequiredWithoutPositionsNestedInput = {
+    create?: XOR<UserCreateWithoutPositionsInput, UserUncheckedCreateWithoutPositionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPositionsInput
+    upsert?: UserUpsertWithoutPositionsInput
     connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPositionsInput, UserUpdateWithoutPositionsInput>, UserUncheckedUpdateWithoutPositionsInput>
   }
 
   export type InstrumentCreateNestedOneWithoutOrdersInput = {
     create?: XOR<InstrumentCreateWithoutOrdersInput, InstrumentUncheckedCreateWithoutOrdersInput>
     connectOrCreate?: InstrumentCreateOrConnectWithoutOrdersInput
     connect?: InstrumentWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutOrdersInput = {
+    create?: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOrdersInput
+    connect?: UserWhereUniqueInput
   }
 
   export type TradeCreateNestedManyWithoutOrderInput = {
@@ -46143,20 +46192,20 @@ export namespace Prisma {
     set?: $Enums.OrderStatus
   }
 
-  export type UserUpdateOneRequiredWithoutOrdersNestedInput = {
-    create?: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
-    connectOrCreate?: UserCreateOrConnectWithoutOrdersInput
-    upsert?: UserUpsertWithoutOrdersInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOrdersInput, UserUpdateWithoutOrdersInput>, UserUncheckedUpdateWithoutOrdersInput>
-  }
-
   export type InstrumentUpdateOneRequiredWithoutOrdersNestedInput = {
     create?: XOR<InstrumentCreateWithoutOrdersInput, InstrumentUncheckedCreateWithoutOrdersInput>
     connectOrCreate?: InstrumentCreateOrConnectWithoutOrdersInput
     upsert?: InstrumentUpsertWithoutOrdersInput
     connect?: InstrumentWhereUniqueInput
     update?: XOR<XOR<InstrumentUpdateToOneWithWhereWithoutOrdersInput, InstrumentUpdateWithoutOrdersInput>, InstrumentUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutOrdersNestedInput = {
+    create?: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOrdersInput
+    upsert?: UserUpsertWithoutOrdersInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOrdersInput, UserUpdateWithoutOrdersInput>, UserUncheckedUpdateWithoutOrdersInput>
   }
 
   export type TradeUpdateManyWithoutOrderNestedInput = {
@@ -46187,6 +46236,12 @@ export namespace Prisma {
     deleteMany?: TradeScalarWhereInput | TradeScalarWhereInput[]
   }
 
+  export type InstrumentCreateNestedOneWithoutTradesInput = {
+    create?: XOR<InstrumentCreateWithoutTradesInput, InstrumentUncheckedCreateWithoutTradesInput>
+    connectOrCreate?: InstrumentCreateOrConnectWithoutTradesInput
+    connect?: InstrumentWhereUniqueInput
+  }
+
   export type OrderCreateNestedOneWithoutTradesInput = {
     create?: XOR<OrderCreateWithoutTradesInput, OrderUncheckedCreateWithoutTradesInput>
     connectOrCreate?: OrderCreateOrConnectWithoutTradesInput
@@ -46199,12 +46254,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type InstrumentCreateNestedOneWithoutTradesInput = {
-    create?: XOR<InstrumentCreateWithoutTradesInput, InstrumentUncheckedCreateWithoutTradesInput>
-    connectOrCreate?: InstrumentCreateOrConnectWithoutTradesInput
-    connect?: InstrumentWhereUniqueInput
-  }
-
   export type TradeChargesCreateNestedOneWithoutTradeInput = {
     create?: XOR<TradeChargesCreateWithoutTradeInput, TradeChargesUncheckedCreateWithoutTradeInput>
     connectOrCreate?: TradeChargesCreateOrConnectWithoutTradeInput
@@ -46215,6 +46264,14 @@ export namespace Prisma {
     create?: XOR<TradeChargesCreateWithoutTradeInput, TradeChargesUncheckedCreateWithoutTradeInput>
     connectOrCreate?: TradeChargesCreateOrConnectWithoutTradeInput
     connect?: TradeChargesWhereUniqueInput
+  }
+
+  export type InstrumentUpdateOneRequiredWithoutTradesNestedInput = {
+    create?: XOR<InstrumentCreateWithoutTradesInput, InstrumentUncheckedCreateWithoutTradesInput>
+    connectOrCreate?: InstrumentCreateOrConnectWithoutTradesInput
+    upsert?: InstrumentUpsertWithoutTradesInput
+    connect?: InstrumentWhereUniqueInput
+    update?: XOR<XOR<InstrumentUpdateToOneWithWhereWithoutTradesInput, InstrumentUpdateWithoutTradesInput>, InstrumentUncheckedUpdateWithoutTradesInput>
   }
 
   export type OrderUpdateOneRequiredWithoutTradesNestedInput = {
@@ -46231,14 +46288,6 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutTradesInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTradesInput, UserUpdateWithoutTradesInput>, UserUncheckedUpdateWithoutTradesInput>
-  }
-
-  export type InstrumentUpdateOneRequiredWithoutTradesNestedInput = {
-    create?: XOR<InstrumentCreateWithoutTradesInput, InstrumentUncheckedCreateWithoutTradesInput>
-    connectOrCreate?: InstrumentCreateOrConnectWithoutTradesInput
-    upsert?: InstrumentUpsertWithoutTradesInput
-    connect?: InstrumentWhereUniqueInput
-    update?: XOR<XOR<InstrumentUpdateToOneWithWhereWithoutTradesInput, InstrumentUpdateWithoutTradesInput>, InstrumentUncheckedUpdateWithoutTradesInput>
   }
 
   export type TradeChargesUpdateOneWithoutTradeNestedInput = {
@@ -46357,24 +46406,16 @@ export namespace Prisma {
     deleteMany?: WatchlistItemScalarWhereInput | WatchlistItemScalarWhereInput[]
   }
 
-  export type WatchlistCreateNestedOneWithoutItemsInput = {
-    create?: XOR<WatchlistCreateWithoutItemsInput, WatchlistUncheckedCreateWithoutItemsInput>
-    connectOrCreate?: WatchlistCreateOrConnectWithoutItemsInput
-    connect?: WatchlistWhereUniqueInput
-  }
-
   export type InstrumentCreateNestedOneWithoutWatchlistItemsInput = {
     create?: XOR<InstrumentCreateWithoutWatchlistItemsInput, InstrumentUncheckedCreateWithoutWatchlistItemsInput>
     connectOrCreate?: InstrumentCreateOrConnectWithoutWatchlistItemsInput
     connect?: InstrumentWhereUniqueInput
   }
 
-  export type WatchlistUpdateOneRequiredWithoutItemsNestedInput = {
+  export type WatchlistCreateNestedOneWithoutItemsInput = {
     create?: XOR<WatchlistCreateWithoutItemsInput, WatchlistUncheckedCreateWithoutItemsInput>
     connectOrCreate?: WatchlistCreateOrConnectWithoutItemsInput
-    upsert?: WatchlistUpsertWithoutItemsInput
     connect?: WatchlistWhereUniqueInput
-    update?: XOR<XOR<WatchlistUpdateToOneWithWhereWithoutItemsInput, WatchlistUpdateWithoutItemsInput>, WatchlistUncheckedUpdateWithoutItemsInput>
   }
 
   export type InstrumentUpdateOneRequiredWithoutWatchlistItemsNestedInput = {
@@ -46383,6 +46424,14 @@ export namespace Prisma {
     upsert?: InstrumentUpsertWithoutWatchlistItemsInput
     connect?: InstrumentWhereUniqueInput
     update?: XOR<XOR<InstrumentUpdateToOneWithWhereWithoutWatchlistItemsInput, InstrumentUpdateWithoutWatchlistItemsInput>, InstrumentUncheckedUpdateWithoutWatchlistItemsInput>
+  }
+
+  export type WatchlistUpdateOneRequiredWithoutItemsNestedInput = {
+    create?: XOR<WatchlistCreateWithoutItemsInput, WatchlistUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: WatchlistCreateOrConnectWithoutItemsInput
+    upsert?: WatchlistUpsertWithoutItemsInput
+    connect?: WatchlistWhereUniqueInput
+    update?: XOR<XOR<WatchlistUpdateToOneWithWhereWithoutItemsInput, WatchlistUpdateWithoutItemsInput>, WatchlistUncheckedUpdateWithoutItemsInput>
   }
 
   export type UserCreateNestedOneWithoutAlertsInput = {
@@ -46580,6 +46629,13 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type NestedEnumSegmentFilter<$PrismaModel = never> = {
+    equals?: $Enums.Segment | EnumSegmentFieldRefInput<$PrismaModel>
+    in?: $Enums.Segment[] | ListEnumSegmentFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Segment[] | ListEnumSegmentFieldRefInput<$PrismaModel>
+    not?: NestedEnumSegmentFilter<$PrismaModel> | $Enums.Segment
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -46698,6 +46754,23 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedEnumSegmentWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Segment | EnumSegmentFieldRefInput<$PrismaModel>
+    in?: $Enums.Segment[] | ListEnumSegmentFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Segment[] | ListEnumSegmentFieldRefInput<$PrismaModel>
+    not?: NestedEnumSegmentWithAggregatesFilter<$PrismaModel> | $Enums.Segment
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSegmentFilter<$PrismaModel>
+    _max?: NestedEnumSegmentFilter<$PrismaModel>
+  }
+
+  export type NestedEnumKYCStageFilter<$PrismaModel = never> = {
+    equals?: $Enums.KYCStage | EnumKYCStageFieldRefInput<$PrismaModel>
+    in?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumKYCStageFilter<$PrismaModel> | $Enums.KYCStage
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -46707,6 +46780,16 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedEnumKYCStageWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.KYCStage | EnumKYCStageFieldRefInput<$PrismaModel>
+    in?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumKYCStageWithAggregatesFilter<$PrismaModel> | $Enums.KYCStage
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumKYCStageFilter<$PrismaModel>
+    _max?: NestedEnumKYCStageFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -46842,13 +46925,6 @@ export namespace Prisma {
     not?: NestedEnumExchangeFilter<$PrismaModel> | $Enums.Exchange
   }
 
-  export type NestedEnumSegmentFilter<$PrismaModel = never> = {
-    equals?: $Enums.Segment | EnumSegmentFieldRefInput<$PrismaModel>
-    in?: $Enums.Segment[] | ListEnumSegmentFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Segment[] | ListEnumSegmentFieldRefInput<$PrismaModel>
-    not?: NestedEnumSegmentFilter<$PrismaModel> | $Enums.Segment
-  }
-
   export type NestedEnumInstrumentTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.InstrumentType | EnumInstrumentTypeFieldRefInput<$PrismaModel>
     in?: $Enums.InstrumentType[] | ListEnumInstrumentTypeFieldRefInput<$PrismaModel>
@@ -46875,16 +46951,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumExchangeFilter<$PrismaModel>
     _max?: NestedEnumExchangeFilter<$PrismaModel>
-  }
-
-  export type NestedEnumSegmentWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Segment | EnumSegmentFieldRefInput<$PrismaModel>
-    in?: $Enums.Segment[] | ListEnumSegmentFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Segment[] | ListEnumSegmentFieldRefInput<$PrismaModel>
-    not?: NestedEnumSegmentWithAggregatesFilter<$PrismaModel> | $Enums.Segment
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumSegmentFilter<$PrismaModel>
-    _max?: NestedEnumSegmentFilter<$PrismaModel>
   }
 
   export type NestedEnumInstrumentTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -47184,47 +47250,42 @@ export namespace Prisma {
     _max?: NestedEnumCorporateActionTypeFilter<$PrismaModel>
   }
 
-  export type UserProfileCreateWithoutUserInput = {
+  export type AlertCreateWithoutUserInput = {
     id?: string
-    addressLine1: string
-    addressLine2?: string | null
-    city: string
-    state: string
-    pincode: string
-    fatherName?: string | null
-    motherName?: string | null
-    maritalStatus?: string | null
-    country?: string
-    occupation?: string | null
-    annualIncome?: string | null
-    tradingExperience?: string | null
-    riskProfile?: $Enums.RiskProfile
+    instrumentId?: string | null
+    alertType: $Enums.AlertType
+    message: string
+    triggerPrice?: number | null
+    condition?: string | null
+    isTriggered?: boolean
+    isRead?: boolean
+    triggeredAt?: Date | string | null
+    expiresAt?: Date | string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
-  export type UserProfileUncheckedCreateWithoutUserInput = {
+  export type AlertUncheckedCreateWithoutUserInput = {
     id?: string
-    addressLine1: string
-    addressLine2?: string | null
-    city: string
-    state: string
-    pincode: string
-    fatherName?: string | null
-    motherName?: string | null
-    maritalStatus?: string | null
-    country?: string
-    occupation?: string | null
-    annualIncome?: string | null
-    tradingExperience?: string | null
-    riskProfile?: $Enums.RiskProfile
+    instrumentId?: string | null
+    alertType: $Enums.AlertType
+    message: string
+    triggerPrice?: number | null
+    condition?: string | null
+    isTriggered?: boolean
+    isRead?: boolean
+    triggeredAt?: Date | string | null
+    expiresAt?: Date | string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
-  export type UserProfileCreateOrConnectWithoutUserInput = {
-    where: UserProfileWhereUniqueInput
-    create: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
+  export type AlertCreateOrConnectWithoutUserInput = {
+    where: AlertWhereUniqueInput
+    create: XOR<AlertCreateWithoutUserInput, AlertUncheckedCreateWithoutUserInput>
+  }
+
+  export type AlertCreateManyUserInputEnvelope = {
+    data: AlertCreateManyUserInput | AlertCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type BankAccountCreateWithoutUserInput = {
@@ -47265,6 +47326,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type BasketCreateWithoutUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    totalValue?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    items?: BasketItemCreateNestedManyWithoutBasketInput
+  }
+
+  export type BasketUncheckedCreateWithoutUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    totalValue?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    items?: BasketItemUncheckedCreateNestedManyWithoutBasketInput
+  }
+
+  export type BasketCreateOrConnectWithoutUserInput = {
+    where: BasketWhereUniqueInput
+    create: XOR<BasketCreateWithoutUserInput, BasketUncheckedCreateWithoutUserInput>
+  }
+
+  export type BasketCreateManyUserInputEnvelope = {
+    data: BasketCreateManyUserInput | BasketCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type FundTransactionCreateWithoutUserInput = {
     id?: string
     transactionType: $Enums.FundTransactionType
@@ -47300,6 +47393,58 @@ export namespace Prisma {
 
   export type FundTransactionCreateManyUserInputEnvelope = {
     data: FundTransactionCreateManyUserInput | FundTransactionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GTTOrderCreateWithoutUserInput = {
+    id?: string
+    gttType: $Enums.GTTType
+    instrumentId: string
+    tradingSymbol: string
+    exchange: $Enums.Exchange
+    triggerType: $Enums.TriggerType
+    triggerPrice: number
+    lastPrice: number
+    limitPrice?: number | null
+    stopLossPrice?: number | null
+    quantity: number
+    product: $Enums.ProductType
+    orderType: $Enums.OrderType
+    status?: $Enums.GTTStatus
+    expiresAt?: Date | string | null
+    triggeredAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GTTOrderUncheckedCreateWithoutUserInput = {
+    id?: string
+    gttType: $Enums.GTTType
+    instrumentId: string
+    tradingSymbol: string
+    exchange: $Enums.Exchange
+    triggerType: $Enums.TriggerType
+    triggerPrice: number
+    lastPrice: number
+    limitPrice?: number | null
+    stopLossPrice?: number | null
+    quantity: number
+    product: $Enums.ProductType
+    orderType: $Enums.OrderType
+    status?: $Enums.GTTStatus
+    expiresAt?: Date | string | null
+    triggeredAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GTTOrderCreateOrConnectWithoutUserInput = {
+    where: GTTOrderWhereUniqueInput
+    create: XOR<GTTOrderCreateWithoutUserInput, GTTOrderUncheckedCreateWithoutUserInput>
+  }
+
+  export type GTTOrderCreateManyUserInputEnvelope = {
+    data: GTTOrderCreateManyUserInput | GTTOrderCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -47345,67 +47490,33 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type PositionCreateWithoutUserInput = {
+  export type NotificationCreateWithoutUserInput = {
     id?: string
-    product: $Enums.ProductType
-    quantity: number
-    overnightQuantity?: number
-    averagePrice: number
-    lastPrice: number
-    value: number
-    pnl?: number
-    m2m?: number
-    unrealised?: number
-    realised?: number
-    buyQuantity?: number
-    buyValue?: number
-    buyPrice?: number
-    sellQuantity?: number
-    sellValue?: number
-    sellPrice?: number
-    multiplier?: number
-    tradingSymbol: string
-    exchange: $Enums.Exchange
-    positionType: $Enums.PositionType
+    notificationType: $Enums.NotificationType
+    title: string
+    message: string
+    isRead?: boolean
+    priority?: $Enums.Priority
     createdAt?: Date | string
-    updatedAt?: Date | string
-    instrument: InstrumentCreateNestedOneWithoutPositionsInput
   }
 
-  export type PositionUncheckedCreateWithoutUserInput = {
+  export type NotificationUncheckedCreateWithoutUserInput = {
     id?: string
-    instrumentId: string
-    product: $Enums.ProductType
-    quantity: number
-    overnightQuantity?: number
-    averagePrice: number
-    lastPrice: number
-    value: number
-    pnl?: number
-    m2m?: number
-    unrealised?: number
-    realised?: number
-    buyQuantity?: number
-    buyValue?: number
-    buyPrice?: number
-    sellQuantity?: number
-    sellValue?: number
-    sellPrice?: number
-    multiplier?: number
-    tradingSymbol: string
-    exchange: $Enums.Exchange
-    positionType: $Enums.PositionType
+    notificationType: $Enums.NotificationType
+    title: string
+    message: string
+    isRead?: boolean
+    priority?: $Enums.Priority
     createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
-  export type PositionCreateOrConnectWithoutUserInput = {
-    where: PositionWhereUniqueInput
-    create: XOR<PositionCreateWithoutUserInput, PositionUncheckedCreateWithoutUserInput>
+  export type NotificationCreateOrConnectWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
   }
 
-  export type PositionCreateManyUserInputEnvelope = {
-    data: PositionCreateManyUserInput | PositionCreateManyUserInput[]
+  export type NotificationCreateManyUserInputEnvelope = {
+    data: NotificationCreateManyUserInput | NotificationCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -47491,78 +47602,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type TradeCreateWithoutUserInput = {
-    id?: string
-    tradeId: string
-    exchange: $Enums.Exchange
-    tradingSymbol: string
-    transactionType: $Enums.TransactionType
-    product: $Enums.ProductType
-    quantity: number
-    price: number
-    value: number
-    exchangeTimestamp: Date | string
-    createdAt?: Date | string
-    order: OrderCreateNestedOneWithoutTradesInput
-    instrument: InstrumentCreateNestedOneWithoutTradesInput
-    charges?: TradeChargesCreateNestedOneWithoutTradeInput
-  }
-
-  export type TradeUncheckedCreateWithoutUserInput = {
-    id?: string
-    tradeId: string
-    orderId: string
-    instrumentId: string
-    exchange: $Enums.Exchange
-    tradingSymbol: string
-    transactionType: $Enums.TransactionType
-    product: $Enums.ProductType
-    quantity: number
-    price: number
-    value: number
-    exchangeTimestamp: Date | string
-    createdAt?: Date | string
-    charges?: TradeChargesUncheckedCreateNestedOneWithoutTradeInput
-  }
-
-  export type TradeCreateOrConnectWithoutUserInput = {
-    where: TradeWhereUniqueInput
-    create: XOR<TradeCreateWithoutUserInput, TradeUncheckedCreateWithoutUserInput>
-  }
-
-  export type TradeCreateManyUserInputEnvelope = {
-    data: TradeCreateManyUserInput | TradeCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type WatchlistCreateWithoutUserInput = {
-    id?: string
-    name: string
-    isDefault?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    items?: WatchlistItemCreateNestedManyWithoutWatchlistInput
-  }
-
-  export type WatchlistUncheckedCreateWithoutUserInput = {
-    id?: string
-    name: string
-    isDefault?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    items?: WatchlistItemUncheckedCreateNestedManyWithoutWatchlistInput
-  }
-
-  export type WatchlistCreateOrConnectWithoutUserInput = {
-    where: WatchlistWhereUniqueInput
-    create: XOR<WatchlistCreateWithoutUserInput, WatchlistUncheckedCreateWithoutUserInput>
-  }
-
-  export type WatchlistCreateManyUserInputEnvelope = {
-    data: WatchlistCreateManyUserInput | WatchlistCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
   export type PortfolioCreateWithoutUserInput = {
     id?: string
     totalValue?: number
@@ -47601,155 +47640,67 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type GTTOrderCreateWithoutUserInput = {
+  export type PositionCreateWithoutUserInput = {
     id?: string
-    gttType: $Enums.GTTType
-    instrumentId: string
+    product: $Enums.ProductType
+    quantity: number
+    overnightQuantity?: number
+    averagePrice: number
+    lastPrice: number
+    value: number
+    pnl?: number
+    m2m?: number
+    unrealised?: number
+    realised?: number
+    buyQuantity?: number
+    buyValue?: number
+    buyPrice?: number
+    sellQuantity?: number
+    sellValue?: number
+    sellPrice?: number
+    multiplier?: number
     tradingSymbol: string
     exchange: $Enums.Exchange
-    triggerType: $Enums.TriggerType
-    triggerPrice: number
-    lastPrice: number
-    limitPrice?: number | null
-    stopLossPrice?: number | null
-    quantity: number
-    product: $Enums.ProductType
-    orderType: $Enums.OrderType
-    status?: $Enums.GTTStatus
-    expiresAt?: Date | string | null
-    triggeredAt?: Date | string | null
+    positionType: $Enums.PositionType
     createdAt?: Date | string
     updatedAt?: Date | string
+    instrument: InstrumentCreateNestedOneWithoutPositionsInput
   }
 
-  export type GTTOrderUncheckedCreateWithoutUserInput = {
+  export type PositionUncheckedCreateWithoutUserInput = {
     id?: string
-    gttType: $Enums.GTTType
     instrumentId: string
+    product: $Enums.ProductType
+    quantity: number
+    overnightQuantity?: number
+    averagePrice: number
+    lastPrice: number
+    value: number
+    pnl?: number
+    m2m?: number
+    unrealised?: number
+    realised?: number
+    buyQuantity?: number
+    buyValue?: number
+    buyPrice?: number
+    sellQuantity?: number
+    sellValue?: number
+    sellPrice?: number
+    multiplier?: number
     tradingSymbol: string
     exchange: $Enums.Exchange
-    triggerType: $Enums.TriggerType
-    triggerPrice: number
-    lastPrice: number
-    limitPrice?: number | null
-    stopLossPrice?: number | null
-    quantity: number
-    product: $Enums.ProductType
-    orderType: $Enums.OrderType
-    status?: $Enums.GTTStatus
-    expiresAt?: Date | string | null
-    triggeredAt?: Date | string | null
+    positionType: $Enums.PositionType
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type GTTOrderCreateOrConnectWithoutUserInput = {
-    where: GTTOrderWhereUniqueInput
-    create: XOR<GTTOrderCreateWithoutUserInput, GTTOrderUncheckedCreateWithoutUserInput>
+  export type PositionCreateOrConnectWithoutUserInput = {
+    where: PositionWhereUniqueInput
+    create: XOR<PositionCreateWithoutUserInput, PositionUncheckedCreateWithoutUserInput>
   }
 
-  export type GTTOrderCreateManyUserInputEnvelope = {
-    data: GTTOrderCreateManyUserInput | GTTOrderCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type BasketCreateWithoutUserInput = {
-    id?: string
-    name: string
-    description?: string | null
-    totalValue?: number
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    items?: BasketItemCreateNestedManyWithoutBasketInput
-  }
-
-  export type BasketUncheckedCreateWithoutUserInput = {
-    id?: string
-    name: string
-    description?: string | null
-    totalValue?: number
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    items?: BasketItemUncheckedCreateNestedManyWithoutBasketInput
-  }
-
-  export type BasketCreateOrConnectWithoutUserInput = {
-    where: BasketWhereUniqueInput
-    create: XOR<BasketCreateWithoutUserInput, BasketUncheckedCreateWithoutUserInput>
-  }
-
-  export type BasketCreateManyUserInputEnvelope = {
-    data: BasketCreateManyUserInput | BasketCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type AlertCreateWithoutUserInput = {
-    id?: string
-    instrumentId?: string | null
-    alertType: $Enums.AlertType
-    message: string
-    triggerPrice?: number | null
-    condition?: string | null
-    isTriggered?: boolean
-    isRead?: boolean
-    triggeredAt?: Date | string | null
-    expiresAt?: Date | string | null
-    createdAt?: Date | string
-  }
-
-  export type AlertUncheckedCreateWithoutUserInput = {
-    id?: string
-    instrumentId?: string | null
-    alertType: $Enums.AlertType
-    message: string
-    triggerPrice?: number | null
-    condition?: string | null
-    isTriggered?: boolean
-    isRead?: boolean
-    triggeredAt?: Date | string | null
-    expiresAt?: Date | string | null
-    createdAt?: Date | string
-  }
-
-  export type AlertCreateOrConnectWithoutUserInput = {
-    where: AlertWhereUniqueInput
-    create: XOR<AlertCreateWithoutUserInput, AlertUncheckedCreateWithoutUserInput>
-  }
-
-  export type AlertCreateManyUserInputEnvelope = {
-    data: AlertCreateManyUserInput | AlertCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type NotificationCreateWithoutUserInput = {
-    id?: string
-    notificationType: $Enums.NotificationType
-    title: string
-    message: string
-    isRead?: boolean
-    priority?: $Enums.Priority
-    createdAt?: Date | string
-  }
-
-  export type NotificationUncheckedCreateWithoutUserInput = {
-    id?: string
-    notificationType: $Enums.NotificationType
-    title: string
-    message: string
-    isRead?: boolean
-    priority?: $Enums.Priority
-    createdAt?: Date | string
-  }
-
-  export type NotificationCreateOrConnectWithoutUserInput = {
-    where: NotificationWhereUniqueInput
-    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
-  }
-
-  export type NotificationCreateManyUserInputEnvelope = {
-    data: NotificationCreateManyUserInput | NotificationCreateManyUserInput[]
+  export type PositionCreateManyUserInputEnvelope = {
+    data: PositionCreateManyUserInput | PositionCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -47785,20 +47736,103 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TradeCreateWithoutUserInput = {
+    id?: string
+    tradeId: string
+    exchange: $Enums.Exchange
+    tradingSymbol: string
+    transactionType: $Enums.TransactionType
+    product: $Enums.ProductType
+    quantity: number
+    price: number
+    value: number
+    exchangeTimestamp: Date | string
+    createdAt?: Date | string
+    instrument: InstrumentCreateNestedOneWithoutTradesInput
+    order: OrderCreateNestedOneWithoutTradesInput
+    charges?: TradeChargesCreateNestedOneWithoutTradeInput
+  }
+
+  export type TradeUncheckedCreateWithoutUserInput = {
+    id?: string
+    tradeId: string
+    orderId: string
+    instrumentId: string
+    exchange: $Enums.Exchange
+    tradingSymbol: string
+    transactionType: $Enums.TransactionType
+    product: $Enums.ProductType
+    quantity: number
+    price: number
+    value: number
+    exchangeTimestamp: Date | string
+    createdAt?: Date | string
+    charges?: TradeChargesUncheckedCreateNestedOneWithoutTradeInput
+  }
+
+  export type TradeCreateOrConnectWithoutUserInput = {
+    where: TradeWhereUniqueInput
+    create: XOR<TradeCreateWithoutUserInput, TradeUncheckedCreateWithoutUserInput>
+  }
+
+  export type TradeCreateManyUserInputEnvelope = {
+    data: TradeCreateManyUserInput | TradeCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserProfileCreateWithoutUserInput = {
+    id?: string
+    addressLine1: string
+    addressLine2?: string | null
+    city: string
+    state: string
+    pincode: string
+    fatherName?: string | null
+    motherName?: string | null
+    maritalStatus?: string | null
+    country?: string
+    occupation?: string | null
+    annualIncome?: string | null
+    tradingExperience?: string | null
+    riskProfile?: $Enums.RiskProfile
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserProfileUncheckedCreateWithoutUserInput = {
+    id?: string
+    addressLine1: string
+    addressLine2?: string | null
+    city: string
+    state: string
+    pincode: string
+    fatherName?: string | null
+    motherName?: string | null
+    maritalStatus?: string | null
+    country?: string
+    occupation?: string | null
+    annualIncome?: string | null
+    tradingExperience?: string | null
+    riskProfile?: $Enums.RiskProfile
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserProfileCreateOrConnectWithoutUserInput = {
+    where: UserProfileWhereUniqueInput
+    create: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
+  }
+
   export type UserVerificationCreateWithoutUserInput = {
     id?: string
-    stage1?: boolean
-    stage2?: boolean
-    stage3?: boolean
+    stage?: $Enums.KYCStage
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type UserVerificationUncheckedCreateWithoutUserInput = {
     id?: string
-    stage1?: boolean
-    stage2?: boolean
-    stage3?: boolean
+    stage?: $Enums.KYCStage
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -47808,53 +47842,66 @@ export namespace Prisma {
     create: XOR<UserVerificationCreateWithoutUserInput, UserVerificationUncheckedCreateWithoutUserInput>
   }
 
-  export type UserProfileUpsertWithoutUserInput = {
-    update: XOR<UserProfileUpdateWithoutUserInput, UserProfileUncheckedUpdateWithoutUserInput>
-    create: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
-    where?: UserProfileWhereInput
+  export type WatchlistCreateWithoutUserInput = {
+    id?: string
+    name: string
+    isDefault?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    items?: WatchlistItemCreateNestedManyWithoutWatchlistInput
   }
 
-  export type UserProfileUpdateToOneWithWhereWithoutUserInput = {
-    where?: UserProfileWhereInput
-    data: XOR<UserProfileUpdateWithoutUserInput, UserProfileUncheckedUpdateWithoutUserInput>
+  export type WatchlistUncheckedCreateWithoutUserInput = {
+    id?: string
+    name: string
+    isDefault?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    items?: WatchlistItemUncheckedCreateNestedManyWithoutWatchlistInput
   }
 
-  export type UserProfileUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    addressLine1?: StringFieldUpdateOperationsInput | string
-    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    state?: StringFieldUpdateOperationsInput | string
-    pincode?: StringFieldUpdateOperationsInput | string
-    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
-    motherName?: NullableStringFieldUpdateOperationsInput | string | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
-    country?: StringFieldUpdateOperationsInput | string
-    occupation?: NullableStringFieldUpdateOperationsInput | string | null
-    annualIncome?: NullableStringFieldUpdateOperationsInput | string | null
-    tradingExperience?: NullableStringFieldUpdateOperationsInput | string | null
-    riskProfile?: EnumRiskProfileFieldUpdateOperationsInput | $Enums.RiskProfile
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type WatchlistCreateOrConnectWithoutUserInput = {
+    where: WatchlistWhereUniqueInput
+    create: XOR<WatchlistCreateWithoutUserInput, WatchlistUncheckedCreateWithoutUserInput>
   }
 
-  export type UserProfileUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    addressLine1?: StringFieldUpdateOperationsInput | string
-    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    state?: StringFieldUpdateOperationsInput | string
-    pincode?: StringFieldUpdateOperationsInput | string
-    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
-    motherName?: NullableStringFieldUpdateOperationsInput | string | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
-    country?: StringFieldUpdateOperationsInput | string
-    occupation?: NullableStringFieldUpdateOperationsInput | string | null
-    annualIncome?: NullableStringFieldUpdateOperationsInput | string | null
-    tradingExperience?: NullableStringFieldUpdateOperationsInput | string | null
-    riskProfile?: EnumRiskProfileFieldUpdateOperationsInput | $Enums.RiskProfile
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type WatchlistCreateManyUserInputEnvelope = {
+    data: WatchlistCreateManyUserInput | WatchlistCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AlertUpsertWithWhereUniqueWithoutUserInput = {
+    where: AlertWhereUniqueInput
+    update: XOR<AlertUpdateWithoutUserInput, AlertUncheckedUpdateWithoutUserInput>
+    create: XOR<AlertCreateWithoutUserInput, AlertUncheckedCreateWithoutUserInput>
+  }
+
+  export type AlertUpdateWithWhereUniqueWithoutUserInput = {
+    where: AlertWhereUniqueInput
+    data: XOR<AlertUpdateWithoutUserInput, AlertUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AlertUpdateManyWithWhereWithoutUserInput = {
+    where: AlertScalarWhereInput
+    data: XOR<AlertUpdateManyMutationInput, AlertUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AlertScalarWhereInput = {
+    AND?: AlertScalarWhereInput | AlertScalarWhereInput[]
+    OR?: AlertScalarWhereInput[]
+    NOT?: AlertScalarWhereInput | AlertScalarWhereInput[]
+    id?: StringFilter<"Alert"> | string
+    userId?: StringFilter<"Alert"> | string
+    instrumentId?: StringNullableFilter<"Alert"> | string | null
+    alertType?: EnumAlertTypeFilter<"Alert"> | $Enums.AlertType
+    message?: StringFilter<"Alert"> | string
+    triggerPrice?: FloatNullableFilter<"Alert"> | number | null
+    condition?: StringNullableFilter<"Alert"> | string | null
+    isTriggered?: BoolFilter<"Alert"> | boolean
+    isRead?: BoolFilter<"Alert"> | boolean
+    triggeredAt?: DateTimeNullableFilter<"Alert"> | Date | string | null
+    expiresAt?: DateTimeNullableFilter<"Alert"> | Date | string | null
+    createdAt?: DateTimeFilter<"Alert"> | Date | string
   }
 
   export type BankAccountUpsertWithWhereUniqueWithoutUserInput = {
@@ -47891,6 +47938,36 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"BankAccount"> | Date | string
   }
 
+  export type BasketUpsertWithWhereUniqueWithoutUserInput = {
+    where: BasketWhereUniqueInput
+    update: XOR<BasketUpdateWithoutUserInput, BasketUncheckedUpdateWithoutUserInput>
+    create: XOR<BasketCreateWithoutUserInput, BasketUncheckedCreateWithoutUserInput>
+  }
+
+  export type BasketUpdateWithWhereUniqueWithoutUserInput = {
+    where: BasketWhereUniqueInput
+    data: XOR<BasketUpdateWithoutUserInput, BasketUncheckedUpdateWithoutUserInput>
+  }
+
+  export type BasketUpdateManyWithWhereWithoutUserInput = {
+    where: BasketScalarWhereInput
+    data: XOR<BasketUpdateManyMutationInput, BasketUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type BasketScalarWhereInput = {
+    AND?: BasketScalarWhereInput | BasketScalarWhereInput[]
+    OR?: BasketScalarWhereInput[]
+    NOT?: BasketScalarWhereInput | BasketScalarWhereInput[]
+    id?: StringFilter<"Basket"> | string
+    userId?: StringFilter<"Basket"> | string
+    name?: StringFilter<"Basket"> | string
+    description?: StringNullableFilter<"Basket"> | string | null
+    totalValue?: FloatFilter<"Basket"> | number
+    isActive?: BoolFilter<"Basket"> | boolean
+    createdAt?: DateTimeFilter<"Basket"> | Date | string
+    updatedAt?: DateTimeFilter<"Basket"> | Date | string
+  }
+
   export type FundTransactionUpsertWithWhereUniqueWithoutUserInput = {
     where: FundTransactionWhereUniqueInput
     update: XOR<FundTransactionUpdateWithoutUserInput, FundTransactionUncheckedUpdateWithoutUserInput>
@@ -47923,6 +48000,47 @@ export namespace Prisma {
     processedAt?: DateTimeNullableFilter<"FundTransaction"> | Date | string | null
     createdAt?: DateTimeFilter<"FundTransaction"> | Date | string
     updatedAt?: DateTimeFilter<"FundTransaction"> | Date | string
+  }
+
+  export type GTTOrderUpsertWithWhereUniqueWithoutUserInput = {
+    where: GTTOrderWhereUniqueInput
+    update: XOR<GTTOrderUpdateWithoutUserInput, GTTOrderUncheckedUpdateWithoutUserInput>
+    create: XOR<GTTOrderCreateWithoutUserInput, GTTOrderUncheckedCreateWithoutUserInput>
+  }
+
+  export type GTTOrderUpdateWithWhereUniqueWithoutUserInput = {
+    where: GTTOrderWhereUniqueInput
+    data: XOR<GTTOrderUpdateWithoutUserInput, GTTOrderUncheckedUpdateWithoutUserInput>
+  }
+
+  export type GTTOrderUpdateManyWithWhereWithoutUserInput = {
+    where: GTTOrderScalarWhereInput
+    data: XOR<GTTOrderUpdateManyMutationInput, GTTOrderUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type GTTOrderScalarWhereInput = {
+    AND?: GTTOrderScalarWhereInput | GTTOrderScalarWhereInput[]
+    OR?: GTTOrderScalarWhereInput[]
+    NOT?: GTTOrderScalarWhereInput | GTTOrderScalarWhereInput[]
+    id?: StringFilter<"GTTOrder"> | string
+    userId?: StringFilter<"GTTOrder"> | string
+    gttType?: EnumGTTTypeFilter<"GTTOrder"> | $Enums.GTTType
+    instrumentId?: StringFilter<"GTTOrder"> | string
+    tradingSymbol?: StringFilter<"GTTOrder"> | string
+    exchange?: EnumExchangeFilter<"GTTOrder"> | $Enums.Exchange
+    triggerType?: EnumTriggerTypeFilter<"GTTOrder"> | $Enums.TriggerType
+    triggerPrice?: FloatFilter<"GTTOrder"> | number
+    lastPrice?: FloatFilter<"GTTOrder"> | number
+    limitPrice?: FloatNullableFilter<"GTTOrder"> | number | null
+    stopLossPrice?: FloatNullableFilter<"GTTOrder"> | number | null
+    quantity?: IntFilter<"GTTOrder"> | number
+    product?: EnumProductTypeFilter<"GTTOrder"> | $Enums.ProductType
+    orderType?: EnumOrderTypeFilter<"GTTOrder"> | $Enums.OrderType
+    status?: EnumGTTStatusFilter<"GTTOrder"> | $Enums.GTTStatus
+    expiresAt?: DateTimeNullableFilter<"GTTOrder"> | Date | string | null
+    triggeredAt?: DateTimeNullableFilter<"GTTOrder"> | Date | string | null
+    createdAt?: DateTimeFilter<"GTTOrder"> | Date | string
+    updatedAt?: DateTimeFilter<"GTTOrder"> | Date | string
   }
 
   export type HoldingUpsertWithWhereUniqueWithoutUserInput = {
@@ -47961,51 +48079,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Holding"> | Date | string
   }
 
-  export type PositionUpsertWithWhereUniqueWithoutUserInput = {
-    where: PositionWhereUniqueInput
-    update: XOR<PositionUpdateWithoutUserInput, PositionUncheckedUpdateWithoutUserInput>
-    create: XOR<PositionCreateWithoutUserInput, PositionUncheckedCreateWithoutUserInput>
+  export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
   }
 
-  export type PositionUpdateWithWhereUniqueWithoutUserInput = {
-    where: PositionWhereUniqueInput
-    data: XOR<PositionUpdateWithoutUserInput, PositionUncheckedUpdateWithoutUserInput>
+  export type NotificationUpdateWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
   }
 
-  export type PositionUpdateManyWithWhereWithoutUserInput = {
-    where: PositionScalarWhereInput
-    data: XOR<PositionUpdateManyMutationInput, PositionUncheckedUpdateManyWithoutUserInput>
+  export type NotificationUpdateManyWithWhereWithoutUserInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type PositionScalarWhereInput = {
-    AND?: PositionScalarWhereInput | PositionScalarWhereInput[]
-    OR?: PositionScalarWhereInput[]
-    NOT?: PositionScalarWhereInput | PositionScalarWhereInput[]
-    id?: StringFilter<"Position"> | string
-    userId?: StringFilter<"Position"> | string
-    instrumentId?: StringFilter<"Position"> | string
-    product?: EnumProductTypeFilter<"Position"> | $Enums.ProductType
-    quantity?: IntFilter<"Position"> | number
-    overnightQuantity?: IntFilter<"Position"> | number
-    averagePrice?: FloatFilter<"Position"> | number
-    lastPrice?: FloatFilter<"Position"> | number
-    value?: FloatFilter<"Position"> | number
-    pnl?: FloatFilter<"Position"> | number
-    m2m?: FloatFilter<"Position"> | number
-    unrealised?: FloatFilter<"Position"> | number
-    realised?: FloatFilter<"Position"> | number
-    buyQuantity?: IntFilter<"Position"> | number
-    buyValue?: FloatFilter<"Position"> | number
-    buyPrice?: FloatFilter<"Position"> | number
-    sellQuantity?: IntFilter<"Position"> | number
-    sellValue?: FloatFilter<"Position"> | number
-    sellPrice?: FloatFilter<"Position"> | number
-    multiplier?: FloatFilter<"Position"> | number
-    tradingSymbol?: StringFilter<"Position"> | string
-    exchange?: EnumExchangeFilter<"Position"> | $Enums.Exchange
-    positionType?: EnumPositionTypeFilter<"Position"> | $Enums.PositionType
-    createdAt?: DateTimeFilter<"Position"> | Date | string
-    updatedAt?: DateTimeFilter<"Position"> | Date | string
+  export type NotificationScalarWhereInput = {
+    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    OR?: NotificationScalarWhereInput[]
+    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    id?: StringFilter<"Notification"> | string
+    userId?: StringFilter<"Notification"> | string
+    notificationType?: EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType
+    title?: StringFilter<"Notification"> | string
+    message?: StringFilter<"Notification"> | string
+    isRead?: BoolFilter<"Notification"> | boolean
+    priority?: EnumPriorityFilter<"Notification"> | $Enums.Priority
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
   }
 
   export type OrderUpsertWithWhereUniqueWithoutUserInput = {
@@ -48063,6 +48164,118 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Order"> | Date | string
   }
 
+  export type PortfolioUpsertWithWhereUniqueWithoutUserInput = {
+    where: PortfolioWhereUniqueInput
+    update: XOR<PortfolioUpdateWithoutUserInput, PortfolioUncheckedUpdateWithoutUserInput>
+    create: XOR<PortfolioCreateWithoutUserInput, PortfolioUncheckedCreateWithoutUserInput>
+  }
+
+  export type PortfolioUpdateWithWhereUniqueWithoutUserInput = {
+    where: PortfolioWhereUniqueInput
+    data: XOR<PortfolioUpdateWithoutUserInput, PortfolioUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PortfolioUpdateManyWithWhereWithoutUserInput = {
+    where: PortfolioScalarWhereInput
+    data: XOR<PortfolioUpdateManyMutationInput, PortfolioUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PortfolioScalarWhereInput = {
+    AND?: PortfolioScalarWhereInput | PortfolioScalarWhereInput[]
+    OR?: PortfolioScalarWhereInput[]
+    NOT?: PortfolioScalarWhereInput | PortfolioScalarWhereInput[]
+    id?: StringFilter<"Portfolio"> | string
+    userId?: StringFilter<"Portfolio"> | string
+    totalValue?: FloatFilter<"Portfolio"> | number
+    investedValue?: FloatFilter<"Portfolio"> | number
+    currentValue?: FloatFilter<"Portfolio"> | number
+    dayChange?: FloatFilter<"Portfolio"> | number
+    dayChangePercent?: FloatFilter<"Portfolio"> | number
+    totalPnl?: FloatFilter<"Portfolio"> | number
+    totalPnlPercent?: FloatFilter<"Portfolio"> | number
+    xirr?: FloatNullableFilter<"Portfolio"> | number | null
+    updatedAt?: DateTimeFilter<"Portfolio"> | Date | string
+    createdAt?: DateTimeFilter<"Portfolio"> | Date | string
+  }
+
+  export type PositionUpsertWithWhereUniqueWithoutUserInput = {
+    where: PositionWhereUniqueInput
+    update: XOR<PositionUpdateWithoutUserInput, PositionUncheckedUpdateWithoutUserInput>
+    create: XOR<PositionCreateWithoutUserInput, PositionUncheckedCreateWithoutUserInput>
+  }
+
+  export type PositionUpdateWithWhereUniqueWithoutUserInput = {
+    where: PositionWhereUniqueInput
+    data: XOR<PositionUpdateWithoutUserInput, PositionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PositionUpdateManyWithWhereWithoutUserInput = {
+    where: PositionScalarWhereInput
+    data: XOR<PositionUpdateManyMutationInput, PositionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PositionScalarWhereInput = {
+    AND?: PositionScalarWhereInput | PositionScalarWhereInput[]
+    OR?: PositionScalarWhereInput[]
+    NOT?: PositionScalarWhereInput | PositionScalarWhereInput[]
+    id?: StringFilter<"Position"> | string
+    userId?: StringFilter<"Position"> | string
+    instrumentId?: StringFilter<"Position"> | string
+    product?: EnumProductTypeFilter<"Position"> | $Enums.ProductType
+    quantity?: IntFilter<"Position"> | number
+    overnightQuantity?: IntFilter<"Position"> | number
+    averagePrice?: FloatFilter<"Position"> | number
+    lastPrice?: FloatFilter<"Position"> | number
+    value?: FloatFilter<"Position"> | number
+    pnl?: FloatFilter<"Position"> | number
+    m2m?: FloatFilter<"Position"> | number
+    unrealised?: FloatFilter<"Position"> | number
+    realised?: FloatFilter<"Position"> | number
+    buyQuantity?: IntFilter<"Position"> | number
+    buyValue?: FloatFilter<"Position"> | number
+    buyPrice?: FloatFilter<"Position"> | number
+    sellQuantity?: IntFilter<"Position"> | number
+    sellValue?: FloatFilter<"Position"> | number
+    sellPrice?: FloatFilter<"Position"> | number
+    multiplier?: FloatFilter<"Position"> | number
+    tradingSymbol?: StringFilter<"Position"> | string
+    exchange?: EnumExchangeFilter<"Position"> | $Enums.Exchange
+    positionType?: EnumPositionTypeFilter<"Position"> | $Enums.PositionType
+    createdAt?: DateTimeFilter<"Position"> | Date | string
+    updatedAt?: DateTimeFilter<"Position"> | Date | string
+  }
+
+  export type SessionUpsertWithWhereUniqueWithoutUserInput = {
+    where: SessionWhereUniqueInput
+    update: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
+    create: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput>
+  }
+
+  export type SessionUpdateWithWhereUniqueWithoutUserInput = {
+    where: SessionWhereUniqueInput
+    data: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SessionUpdateManyWithWhereWithoutUserInput = {
+    where: SessionScalarWhereInput
+    data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type SessionScalarWhereInput = {
+    AND?: SessionScalarWhereInput | SessionScalarWhereInput[]
+    OR?: SessionScalarWhereInput[]
+    NOT?: SessionScalarWhereInput | SessionScalarWhereInput[]
+    id?: StringFilter<"Session"> | string
+    userId?: StringFilter<"Session"> | string
+    token?: StringFilter<"Session"> | string
+    ipAddress?: StringNullableFilter<"Session"> | string | null
+    userAgent?: StringNullableFilter<"Session"> | string | null
+    deviceType?: StringNullableFilter<"Session"> | string | null
+    isActive?: BoolFilter<"Session"> | boolean
+    expiresAt?: DateTimeFilter<"Session"> | Date | string
+    createdAt?: DateTimeFilter<"Session"> | Date | string
+  }
+
   export type TradeUpsertWithWhereUniqueWithoutUserInput = {
     where: TradeWhereUniqueInput
     update: XOR<TradeUpdateWithoutUserInput, TradeUncheckedUpdateWithoutUserInput>
@@ -48099,6 +48312,80 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Trade"> | Date | string
   }
 
+  export type UserProfileUpsertWithoutUserInput = {
+    update: XOR<UserProfileUpdateWithoutUserInput, UserProfileUncheckedUpdateWithoutUserInput>
+    create: XOR<UserProfileCreateWithoutUserInput, UserProfileUncheckedCreateWithoutUserInput>
+    where?: UserProfileWhereInput
+  }
+
+  export type UserProfileUpdateToOneWithWhereWithoutUserInput = {
+    where?: UserProfileWhereInput
+    data: XOR<UserProfileUpdateWithoutUserInput, UserProfileUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserProfileUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    addressLine1?: StringFieldUpdateOperationsInput | string
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    pincode?: StringFieldUpdateOperationsInput | string
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    annualIncome?: NullableStringFieldUpdateOperationsInput | string | null
+    tradingExperience?: NullableStringFieldUpdateOperationsInput | string | null
+    riskProfile?: EnumRiskProfileFieldUpdateOperationsInput | $Enums.RiskProfile
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserProfileUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    addressLine1?: StringFieldUpdateOperationsInput | string
+    addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    pincode?: StringFieldUpdateOperationsInput | string
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    motherName?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    country?: StringFieldUpdateOperationsInput | string
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    annualIncome?: NullableStringFieldUpdateOperationsInput | string | null
+    tradingExperience?: NullableStringFieldUpdateOperationsInput | string | null
+    riskProfile?: EnumRiskProfileFieldUpdateOperationsInput | $Enums.RiskProfile
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserVerificationUpsertWithoutUserInput = {
+    update: XOR<UserVerificationUpdateWithoutUserInput, UserVerificationUncheckedUpdateWithoutUserInput>
+    create: XOR<UserVerificationCreateWithoutUserInput, UserVerificationUncheckedCreateWithoutUserInput>
+    where?: UserVerificationWhereInput
+  }
+
+  export type UserVerificationUpdateToOneWithWhereWithoutUserInput = {
+    where?: UserVerificationWhereInput
+    data: XOR<UserVerificationUpdateWithoutUserInput, UserVerificationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserVerificationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stage?: EnumKYCStageFieldUpdateOperationsInput | $Enums.KYCStage
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserVerificationUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stage?: EnumKYCStageFieldUpdateOperationsInput | $Enums.KYCStage
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type WatchlistUpsertWithWhereUniqueWithoutUserInput = {
     where: WatchlistWhereUniqueInput
     update: XOR<WatchlistUpdateWithoutUserInput, WatchlistUncheckedUpdateWithoutUserInput>
@@ -48127,235 +48414,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Watchlist"> | Date | string
   }
 
-  export type PortfolioUpsertWithWhereUniqueWithoutUserInput = {
-    where: PortfolioWhereUniqueInput
-    update: XOR<PortfolioUpdateWithoutUserInput, PortfolioUncheckedUpdateWithoutUserInput>
-    create: XOR<PortfolioCreateWithoutUserInput, PortfolioUncheckedCreateWithoutUserInput>
-  }
-
-  export type PortfolioUpdateWithWhereUniqueWithoutUserInput = {
-    where: PortfolioWhereUniqueInput
-    data: XOR<PortfolioUpdateWithoutUserInput, PortfolioUncheckedUpdateWithoutUserInput>
-  }
-
-  export type PortfolioUpdateManyWithWhereWithoutUserInput = {
-    where: PortfolioScalarWhereInput
-    data: XOR<PortfolioUpdateManyMutationInput, PortfolioUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type PortfolioScalarWhereInput = {
-    AND?: PortfolioScalarWhereInput | PortfolioScalarWhereInput[]
-    OR?: PortfolioScalarWhereInput[]
-    NOT?: PortfolioScalarWhereInput | PortfolioScalarWhereInput[]
-    id?: StringFilter<"Portfolio"> | string
-    userId?: StringFilter<"Portfolio"> | string
-    totalValue?: FloatFilter<"Portfolio"> | number
-    investedValue?: FloatFilter<"Portfolio"> | number
-    currentValue?: FloatFilter<"Portfolio"> | number
-    dayChange?: FloatFilter<"Portfolio"> | number
-    dayChangePercent?: FloatFilter<"Portfolio"> | number
-    totalPnl?: FloatFilter<"Portfolio"> | number
-    totalPnlPercent?: FloatFilter<"Portfolio"> | number
-    xirr?: FloatNullableFilter<"Portfolio"> | number | null
-    updatedAt?: DateTimeFilter<"Portfolio"> | Date | string
-    createdAt?: DateTimeFilter<"Portfolio"> | Date | string
-  }
-
-  export type GTTOrderUpsertWithWhereUniqueWithoutUserInput = {
-    where: GTTOrderWhereUniqueInput
-    update: XOR<GTTOrderUpdateWithoutUserInput, GTTOrderUncheckedUpdateWithoutUserInput>
-    create: XOR<GTTOrderCreateWithoutUserInput, GTTOrderUncheckedCreateWithoutUserInput>
-  }
-
-  export type GTTOrderUpdateWithWhereUniqueWithoutUserInput = {
-    where: GTTOrderWhereUniqueInput
-    data: XOR<GTTOrderUpdateWithoutUserInput, GTTOrderUncheckedUpdateWithoutUserInput>
-  }
-
-  export type GTTOrderUpdateManyWithWhereWithoutUserInput = {
-    where: GTTOrderScalarWhereInput
-    data: XOR<GTTOrderUpdateManyMutationInput, GTTOrderUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type GTTOrderScalarWhereInput = {
-    AND?: GTTOrderScalarWhereInput | GTTOrderScalarWhereInput[]
-    OR?: GTTOrderScalarWhereInput[]
-    NOT?: GTTOrderScalarWhereInput | GTTOrderScalarWhereInput[]
-    id?: StringFilter<"GTTOrder"> | string
-    userId?: StringFilter<"GTTOrder"> | string
-    gttType?: EnumGTTTypeFilter<"GTTOrder"> | $Enums.GTTType
-    instrumentId?: StringFilter<"GTTOrder"> | string
-    tradingSymbol?: StringFilter<"GTTOrder"> | string
-    exchange?: EnumExchangeFilter<"GTTOrder"> | $Enums.Exchange
-    triggerType?: EnumTriggerTypeFilter<"GTTOrder"> | $Enums.TriggerType
-    triggerPrice?: FloatFilter<"GTTOrder"> | number
-    lastPrice?: FloatFilter<"GTTOrder"> | number
-    limitPrice?: FloatNullableFilter<"GTTOrder"> | number | null
-    stopLossPrice?: FloatNullableFilter<"GTTOrder"> | number | null
-    quantity?: IntFilter<"GTTOrder"> | number
-    product?: EnumProductTypeFilter<"GTTOrder"> | $Enums.ProductType
-    orderType?: EnumOrderTypeFilter<"GTTOrder"> | $Enums.OrderType
-    status?: EnumGTTStatusFilter<"GTTOrder"> | $Enums.GTTStatus
-    expiresAt?: DateTimeNullableFilter<"GTTOrder"> | Date | string | null
-    triggeredAt?: DateTimeNullableFilter<"GTTOrder"> | Date | string | null
-    createdAt?: DateTimeFilter<"GTTOrder"> | Date | string
-    updatedAt?: DateTimeFilter<"GTTOrder"> | Date | string
-  }
-
-  export type BasketUpsertWithWhereUniqueWithoutUserInput = {
-    where: BasketWhereUniqueInput
-    update: XOR<BasketUpdateWithoutUserInput, BasketUncheckedUpdateWithoutUserInput>
-    create: XOR<BasketCreateWithoutUserInput, BasketUncheckedCreateWithoutUserInput>
-  }
-
-  export type BasketUpdateWithWhereUniqueWithoutUserInput = {
-    where: BasketWhereUniqueInput
-    data: XOR<BasketUpdateWithoutUserInput, BasketUncheckedUpdateWithoutUserInput>
-  }
-
-  export type BasketUpdateManyWithWhereWithoutUserInput = {
-    where: BasketScalarWhereInput
-    data: XOR<BasketUpdateManyMutationInput, BasketUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type BasketScalarWhereInput = {
-    AND?: BasketScalarWhereInput | BasketScalarWhereInput[]
-    OR?: BasketScalarWhereInput[]
-    NOT?: BasketScalarWhereInput | BasketScalarWhereInput[]
-    id?: StringFilter<"Basket"> | string
-    userId?: StringFilter<"Basket"> | string
-    name?: StringFilter<"Basket"> | string
-    description?: StringNullableFilter<"Basket"> | string | null
-    totalValue?: FloatFilter<"Basket"> | number
-    isActive?: BoolFilter<"Basket"> | boolean
-    createdAt?: DateTimeFilter<"Basket"> | Date | string
-    updatedAt?: DateTimeFilter<"Basket"> | Date | string
-  }
-
-  export type AlertUpsertWithWhereUniqueWithoutUserInput = {
-    where: AlertWhereUniqueInput
-    update: XOR<AlertUpdateWithoutUserInput, AlertUncheckedUpdateWithoutUserInput>
-    create: XOR<AlertCreateWithoutUserInput, AlertUncheckedCreateWithoutUserInput>
-  }
-
-  export type AlertUpdateWithWhereUniqueWithoutUserInput = {
-    where: AlertWhereUniqueInput
-    data: XOR<AlertUpdateWithoutUserInput, AlertUncheckedUpdateWithoutUserInput>
-  }
-
-  export type AlertUpdateManyWithWhereWithoutUserInput = {
-    where: AlertScalarWhereInput
-    data: XOR<AlertUpdateManyMutationInput, AlertUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type AlertScalarWhereInput = {
-    AND?: AlertScalarWhereInput | AlertScalarWhereInput[]
-    OR?: AlertScalarWhereInput[]
-    NOT?: AlertScalarWhereInput | AlertScalarWhereInput[]
-    id?: StringFilter<"Alert"> | string
-    userId?: StringFilter<"Alert"> | string
-    instrumentId?: StringNullableFilter<"Alert"> | string | null
-    alertType?: EnumAlertTypeFilter<"Alert"> | $Enums.AlertType
-    message?: StringFilter<"Alert"> | string
-    triggerPrice?: FloatNullableFilter<"Alert"> | number | null
-    condition?: StringNullableFilter<"Alert"> | string | null
-    isTriggered?: BoolFilter<"Alert"> | boolean
-    isRead?: BoolFilter<"Alert"> | boolean
-    triggeredAt?: DateTimeNullableFilter<"Alert"> | Date | string | null
-    expiresAt?: DateTimeNullableFilter<"Alert"> | Date | string | null
-    createdAt?: DateTimeFilter<"Alert"> | Date | string
-  }
-
-  export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
-    where: NotificationWhereUniqueInput
-    update: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
-    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
-  }
-
-  export type NotificationUpdateWithWhereUniqueWithoutUserInput = {
-    where: NotificationWhereUniqueInput
-    data: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
-  }
-
-  export type NotificationUpdateManyWithWhereWithoutUserInput = {
-    where: NotificationScalarWhereInput
-    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type NotificationScalarWhereInput = {
-    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
-    OR?: NotificationScalarWhereInput[]
-    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
-    id?: StringFilter<"Notification"> | string
-    userId?: StringFilter<"Notification"> | string
-    notificationType?: EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType
-    title?: StringFilter<"Notification"> | string
-    message?: StringFilter<"Notification"> | string
-    isRead?: BoolFilter<"Notification"> | boolean
-    priority?: EnumPriorityFilter<"Notification"> | $Enums.Priority
-    createdAt?: DateTimeFilter<"Notification"> | Date | string
-  }
-
-  export type SessionUpsertWithWhereUniqueWithoutUserInput = {
-    where: SessionWhereUniqueInput
-    update: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
-    create: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput>
-  }
-
-  export type SessionUpdateWithWhereUniqueWithoutUserInput = {
-    where: SessionWhereUniqueInput
-    data: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
-  }
-
-  export type SessionUpdateManyWithWhereWithoutUserInput = {
-    where: SessionScalarWhereInput
-    data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type SessionScalarWhereInput = {
-    AND?: SessionScalarWhereInput | SessionScalarWhereInput[]
-    OR?: SessionScalarWhereInput[]
-    NOT?: SessionScalarWhereInput | SessionScalarWhereInput[]
-    id?: StringFilter<"Session"> | string
-    userId?: StringFilter<"Session"> | string
-    token?: StringFilter<"Session"> | string
-    ipAddress?: StringNullableFilter<"Session"> | string | null
-    userAgent?: StringNullableFilter<"Session"> | string | null
-    deviceType?: StringNullableFilter<"Session"> | string | null
-    isActive?: BoolFilter<"Session"> | boolean
-    expiresAt?: DateTimeFilter<"Session"> | Date | string
-    createdAt?: DateTimeFilter<"Session"> | Date | string
-  }
-
-  export type UserVerificationUpsertWithoutUserInput = {
-    update: XOR<UserVerificationUpdateWithoutUserInput, UserVerificationUncheckedUpdateWithoutUserInput>
-    create: XOR<UserVerificationCreateWithoutUserInput, UserVerificationUncheckedCreateWithoutUserInput>
-    where?: UserVerificationWhereInput
-  }
-
-  export type UserVerificationUpdateToOneWithWhereWithoutUserInput = {
-    where?: UserVerificationWhereInput
-    data: XOR<UserVerificationUpdateWithoutUserInput, UserVerificationUncheckedUpdateWithoutUserInput>
-  }
-
-  export type UserVerificationUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    stage1?: BoolFieldUpdateOperationsInput | boolean
-    stage2?: BoolFieldUpdateOperationsInput | boolean
-    stage3?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UserVerificationUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    stage1?: BoolFieldUpdateOperationsInput | boolean
-    stage2?: BoolFieldUpdateOperationsInput | boolean
-    stage3?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type UserCreateWithoutUserVerificationInput = {
     id?: string
     email?: string | null
@@ -48365,7 +48423,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -48374,20 +48432,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
-    funds?: FundTransactionCreateNestedManyWithoutUserInput
-    holdings?: HoldingCreateNestedManyWithoutUserInput
-    positions?: PositionCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
-    trades?: TradeCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
-    baskets?: BasketCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
+    baskets?: BasketCreateNestedManyWithoutUserInput
+    funds?: FundTransactionCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
+    holdings?: HoldingCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioCreateNestedManyWithoutUserInput
+    positions?: PositionCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUserVerificationInput = {
@@ -48399,7 +48458,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -48408,20 +48467,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
-    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
-    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
-    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
-    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
+    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
+    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
+    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUserVerificationInput = {
@@ -48449,7 +48509,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -48458,20 +48518,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUpdateManyWithoutUserNestedInput
-    positions?: PositionUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
-    trades?: TradeUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
-    baskets?: BasketUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
+    baskets?: BasketUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
+    positions?: PositionUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUserVerificationInput = {
@@ -48483,7 +48544,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -48492,20 +48553,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
-    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
+    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutProfileInput = {
@@ -48517,7 +48579,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -48526,20 +48588,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
-    funds?: FundTransactionCreateNestedManyWithoutUserInput
-    holdings?: HoldingCreateNestedManyWithoutUserInput
-    positions?: PositionCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
-    trades?: TradeCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
-    baskets?: BasketCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
+    baskets?: BasketCreateNestedManyWithoutUserInput
+    funds?: FundTransactionCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
+    holdings?: HoldingCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioCreateNestedManyWithoutUserInput
+    positions?: PositionCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProfileInput = {
@@ -48551,7 +48614,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -48560,20 +48623,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
-    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
-    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
-    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
-    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
+    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
+    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
+    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProfileInput = {
@@ -48601,7 +48665,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -48610,20 +48674,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUpdateManyWithoutUserNestedInput
-    positions?: PositionUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
-    trades?: TradeUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
-    baskets?: BasketUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
+    baskets?: BasketUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
+    positions?: PositionUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfileInput = {
@@ -48635,7 +48700,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -48644,20 +48709,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
-    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
+    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutBankAccountsInput = {
@@ -48669,7 +48735,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -48678,20 +48744,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileCreateNestedOneWithoutUserInput
-    funds?: FundTransactionCreateNestedManyWithoutUserInput
-    holdings?: HoldingCreateNestedManyWithoutUserInput
-    positions?: PositionCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
-    trades?: TradeCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
-    baskets?: BasketCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertCreateNestedManyWithoutUserInput
+    baskets?: BasketCreateNestedManyWithoutUserInput
+    funds?: FundTransactionCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
+    holdings?: HoldingCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioCreateNestedManyWithoutUserInput
+    positions?: PositionCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBankAccountsInput = {
@@ -48703,7 +48770,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -48712,20 +48779,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
-    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
-    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
-    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
-    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
+    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
+    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
+    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBankAccountsInput = {
@@ -48753,7 +48821,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -48762,20 +48830,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUpdateOneWithoutUserNestedInput
-    funds?: FundTransactionUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUpdateManyWithoutUserNestedInput
-    positions?: PositionUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
-    trades?: TradeUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
-    baskets?: BasketUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUpdateManyWithoutUserNestedInput
+    baskets?: BasketUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
+    positions?: PositionUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBankAccountsInput = {
@@ -48787,7 +48856,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -48796,20 +48865,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
-    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
-    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
+    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -48821,7 +48891,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -48830,20 +48900,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
-    funds?: FundTransactionCreateNestedManyWithoutUserInput
-    holdings?: HoldingCreateNestedManyWithoutUserInput
-    positions?: PositionCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
-    trades?: TradeCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
-    baskets?: BasketCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
+    baskets?: BasketCreateNestedManyWithoutUserInput
+    funds?: FundTransactionCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
+    holdings?: HoldingCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioCreateNestedManyWithoutUserInput
+    positions?: PositionCreateNestedManyWithoutUserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -48855,7 +48926,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -48864,20 +48935,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
-    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
-    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
-    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
-    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
+    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
+    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
+    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -48905,7 +48977,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -48914,20 +48986,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUpdateManyWithoutUserNestedInput
-    positions?: PositionUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
-    trades?: TradeUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
-    baskets?: BasketUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
+    baskets?: BasketUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
+    positions?: PositionUpdateManyWithoutUserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -48939,7 +49012,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -48948,20 +49021,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
-    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
+    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutFundsInput = {
@@ -48973,7 +49047,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -48982,20 +49056,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
-    holdings?: HoldingCreateNestedManyWithoutUserInput
-    positions?: PositionCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
-    trades?: TradeCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
-    baskets?: BasketCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
+    baskets?: BasketCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
+    holdings?: HoldingCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioCreateNestedManyWithoutUserInput
+    positions?: PositionCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFundsInput = {
@@ -49007,7 +49082,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -49016,20 +49091,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
-    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
-    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
-    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
+    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
+    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
+    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFundsInput = {
@@ -49057,7 +49133,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -49066,20 +49142,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUpdateManyWithoutUserNestedInput
-    positions?: PositionUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
-    trades?: TradeUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
-    baskets?: BasketUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
+    baskets?: BasketUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
+    positions?: PositionUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFundsInput = {
@@ -49091,7 +49168,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -49100,20 +49177,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
-    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
+    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type HoldingCreateWithoutInstrumentInput = {
@@ -49158,67 +49236,31 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type PositionCreateWithoutInstrumentInput = {
+  export type MarketDepthCreateWithoutInstrumentInput = {
     id?: string
-    product: $Enums.ProductType
+    side: $Enums.OrderSide
+    price: number
     quantity: number
-    overnightQuantity?: number
-    averagePrice: number
-    lastPrice: number
-    value: number
-    pnl?: number
-    m2m?: number
-    unrealised?: number
-    realised?: number
-    buyQuantity?: number
-    buyValue?: number
-    buyPrice?: number
-    sellQuantity?: number
-    sellValue?: number
-    sellPrice?: number
-    multiplier?: number
-    tradingSymbol: string
-    exchange: $Enums.Exchange
-    positionType: $Enums.PositionType
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutPositionsInput
+    orders: number
+    timestamp?: Date | string
   }
 
-  export type PositionUncheckedCreateWithoutInstrumentInput = {
+  export type MarketDepthUncheckedCreateWithoutInstrumentInput = {
     id?: string
-    userId: string
-    product: $Enums.ProductType
+    side: $Enums.OrderSide
+    price: number
     quantity: number
-    overnightQuantity?: number
-    averagePrice: number
-    lastPrice: number
-    value: number
-    pnl?: number
-    m2m?: number
-    unrealised?: number
-    realised?: number
-    buyQuantity?: number
-    buyValue?: number
-    buyPrice?: number
-    sellQuantity?: number
-    sellValue?: number
-    sellPrice?: number
-    multiplier?: number
-    tradingSymbol: string
-    exchange: $Enums.Exchange
-    positionType: $Enums.PositionType
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    orders: number
+    timestamp?: Date | string
   }
 
-  export type PositionCreateOrConnectWithoutInstrumentInput = {
-    where: PositionWhereUniqueInput
-    create: XOR<PositionCreateWithoutInstrumentInput, PositionUncheckedCreateWithoutInstrumentInput>
+  export type MarketDepthCreateOrConnectWithoutInstrumentInput = {
+    where: MarketDepthWhereUniqueInput
+    create: XOR<MarketDepthCreateWithoutInstrumentInput, MarketDepthUncheckedCreateWithoutInstrumentInput>
   }
 
-  export type PositionCreateManyInstrumentInputEnvelope = {
-    data: PositionCreateManyInstrumentInput | PositionCreateManyInstrumentInput[]
+  export type MarketDepthCreateManyInstrumentInputEnvelope = {
+    data: MarketDepthCreateManyInstrumentInput | MarketDepthCreateManyInstrumentInput[]
     skipDuplicates?: boolean
   }
 
@@ -49304,6 +49346,102 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PositionCreateWithoutInstrumentInput = {
+    id?: string
+    product: $Enums.ProductType
+    quantity: number
+    overnightQuantity?: number
+    averagePrice: number
+    lastPrice: number
+    value: number
+    pnl?: number
+    m2m?: number
+    unrealised?: number
+    realised?: number
+    buyQuantity?: number
+    buyValue?: number
+    buyPrice?: number
+    sellQuantity?: number
+    sellValue?: number
+    sellPrice?: number
+    multiplier?: number
+    tradingSymbol: string
+    exchange: $Enums.Exchange
+    positionType: $Enums.PositionType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutPositionsInput
+  }
+
+  export type PositionUncheckedCreateWithoutInstrumentInput = {
+    id?: string
+    userId: string
+    product: $Enums.ProductType
+    quantity: number
+    overnightQuantity?: number
+    averagePrice: number
+    lastPrice: number
+    value: number
+    pnl?: number
+    m2m?: number
+    unrealised?: number
+    realised?: number
+    buyQuantity?: number
+    buyValue?: number
+    buyPrice?: number
+    sellQuantity?: number
+    sellValue?: number
+    sellPrice?: number
+    multiplier?: number
+    tradingSymbol: string
+    exchange: $Enums.Exchange
+    positionType: $Enums.PositionType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PositionCreateOrConnectWithoutInstrumentInput = {
+    where: PositionWhereUniqueInput
+    create: XOR<PositionCreateWithoutInstrumentInput, PositionUncheckedCreateWithoutInstrumentInput>
+  }
+
+  export type PositionCreateManyInstrumentInputEnvelope = {
+    data: PositionCreateManyInstrumentInput | PositionCreateManyInstrumentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PriceHistoryCreateWithoutInstrumentInput = {
+    id?: string
+    open: number
+    high: number
+    low: number
+    close: number
+    volume: number
+    ohlcDate: Date | string
+    interval: string
+  }
+
+  export type PriceHistoryUncheckedCreateWithoutInstrumentInput = {
+    id?: string
+    open: number
+    high: number
+    low: number
+    close: number
+    volume: number
+    ohlcDate: Date | string
+    interval: string
+  }
+
+  export type PriceHistoryCreateOrConnectWithoutInstrumentInput = {
+    where: PriceHistoryWhereUniqueInput
+    create: XOR<PriceHistoryCreateWithoutInstrumentInput, PriceHistoryUncheckedCreateWithoutInstrumentInput>
+  }
+
+  export type PriceHistoryCreateManyInstrumentInputEnvelope = {
+    data: PriceHistoryCreateManyInstrumentInput | PriceHistoryCreateManyInstrumentInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TradeCreateWithoutInstrumentInput = {
     id?: string
     tradeId: string
@@ -49348,66 +49486,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type MarketDepthCreateWithoutInstrumentInput = {
-    id?: string
-    side: $Enums.OrderSide
-    price: number
-    quantity: number
-    orders: number
-    timestamp?: Date | string
-  }
-
-  export type MarketDepthUncheckedCreateWithoutInstrumentInput = {
-    id?: string
-    side: $Enums.OrderSide
-    price: number
-    quantity: number
-    orders: number
-    timestamp?: Date | string
-  }
-
-  export type MarketDepthCreateOrConnectWithoutInstrumentInput = {
-    where: MarketDepthWhereUniqueInput
-    create: XOR<MarketDepthCreateWithoutInstrumentInput, MarketDepthUncheckedCreateWithoutInstrumentInput>
-  }
-
-  export type MarketDepthCreateManyInstrumentInputEnvelope = {
-    data: MarketDepthCreateManyInstrumentInput | MarketDepthCreateManyInstrumentInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type PriceHistoryCreateWithoutInstrumentInput = {
-    id?: string
-    open: number
-    high: number
-    low: number
-    close: number
-    volume: number
-    ohlcDate: Date | string
-    interval: string
-  }
-
-  export type PriceHistoryUncheckedCreateWithoutInstrumentInput = {
-    id?: string
-    open: number
-    high: number
-    low: number
-    close: number
-    volume: number
-    ohlcDate: Date | string
-    interval: string
-  }
-
-  export type PriceHistoryCreateOrConnectWithoutInstrumentInput = {
-    where: PriceHistoryWhereUniqueInput
-    create: XOR<PriceHistoryCreateWithoutInstrumentInput, PriceHistoryUncheckedCreateWithoutInstrumentInput>
-  }
-
-  export type PriceHistoryCreateManyInstrumentInputEnvelope = {
-    data: PriceHistoryCreateManyInstrumentInput | PriceHistoryCreateManyInstrumentInput[]
-    skipDuplicates?: boolean
-  }
-
   export type WatchlistItemCreateWithoutInstrumentInput = {
     id?: string
     sortOrder?: number
@@ -49448,54 +49526,6 @@ export namespace Prisma {
     data: XOR<HoldingUpdateManyMutationInput, HoldingUncheckedUpdateManyWithoutInstrumentInput>
   }
 
-  export type PositionUpsertWithWhereUniqueWithoutInstrumentInput = {
-    where: PositionWhereUniqueInput
-    update: XOR<PositionUpdateWithoutInstrumentInput, PositionUncheckedUpdateWithoutInstrumentInput>
-    create: XOR<PositionCreateWithoutInstrumentInput, PositionUncheckedCreateWithoutInstrumentInput>
-  }
-
-  export type PositionUpdateWithWhereUniqueWithoutInstrumentInput = {
-    where: PositionWhereUniqueInput
-    data: XOR<PositionUpdateWithoutInstrumentInput, PositionUncheckedUpdateWithoutInstrumentInput>
-  }
-
-  export type PositionUpdateManyWithWhereWithoutInstrumentInput = {
-    where: PositionScalarWhereInput
-    data: XOR<PositionUpdateManyMutationInput, PositionUncheckedUpdateManyWithoutInstrumentInput>
-  }
-
-  export type OrderUpsertWithWhereUniqueWithoutInstrumentInput = {
-    where: OrderWhereUniqueInput
-    update: XOR<OrderUpdateWithoutInstrumentInput, OrderUncheckedUpdateWithoutInstrumentInput>
-    create: XOR<OrderCreateWithoutInstrumentInput, OrderUncheckedCreateWithoutInstrumentInput>
-  }
-
-  export type OrderUpdateWithWhereUniqueWithoutInstrumentInput = {
-    where: OrderWhereUniqueInput
-    data: XOR<OrderUpdateWithoutInstrumentInput, OrderUncheckedUpdateWithoutInstrumentInput>
-  }
-
-  export type OrderUpdateManyWithWhereWithoutInstrumentInput = {
-    where: OrderScalarWhereInput
-    data: XOR<OrderUpdateManyMutationInput, OrderUncheckedUpdateManyWithoutInstrumentInput>
-  }
-
-  export type TradeUpsertWithWhereUniqueWithoutInstrumentInput = {
-    where: TradeWhereUniqueInput
-    update: XOR<TradeUpdateWithoutInstrumentInput, TradeUncheckedUpdateWithoutInstrumentInput>
-    create: XOR<TradeCreateWithoutInstrumentInput, TradeUncheckedCreateWithoutInstrumentInput>
-  }
-
-  export type TradeUpdateWithWhereUniqueWithoutInstrumentInput = {
-    where: TradeWhereUniqueInput
-    data: XOR<TradeUpdateWithoutInstrumentInput, TradeUncheckedUpdateWithoutInstrumentInput>
-  }
-
-  export type TradeUpdateManyWithWhereWithoutInstrumentInput = {
-    where: TradeScalarWhereInput
-    data: XOR<TradeUpdateManyMutationInput, TradeUncheckedUpdateManyWithoutInstrumentInput>
-  }
-
   export type MarketDepthUpsertWithWhereUniqueWithoutInstrumentInput = {
     where: MarketDepthWhereUniqueInput
     update: XOR<MarketDepthUpdateWithoutInstrumentInput, MarketDepthUncheckedUpdateWithoutInstrumentInput>
@@ -49523,6 +49553,38 @@ export namespace Prisma {
     quantity?: IntFilter<"MarketDepth"> | number
     orders?: IntFilter<"MarketDepth"> | number
     timestamp?: DateTimeFilter<"MarketDepth"> | Date | string
+  }
+
+  export type OrderUpsertWithWhereUniqueWithoutInstrumentInput = {
+    where: OrderWhereUniqueInput
+    update: XOR<OrderUpdateWithoutInstrumentInput, OrderUncheckedUpdateWithoutInstrumentInput>
+    create: XOR<OrderCreateWithoutInstrumentInput, OrderUncheckedCreateWithoutInstrumentInput>
+  }
+
+  export type OrderUpdateWithWhereUniqueWithoutInstrumentInput = {
+    where: OrderWhereUniqueInput
+    data: XOR<OrderUpdateWithoutInstrumentInput, OrderUncheckedUpdateWithoutInstrumentInput>
+  }
+
+  export type OrderUpdateManyWithWhereWithoutInstrumentInput = {
+    where: OrderScalarWhereInput
+    data: XOR<OrderUpdateManyMutationInput, OrderUncheckedUpdateManyWithoutInstrumentInput>
+  }
+
+  export type PositionUpsertWithWhereUniqueWithoutInstrumentInput = {
+    where: PositionWhereUniqueInput
+    update: XOR<PositionUpdateWithoutInstrumentInput, PositionUncheckedUpdateWithoutInstrumentInput>
+    create: XOR<PositionCreateWithoutInstrumentInput, PositionUncheckedCreateWithoutInstrumentInput>
+  }
+
+  export type PositionUpdateWithWhereUniqueWithoutInstrumentInput = {
+    where: PositionWhereUniqueInput
+    data: XOR<PositionUpdateWithoutInstrumentInput, PositionUncheckedUpdateWithoutInstrumentInput>
+  }
+
+  export type PositionUpdateManyWithWhereWithoutInstrumentInput = {
+    where: PositionScalarWhereInput
+    data: XOR<PositionUpdateManyMutationInput, PositionUncheckedUpdateManyWithoutInstrumentInput>
   }
 
   export type PriceHistoryUpsertWithWhereUniqueWithoutInstrumentInput = {
@@ -49554,6 +49616,22 @@ export namespace Prisma {
     volume?: IntFilter<"PriceHistory"> | number
     ohlcDate?: DateTimeFilter<"PriceHistory"> | Date | string
     interval?: StringFilter<"PriceHistory"> | string
+  }
+
+  export type TradeUpsertWithWhereUniqueWithoutInstrumentInput = {
+    where: TradeWhereUniqueInput
+    update: XOR<TradeUpdateWithoutInstrumentInput, TradeUncheckedUpdateWithoutInstrumentInput>
+    create: XOR<TradeCreateWithoutInstrumentInput, TradeUncheckedCreateWithoutInstrumentInput>
+  }
+
+  export type TradeUpdateWithWhereUniqueWithoutInstrumentInput = {
+    where: TradeWhereUniqueInput
+    data: XOR<TradeUpdateWithoutInstrumentInput, TradeUncheckedUpdateWithoutInstrumentInput>
+  }
+
+  export type TradeUpdateManyWithWhereWithoutInstrumentInput = {
+    where: TradeScalarWhereInput
+    data: XOR<TradeUpdateManyMutationInput, TradeUncheckedUpdateManyWithoutInstrumentInput>
   }
 
   export type WatchlistItemUpsertWithWhereUniqueWithoutInstrumentInput = {
@@ -49603,10 +49681,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     holdings?: HoldingCreateNestedManyWithoutInstrumentInput
-    positions?: PositionCreateNestedManyWithoutInstrumentInput
     orders?: OrderCreateNestedManyWithoutInstrumentInput
-    trades?: TradeCreateNestedManyWithoutInstrumentInput
+    positions?: PositionCreateNestedManyWithoutInstrumentInput
     priceHistory?: PriceHistoryCreateNestedManyWithoutInstrumentInput
+    trades?: TradeCreateNestedManyWithoutInstrumentInput
     watchlistItems?: WatchlistItemCreateNestedManyWithoutInstrumentInput
   }
 
@@ -49630,10 +49708,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     holdings?: HoldingUncheckedCreateNestedManyWithoutInstrumentInput
-    positions?: PositionUncheckedCreateNestedManyWithoutInstrumentInput
     orders?: OrderUncheckedCreateNestedManyWithoutInstrumentInput
-    trades?: TradeUncheckedCreateNestedManyWithoutInstrumentInput
+    positions?: PositionUncheckedCreateNestedManyWithoutInstrumentInput
     priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutInstrumentInput
+    trades?: TradeUncheckedCreateNestedManyWithoutInstrumentInput
     watchlistItems?: WatchlistItemUncheckedCreateNestedManyWithoutInstrumentInput
   }
 
@@ -49673,10 +49751,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     holdings?: HoldingUpdateManyWithoutInstrumentNestedInput
-    positions?: PositionUpdateManyWithoutInstrumentNestedInput
     orders?: OrderUpdateManyWithoutInstrumentNestedInput
-    trades?: TradeUpdateManyWithoutInstrumentNestedInput
+    positions?: PositionUpdateManyWithoutInstrumentNestedInput
     priceHistory?: PriceHistoryUpdateManyWithoutInstrumentNestedInput
+    trades?: TradeUpdateManyWithoutInstrumentNestedInput
     watchlistItems?: WatchlistItemUpdateManyWithoutInstrumentNestedInput
   }
 
@@ -49700,10 +49778,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     holdings?: HoldingUncheckedUpdateManyWithoutInstrumentNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutInstrumentNestedInput
     orders?: OrderUncheckedUpdateManyWithoutInstrumentNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutInstrumentNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutInstrumentNestedInput
     priceHistory?: PriceHistoryUncheckedUpdateManyWithoutInstrumentNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutInstrumentNestedInput
     watchlistItems?: WatchlistItemUncheckedUpdateManyWithoutInstrumentNestedInput
   }
 
@@ -49727,10 +49805,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     holdings?: HoldingCreateNestedManyWithoutInstrumentInput
-    positions?: PositionCreateNestedManyWithoutInstrumentInput
-    orders?: OrderCreateNestedManyWithoutInstrumentInput
-    trades?: TradeCreateNestedManyWithoutInstrumentInput
     marketDepth?: MarketDepthCreateNestedManyWithoutInstrumentInput
+    orders?: OrderCreateNestedManyWithoutInstrumentInput
+    positions?: PositionCreateNestedManyWithoutInstrumentInput
+    trades?: TradeCreateNestedManyWithoutInstrumentInput
     watchlistItems?: WatchlistItemCreateNestedManyWithoutInstrumentInput
   }
 
@@ -49754,10 +49832,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     holdings?: HoldingUncheckedCreateNestedManyWithoutInstrumentInput
-    positions?: PositionUncheckedCreateNestedManyWithoutInstrumentInput
-    orders?: OrderUncheckedCreateNestedManyWithoutInstrumentInput
-    trades?: TradeUncheckedCreateNestedManyWithoutInstrumentInput
     marketDepth?: MarketDepthUncheckedCreateNestedManyWithoutInstrumentInput
+    orders?: OrderUncheckedCreateNestedManyWithoutInstrumentInput
+    positions?: PositionUncheckedCreateNestedManyWithoutInstrumentInput
+    trades?: TradeUncheckedCreateNestedManyWithoutInstrumentInput
     watchlistItems?: WatchlistItemUncheckedCreateNestedManyWithoutInstrumentInput
   }
 
@@ -49797,10 +49875,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     holdings?: HoldingUpdateManyWithoutInstrumentNestedInput
-    positions?: PositionUpdateManyWithoutInstrumentNestedInput
-    orders?: OrderUpdateManyWithoutInstrumentNestedInput
-    trades?: TradeUpdateManyWithoutInstrumentNestedInput
     marketDepth?: MarketDepthUpdateManyWithoutInstrumentNestedInput
+    orders?: OrderUpdateManyWithoutInstrumentNestedInput
+    positions?: PositionUpdateManyWithoutInstrumentNestedInput
+    trades?: TradeUpdateManyWithoutInstrumentNestedInput
     watchlistItems?: WatchlistItemUpdateManyWithoutInstrumentNestedInput
   }
 
@@ -49824,10 +49902,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     holdings?: HoldingUncheckedUpdateManyWithoutInstrumentNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutInstrumentNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutInstrumentNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutInstrumentNestedInput
     marketDepth?: MarketDepthUncheckedUpdateManyWithoutInstrumentNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutInstrumentNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutInstrumentNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutInstrumentNestedInput
     watchlistItems?: WatchlistItemUncheckedUpdateManyWithoutInstrumentNestedInput
   }
 
@@ -49840,7 +49918,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -49849,20 +49927,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
-    funds?: FundTransactionCreateNestedManyWithoutUserInput
-    holdings?: HoldingCreateNestedManyWithoutUserInput
-    positions?: PositionCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
-    trades?: TradeCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
-    baskets?: BasketCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
+    baskets?: BasketCreateNestedManyWithoutUserInput
+    funds?: FundTransactionCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
+    holdings?: HoldingCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    positions?: PositionCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPortfoliosInput = {
@@ -49874,7 +49953,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -49883,20 +49962,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
-    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
-    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
-    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
-    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
+    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
+    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPortfoliosInput = {
@@ -49924,7 +50004,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -49933,20 +50013,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUpdateManyWithoutUserNestedInput
-    positions?: PositionUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
-    trades?: TradeUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
-    baskets?: BasketUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
+    baskets?: BasketUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    positions?: PositionUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPortfoliosInput = {
@@ -49958,7 +50039,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -49967,93 +50048,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
-    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
+    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
-  }
-
-  export type UserCreateWithoutHoldingsInput = {
-    id?: string
-    email?: string | null
-    phone: string
-    password?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    panNumber?: string | null
-    aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
-    kycStatus?: $Enums.KYCStatus | null
-    accountType?: $Enums.AccountType | null
-    role?: $Enums.UserRole | null
-    isActive?: boolean | null
-    twoFactorEnabled?: boolean | null
-    createdAt?: Date | string | null
-    updatedAt?: Date | string | null
-    isVerified?: boolean
-    profile?: UserProfileCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
-    funds?: FundTransactionCreateNestedManyWithoutUserInput
-    positions?: PositionCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
-    trades?: TradeCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
-    baskets?: BasketCreateNestedManyWithoutUserInput
-    alerts?: AlertCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sessions?: SessionCreateNestedManyWithoutUserInput
-    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutHoldingsInput = {
-    id?: string
-    email?: string | null
-    phone: string
-    password?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    panNumber?: string | null
-    aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
-    kycStatus?: $Enums.KYCStatus | null
-    accountType?: $Enums.AccountType | null
-    role?: $Enums.UserRole | null
-    isActive?: boolean | null
-    twoFactorEnabled?: boolean | null
-    createdAt?: Date | string | null
-    updatedAt?: Date | string | null
-    isVerified?: boolean
-    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
-    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
-    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
-    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
-    alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutHoldingsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutHoldingsInput, UserUncheckedCreateWithoutHoldingsInput>
+    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type InstrumentCreateWithoutHoldingsInput = {
@@ -50075,11 +50084,11 @@ export namespace Prisma {
     lastUpdated?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
-    positions?: PositionCreateNestedManyWithoutInstrumentInput
-    orders?: OrderCreateNestedManyWithoutInstrumentInput
-    trades?: TradeCreateNestedManyWithoutInstrumentInput
     marketDepth?: MarketDepthCreateNestedManyWithoutInstrumentInput
+    orders?: OrderCreateNestedManyWithoutInstrumentInput
+    positions?: PositionCreateNestedManyWithoutInstrumentInput
     priceHistory?: PriceHistoryCreateNestedManyWithoutInstrumentInput
+    trades?: TradeCreateNestedManyWithoutInstrumentInput
     watchlistItems?: WatchlistItemCreateNestedManyWithoutInstrumentInput
   }
 
@@ -50102,11 +50111,11 @@ export namespace Prisma {
     lastUpdated?: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
-    positions?: PositionUncheckedCreateNestedManyWithoutInstrumentInput
-    orders?: OrderUncheckedCreateNestedManyWithoutInstrumentInput
-    trades?: TradeUncheckedCreateNestedManyWithoutInstrumentInput
     marketDepth?: MarketDepthUncheckedCreateNestedManyWithoutInstrumentInput
+    orders?: OrderUncheckedCreateNestedManyWithoutInstrumentInput
+    positions?: PositionUncheckedCreateNestedManyWithoutInstrumentInput
     priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutInstrumentInput
+    trades?: TradeUncheckedCreateNestedManyWithoutInstrumentInput
     watchlistItems?: WatchlistItemUncheckedCreateNestedManyWithoutInstrumentInput
   }
 
@@ -50115,83 +50124,79 @@ export namespace Prisma {
     create: XOR<InstrumentCreateWithoutHoldingsInput, InstrumentUncheckedCreateWithoutHoldingsInput>
   }
 
-  export type UserUpsertWithoutHoldingsInput = {
-    update: XOR<UserUpdateWithoutHoldingsInput, UserUncheckedUpdateWithoutHoldingsInput>
+  export type UserCreateWithoutHoldingsInput = {
+    id?: string
+    email?: string | null
+    phone: string
+    password?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    panNumber?: string | null
+    aadhaarNumber?: string | null
+    dob?: Date | string | null
+    kycStatus?: $Enums.KYCStatus | null
+    accountType?: $Enums.AccountType | null
+    role?: $Enums.UserRole | null
+    isActive?: boolean | null
+    twoFactorEnabled?: boolean | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    isVerified?: boolean
+    segment?: $Enums.Segment
+    alerts?: AlertCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
+    baskets?: BasketCreateNestedManyWithoutUserInput
+    funds?: FundTransactionCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioCreateNestedManyWithoutUserInput
+    positions?: PositionCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutHoldingsInput = {
+    id?: string
+    email?: string | null
+    phone: string
+    password?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    panNumber?: string | null
+    aadhaarNumber?: string | null
+    dob?: Date | string | null
+    kycStatus?: $Enums.KYCStatus | null
+    accountType?: $Enums.AccountType | null
+    role?: $Enums.UserRole | null
+    isActive?: boolean | null
+    twoFactorEnabled?: boolean | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    isVerified?: boolean
+    segment?: $Enums.Segment
+    alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
+    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
+    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutHoldingsInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutHoldingsInput, UserUncheckedCreateWithoutHoldingsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutHoldingsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutHoldingsInput, UserUncheckedUpdateWithoutHoldingsInput>
-  }
-
-  export type UserUpdateWithoutHoldingsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    phone?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
-    accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
-    role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
-    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUpdateManyWithoutUserNestedInput
-    positions?: PositionUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
-    trades?: TradeUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
-    baskets?: BasketUpdateManyWithoutUserNestedInput
-    alerts?: AlertUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sessions?: SessionUpdateManyWithoutUserNestedInput
-    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutHoldingsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    phone?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
-    accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
-    role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
-    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
-    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
-    alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type InstrumentUpsertWithoutHoldingsInput = {
@@ -50224,11 +50229,11 @@ export namespace Prisma {
     lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    positions?: PositionUpdateManyWithoutInstrumentNestedInput
-    orders?: OrderUpdateManyWithoutInstrumentNestedInput
-    trades?: TradeUpdateManyWithoutInstrumentNestedInput
     marketDepth?: MarketDepthUpdateManyWithoutInstrumentNestedInput
+    orders?: OrderUpdateManyWithoutInstrumentNestedInput
+    positions?: PositionUpdateManyWithoutInstrumentNestedInput
     priceHistory?: PriceHistoryUpdateManyWithoutInstrumentNestedInput
+    trades?: TradeUpdateManyWithoutInstrumentNestedInput
     watchlistItems?: WatchlistItemUpdateManyWithoutInstrumentNestedInput
   }
 
@@ -50251,85 +50256,93 @@ export namespace Prisma {
     lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    positions?: PositionUncheckedUpdateManyWithoutInstrumentNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutInstrumentNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutInstrumentNestedInput
     marketDepth?: MarketDepthUncheckedUpdateManyWithoutInstrumentNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutInstrumentNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutInstrumentNestedInput
     priceHistory?: PriceHistoryUncheckedUpdateManyWithoutInstrumentNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutInstrumentNestedInput
     watchlistItems?: WatchlistItemUncheckedUpdateManyWithoutInstrumentNestedInput
   }
 
-  export type UserCreateWithoutPositionsInput = {
-    id?: string
-    email?: string | null
-    phone: string
-    password?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    panNumber?: string | null
-    aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
-    kycStatus?: $Enums.KYCStatus | null
-    accountType?: $Enums.AccountType | null
-    role?: $Enums.UserRole | null
-    isActive?: boolean | null
-    twoFactorEnabled?: boolean | null
-    createdAt?: Date | string | null
-    updatedAt?: Date | string | null
-    isVerified?: boolean
-    profile?: UserProfileCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
-    funds?: FundTransactionCreateNestedManyWithoutUserInput
-    holdings?: HoldingCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
-    trades?: TradeCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
-    baskets?: BasketCreateNestedManyWithoutUserInput
-    alerts?: AlertCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sessions?: SessionCreateNestedManyWithoutUserInput
-    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
+  export type UserUpsertWithoutHoldingsInput = {
+    update: XOR<UserUpdateWithoutHoldingsInput, UserUncheckedUpdateWithoutHoldingsInput>
+    create: XOR<UserCreateWithoutHoldingsInput, UserUncheckedCreateWithoutHoldingsInput>
+    where?: UserWhereInput
   }
 
-  export type UserUncheckedCreateWithoutPositionsInput = {
-    id?: string
-    email?: string | null
-    phone: string
-    password?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    panNumber?: string | null
-    aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
-    kycStatus?: $Enums.KYCStatus | null
-    accountType?: $Enums.AccountType | null
-    role?: $Enums.UserRole | null
-    isActive?: boolean | null
-    twoFactorEnabled?: boolean | null
-    createdAt?: Date | string | null
-    updatedAt?: Date | string | null
-    isVerified?: boolean
-    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
-    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
-    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
-    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
-    alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
+  export type UserUpdateToOneWithWhereWithoutHoldingsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutHoldingsInput, UserUncheckedUpdateWithoutHoldingsInput>
   }
 
-  export type UserCreateOrConnectWithoutPositionsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutPositionsInput, UserUncheckedCreateWithoutPositionsInput>
+  export type UserUpdateWithoutHoldingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
+    accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
+    role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
+    alerts?: AlertUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
+    baskets?: BasketUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
+    positions?: PositionUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutHoldingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
+    accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
+    role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
+    alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
+    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type InstrumentCreateWithoutPositionsInput = {
@@ -50352,10 +50365,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     holdings?: HoldingCreateNestedManyWithoutInstrumentInput
-    orders?: OrderCreateNestedManyWithoutInstrumentInput
-    trades?: TradeCreateNestedManyWithoutInstrumentInput
     marketDepth?: MarketDepthCreateNestedManyWithoutInstrumentInput
+    orders?: OrderCreateNestedManyWithoutInstrumentInput
     priceHistory?: PriceHistoryCreateNestedManyWithoutInstrumentInput
+    trades?: TradeCreateNestedManyWithoutInstrumentInput
     watchlistItems?: WatchlistItemCreateNestedManyWithoutInstrumentInput
   }
 
@@ -50379,10 +50392,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     holdings?: HoldingUncheckedCreateNestedManyWithoutInstrumentInput
-    orders?: OrderUncheckedCreateNestedManyWithoutInstrumentInput
-    trades?: TradeUncheckedCreateNestedManyWithoutInstrumentInput
     marketDepth?: MarketDepthUncheckedCreateNestedManyWithoutInstrumentInput
+    orders?: OrderUncheckedCreateNestedManyWithoutInstrumentInput
     priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutInstrumentInput
+    trades?: TradeUncheckedCreateNestedManyWithoutInstrumentInput
     watchlistItems?: WatchlistItemUncheckedCreateNestedManyWithoutInstrumentInput
   }
 
@@ -50391,83 +50404,79 @@ export namespace Prisma {
     create: XOR<InstrumentCreateWithoutPositionsInput, InstrumentUncheckedCreateWithoutPositionsInput>
   }
 
-  export type UserUpsertWithoutPositionsInput = {
-    update: XOR<UserUpdateWithoutPositionsInput, UserUncheckedUpdateWithoutPositionsInput>
+  export type UserCreateWithoutPositionsInput = {
+    id?: string
+    email?: string | null
+    phone: string
+    password?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    panNumber?: string | null
+    aadhaarNumber?: string | null
+    dob?: Date | string | null
+    kycStatus?: $Enums.KYCStatus | null
+    accountType?: $Enums.AccountType | null
+    role?: $Enums.UserRole | null
+    isActive?: boolean | null
+    twoFactorEnabled?: boolean | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    isVerified?: boolean
+    segment?: $Enums.Segment
+    alerts?: AlertCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
+    baskets?: BasketCreateNestedManyWithoutUserInput
+    funds?: FundTransactionCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
+    holdings?: HoldingCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPositionsInput = {
+    id?: string
+    email?: string | null
+    phone: string
+    password?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    panNumber?: string | null
+    aadhaarNumber?: string | null
+    dob?: Date | string | null
+    kycStatus?: $Enums.KYCStatus | null
+    accountType?: $Enums.AccountType | null
+    role?: $Enums.UserRole | null
+    isActive?: boolean | null
+    twoFactorEnabled?: boolean | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    isVerified?: boolean
+    segment?: $Enums.Segment
+    alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
+    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
+    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPositionsInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutPositionsInput, UserUncheckedCreateWithoutPositionsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutPositionsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutPositionsInput, UserUncheckedUpdateWithoutPositionsInput>
-  }
-
-  export type UserUpdateWithoutPositionsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    phone?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
-    accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
-    role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
-    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
-    trades?: TradeUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
-    baskets?: BasketUpdateManyWithoutUserNestedInput
-    alerts?: AlertUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sessions?: SessionUpdateManyWithoutUserNestedInput
-    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutPositionsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    phone?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
-    accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
-    role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
-    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
-    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
-    alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type InstrumentUpsertWithoutPositionsInput = {
@@ -50501,10 +50510,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     holdings?: HoldingUpdateManyWithoutInstrumentNestedInput
-    orders?: OrderUpdateManyWithoutInstrumentNestedInput
-    trades?: TradeUpdateManyWithoutInstrumentNestedInput
     marketDepth?: MarketDepthUpdateManyWithoutInstrumentNestedInput
+    orders?: OrderUpdateManyWithoutInstrumentNestedInput
     priceHistory?: PriceHistoryUpdateManyWithoutInstrumentNestedInput
+    trades?: TradeUpdateManyWithoutInstrumentNestedInput
     watchlistItems?: WatchlistItemUpdateManyWithoutInstrumentNestedInput
   }
 
@@ -50528,84 +50537,92 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     holdings?: HoldingUncheckedUpdateManyWithoutInstrumentNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutInstrumentNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutInstrumentNestedInput
     marketDepth?: MarketDepthUncheckedUpdateManyWithoutInstrumentNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutInstrumentNestedInput
     priceHistory?: PriceHistoryUncheckedUpdateManyWithoutInstrumentNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutInstrumentNestedInput
     watchlistItems?: WatchlistItemUncheckedUpdateManyWithoutInstrumentNestedInput
   }
 
-  export type UserCreateWithoutOrdersInput = {
-    id?: string
-    email?: string | null
-    phone: string
-    password?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    panNumber?: string | null
-    aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
-    kycStatus?: $Enums.KYCStatus | null
-    accountType?: $Enums.AccountType | null
-    role?: $Enums.UserRole | null
-    isActive?: boolean | null
-    twoFactorEnabled?: boolean | null
-    createdAt?: Date | string | null
-    updatedAt?: Date | string | null
-    isVerified?: boolean
-    profile?: UserProfileCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
-    funds?: FundTransactionCreateNestedManyWithoutUserInput
-    holdings?: HoldingCreateNestedManyWithoutUserInput
-    positions?: PositionCreateNestedManyWithoutUserInput
-    trades?: TradeCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
-    baskets?: BasketCreateNestedManyWithoutUserInput
-    alerts?: AlertCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    sessions?: SessionCreateNestedManyWithoutUserInput
-    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
+  export type UserUpsertWithoutPositionsInput = {
+    update: XOR<UserUpdateWithoutPositionsInput, UserUncheckedUpdateWithoutPositionsInput>
+    create: XOR<UserCreateWithoutPositionsInput, UserUncheckedCreateWithoutPositionsInput>
+    where?: UserWhereInput
   }
 
-  export type UserUncheckedCreateWithoutOrdersInput = {
-    id?: string
-    email?: string | null
-    phone: string
-    password?: string | null
-    firstName?: string | null
-    lastName?: string | null
-    panNumber?: string | null
-    aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
-    kycStatus?: $Enums.KYCStatus | null
-    accountType?: $Enums.AccountType | null
-    role?: $Enums.UserRole | null
-    isActive?: boolean | null
-    twoFactorEnabled?: boolean | null
-    createdAt?: Date | string | null
-    updatedAt?: Date | string | null
-    isVerified?: boolean
-    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
-    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
-    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
-    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
-    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
-    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
-    alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
+  export type UserUpdateToOneWithWhereWithoutPositionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPositionsInput, UserUncheckedUpdateWithoutPositionsInput>
   }
 
-  export type UserCreateOrConnectWithoutOrdersInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
+  export type UserUpdateWithoutPositionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
+    accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
+    role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
+    alerts?: AlertUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
+    baskets?: BasketUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPositionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
+    accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
+    role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
+    alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
+    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type InstrumentCreateWithoutOrdersInput = {
@@ -50628,10 +50645,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     holdings?: HoldingCreateNestedManyWithoutInstrumentInput
-    positions?: PositionCreateNestedManyWithoutInstrumentInput
-    trades?: TradeCreateNestedManyWithoutInstrumentInput
     marketDepth?: MarketDepthCreateNestedManyWithoutInstrumentInput
+    positions?: PositionCreateNestedManyWithoutInstrumentInput
     priceHistory?: PriceHistoryCreateNestedManyWithoutInstrumentInput
+    trades?: TradeCreateNestedManyWithoutInstrumentInput
     watchlistItems?: WatchlistItemCreateNestedManyWithoutInstrumentInput
   }
 
@@ -50655,16 +50672,91 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     holdings?: HoldingUncheckedCreateNestedManyWithoutInstrumentInput
-    positions?: PositionUncheckedCreateNestedManyWithoutInstrumentInput
-    trades?: TradeUncheckedCreateNestedManyWithoutInstrumentInput
     marketDepth?: MarketDepthUncheckedCreateNestedManyWithoutInstrumentInput
+    positions?: PositionUncheckedCreateNestedManyWithoutInstrumentInput
     priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutInstrumentInput
+    trades?: TradeUncheckedCreateNestedManyWithoutInstrumentInput
     watchlistItems?: WatchlistItemUncheckedCreateNestedManyWithoutInstrumentInput
   }
 
   export type InstrumentCreateOrConnectWithoutOrdersInput = {
     where: InstrumentWhereUniqueInput
     create: XOR<InstrumentCreateWithoutOrdersInput, InstrumentUncheckedCreateWithoutOrdersInput>
+  }
+
+  export type UserCreateWithoutOrdersInput = {
+    id?: string
+    email?: string | null
+    phone: string
+    password?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    panNumber?: string | null
+    aadhaarNumber?: string | null
+    dob?: Date | string | null
+    kycStatus?: $Enums.KYCStatus | null
+    accountType?: $Enums.AccountType | null
+    role?: $Enums.UserRole | null
+    isActive?: boolean | null
+    twoFactorEnabled?: boolean | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    isVerified?: boolean
+    segment?: $Enums.Segment
+    alerts?: AlertCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
+    baskets?: BasketCreateNestedManyWithoutUserInput
+    funds?: FundTransactionCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
+    holdings?: HoldingCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioCreateNestedManyWithoutUserInput
+    positions?: PositionCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutOrdersInput = {
+    id?: string
+    email?: string | null
+    phone: string
+    password?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    panNumber?: string | null
+    aadhaarNumber?: string | null
+    dob?: Date | string | null
+    kycStatus?: $Enums.KYCStatus | null
+    accountType?: $Enums.AccountType | null
+    role?: $Enums.UserRole | null
+    isActive?: boolean | null
+    twoFactorEnabled?: boolean | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    isVerified?: boolean
+    segment?: $Enums.Segment
+    alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
+    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
+    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
+    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutOrdersInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
   }
 
   export type TradeCreateWithoutOrderInput = {
@@ -50679,8 +50771,8 @@ export namespace Prisma {
     value: number
     exchangeTimestamp: Date | string
     createdAt?: Date | string
-    user: UserCreateNestedOneWithoutTradesInput
     instrument: InstrumentCreateNestedOneWithoutTradesInput
+    user: UserCreateNestedOneWithoutTradesInput
     charges?: TradeChargesCreateNestedOneWithoutTradeInput
   }
 
@@ -50709,85 +50801,6 @@ export namespace Prisma {
   export type TradeCreateManyOrderInputEnvelope = {
     data: TradeCreateManyOrderInput | TradeCreateManyOrderInput[]
     skipDuplicates?: boolean
-  }
-
-  export type UserUpsertWithoutOrdersInput = {
-    update: XOR<UserUpdateWithoutOrdersInput, UserUncheckedUpdateWithoutOrdersInput>
-    create: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutOrdersInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutOrdersInput, UserUncheckedUpdateWithoutOrdersInput>
-  }
-
-  export type UserUpdateWithoutOrdersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    phone?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
-    accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
-    role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
-    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUpdateManyWithoutUserNestedInput
-    positions?: PositionUpdateManyWithoutUserNestedInput
-    trades?: TradeUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
-    baskets?: BasketUpdateManyWithoutUserNestedInput
-    alerts?: AlertUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    sessions?: SessionUpdateManyWithoutUserNestedInput
-    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutOrdersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: NullableStringFieldUpdateOperationsInput | string | null
-    phone?: StringFieldUpdateOperationsInput | string
-    password?: NullableStringFieldUpdateOperationsInput | string | null
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
-    accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
-    role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
-    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
-    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
-    alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type InstrumentUpsertWithoutOrdersInput = {
@@ -50821,10 +50834,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     holdings?: HoldingUpdateManyWithoutInstrumentNestedInput
-    positions?: PositionUpdateManyWithoutInstrumentNestedInput
-    trades?: TradeUpdateManyWithoutInstrumentNestedInput
     marketDepth?: MarketDepthUpdateManyWithoutInstrumentNestedInput
+    positions?: PositionUpdateManyWithoutInstrumentNestedInput
     priceHistory?: PriceHistoryUpdateManyWithoutInstrumentNestedInput
+    trades?: TradeUpdateManyWithoutInstrumentNestedInput
     watchlistItems?: WatchlistItemUpdateManyWithoutInstrumentNestedInput
   }
 
@@ -50848,11 +50861,92 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     holdings?: HoldingUncheckedUpdateManyWithoutInstrumentNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutInstrumentNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutInstrumentNestedInput
     marketDepth?: MarketDepthUncheckedUpdateManyWithoutInstrumentNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutInstrumentNestedInput
     priceHistory?: PriceHistoryUncheckedUpdateManyWithoutInstrumentNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutInstrumentNestedInput
     watchlistItems?: WatchlistItemUncheckedUpdateManyWithoutInstrumentNestedInput
+  }
+
+  export type UserUpsertWithoutOrdersInput = {
+    update: XOR<UserUpdateWithoutOrdersInput, UserUncheckedUpdateWithoutOrdersInput>
+    create: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutOrdersInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutOrdersInput, UserUncheckedUpdateWithoutOrdersInput>
+  }
+
+  export type UserUpdateWithoutOrdersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
+    accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
+    role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
+    alerts?: AlertUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
+    baskets?: BasketUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
+    positions?: PositionUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutOrdersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
+    accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
+    role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
+    alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
+    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TradeUpsertWithWhereUniqueWithoutOrderInput = {
@@ -50869,6 +50963,65 @@ export namespace Prisma {
   export type TradeUpdateManyWithWhereWithoutOrderInput = {
     where: TradeScalarWhereInput
     data: XOR<TradeUpdateManyMutationInput, TradeUncheckedUpdateManyWithoutOrderInput>
+  }
+
+  export type InstrumentCreateWithoutTradesInput = {
+    id?: string
+    instrumentToken: string
+    exchangeToken: string
+    tradingSymbol: string
+    name: string
+    exchange: $Enums.Exchange
+    segment: $Enums.Segment
+    instrumentType: $Enums.InstrumentType
+    tickSize?: number
+    lotSize?: number
+    expiry?: Date | string | null
+    strike?: number | null
+    isin?: string | null
+    isActive?: boolean
+    lastPrice?: number
+    lastUpdated?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    holdings?: HoldingCreateNestedManyWithoutInstrumentInput
+    marketDepth?: MarketDepthCreateNestedManyWithoutInstrumentInput
+    orders?: OrderCreateNestedManyWithoutInstrumentInput
+    positions?: PositionCreateNestedManyWithoutInstrumentInput
+    priceHistory?: PriceHistoryCreateNestedManyWithoutInstrumentInput
+    watchlistItems?: WatchlistItemCreateNestedManyWithoutInstrumentInput
+  }
+
+  export type InstrumentUncheckedCreateWithoutTradesInput = {
+    id?: string
+    instrumentToken: string
+    exchangeToken: string
+    tradingSymbol: string
+    name: string
+    exchange: $Enums.Exchange
+    segment: $Enums.Segment
+    instrumentType: $Enums.InstrumentType
+    tickSize?: number
+    lotSize?: number
+    expiry?: Date | string | null
+    strike?: number | null
+    isin?: string | null
+    isActive?: boolean
+    lastPrice?: number
+    lastUpdated?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    holdings?: HoldingUncheckedCreateNestedManyWithoutInstrumentInput
+    marketDepth?: MarketDepthUncheckedCreateNestedManyWithoutInstrumentInput
+    orders?: OrderUncheckedCreateNestedManyWithoutInstrumentInput
+    positions?: PositionUncheckedCreateNestedManyWithoutInstrumentInput
+    priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutInstrumentInput
+    watchlistItems?: WatchlistItemUncheckedCreateNestedManyWithoutInstrumentInput
+  }
+
+  export type InstrumentCreateOrConnectWithoutTradesInput = {
+    where: InstrumentWhereUniqueInput
+    create: XOR<InstrumentCreateWithoutTradesInput, InstrumentUncheckedCreateWithoutTradesInput>
   }
 
   export type OrderCreateWithoutTradesInput = {
@@ -50903,8 +51056,8 @@ export namespace Prisma {
     cancelledBy?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutOrdersInput
     instrument: InstrumentCreateNestedOneWithoutOrdersInput
+    user: UserCreateNestedOneWithoutOrdersInput
   }
 
   export type OrderUncheckedCreateWithoutTradesInput = {
@@ -50957,7 +51110,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -50966,20 +51119,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
-    funds?: FundTransactionCreateNestedManyWithoutUserInput
-    holdings?: HoldingCreateNestedManyWithoutUserInput
-    positions?: PositionCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
-    baskets?: BasketCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
+    baskets?: BasketCreateNestedManyWithoutUserInput
+    funds?: FundTransactionCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
+    holdings?: HoldingCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioCreateNestedManyWithoutUserInput
+    positions?: PositionCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTradesInput = {
@@ -50991,7 +51145,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -51000,84 +51154,26 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
-    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
-    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
-    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
-    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
+    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
+    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
+    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTradesInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutTradesInput, UserUncheckedCreateWithoutTradesInput>
-  }
-
-  export type InstrumentCreateWithoutTradesInput = {
-    id?: string
-    instrumentToken: string
-    exchangeToken: string
-    tradingSymbol: string
-    name: string
-    exchange: $Enums.Exchange
-    segment: $Enums.Segment
-    instrumentType: $Enums.InstrumentType
-    tickSize?: number
-    lotSize?: number
-    expiry?: Date | string | null
-    strike?: number | null
-    isin?: string | null
-    isActive?: boolean
-    lastPrice?: number
-    lastUpdated?: Date | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    holdings?: HoldingCreateNestedManyWithoutInstrumentInput
-    positions?: PositionCreateNestedManyWithoutInstrumentInput
-    orders?: OrderCreateNestedManyWithoutInstrumentInput
-    marketDepth?: MarketDepthCreateNestedManyWithoutInstrumentInput
-    priceHistory?: PriceHistoryCreateNestedManyWithoutInstrumentInput
-    watchlistItems?: WatchlistItemCreateNestedManyWithoutInstrumentInput
-  }
-
-  export type InstrumentUncheckedCreateWithoutTradesInput = {
-    id?: string
-    instrumentToken: string
-    exchangeToken: string
-    tradingSymbol: string
-    name: string
-    exchange: $Enums.Exchange
-    segment: $Enums.Segment
-    instrumentType: $Enums.InstrumentType
-    tickSize?: number
-    lotSize?: number
-    expiry?: Date | string | null
-    strike?: number | null
-    isin?: string | null
-    isActive?: boolean
-    lastPrice?: number
-    lastUpdated?: Date | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    holdings?: HoldingUncheckedCreateNestedManyWithoutInstrumentInput
-    positions?: PositionUncheckedCreateNestedManyWithoutInstrumentInput
-    orders?: OrderUncheckedCreateNestedManyWithoutInstrumentInput
-    marketDepth?: MarketDepthUncheckedCreateNestedManyWithoutInstrumentInput
-    priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutInstrumentInput
-    watchlistItems?: WatchlistItemUncheckedCreateNestedManyWithoutInstrumentInput
-  }
-
-  export type InstrumentCreateOrConnectWithoutTradesInput = {
-    where: InstrumentWhereUniqueInput
-    create: XOR<InstrumentCreateWithoutTradesInput, InstrumentUncheckedCreateWithoutTradesInput>
   }
 
   export type TradeChargesCreateWithoutTradeInput = {
@@ -51107,6 +51203,71 @@ export namespace Prisma {
   export type TradeChargesCreateOrConnectWithoutTradeInput = {
     where: TradeChargesWhereUniqueInput
     create: XOR<TradeChargesCreateWithoutTradeInput, TradeChargesUncheckedCreateWithoutTradeInput>
+  }
+
+  export type InstrumentUpsertWithoutTradesInput = {
+    update: XOR<InstrumentUpdateWithoutTradesInput, InstrumentUncheckedUpdateWithoutTradesInput>
+    create: XOR<InstrumentCreateWithoutTradesInput, InstrumentUncheckedCreateWithoutTradesInput>
+    where?: InstrumentWhereInput
+  }
+
+  export type InstrumentUpdateToOneWithWhereWithoutTradesInput = {
+    where?: InstrumentWhereInput
+    data: XOR<InstrumentUpdateWithoutTradesInput, InstrumentUncheckedUpdateWithoutTradesInput>
+  }
+
+  export type InstrumentUpdateWithoutTradesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    instrumentToken?: StringFieldUpdateOperationsInput | string
+    exchangeToken?: StringFieldUpdateOperationsInput | string
+    tradingSymbol?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
+    instrumentType?: EnumInstrumentTypeFieldUpdateOperationsInput | $Enums.InstrumentType
+    tickSize?: FloatFieldUpdateOperationsInput | number
+    lotSize?: IntFieldUpdateOperationsInput | number
+    expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    strike?: NullableFloatFieldUpdateOperationsInput | number | null
+    isin?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastPrice?: FloatFieldUpdateOperationsInput | number
+    lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    holdings?: HoldingUpdateManyWithoutInstrumentNestedInput
+    marketDepth?: MarketDepthUpdateManyWithoutInstrumentNestedInput
+    orders?: OrderUpdateManyWithoutInstrumentNestedInput
+    positions?: PositionUpdateManyWithoutInstrumentNestedInput
+    priceHistory?: PriceHistoryUpdateManyWithoutInstrumentNestedInput
+    watchlistItems?: WatchlistItemUpdateManyWithoutInstrumentNestedInput
+  }
+
+  export type InstrumentUncheckedUpdateWithoutTradesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    instrumentToken?: StringFieldUpdateOperationsInput | string
+    exchangeToken?: StringFieldUpdateOperationsInput | string
+    tradingSymbol?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
+    instrumentType?: EnumInstrumentTypeFieldUpdateOperationsInput | $Enums.InstrumentType
+    tickSize?: FloatFieldUpdateOperationsInput | number
+    lotSize?: IntFieldUpdateOperationsInput | number
+    expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    strike?: NullableFloatFieldUpdateOperationsInput | number | null
+    isin?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    lastPrice?: FloatFieldUpdateOperationsInput | number
+    lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    holdings?: HoldingUncheckedUpdateManyWithoutInstrumentNestedInput
+    marketDepth?: MarketDepthUncheckedUpdateManyWithoutInstrumentNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutInstrumentNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutInstrumentNestedInput
+    priceHistory?: PriceHistoryUncheckedUpdateManyWithoutInstrumentNestedInput
+    watchlistItems?: WatchlistItemUncheckedUpdateManyWithoutInstrumentNestedInput
   }
 
   export type OrderUpsertWithoutTradesInput = {
@@ -51152,8 +51313,8 @@ export namespace Prisma {
     cancelledBy?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutOrdersNestedInput
     instrument?: InstrumentUpdateOneRequiredWithoutOrdersNestedInput
+    user?: UserUpdateOneRequiredWithoutOrdersNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutTradesInput = {
@@ -51212,7 +51373,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -51221,20 +51382,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUpdateManyWithoutUserNestedInput
-    positions?: PositionUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
-    baskets?: BasketUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
+    baskets?: BasketUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
+    positions?: PositionUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTradesInput = {
@@ -51246,7 +51408,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -51255,85 +51417,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
-    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
+    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
-  }
-
-  export type InstrumentUpsertWithoutTradesInput = {
-    update: XOR<InstrumentUpdateWithoutTradesInput, InstrumentUncheckedUpdateWithoutTradesInput>
-    create: XOR<InstrumentCreateWithoutTradesInput, InstrumentUncheckedCreateWithoutTradesInput>
-    where?: InstrumentWhereInput
-  }
-
-  export type InstrumentUpdateToOneWithWhereWithoutTradesInput = {
-    where?: InstrumentWhereInput
-    data: XOR<InstrumentUpdateWithoutTradesInput, InstrumentUncheckedUpdateWithoutTradesInput>
-  }
-
-  export type InstrumentUpdateWithoutTradesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    instrumentToken?: StringFieldUpdateOperationsInput | string
-    exchangeToken?: StringFieldUpdateOperationsInput | string
-    tradingSymbol?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
-    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
-    instrumentType?: EnumInstrumentTypeFieldUpdateOperationsInput | $Enums.InstrumentType
-    tickSize?: FloatFieldUpdateOperationsInput | number
-    lotSize?: IntFieldUpdateOperationsInput | number
-    expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    strike?: NullableFloatFieldUpdateOperationsInput | number | null
-    isin?: NullableStringFieldUpdateOperationsInput | string | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    lastPrice?: FloatFieldUpdateOperationsInput | number
-    lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    holdings?: HoldingUpdateManyWithoutInstrumentNestedInput
-    positions?: PositionUpdateManyWithoutInstrumentNestedInput
-    orders?: OrderUpdateManyWithoutInstrumentNestedInput
-    marketDepth?: MarketDepthUpdateManyWithoutInstrumentNestedInput
-    priceHistory?: PriceHistoryUpdateManyWithoutInstrumentNestedInput
-    watchlistItems?: WatchlistItemUpdateManyWithoutInstrumentNestedInput
-  }
-
-  export type InstrumentUncheckedUpdateWithoutTradesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    instrumentToken?: StringFieldUpdateOperationsInput | string
-    exchangeToken?: StringFieldUpdateOperationsInput | string
-    tradingSymbol?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
-    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
-    instrumentType?: EnumInstrumentTypeFieldUpdateOperationsInput | $Enums.InstrumentType
-    tickSize?: FloatFieldUpdateOperationsInput | number
-    lotSize?: IntFieldUpdateOperationsInput | number
-    expiry?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    strike?: NullableFloatFieldUpdateOperationsInput | number | null
-    isin?: NullableStringFieldUpdateOperationsInput | string | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    lastPrice?: FloatFieldUpdateOperationsInput | number
-    lastUpdated?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    holdings?: HoldingUncheckedUpdateManyWithoutInstrumentNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutInstrumentNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutInstrumentNestedInput
-    marketDepth?: MarketDepthUncheckedUpdateManyWithoutInstrumentNestedInput
-    priceHistory?: PriceHistoryUncheckedUpdateManyWithoutInstrumentNestedInput
-    watchlistItems?: WatchlistItemUncheckedUpdateManyWithoutInstrumentNestedInput
+    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TradeChargesUpsertWithoutTradeInput = {
@@ -51383,9 +51481,9 @@ export namespace Prisma {
     value: number
     exchangeTimestamp: Date | string
     createdAt?: Date | string
+    instrument: InstrumentCreateNestedOneWithoutTradesInput
     order: OrderCreateNestedOneWithoutTradesInput
     user: UserCreateNestedOneWithoutTradesInput
-    instrument: InstrumentCreateNestedOneWithoutTradesInput
   }
 
   export type TradeUncheckedCreateWithoutChargesInput = {
@@ -51433,9 +51531,9 @@ export namespace Prisma {
     value?: FloatFieldUpdateOperationsInput | number
     exchangeTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    instrument?: InstrumentUpdateOneRequiredWithoutTradesNestedInput
     order?: OrderUpdateOneRequiredWithoutTradesNestedInput
     user?: UserUpdateOneRequiredWithoutTradesNestedInput
-    instrument?: InstrumentUpdateOneRequiredWithoutTradesNestedInput
   }
 
   export type TradeUncheckedUpdateWithoutChargesInput = {
@@ -51464,7 +51562,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -51473,20 +51571,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileCreateNestedOneWithoutUserInput
+    segment?: $Enums.Segment
+    alerts?: AlertCreateNestedManyWithoutUserInput
     bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
+    baskets?: BasketCreateNestedManyWithoutUserInput
     funds?: FundTransactionCreateNestedManyWithoutUserInput
     holdings?: HoldingCreateNestedManyWithoutUserInput
-    positions?: PositionCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
-    trades?: TradeCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioCreateNestedManyWithoutUserInput
-    baskets?: BasketCreateNestedManyWithoutUserInput
-    alerts?: AlertCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioCreateNestedManyWithoutUserInput
+    positions?: PositionCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutGttOrdersInput = {
@@ -51498,7 +51597,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -51507,20 +51606,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    segment?: $Enums.Segment
+    alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
     bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
+    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
     funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
     holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
-    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
-    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
-    alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
+    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutGttOrdersInput = {
@@ -51548,7 +51648,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -51557,20 +51657,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
+    alerts?: AlertUpdateManyWithoutUserNestedInput
     bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
+    baskets?: BasketUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUpdateManyWithoutUserNestedInput
     holdings?: HoldingUpdateManyWithoutUserNestedInput
-    positions?: PositionUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
-    trades?: TradeUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
-    baskets?: BasketUpdateManyWithoutUserNestedInput
-    alerts?: AlertUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
+    positions?: PositionUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGttOrdersInput = {
@@ -51582,7 +51683,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -51591,20 +51692,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
+    alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
     bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
+    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
     holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
-    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
-    alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutWatchlistsInput = {
@@ -51616,7 +51718,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -51625,19 +51727,20 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
-    funds?: FundTransactionCreateNestedManyWithoutUserInput
-    holdings?: HoldingCreateNestedManyWithoutUserInput
-    positions?: PositionCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
-    trades?: TradeCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
-    baskets?: BasketCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
+    baskets?: BasketCreateNestedManyWithoutUserInput
+    funds?: FundTransactionCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
+    holdings?: HoldingCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioCreateNestedManyWithoutUserInput
+    positions?: PositionCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
   }
 
@@ -51650,7 +51753,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -51659,19 +51762,20 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
-    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
-    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
-    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
-    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
+    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
+    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
+    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -51724,7 +51828,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -51733,19 +51837,20 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUpdateManyWithoutUserNestedInput
-    positions?: PositionUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
-    trades?: TradeUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
-    baskets?: BasketUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
+    baskets?: BasketUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
+    positions?: PositionUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
   }
 
@@ -51758,7 +51863,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -51767,19 +51872,20 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
-    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
+    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -51797,6 +51903,65 @@ export namespace Prisma {
   export type WatchlistItemUpdateManyWithWhereWithoutWatchlistInput = {
     where: WatchlistItemScalarWhereInput
     data: XOR<WatchlistItemUpdateManyMutationInput, WatchlistItemUncheckedUpdateManyWithoutWatchlistInput>
+  }
+
+  export type InstrumentCreateWithoutWatchlistItemsInput = {
+    id?: string
+    instrumentToken: string
+    exchangeToken: string
+    tradingSymbol: string
+    name: string
+    exchange: $Enums.Exchange
+    segment: $Enums.Segment
+    instrumentType: $Enums.InstrumentType
+    tickSize?: number
+    lotSize?: number
+    expiry?: Date | string | null
+    strike?: number | null
+    isin?: string | null
+    isActive?: boolean
+    lastPrice?: number
+    lastUpdated?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    holdings?: HoldingCreateNestedManyWithoutInstrumentInput
+    marketDepth?: MarketDepthCreateNestedManyWithoutInstrumentInput
+    orders?: OrderCreateNestedManyWithoutInstrumentInput
+    positions?: PositionCreateNestedManyWithoutInstrumentInput
+    priceHistory?: PriceHistoryCreateNestedManyWithoutInstrumentInput
+    trades?: TradeCreateNestedManyWithoutInstrumentInput
+  }
+
+  export type InstrumentUncheckedCreateWithoutWatchlistItemsInput = {
+    id?: string
+    instrumentToken: string
+    exchangeToken: string
+    tradingSymbol: string
+    name: string
+    exchange: $Enums.Exchange
+    segment: $Enums.Segment
+    instrumentType: $Enums.InstrumentType
+    tickSize?: number
+    lotSize?: number
+    expiry?: Date | string | null
+    strike?: number | null
+    isin?: string | null
+    isActive?: boolean
+    lastPrice?: number
+    lastUpdated?: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    holdings?: HoldingUncheckedCreateNestedManyWithoutInstrumentInput
+    marketDepth?: MarketDepthUncheckedCreateNestedManyWithoutInstrumentInput
+    orders?: OrderUncheckedCreateNestedManyWithoutInstrumentInput
+    positions?: PositionUncheckedCreateNestedManyWithoutInstrumentInput
+    priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutInstrumentInput
+    trades?: TradeUncheckedCreateNestedManyWithoutInstrumentInput
+  }
+
+  export type InstrumentCreateOrConnectWithoutWatchlistItemsInput = {
+    where: InstrumentWhereUniqueInput
+    create: XOR<InstrumentCreateWithoutWatchlistItemsInput, InstrumentUncheckedCreateWithoutWatchlistItemsInput>
   }
 
   export type WatchlistCreateWithoutItemsInput = {
@@ -51820,94 +51985,6 @@ export namespace Prisma {
   export type WatchlistCreateOrConnectWithoutItemsInput = {
     where: WatchlistWhereUniqueInput
     create: XOR<WatchlistCreateWithoutItemsInput, WatchlistUncheckedCreateWithoutItemsInput>
-  }
-
-  export type InstrumentCreateWithoutWatchlistItemsInput = {
-    id?: string
-    instrumentToken: string
-    exchangeToken: string
-    tradingSymbol: string
-    name: string
-    exchange: $Enums.Exchange
-    segment: $Enums.Segment
-    instrumentType: $Enums.InstrumentType
-    tickSize?: number
-    lotSize?: number
-    expiry?: Date | string | null
-    strike?: number | null
-    isin?: string | null
-    isActive?: boolean
-    lastPrice?: number
-    lastUpdated?: Date | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    holdings?: HoldingCreateNestedManyWithoutInstrumentInput
-    positions?: PositionCreateNestedManyWithoutInstrumentInput
-    orders?: OrderCreateNestedManyWithoutInstrumentInput
-    trades?: TradeCreateNestedManyWithoutInstrumentInput
-    marketDepth?: MarketDepthCreateNestedManyWithoutInstrumentInput
-    priceHistory?: PriceHistoryCreateNestedManyWithoutInstrumentInput
-  }
-
-  export type InstrumentUncheckedCreateWithoutWatchlistItemsInput = {
-    id?: string
-    instrumentToken: string
-    exchangeToken: string
-    tradingSymbol: string
-    name: string
-    exchange: $Enums.Exchange
-    segment: $Enums.Segment
-    instrumentType: $Enums.InstrumentType
-    tickSize?: number
-    lotSize?: number
-    expiry?: Date | string | null
-    strike?: number | null
-    isin?: string | null
-    isActive?: boolean
-    lastPrice?: number
-    lastUpdated?: Date | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    holdings?: HoldingUncheckedCreateNestedManyWithoutInstrumentInput
-    positions?: PositionUncheckedCreateNestedManyWithoutInstrumentInput
-    orders?: OrderUncheckedCreateNestedManyWithoutInstrumentInput
-    trades?: TradeUncheckedCreateNestedManyWithoutInstrumentInput
-    marketDepth?: MarketDepthUncheckedCreateNestedManyWithoutInstrumentInput
-    priceHistory?: PriceHistoryUncheckedCreateNestedManyWithoutInstrumentInput
-  }
-
-  export type InstrumentCreateOrConnectWithoutWatchlistItemsInput = {
-    where: InstrumentWhereUniqueInput
-    create: XOR<InstrumentCreateWithoutWatchlistItemsInput, InstrumentUncheckedCreateWithoutWatchlistItemsInput>
-  }
-
-  export type WatchlistUpsertWithoutItemsInput = {
-    update: XOR<WatchlistUpdateWithoutItemsInput, WatchlistUncheckedUpdateWithoutItemsInput>
-    create: XOR<WatchlistCreateWithoutItemsInput, WatchlistUncheckedCreateWithoutItemsInput>
-    where?: WatchlistWhereInput
-  }
-
-  export type WatchlistUpdateToOneWithWhereWithoutItemsInput = {
-    where?: WatchlistWhereInput
-    data: XOR<WatchlistUpdateWithoutItemsInput, WatchlistUncheckedUpdateWithoutItemsInput>
-  }
-
-  export type WatchlistUpdateWithoutItemsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    isDefault?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutWatchlistsNestedInput
-  }
-
-  export type WatchlistUncheckedUpdateWithoutItemsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    isDefault?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InstrumentUpsertWithoutWatchlistItemsInput = {
@@ -51941,11 +52018,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     holdings?: HoldingUpdateManyWithoutInstrumentNestedInput
-    positions?: PositionUpdateManyWithoutInstrumentNestedInput
-    orders?: OrderUpdateManyWithoutInstrumentNestedInput
-    trades?: TradeUpdateManyWithoutInstrumentNestedInput
     marketDepth?: MarketDepthUpdateManyWithoutInstrumentNestedInput
+    orders?: OrderUpdateManyWithoutInstrumentNestedInput
+    positions?: PositionUpdateManyWithoutInstrumentNestedInput
     priceHistory?: PriceHistoryUpdateManyWithoutInstrumentNestedInput
+    trades?: TradeUpdateManyWithoutInstrumentNestedInput
   }
 
   export type InstrumentUncheckedUpdateWithoutWatchlistItemsInput = {
@@ -51968,11 +52045,40 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     holdings?: HoldingUncheckedUpdateManyWithoutInstrumentNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutInstrumentNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutInstrumentNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutInstrumentNestedInput
     marketDepth?: MarketDepthUncheckedUpdateManyWithoutInstrumentNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutInstrumentNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutInstrumentNestedInput
     priceHistory?: PriceHistoryUncheckedUpdateManyWithoutInstrumentNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutInstrumentNestedInput
+  }
+
+  export type WatchlistUpsertWithoutItemsInput = {
+    update: XOR<WatchlistUpdateWithoutItemsInput, WatchlistUncheckedUpdateWithoutItemsInput>
+    create: XOR<WatchlistCreateWithoutItemsInput, WatchlistUncheckedCreateWithoutItemsInput>
+    where?: WatchlistWhereInput
+  }
+
+  export type WatchlistUpdateToOneWithWhereWithoutItemsInput = {
+    where?: WatchlistWhereInput
+    data: XOR<WatchlistUpdateWithoutItemsInput, WatchlistUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type WatchlistUpdateWithoutItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutWatchlistsNestedInput
+  }
+
+  export type WatchlistUncheckedUpdateWithoutItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateWithoutAlertsInput = {
@@ -51984,7 +52090,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -51993,20 +52099,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileCreateNestedOneWithoutUserInput
+    segment?: $Enums.Segment
     bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
-    funds?: FundTransactionCreateNestedManyWithoutUserInput
-    holdings?: HoldingCreateNestedManyWithoutUserInput
-    positions?: PositionCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
-    trades?: TradeCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
     baskets?: BasketCreateNestedManyWithoutUserInput
+    funds?: FundTransactionCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
+    holdings?: HoldingCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioCreateNestedManyWithoutUserInput
+    positions?: PositionCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAlertsInput = {
@@ -52018,7 +52125,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -52027,20 +52134,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    segment?: $Enums.Segment
     bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
-    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
-    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
-    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
     baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
+    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
+    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAlertsInput = {
@@ -52068,7 +52176,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -52077,20 +52185,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUpdateManyWithoutUserNestedInput
-    positions?: PositionUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
-    trades?: TradeUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
     baskets?: BasketUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
+    positions?: PositionUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAlertsInput = {
@@ -52102,7 +52211,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -52111,20 +52220,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
     baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -52136,7 +52246,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -52145,20 +52255,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
-    funds?: FundTransactionCreateNestedManyWithoutUserInput
-    holdings?: HoldingCreateNestedManyWithoutUserInput
-    positions?: PositionCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
-    trades?: TradeCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
-    baskets?: BasketCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
+    baskets?: BasketCreateNestedManyWithoutUserInput
+    funds?: FundTransactionCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
+    holdings?: HoldingCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioCreateNestedManyWithoutUserInput
+    positions?: PositionCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -52170,7 +52281,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -52179,20 +52290,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
-    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
-    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
-    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
-    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
-    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
-    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    segment?: $Enums.Segment
     alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
+    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
+    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
+    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -52220,7 +52332,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -52229,20 +52341,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUpdateManyWithoutUserNestedInput
-    positions?: PositionUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
-    trades?: TradeUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
-    baskets?: BasketUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
+    baskets?: BasketUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
+    positions?: PositionUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -52254,7 +52367,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -52263,20 +52376,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
-    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
-    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
-    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
-    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
     alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
+    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutBasketsInput = {
@@ -52288,7 +52402,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -52297,20 +52411,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileCreateNestedOneWithoutUserInput
+    segment?: $Enums.Segment
+    alerts?: AlertCreateNestedManyWithoutUserInput
     bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
     funds?: FundTransactionCreateNestedManyWithoutUserInput
-    holdings?: HoldingCreateNestedManyWithoutUserInput
-    positions?: PositionCreateNestedManyWithoutUserInput
-    orders?: OrderCreateNestedManyWithoutUserInput
-    trades?: TradeCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioCreateNestedManyWithoutUserInput
     gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
-    alerts?: AlertCreateNestedManyWithoutUserInput
+    holdings?: HoldingCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioCreateNestedManyWithoutUserInput
+    positions?: PositionCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBasketsInput = {
@@ -52322,7 +52437,7 @@ export namespace Prisma {
     lastName?: string | null
     panNumber?: string | null
     aadhaarNumber?: string | null
-    dateOfBirth?: Date | string | null
+    dob?: Date | string | null
     kycStatus?: $Enums.KYCStatus | null
     accountType?: $Enums.AccountType | null
     role?: $Enums.UserRole | null
@@ -52331,20 +52446,21 @@ export namespace Prisma {
     createdAt?: Date | string | null
     updatedAt?: Date | string | null
     isVerified?: boolean
-    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    segment?: $Enums.Segment
+    alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
     bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
     funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
-    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
-    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
-    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
-    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
-    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
-    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
     gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
-    alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
+    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
+    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBasketsInput = {
@@ -52410,7 +52526,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -52419,20 +52535,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
+    alerts?: AlertUpdateManyWithoutUserNestedInput
     bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUpdateManyWithoutUserNestedInput
-    positions?: PositionUpdateManyWithoutUserNestedInput
-    orders?: OrderUpdateManyWithoutUserNestedInput
-    trades?: TradeUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
     gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
-    alerts?: AlertUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
+    positions?: PositionUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBasketsInput = {
@@ -52444,7 +52561,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     panNumber?: NullableStringFieldUpdateOperationsInput | string | null
     aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
     accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
     role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
@@ -52453,20 +52570,21 @@ export namespace Prisma {
     createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
+    alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
     bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
     funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
-    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
-    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
-    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
-    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
-    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
-    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
     gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
-    alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BasketItemUpsertWithWhereUniqueWithoutBasketInput = {
@@ -52563,6 +52681,20 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AlertCreateManyUserInput = {
+    id?: string
+    instrumentId?: string | null
+    alertType: $Enums.AlertType
+    message: string
+    triggerPrice?: number | null
+    condition?: string | null
+    isTriggered?: boolean
+    isRead?: boolean
+    triggeredAt?: Date | string | null
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
   export type BankAccountCreateManyUserInput = {
     id?: string
     accountNumber: string
@@ -52577,6 +52709,16 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type BasketCreateManyUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    totalValue?: number
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type FundTransactionCreateManyUserInput = {
     id?: string
     transactionType: $Enums.FundTransactionType
@@ -52587,6 +52729,27 @@ export namespace Prisma {
     bankAccountId?: string | null
     remarks?: string | null
     processedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type GTTOrderCreateManyUserInput = {
+    id?: string
+    gttType: $Enums.GTTType
+    instrumentId: string
+    tradingSymbol: string
+    exchange: $Enums.Exchange
+    triggerType: $Enums.TriggerType
+    triggerPrice: number
+    lastPrice: number
+    limitPrice?: number | null
+    stopLossPrice?: number | null
+    quantity: number
+    product: $Enums.ProductType
+    orderType: $Enums.OrderType
+    status?: $Enums.GTTStatus
+    expiresAt?: Date | string | null
+    triggeredAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -52607,31 +52770,14 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type PositionCreateManyUserInput = {
+  export type NotificationCreateManyUserInput = {
     id?: string
-    instrumentId: string
-    product: $Enums.ProductType
-    quantity: number
-    overnightQuantity?: number
-    averagePrice: number
-    lastPrice: number
-    value: number
-    pnl?: number
-    m2m?: number
-    unrealised?: number
-    realised?: number
-    buyQuantity?: number
-    buyValue?: number
-    buyPrice?: number
-    sellQuantity?: number
-    sellValue?: number
-    sellPrice?: number
-    multiplier?: number
-    tradingSymbol: string
-    exchange: $Enums.Exchange
-    positionType: $Enums.PositionType
+    notificationType: $Enums.NotificationType
+    title: string
+    message: string
+    isRead?: boolean
+    priority?: $Enums.Priority
     createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type OrderCreateManyUserInput = {
@@ -52669,6 +52815,58 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type PortfolioCreateManyUserInput = {
+    id?: string
+    totalValue?: number
+    investedValue?: number
+    currentValue?: number
+    dayChange?: number
+    dayChangePercent?: number
+    totalPnl?: number
+    totalPnlPercent?: number
+    xirr?: number | null
+    updatedAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type PositionCreateManyUserInput = {
+    id?: string
+    instrumentId: string
+    product: $Enums.ProductType
+    quantity: number
+    overnightQuantity?: number
+    averagePrice: number
+    lastPrice: number
+    value: number
+    pnl?: number
+    m2m?: number
+    unrealised?: number
+    realised?: number
+    buyQuantity?: number
+    buyValue?: number
+    buyPrice?: number
+    sellQuantity?: number
+    sellValue?: number
+    sellPrice?: number
+    multiplier?: number
+    tradingSymbol: string
+    exchange: $Enums.Exchange
+    positionType: $Enums.PositionType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SessionCreateManyUserInput = {
+    id?: string
+    token: string
+    ipAddress?: string | null
+    userAgent?: string | null
+    deviceType?: string | null
+    isActive?: boolean
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
   export type TradeCreateManyUserInput = {
     id?: string
     tradeId: string
@@ -52693,84 +52891,46 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type PortfolioCreateManyUserInput = {
-    id?: string
-    totalValue?: number
-    investedValue?: number
-    currentValue?: number
-    dayChange?: number
-    dayChangePercent?: number
-    totalPnl?: number
-    totalPnlPercent?: number
-    xirr?: number | null
-    updatedAt?: Date | string
-    createdAt?: Date | string
+  export type AlertUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    instrumentId?: NullableStringFieldUpdateOperationsInput | string | null
+    alertType?: EnumAlertTypeFieldUpdateOperationsInput | $Enums.AlertType
+    message?: StringFieldUpdateOperationsInput | string
+    triggerPrice?: NullableFloatFieldUpdateOperationsInput | number | null
+    condition?: NullableStringFieldUpdateOperationsInput | string | null
+    isTriggered?: BoolFieldUpdateOperationsInput | boolean
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    triggeredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type GTTOrderCreateManyUserInput = {
-    id?: string
-    gttType: $Enums.GTTType
-    instrumentId: string
-    tradingSymbol: string
-    exchange: $Enums.Exchange
-    triggerType: $Enums.TriggerType
-    triggerPrice: number
-    lastPrice: number
-    limitPrice?: number | null
-    stopLossPrice?: number | null
-    quantity: number
-    product: $Enums.ProductType
-    orderType: $Enums.OrderType
-    status?: $Enums.GTTStatus
-    expiresAt?: Date | string | null
-    triggeredAt?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type AlertUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    instrumentId?: NullableStringFieldUpdateOperationsInput | string | null
+    alertType?: EnumAlertTypeFieldUpdateOperationsInput | $Enums.AlertType
+    message?: StringFieldUpdateOperationsInput | string
+    triggerPrice?: NullableFloatFieldUpdateOperationsInput | number | null
+    condition?: NullableStringFieldUpdateOperationsInput | string | null
+    isTriggered?: BoolFieldUpdateOperationsInput | boolean
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    triggeredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type BasketCreateManyUserInput = {
-    id?: string
-    name: string
-    description?: string | null
-    totalValue?: number
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type AlertCreateManyUserInput = {
-    id?: string
-    instrumentId?: string | null
-    alertType: $Enums.AlertType
-    message: string
-    triggerPrice?: number | null
-    condition?: string | null
-    isTriggered?: boolean
-    isRead?: boolean
-    triggeredAt?: Date | string | null
-    expiresAt?: Date | string | null
-    createdAt?: Date | string
-  }
-
-  export type NotificationCreateManyUserInput = {
-    id?: string
-    notificationType: $Enums.NotificationType
-    title: string
-    message: string
-    isRead?: boolean
-    priority?: $Enums.Priority
-    createdAt?: Date | string
-  }
-
-  export type SessionCreateManyUserInput = {
-    id?: string
-    token: string
-    ipAddress?: string | null
-    userAgent?: string | null
-    deviceType?: string | null
-    isActive?: boolean
-    expiresAt: Date | string
-    createdAt?: Date | string
+  export type AlertUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    instrumentId?: NullableStringFieldUpdateOperationsInput | string | null
+    alertType?: EnumAlertTypeFieldUpdateOperationsInput | $Enums.AlertType
+    message?: StringFieldUpdateOperationsInput | string
+    triggerPrice?: NullableFloatFieldUpdateOperationsInput | number | null
+    condition?: NullableStringFieldUpdateOperationsInput | string | null
+    isTriggered?: BoolFieldUpdateOperationsInput | boolean
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    triggeredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BankAccountUpdateWithoutUserInput = {
@@ -52815,6 +52975,38 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BasketUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    totalValue?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: BasketItemUpdateManyWithoutBasketNestedInput
+  }
+
+  export type BasketUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    totalValue?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: BasketItemUncheckedUpdateManyWithoutBasketNestedInput
+  }
+
+  export type BasketUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    totalValue?: FloatFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type FundTransactionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     transactionType?: EnumFundTransactionTypeFieldUpdateOperationsInput | $Enums.FundTransactionType
@@ -52853,6 +53045,69 @@ export namespace Prisma {
     bankAccountId?: NullableStringFieldUpdateOperationsInput | string | null
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GTTOrderUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gttType?: EnumGTTTypeFieldUpdateOperationsInput | $Enums.GTTType
+    instrumentId?: StringFieldUpdateOperationsInput | string
+    tradingSymbol?: StringFieldUpdateOperationsInput | string
+    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
+    triggerType?: EnumTriggerTypeFieldUpdateOperationsInput | $Enums.TriggerType
+    triggerPrice?: FloatFieldUpdateOperationsInput | number
+    lastPrice?: FloatFieldUpdateOperationsInput | number
+    limitPrice?: NullableFloatFieldUpdateOperationsInput | number | null
+    stopLossPrice?: NullableFloatFieldUpdateOperationsInput | number | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    product?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    orderType?: EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
+    status?: EnumGTTStatusFieldUpdateOperationsInput | $Enums.GTTStatus
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    triggeredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GTTOrderUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gttType?: EnumGTTTypeFieldUpdateOperationsInput | $Enums.GTTType
+    instrumentId?: StringFieldUpdateOperationsInput | string
+    tradingSymbol?: StringFieldUpdateOperationsInput | string
+    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
+    triggerType?: EnumTriggerTypeFieldUpdateOperationsInput | $Enums.TriggerType
+    triggerPrice?: FloatFieldUpdateOperationsInput | number
+    lastPrice?: FloatFieldUpdateOperationsInput | number
+    limitPrice?: NullableFloatFieldUpdateOperationsInput | number | null
+    stopLossPrice?: NullableFloatFieldUpdateOperationsInput | number | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    product?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    orderType?: EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
+    status?: EnumGTTStatusFieldUpdateOperationsInput | $Enums.GTTStatus
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    triggeredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GTTOrderUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gttType?: EnumGTTTypeFieldUpdateOperationsInput | $Enums.GTTType
+    instrumentId?: StringFieldUpdateOperationsInput | string
+    tradingSymbol?: StringFieldUpdateOperationsInput | string
+    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
+    triggerType?: EnumTriggerTypeFieldUpdateOperationsInput | $Enums.TriggerType
+    triggerPrice?: FloatFieldUpdateOperationsInput | number
+    lastPrice?: FloatFieldUpdateOperationsInput | number
+    limitPrice?: NullableFloatFieldUpdateOperationsInput | number | null
+    stopLossPrice?: NullableFloatFieldUpdateOperationsInput | number | null
+    quantity?: IntFieldUpdateOperationsInput | number
+    product?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    orderType?: EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
+    status?: EnumGTTStatusFieldUpdateOperationsInput | $Enums.GTTStatus
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    triggeredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -52905,85 +53160,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PositionUpdateWithoutUserInput = {
+  export type NotificationUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    product?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
-    quantity?: IntFieldUpdateOperationsInput | number
-    overnightQuantity?: IntFieldUpdateOperationsInput | number
-    averagePrice?: FloatFieldUpdateOperationsInput | number
-    lastPrice?: FloatFieldUpdateOperationsInput | number
-    value?: FloatFieldUpdateOperationsInput | number
-    pnl?: FloatFieldUpdateOperationsInput | number
-    m2m?: FloatFieldUpdateOperationsInput | number
-    unrealised?: FloatFieldUpdateOperationsInput | number
-    realised?: FloatFieldUpdateOperationsInput | number
-    buyQuantity?: IntFieldUpdateOperationsInput | number
-    buyValue?: FloatFieldUpdateOperationsInput | number
-    buyPrice?: FloatFieldUpdateOperationsInput | number
-    sellQuantity?: IntFieldUpdateOperationsInput | number
-    sellValue?: FloatFieldUpdateOperationsInput | number
-    sellPrice?: FloatFieldUpdateOperationsInput | number
-    multiplier?: FloatFieldUpdateOperationsInput | number
-    tradingSymbol?: StringFieldUpdateOperationsInput | string
-    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
-    positionType?: EnumPositionTypeFieldUpdateOperationsInput | $Enums.PositionType
+    notificationType?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    instrument?: InstrumentUpdateOneRequiredWithoutPositionsNestedInput
   }
 
-  export type PositionUncheckedUpdateWithoutUserInput = {
+  export type NotificationUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    instrumentId?: StringFieldUpdateOperationsInput | string
-    product?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
-    quantity?: IntFieldUpdateOperationsInput | number
-    overnightQuantity?: IntFieldUpdateOperationsInput | number
-    averagePrice?: FloatFieldUpdateOperationsInput | number
-    lastPrice?: FloatFieldUpdateOperationsInput | number
-    value?: FloatFieldUpdateOperationsInput | number
-    pnl?: FloatFieldUpdateOperationsInput | number
-    m2m?: FloatFieldUpdateOperationsInput | number
-    unrealised?: FloatFieldUpdateOperationsInput | number
-    realised?: FloatFieldUpdateOperationsInput | number
-    buyQuantity?: IntFieldUpdateOperationsInput | number
-    buyValue?: FloatFieldUpdateOperationsInput | number
-    buyPrice?: FloatFieldUpdateOperationsInput | number
-    sellQuantity?: IntFieldUpdateOperationsInput | number
-    sellValue?: FloatFieldUpdateOperationsInput | number
-    sellPrice?: FloatFieldUpdateOperationsInput | number
-    multiplier?: FloatFieldUpdateOperationsInput | number
-    tradingSymbol?: StringFieldUpdateOperationsInput | string
-    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
-    positionType?: EnumPositionTypeFieldUpdateOperationsInput | $Enums.PositionType
+    notificationType?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PositionUncheckedUpdateManyWithoutUserInput = {
+  export type NotificationUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    instrumentId?: StringFieldUpdateOperationsInput | string
-    product?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
-    quantity?: IntFieldUpdateOperationsInput | number
-    overnightQuantity?: IntFieldUpdateOperationsInput | number
-    averagePrice?: FloatFieldUpdateOperationsInput | number
-    lastPrice?: FloatFieldUpdateOperationsInput | number
-    value?: FloatFieldUpdateOperationsInput | number
-    pnl?: FloatFieldUpdateOperationsInput | number
-    m2m?: FloatFieldUpdateOperationsInput | number
-    unrealised?: FloatFieldUpdateOperationsInput | number
-    realised?: FloatFieldUpdateOperationsInput | number
-    buyQuantity?: IntFieldUpdateOperationsInput | number
-    buyValue?: FloatFieldUpdateOperationsInput | number
-    buyPrice?: FloatFieldUpdateOperationsInput | number
-    sellQuantity?: IntFieldUpdateOperationsInput | number
-    sellValue?: FloatFieldUpdateOperationsInput | number
-    sellPrice?: FloatFieldUpdateOperationsInput | number
-    multiplier?: FloatFieldUpdateOperationsInput | number
-    tradingSymbol?: StringFieldUpdateOperationsInput | string
-    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
-    positionType?: EnumPositionTypeFieldUpdateOperationsInput | $Enums.PositionType
+    notificationType?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    isRead?: BoolFieldUpdateOperationsInput | boolean
+    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type OrderUpdateWithoutUserInput = {
@@ -53093,6 +53297,162 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PortfolioUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    totalValue?: FloatFieldUpdateOperationsInput | number
+    investedValue?: FloatFieldUpdateOperationsInput | number
+    currentValue?: FloatFieldUpdateOperationsInput | number
+    dayChange?: FloatFieldUpdateOperationsInput | number
+    dayChangePercent?: FloatFieldUpdateOperationsInput | number
+    totalPnl?: FloatFieldUpdateOperationsInput | number
+    totalPnlPercent?: FloatFieldUpdateOperationsInput | number
+    xirr?: NullableFloatFieldUpdateOperationsInput | number | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PortfolioUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    totalValue?: FloatFieldUpdateOperationsInput | number
+    investedValue?: FloatFieldUpdateOperationsInput | number
+    currentValue?: FloatFieldUpdateOperationsInput | number
+    dayChange?: FloatFieldUpdateOperationsInput | number
+    dayChangePercent?: FloatFieldUpdateOperationsInput | number
+    totalPnl?: FloatFieldUpdateOperationsInput | number
+    totalPnlPercent?: FloatFieldUpdateOperationsInput | number
+    xirr?: NullableFloatFieldUpdateOperationsInput | number | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PortfolioUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    totalValue?: FloatFieldUpdateOperationsInput | number
+    investedValue?: FloatFieldUpdateOperationsInput | number
+    currentValue?: FloatFieldUpdateOperationsInput | number
+    dayChange?: FloatFieldUpdateOperationsInput | number
+    dayChangePercent?: FloatFieldUpdateOperationsInput | number
+    totalPnl?: FloatFieldUpdateOperationsInput | number
+    totalPnlPercent?: FloatFieldUpdateOperationsInput | number
+    xirr?: NullableFloatFieldUpdateOperationsInput | number | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PositionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    product?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    quantity?: IntFieldUpdateOperationsInput | number
+    overnightQuantity?: IntFieldUpdateOperationsInput | number
+    averagePrice?: FloatFieldUpdateOperationsInput | number
+    lastPrice?: FloatFieldUpdateOperationsInput | number
+    value?: FloatFieldUpdateOperationsInput | number
+    pnl?: FloatFieldUpdateOperationsInput | number
+    m2m?: FloatFieldUpdateOperationsInput | number
+    unrealised?: FloatFieldUpdateOperationsInput | number
+    realised?: FloatFieldUpdateOperationsInput | number
+    buyQuantity?: IntFieldUpdateOperationsInput | number
+    buyValue?: FloatFieldUpdateOperationsInput | number
+    buyPrice?: FloatFieldUpdateOperationsInput | number
+    sellQuantity?: IntFieldUpdateOperationsInput | number
+    sellValue?: FloatFieldUpdateOperationsInput | number
+    sellPrice?: FloatFieldUpdateOperationsInput | number
+    multiplier?: FloatFieldUpdateOperationsInput | number
+    tradingSymbol?: StringFieldUpdateOperationsInput | string
+    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
+    positionType?: EnumPositionTypeFieldUpdateOperationsInput | $Enums.PositionType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    instrument?: InstrumentUpdateOneRequiredWithoutPositionsNestedInput
+  }
+
+  export type PositionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    instrumentId?: StringFieldUpdateOperationsInput | string
+    product?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    quantity?: IntFieldUpdateOperationsInput | number
+    overnightQuantity?: IntFieldUpdateOperationsInput | number
+    averagePrice?: FloatFieldUpdateOperationsInput | number
+    lastPrice?: FloatFieldUpdateOperationsInput | number
+    value?: FloatFieldUpdateOperationsInput | number
+    pnl?: FloatFieldUpdateOperationsInput | number
+    m2m?: FloatFieldUpdateOperationsInput | number
+    unrealised?: FloatFieldUpdateOperationsInput | number
+    realised?: FloatFieldUpdateOperationsInput | number
+    buyQuantity?: IntFieldUpdateOperationsInput | number
+    buyValue?: FloatFieldUpdateOperationsInput | number
+    buyPrice?: FloatFieldUpdateOperationsInput | number
+    sellQuantity?: IntFieldUpdateOperationsInput | number
+    sellValue?: FloatFieldUpdateOperationsInput | number
+    sellPrice?: FloatFieldUpdateOperationsInput | number
+    multiplier?: FloatFieldUpdateOperationsInput | number
+    tradingSymbol?: StringFieldUpdateOperationsInput | string
+    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
+    positionType?: EnumPositionTypeFieldUpdateOperationsInput | $Enums.PositionType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PositionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    instrumentId?: StringFieldUpdateOperationsInput | string
+    product?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    quantity?: IntFieldUpdateOperationsInput | number
+    overnightQuantity?: IntFieldUpdateOperationsInput | number
+    averagePrice?: FloatFieldUpdateOperationsInput | number
+    lastPrice?: FloatFieldUpdateOperationsInput | number
+    value?: FloatFieldUpdateOperationsInput | number
+    pnl?: FloatFieldUpdateOperationsInput | number
+    m2m?: FloatFieldUpdateOperationsInput | number
+    unrealised?: FloatFieldUpdateOperationsInput | number
+    realised?: FloatFieldUpdateOperationsInput | number
+    buyQuantity?: IntFieldUpdateOperationsInput | number
+    buyValue?: FloatFieldUpdateOperationsInput | number
+    buyPrice?: FloatFieldUpdateOperationsInput | number
+    sellQuantity?: IntFieldUpdateOperationsInput | number
+    sellValue?: FloatFieldUpdateOperationsInput | number
+    sellPrice?: FloatFieldUpdateOperationsInput | number
+    multiplier?: FloatFieldUpdateOperationsInput | number
+    tradingSymbol?: StringFieldUpdateOperationsInput | string
+    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
+    positionType?: EnumPositionTypeFieldUpdateOperationsInput | $Enums.PositionType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SessionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TradeUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     tradeId?: StringFieldUpdateOperationsInput | string
@@ -53105,8 +53465,8 @@ export namespace Prisma {
     value?: FloatFieldUpdateOperationsInput | number
     exchangeTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    order?: OrderUpdateOneRequiredWithoutTradesNestedInput
     instrument?: InstrumentUpdateOneRequiredWithoutTradesNestedInput
+    order?: OrderUpdateOneRequiredWithoutTradesNestedInput
     charges?: TradeChargesUpdateOneWithoutTradeNestedInput
   }
 
@@ -53169,248 +53529,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PortfolioUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    totalValue?: FloatFieldUpdateOperationsInput | number
-    investedValue?: FloatFieldUpdateOperationsInput | number
-    currentValue?: FloatFieldUpdateOperationsInput | number
-    dayChange?: FloatFieldUpdateOperationsInput | number
-    dayChangePercent?: FloatFieldUpdateOperationsInput | number
-    totalPnl?: FloatFieldUpdateOperationsInput | number
-    totalPnlPercent?: FloatFieldUpdateOperationsInput | number
-    xirr?: NullableFloatFieldUpdateOperationsInput | number | null
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PortfolioUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    totalValue?: FloatFieldUpdateOperationsInput | number
-    investedValue?: FloatFieldUpdateOperationsInput | number
-    currentValue?: FloatFieldUpdateOperationsInput | number
-    dayChange?: FloatFieldUpdateOperationsInput | number
-    dayChangePercent?: FloatFieldUpdateOperationsInput | number
-    totalPnl?: FloatFieldUpdateOperationsInput | number
-    totalPnlPercent?: FloatFieldUpdateOperationsInput | number
-    xirr?: NullableFloatFieldUpdateOperationsInput | number | null
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PortfolioUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    totalValue?: FloatFieldUpdateOperationsInput | number
-    investedValue?: FloatFieldUpdateOperationsInput | number
-    currentValue?: FloatFieldUpdateOperationsInput | number
-    dayChange?: FloatFieldUpdateOperationsInput | number
-    dayChangePercent?: FloatFieldUpdateOperationsInput | number
-    totalPnl?: FloatFieldUpdateOperationsInput | number
-    totalPnlPercent?: FloatFieldUpdateOperationsInput | number
-    xirr?: NullableFloatFieldUpdateOperationsInput | number | null
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type GTTOrderUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    gttType?: EnumGTTTypeFieldUpdateOperationsInput | $Enums.GTTType
-    instrumentId?: StringFieldUpdateOperationsInput | string
-    tradingSymbol?: StringFieldUpdateOperationsInput | string
-    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
-    triggerType?: EnumTriggerTypeFieldUpdateOperationsInput | $Enums.TriggerType
-    triggerPrice?: FloatFieldUpdateOperationsInput | number
-    lastPrice?: FloatFieldUpdateOperationsInput | number
-    limitPrice?: NullableFloatFieldUpdateOperationsInput | number | null
-    stopLossPrice?: NullableFloatFieldUpdateOperationsInput | number | null
-    quantity?: IntFieldUpdateOperationsInput | number
-    product?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
-    orderType?: EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
-    status?: EnumGTTStatusFieldUpdateOperationsInput | $Enums.GTTStatus
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    triggeredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type GTTOrderUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    gttType?: EnumGTTTypeFieldUpdateOperationsInput | $Enums.GTTType
-    instrumentId?: StringFieldUpdateOperationsInput | string
-    tradingSymbol?: StringFieldUpdateOperationsInput | string
-    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
-    triggerType?: EnumTriggerTypeFieldUpdateOperationsInput | $Enums.TriggerType
-    triggerPrice?: FloatFieldUpdateOperationsInput | number
-    lastPrice?: FloatFieldUpdateOperationsInput | number
-    limitPrice?: NullableFloatFieldUpdateOperationsInput | number | null
-    stopLossPrice?: NullableFloatFieldUpdateOperationsInput | number | null
-    quantity?: IntFieldUpdateOperationsInput | number
-    product?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
-    orderType?: EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
-    status?: EnumGTTStatusFieldUpdateOperationsInput | $Enums.GTTStatus
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    triggeredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type GTTOrderUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    gttType?: EnumGTTTypeFieldUpdateOperationsInput | $Enums.GTTType
-    instrumentId?: StringFieldUpdateOperationsInput | string
-    tradingSymbol?: StringFieldUpdateOperationsInput | string
-    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
-    triggerType?: EnumTriggerTypeFieldUpdateOperationsInput | $Enums.TriggerType
-    triggerPrice?: FloatFieldUpdateOperationsInput | number
-    lastPrice?: FloatFieldUpdateOperationsInput | number
-    limitPrice?: NullableFloatFieldUpdateOperationsInput | number | null
-    stopLossPrice?: NullableFloatFieldUpdateOperationsInput | number | null
-    quantity?: IntFieldUpdateOperationsInput | number
-    product?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
-    orderType?: EnumOrderTypeFieldUpdateOperationsInput | $Enums.OrderType
-    status?: EnumGTTStatusFieldUpdateOperationsInput | $Enums.GTTStatus
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    triggeredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type BasketUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    totalValue?: FloatFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    items?: BasketItemUpdateManyWithoutBasketNestedInput
-  }
-
-  export type BasketUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    totalValue?: FloatFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    items?: BasketItemUncheckedUpdateManyWithoutBasketNestedInput
-  }
-
-  export type BasketUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    totalValue?: FloatFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AlertUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    instrumentId?: NullableStringFieldUpdateOperationsInput | string | null
-    alertType?: EnumAlertTypeFieldUpdateOperationsInput | $Enums.AlertType
-    message?: StringFieldUpdateOperationsInput | string
-    triggerPrice?: NullableFloatFieldUpdateOperationsInput | number | null
-    condition?: NullableStringFieldUpdateOperationsInput | string | null
-    isTriggered?: BoolFieldUpdateOperationsInput | boolean
-    isRead?: BoolFieldUpdateOperationsInput | boolean
-    triggeredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AlertUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    instrumentId?: NullableStringFieldUpdateOperationsInput | string | null
-    alertType?: EnumAlertTypeFieldUpdateOperationsInput | $Enums.AlertType
-    message?: StringFieldUpdateOperationsInput | string
-    triggerPrice?: NullableFloatFieldUpdateOperationsInput | number | null
-    condition?: NullableStringFieldUpdateOperationsInput | string | null
-    isTriggered?: BoolFieldUpdateOperationsInput | boolean
-    isRead?: BoolFieldUpdateOperationsInput | boolean
-    triggeredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AlertUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    instrumentId?: NullableStringFieldUpdateOperationsInput | string | null
-    alertType?: EnumAlertTypeFieldUpdateOperationsInput | $Enums.AlertType
-    message?: StringFieldUpdateOperationsInput | string
-    triggerPrice?: NullableFloatFieldUpdateOperationsInput | number | null
-    condition?: NullableStringFieldUpdateOperationsInput | string | null
-    isTriggered?: BoolFieldUpdateOperationsInput | boolean
-    isRead?: BoolFieldUpdateOperationsInput | boolean
-    triggeredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type NotificationUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    notificationType?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
-    title?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
-    isRead?: BoolFieldUpdateOperationsInput | boolean
-    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type NotificationUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    notificationType?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
-    title?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
-    isRead?: BoolFieldUpdateOperationsInput | boolean
-    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type NotificationUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    notificationType?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
-    title?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
-    isRead?: BoolFieldUpdateOperationsInput | boolean
-    priority?: EnumPriorityFieldUpdateOperationsInput | $Enums.Priority
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SessionUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SessionUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SessionUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    token?: StringFieldUpdateOperationsInput | string
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    deviceType?: NullableStringFieldUpdateOperationsInput | string | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type HoldingCreateManyInstrumentInput = {
     id?: string
     userId: string
@@ -53427,31 +53545,13 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type PositionCreateManyInstrumentInput = {
+  export type MarketDepthCreateManyInstrumentInput = {
     id?: string
-    userId: string
-    product: $Enums.ProductType
+    side: $Enums.OrderSide
+    price: number
     quantity: number
-    overnightQuantity?: number
-    averagePrice: number
-    lastPrice: number
-    value: number
-    pnl?: number
-    m2m?: number
-    unrealised?: number
-    realised?: number
-    buyQuantity?: number
-    buyValue?: number
-    buyPrice?: number
-    sellQuantity?: number
-    sellValue?: number
-    sellPrice?: number
-    multiplier?: number
-    tradingSymbol: string
-    exchange: $Enums.Exchange
-    positionType: $Enums.PositionType
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    orders: number
+    timestamp?: Date | string
   }
 
   export type OrderCreateManyInstrumentInput = {
@@ -53489,6 +53589,44 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type PositionCreateManyInstrumentInput = {
+    id?: string
+    userId: string
+    product: $Enums.ProductType
+    quantity: number
+    overnightQuantity?: number
+    averagePrice: number
+    lastPrice: number
+    value: number
+    pnl?: number
+    m2m?: number
+    unrealised?: number
+    realised?: number
+    buyQuantity?: number
+    buyValue?: number
+    buyPrice?: number
+    sellQuantity?: number
+    sellValue?: number
+    sellPrice?: number
+    multiplier?: number
+    tradingSymbol: string
+    exchange: $Enums.Exchange
+    positionType: $Enums.PositionType
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PriceHistoryCreateManyInstrumentInput = {
+    id?: string
+    open: number
+    high: number
+    low: number
+    close: number
+    volume: number
+    ohlcDate: Date | string
+    interval: string
+  }
+
   export type TradeCreateManyInstrumentInput = {
     id?: string
     tradeId: string
@@ -53503,26 +53641,6 @@ export namespace Prisma {
     value: number
     exchangeTimestamp: Date | string
     createdAt?: Date | string
-  }
-
-  export type MarketDepthCreateManyInstrumentInput = {
-    id?: string
-    side: $Enums.OrderSide
-    price: number
-    quantity: number
-    orders: number
-    timestamp?: Date | string
-  }
-
-  export type PriceHistoryCreateManyInstrumentInput = {
-    id?: string
-    open: number
-    high: number
-    low: number
-    close: number
-    volume: number
-    ohlcDate: Date | string
-    interval: string
   }
 
   export type WatchlistItemCreateManyInstrumentInput = {
@@ -53580,85 +53698,31 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PositionUpdateWithoutInstrumentInput = {
+  export type MarketDepthUpdateWithoutInstrumentInput = {
     id?: StringFieldUpdateOperationsInput | string
-    product?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    side?: EnumOrderSideFieldUpdateOperationsInput | $Enums.OrderSide
+    price?: FloatFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    overnightQuantity?: IntFieldUpdateOperationsInput | number
-    averagePrice?: FloatFieldUpdateOperationsInput | number
-    lastPrice?: FloatFieldUpdateOperationsInput | number
-    value?: FloatFieldUpdateOperationsInput | number
-    pnl?: FloatFieldUpdateOperationsInput | number
-    m2m?: FloatFieldUpdateOperationsInput | number
-    unrealised?: FloatFieldUpdateOperationsInput | number
-    realised?: FloatFieldUpdateOperationsInput | number
-    buyQuantity?: IntFieldUpdateOperationsInput | number
-    buyValue?: FloatFieldUpdateOperationsInput | number
-    buyPrice?: FloatFieldUpdateOperationsInput | number
-    sellQuantity?: IntFieldUpdateOperationsInput | number
-    sellValue?: FloatFieldUpdateOperationsInput | number
-    sellPrice?: FloatFieldUpdateOperationsInput | number
-    multiplier?: FloatFieldUpdateOperationsInput | number
-    tradingSymbol?: StringFieldUpdateOperationsInput | string
-    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
-    positionType?: EnumPositionTypeFieldUpdateOperationsInput | $Enums.PositionType
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutPositionsNestedInput
+    orders?: IntFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PositionUncheckedUpdateWithoutInstrumentInput = {
+  export type MarketDepthUncheckedUpdateWithoutInstrumentInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    product?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    side?: EnumOrderSideFieldUpdateOperationsInput | $Enums.OrderSide
+    price?: FloatFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    overnightQuantity?: IntFieldUpdateOperationsInput | number
-    averagePrice?: FloatFieldUpdateOperationsInput | number
-    lastPrice?: FloatFieldUpdateOperationsInput | number
-    value?: FloatFieldUpdateOperationsInput | number
-    pnl?: FloatFieldUpdateOperationsInput | number
-    m2m?: FloatFieldUpdateOperationsInput | number
-    unrealised?: FloatFieldUpdateOperationsInput | number
-    realised?: FloatFieldUpdateOperationsInput | number
-    buyQuantity?: IntFieldUpdateOperationsInput | number
-    buyValue?: FloatFieldUpdateOperationsInput | number
-    buyPrice?: FloatFieldUpdateOperationsInput | number
-    sellQuantity?: IntFieldUpdateOperationsInput | number
-    sellValue?: FloatFieldUpdateOperationsInput | number
-    sellPrice?: FloatFieldUpdateOperationsInput | number
-    multiplier?: FloatFieldUpdateOperationsInput | number
-    tradingSymbol?: StringFieldUpdateOperationsInput | string
-    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
-    positionType?: EnumPositionTypeFieldUpdateOperationsInput | $Enums.PositionType
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orders?: IntFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PositionUncheckedUpdateManyWithoutInstrumentInput = {
+  export type MarketDepthUncheckedUpdateManyWithoutInstrumentInput = {
     id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    product?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    side?: EnumOrderSideFieldUpdateOperationsInput | $Enums.OrderSide
+    price?: FloatFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
-    overnightQuantity?: IntFieldUpdateOperationsInput | number
-    averagePrice?: FloatFieldUpdateOperationsInput | number
-    lastPrice?: FloatFieldUpdateOperationsInput | number
-    value?: FloatFieldUpdateOperationsInput | number
-    pnl?: FloatFieldUpdateOperationsInput | number
-    m2m?: FloatFieldUpdateOperationsInput | number
-    unrealised?: FloatFieldUpdateOperationsInput | number
-    realised?: FloatFieldUpdateOperationsInput | number
-    buyQuantity?: IntFieldUpdateOperationsInput | number
-    buyValue?: FloatFieldUpdateOperationsInput | number
-    buyPrice?: FloatFieldUpdateOperationsInput | number
-    sellQuantity?: IntFieldUpdateOperationsInput | number
-    sellValue?: FloatFieldUpdateOperationsInput | number
-    sellPrice?: FloatFieldUpdateOperationsInput | number
-    multiplier?: FloatFieldUpdateOperationsInput | number
-    tradingSymbol?: StringFieldUpdateOperationsInput | string
-    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
-    positionType?: EnumPositionTypeFieldUpdateOperationsInput | $Enums.PositionType
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    orders?: IntFieldUpdateOperationsInput | number
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type OrderUpdateWithoutInstrumentInput = {
@@ -53768,6 +53832,120 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PositionUpdateWithoutInstrumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    product?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    quantity?: IntFieldUpdateOperationsInput | number
+    overnightQuantity?: IntFieldUpdateOperationsInput | number
+    averagePrice?: FloatFieldUpdateOperationsInput | number
+    lastPrice?: FloatFieldUpdateOperationsInput | number
+    value?: FloatFieldUpdateOperationsInput | number
+    pnl?: FloatFieldUpdateOperationsInput | number
+    m2m?: FloatFieldUpdateOperationsInput | number
+    unrealised?: FloatFieldUpdateOperationsInput | number
+    realised?: FloatFieldUpdateOperationsInput | number
+    buyQuantity?: IntFieldUpdateOperationsInput | number
+    buyValue?: FloatFieldUpdateOperationsInput | number
+    buyPrice?: FloatFieldUpdateOperationsInput | number
+    sellQuantity?: IntFieldUpdateOperationsInput | number
+    sellValue?: FloatFieldUpdateOperationsInput | number
+    sellPrice?: FloatFieldUpdateOperationsInput | number
+    multiplier?: FloatFieldUpdateOperationsInput | number
+    tradingSymbol?: StringFieldUpdateOperationsInput | string
+    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
+    positionType?: EnumPositionTypeFieldUpdateOperationsInput | $Enums.PositionType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPositionsNestedInput
+  }
+
+  export type PositionUncheckedUpdateWithoutInstrumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    product?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    quantity?: IntFieldUpdateOperationsInput | number
+    overnightQuantity?: IntFieldUpdateOperationsInput | number
+    averagePrice?: FloatFieldUpdateOperationsInput | number
+    lastPrice?: FloatFieldUpdateOperationsInput | number
+    value?: FloatFieldUpdateOperationsInput | number
+    pnl?: FloatFieldUpdateOperationsInput | number
+    m2m?: FloatFieldUpdateOperationsInput | number
+    unrealised?: FloatFieldUpdateOperationsInput | number
+    realised?: FloatFieldUpdateOperationsInput | number
+    buyQuantity?: IntFieldUpdateOperationsInput | number
+    buyValue?: FloatFieldUpdateOperationsInput | number
+    buyPrice?: FloatFieldUpdateOperationsInput | number
+    sellQuantity?: IntFieldUpdateOperationsInput | number
+    sellValue?: FloatFieldUpdateOperationsInput | number
+    sellPrice?: FloatFieldUpdateOperationsInput | number
+    multiplier?: FloatFieldUpdateOperationsInput | number
+    tradingSymbol?: StringFieldUpdateOperationsInput | string
+    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
+    positionType?: EnumPositionTypeFieldUpdateOperationsInput | $Enums.PositionType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PositionUncheckedUpdateManyWithoutInstrumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    product?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    quantity?: IntFieldUpdateOperationsInput | number
+    overnightQuantity?: IntFieldUpdateOperationsInput | number
+    averagePrice?: FloatFieldUpdateOperationsInput | number
+    lastPrice?: FloatFieldUpdateOperationsInput | number
+    value?: FloatFieldUpdateOperationsInput | number
+    pnl?: FloatFieldUpdateOperationsInput | number
+    m2m?: FloatFieldUpdateOperationsInput | number
+    unrealised?: FloatFieldUpdateOperationsInput | number
+    realised?: FloatFieldUpdateOperationsInput | number
+    buyQuantity?: IntFieldUpdateOperationsInput | number
+    buyValue?: FloatFieldUpdateOperationsInput | number
+    buyPrice?: FloatFieldUpdateOperationsInput | number
+    sellQuantity?: IntFieldUpdateOperationsInput | number
+    sellValue?: FloatFieldUpdateOperationsInput | number
+    sellPrice?: FloatFieldUpdateOperationsInput | number
+    multiplier?: FloatFieldUpdateOperationsInput | number
+    tradingSymbol?: StringFieldUpdateOperationsInput | string
+    exchange?: EnumExchangeFieldUpdateOperationsInput | $Enums.Exchange
+    positionType?: EnumPositionTypeFieldUpdateOperationsInput | $Enums.PositionType
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PriceHistoryUpdateWithoutInstrumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    open?: FloatFieldUpdateOperationsInput | number
+    high?: FloatFieldUpdateOperationsInput | number
+    low?: FloatFieldUpdateOperationsInput | number
+    close?: FloatFieldUpdateOperationsInput | number
+    volume?: IntFieldUpdateOperationsInput | number
+    ohlcDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    interval?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PriceHistoryUncheckedUpdateWithoutInstrumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    open?: FloatFieldUpdateOperationsInput | number
+    high?: FloatFieldUpdateOperationsInput | number
+    low?: FloatFieldUpdateOperationsInput | number
+    close?: FloatFieldUpdateOperationsInput | number
+    volume?: IntFieldUpdateOperationsInput | number
+    ohlcDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    interval?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PriceHistoryUncheckedUpdateManyWithoutInstrumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    open?: FloatFieldUpdateOperationsInput | number
+    high?: FloatFieldUpdateOperationsInput | number
+    low?: FloatFieldUpdateOperationsInput | number
+    close?: FloatFieldUpdateOperationsInput | number
+    volume?: IntFieldUpdateOperationsInput | number
+    ohlcDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    interval?: StringFieldUpdateOperationsInput | string
+  }
+
   export type TradeUpdateWithoutInstrumentInput = {
     id?: StringFieldUpdateOperationsInput | string
     tradeId?: StringFieldUpdateOperationsInput | string
@@ -53816,66 +53994,6 @@ export namespace Prisma {
     value?: FloatFieldUpdateOperationsInput | number
     exchangeTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MarketDepthUpdateWithoutInstrumentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    side?: EnumOrderSideFieldUpdateOperationsInput | $Enums.OrderSide
-    price?: FloatFieldUpdateOperationsInput | number
-    quantity?: IntFieldUpdateOperationsInput | number
-    orders?: IntFieldUpdateOperationsInput | number
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MarketDepthUncheckedUpdateWithoutInstrumentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    side?: EnumOrderSideFieldUpdateOperationsInput | $Enums.OrderSide
-    price?: FloatFieldUpdateOperationsInput | number
-    quantity?: IntFieldUpdateOperationsInput | number
-    orders?: IntFieldUpdateOperationsInput | number
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MarketDepthUncheckedUpdateManyWithoutInstrumentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    side?: EnumOrderSideFieldUpdateOperationsInput | $Enums.OrderSide
-    price?: FloatFieldUpdateOperationsInput | number
-    quantity?: IntFieldUpdateOperationsInput | number
-    orders?: IntFieldUpdateOperationsInput | number
-    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PriceHistoryUpdateWithoutInstrumentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    open?: FloatFieldUpdateOperationsInput | number
-    high?: FloatFieldUpdateOperationsInput | number
-    low?: FloatFieldUpdateOperationsInput | number
-    close?: FloatFieldUpdateOperationsInput | number
-    volume?: IntFieldUpdateOperationsInput | number
-    ohlcDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    interval?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type PriceHistoryUncheckedUpdateWithoutInstrumentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    open?: FloatFieldUpdateOperationsInput | number
-    high?: FloatFieldUpdateOperationsInput | number
-    low?: FloatFieldUpdateOperationsInput | number
-    close?: FloatFieldUpdateOperationsInput | number
-    volume?: IntFieldUpdateOperationsInput | number
-    ohlcDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    interval?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type PriceHistoryUncheckedUpdateManyWithoutInstrumentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    open?: FloatFieldUpdateOperationsInput | number
-    high?: FloatFieldUpdateOperationsInput | number
-    low?: FloatFieldUpdateOperationsInput | number
-    close?: FloatFieldUpdateOperationsInput | number
-    volume?: IntFieldUpdateOperationsInput | number
-    ohlcDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    interval?: StringFieldUpdateOperationsInput | string
   }
 
   export type WatchlistItemUpdateWithoutInstrumentInput = {
@@ -53927,8 +54045,8 @@ export namespace Prisma {
     value?: FloatFieldUpdateOperationsInput | number
     exchangeTimestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutTradesNestedInput
     instrument?: InstrumentUpdateOneRequiredWithoutTradesNestedInput
+    user?: UserUpdateOneRequiredWithoutTradesNestedInput
     charges?: TradeChargesUpdateOneWithoutTradeNestedInput
   }
 

@@ -6,7 +6,6 @@ import openapi from "@elysiajs/openapi";
 // import { opentelemetry } from '@elysiajs/opentelemetry'
 import { config } from "./config/generalconfig";
 import { authRouter } from "./routes/Auth/login.routes";
-import { HttpResponse } from "./utils/response/success";
 
 
 const app = new Elysia({
@@ -33,6 +32,6 @@ const app = new Elysia({
 
 export type App = typeof app;
 
-app.listen(3001, () => console.log("running at 3001"));
+app.listen(config.PORT, () => console.log("running at 3000"));
 
 export default app;

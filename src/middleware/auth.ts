@@ -1,37 +1,45 @@
-import jwt from "jsonwebtoken";
 import type { Elysia } from "elysia";
-import { JWT_SECRET } from "../env";
+import { jwt } from "@elysiajs/jwt";
+import { config } from "../config/generalconfig";
+
 
 export const authMiddleware = (app: Elysia) =>
-  app.derive(async ({ request, set }) => {
-    const accessToken = request.headers.get("Authorization");
+  app
+    .use(
+      jwt({
+        name: "jwt",
+        secret: config.JWT.SECRET, // Use your config secret
+        exp: "7d",
+      })
+    )
+    .derive(async ({ cookie , set, jwt }) => {
+      const token = cookie.auth.value as string | undefined;
+      if (!token) {
+        set.status = 401;
+        throw new Error("Authentication required");
+      }
+      const payload = await jwt.verify(token);
+      console.log(payload)
 
-    if (!accessToken) {
-      set.status = 401;
-      throw new Error("Authentication required");
-    }
+      if (!payload) {
+        set.status = 401;
+        throw new Error("Invalid or expired token");
+      }
 
-    const decodedUser = jwt.verify(accessToken, JWT_SECRET) as {
-      id: string;
-      email: string;
-      username: string;
-      iat: number;
-      exp: number
-    };
-    
-    const now = Math.floor(Date.now() / 1000);
+      // Type assertion for your payload structure
+      const decodedUser = payload as {
+        userId: string;
+        phone: string;
+        stage: string;
+        iat: number;
+        exp: number;
+      };
 
-    if(decodedUser.exp < now){
-      set.status = 401;
-      throw new Error("Invalid or expired token");
-    }
-
-    const payload = jwt.decode(accessToken) as { id: string, email: string, iat: number, exp: number };;
-    if (!payload) {
-      return { success: false, userId: null };
-    }
-
-    return {
-      user: { id: payload.id }
-    };
-  });
+      return {
+        user: {
+          id: decodedUser.userId,
+          phone: decodedUser.phone,
+          stage: decodedUser.stage,
+        },
+      };
+    });
