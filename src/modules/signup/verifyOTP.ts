@@ -37,8 +37,9 @@ export async function verifyOTP({ prisma, data }: IRegisterProp) {
         return new Error("USER_ALREADY_VERIFIED");
     }
     if (checkUser && !checkUser.isVerified) {
-        const check = await prisma.userVerification.findUniqueOrThrow({ where: { userId: checkUser.id }, select: { stage: true, id: true } });
+        const check = await prisma.userVerification.create({ data: { userId: checkUser.id, stage: "ZERO" }, select: { stage: true, id: true } });
         return { userStage: check.stage, id: checkUser.id };
     }
     return { userStage: "ZERO" , id: checkUser.id };
+
 }

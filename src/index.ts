@@ -1,6 +1,6 @@
 import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
-import { signUpRouter } from "./routes/signup.routes";
+import { signUpRouter } from "./routes/Auth/signup.routes";
 import openapi from "@elysiajs/openapi";
 // import { handleResponse, ILang, Lang } from "./utils/responseCodec";
 // import { opentelemetry } from '@elysiajs/opentelemetry'
@@ -13,11 +13,11 @@ const app = new Elysia({
   prefix: "/api",
   ...(config.BUN_ENV === 'production' && {
     hostname: config.HOSTNAME,
-      tls: {
-        cert: "./certs/cert.pem",
-        key: "./certs/key.pem"
-      }
+    tls: {
+      cert: "./certs/cert.pem",
+      key: "./certs/key.pem"
     }
+  }
   )
 })
   .use(
@@ -25,8 +25,30 @@ const app = new Elysia({
       origin: "*",
     })
   )
-  .use(openapi())
-  .get("/health", () => "Working fine")
+  .use(openapi({
+    documentation: {
+      components: {
+        securitySchemes: {
+          BearerAuth: {
+            type: "http",
+            scheme: "bearer",
+            bearerFormat: "JWT"
+          }
+        }
+      },
+      info: {
+        title: "MoneyplantFX Backend API",
+        description: "API documentation for MoneyplantFX Backend services",
+        version: "1.0.0"
+      }
+    }
+  }))
+  .get("/health", () => "Working fine" , {
+    detail: {
+      tags: ["Health Check"],
+      description: "Health check endpoint to verify server status"
+    }
+  })
   .use(signUpRouter)
   .use(authRouter);
 

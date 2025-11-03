@@ -10,14 +10,14 @@ interface RegisterData {
     annualIncome: AnnualIncome,
     tradingExperience: TradingExperience,
     occupation: OccupationType,
-    upiId: string,
-    accountNumber: string,
-    ifscCode: string,
-    bankName: string,
-    branchName: string,
-    accountType: BankAccountType,
-    accountHolderName: string,
-    micrCode: string
+    upiId?: string,
+    accountNumber?: string,
+    ifscCode?: string,
+    bankName?: string,
+    branchName?: string,
+    accountType?: BankAccountType,
+    accountHolderName?: string,
+    micrCode?: string
 }
 
 interface IRegisterProp {

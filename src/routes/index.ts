@@ -1,4 +1,4 @@
-import { signUpRouter } from "./signup.routes.js";
+import { signUpRouter } from "./Auth/signup.routes.js";
 
 
 

@@ -105,7 +105,7 @@ model BankAccount {
   upiId             String?
   branchName        String?
   accountHolderName String?
-  accountType       BankAccountType
+  accountType       BankAccountType?
   isPrimary         Boolean          @default(false)
   isVerified        Boolean          @default(false)
   createdAt         DateTime         @default(now())

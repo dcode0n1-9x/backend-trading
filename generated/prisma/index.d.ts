@@ -9348,7 +9348,7 @@ export namespace Prisma {
     upiId: string | null
     branchName: string | null
     accountHolderName: string | null
-    accountType: $Enums.BankAccountType
+    accountType: $Enums.BankAccountType | null
     isPrimary: boolean
     isVerified: boolean
     createdAt: Date
@@ -9469,7 +9469,7 @@ export namespace Prisma {
       upiId: string | null
       branchName: string | null
       accountHolderName: string | null
-      accountType: $Enums.BankAccountType
+      accountType: $Enums.BankAccountType | null
       isPrimary: boolean
       isVerified: boolean
       createdAt: Date
@@ -38638,7 +38638,7 @@ export namespace Prisma {
     upiId?: StringNullableFilter<"BankAccount"> | string | null
     branchName?: StringNullableFilter<"BankAccount"> | string | null
     accountHolderName?: StringNullableFilter<"BankAccount"> | string | null
-    accountType?: EnumBankAccountTypeFilter<"BankAccount"> | $Enums.BankAccountType
+    accountType?: EnumBankAccountTypeNullableFilter<"BankAccount"> | $Enums.BankAccountType | null
     isPrimary?: BoolFilter<"BankAccount"> | boolean
     isVerified?: BoolFilter<"BankAccount"> | boolean
     createdAt?: DateTimeFilter<"BankAccount"> | Date | string
@@ -38656,7 +38656,7 @@ export namespace Prisma {
     upiId?: SortOrderInput | SortOrder
     branchName?: SortOrderInput | SortOrder
     accountHolderName?: SortOrderInput | SortOrder
-    accountType?: SortOrder
+    accountType?: SortOrderInput | SortOrder
     isPrimary?: SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
@@ -38678,7 +38678,7 @@ export namespace Prisma {
     upiId?: StringNullableFilter<"BankAccount"> | string | null
     branchName?: StringNullableFilter<"BankAccount"> | string | null
     accountHolderName?: StringNullableFilter<"BankAccount"> | string | null
-    accountType?: EnumBankAccountTypeFilter<"BankAccount"> | $Enums.BankAccountType
+    accountType?: EnumBankAccountTypeNullableFilter<"BankAccount"> | $Enums.BankAccountType | null
     isPrimary?: BoolFilter<"BankAccount"> | boolean
     isVerified?: BoolFilter<"BankAccount"> | boolean
     createdAt?: DateTimeFilter<"BankAccount"> | Date | string
@@ -38696,7 +38696,7 @@ export namespace Prisma {
     upiId?: SortOrderInput | SortOrder
     branchName?: SortOrderInput | SortOrder
     accountHolderName?: SortOrderInput | SortOrder
-    accountType?: SortOrder
+    accountType?: SortOrderInput | SortOrder
     isPrimary?: SortOrder
     isVerified?: SortOrder
     createdAt?: SortOrder
@@ -38719,7 +38719,7 @@ export namespace Prisma {
     upiId?: StringNullableWithAggregatesFilter<"BankAccount"> | string | null
     branchName?: StringNullableWithAggregatesFilter<"BankAccount"> | string | null
     accountHolderName?: StringNullableWithAggregatesFilter<"BankAccount"> | string | null
-    accountType?: EnumBankAccountTypeWithAggregatesFilter<"BankAccount"> | $Enums.BankAccountType
+    accountType?: EnumBankAccountTypeNullableWithAggregatesFilter<"BankAccount"> | $Enums.BankAccountType | null
     isPrimary?: BoolWithAggregatesFilter<"BankAccount"> | boolean
     isVerified?: BoolWithAggregatesFilter<"BankAccount"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"BankAccount"> | Date | string
@@ -41424,7 +41424,7 @@ export namespace Prisma {
     upiId?: string | null
     branchName?: string | null
     accountHolderName?: string | null
-    accountType: $Enums.BankAccountType
+    accountType?: $Enums.BankAccountType | null
     isPrimary?: boolean
     isVerified?: boolean
     createdAt?: Date | string
@@ -41442,7 +41442,7 @@ export namespace Prisma {
     upiId?: string | null
     branchName?: string | null
     accountHolderName?: string | null
-    accountType: $Enums.BankAccountType
+    accountType?: $Enums.BankAccountType | null
     isPrimary?: boolean
     isVerified?: boolean
     createdAt?: Date | string
@@ -41458,7 +41458,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     branchName?: NullableStringFieldUpdateOperationsInput | string | null
     accountHolderName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
+    accountType?: NullableEnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType | null
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41476,7 +41476,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     branchName?: NullableStringFieldUpdateOperationsInput | string | null
     accountHolderName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
+    accountType?: NullableEnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType | null
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41493,7 +41493,7 @@ export namespace Prisma {
     upiId?: string | null
     branchName?: string | null
     accountHolderName?: string | null
-    accountType: $Enums.BankAccountType
+    accountType?: $Enums.BankAccountType | null
     isPrimary?: boolean
     isVerified?: boolean
     createdAt?: Date | string
@@ -41509,7 +41509,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     branchName?: NullableStringFieldUpdateOperationsInput | string | null
     accountHolderName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
+    accountType?: NullableEnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType | null
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41526,7 +41526,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     branchName?: NullableStringFieldUpdateOperationsInput | string | null
     accountHolderName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
+    accountType?: NullableEnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType | null
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44710,11 +44710,11 @@ export namespace Prisma {
     _max?: NestedEnumRiskProfileFilter<$PrismaModel>
   }
 
-  export type EnumBankAccountTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.BankAccountType | EnumBankAccountTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumBankAccountTypeFilter<$PrismaModel> | $Enums.BankAccountType
+  export type EnumBankAccountTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.BankAccountType | EnumBankAccountTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumBankAccountTypeNullableFilter<$PrismaModel> | $Enums.BankAccountType | null
   }
 
   export type BankAccountOrderByRelevanceInput = {
@@ -44774,14 +44774,14 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type EnumBankAccountTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.BankAccountType | EnumBankAccountTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumBankAccountTypeWithAggregatesFilter<$PrismaModel> | $Enums.BankAccountType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumBankAccountTypeFilter<$PrismaModel>
-    _max?: NestedEnumBankAccountTypeFilter<$PrismaModel>
+  export type EnumBankAccountTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BankAccountType | EnumBankAccountTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumBankAccountTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.BankAccountType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumBankAccountTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumBankAccountTypeNullableFilter<$PrismaModel>
   }
 
   export type SessionOrderByRelevanceInput = {
@@ -47518,8 +47518,8 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type EnumBankAccountTypeFieldUpdateOperationsInput = {
-    set?: $Enums.BankAccountType
+  export type NullableEnumBankAccountTypeFieldUpdateOperationsInput = {
+    set?: $Enums.BankAccountType | null
   }
 
   export type UserUpdateOneRequiredWithoutBankAccountsNestedInput = {
@@ -48753,21 +48753,21 @@ export namespace Prisma {
     _max?: NestedEnumRiskProfileFilter<$PrismaModel>
   }
 
-  export type NestedEnumBankAccountTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.BankAccountType | EnumBankAccountTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumBankAccountTypeFilter<$PrismaModel> | $Enums.BankAccountType
+  export type NestedEnumBankAccountTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.BankAccountType | EnumBankAccountTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumBankAccountTypeNullableFilter<$PrismaModel> | $Enums.BankAccountType | null
   }
 
-  export type NestedEnumBankAccountTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.BankAccountType | EnumBankAccountTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumBankAccountTypeWithAggregatesFilter<$PrismaModel> | $Enums.BankAccountType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumBankAccountTypeFilter<$PrismaModel>
-    _max?: NestedEnumBankAccountTypeFilter<$PrismaModel>
+  export type NestedEnumBankAccountTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BankAccountType | EnumBankAccountTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.BankAccountType[] | ListEnumBankAccountTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumBankAccountTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.BankAccountType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumBankAccountTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumBankAccountTypeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumFundTransactionTypeFilter<$PrismaModel = never> = {
@@ -49200,7 +49200,7 @@ export namespace Prisma {
     upiId?: string | null
     branchName?: string | null
     accountHolderName?: string | null
-    accountType: $Enums.BankAccountType
+    accountType?: $Enums.BankAccountType | null
     isPrimary?: boolean
     isVerified?: boolean
     createdAt?: Date | string
@@ -49216,7 +49216,7 @@ export namespace Prisma {
     upiId?: string | null
     branchName?: string | null
     accountHolderName?: string | null
-    accountType: $Enums.BankAccountType
+    accountType?: $Enums.BankAccountType | null
     isPrimary?: boolean
     isVerified?: boolean
     createdAt?: Date | string
@@ -49880,7 +49880,7 @@ export namespace Prisma {
     upiId?: StringNullableFilter<"BankAccount"> | string | null
     branchName?: StringNullableFilter<"BankAccount"> | string | null
     accountHolderName?: StringNullableFilter<"BankAccount"> | string | null
-    accountType?: EnumBankAccountTypeFilter<"BankAccount"> | $Enums.BankAccountType
+    accountType?: EnumBankAccountTypeNullableFilter<"BankAccount"> | $Enums.BankAccountType | null
     isPrimary?: BoolFilter<"BankAccount"> | boolean
     isVerified?: BoolFilter<"BankAccount"> | boolean
     createdAt?: DateTimeFilter<"BankAccount"> | Date | string
@@ -54909,7 +54909,7 @@ export namespace Prisma {
     upiId?: string | null
     branchName?: string | null
     accountHolderName?: string | null
-    accountType: $Enums.BankAccountType
+    accountType?: $Enums.BankAccountType | null
     isPrimary?: boolean
     isVerified?: boolean
     createdAt?: Date | string
@@ -55163,7 +55163,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     branchName?: NullableStringFieldUpdateOperationsInput | string | null
     accountHolderName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
+    accountType?: NullableEnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType | null
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -55179,7 +55179,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     branchName?: NullableStringFieldUpdateOperationsInput | string | null
     accountHolderName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
+    accountType?: NullableEnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType | null
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -55195,7 +55195,7 @@ export namespace Prisma {
     upiId?: NullableStringFieldUpdateOperationsInput | string | null
     branchName?: NullableStringFieldUpdateOperationsInput | string | null
     accountHolderName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
+    accountType?: NullableEnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType | null
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
