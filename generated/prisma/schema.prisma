@@ -17,7 +17,7 @@ model User {
   firstName        String?
   lastName         String?
   panNumber        String?           @unique
-  aadhaarNumber    String?
+  aadhaarNumber    String?           @unique
   dob              DateTime?
   kycStatus        KYCStatus?        @default(PENDING)
   accountType      AccountType?      @default(INDIVIDUAL)
@@ -43,75 +43,70 @@ model User {
   profile          UserProfile?
   UserVerification UserVerification?
   watchlists       Watchlist[]
+  nominees         Nominee[]
 
   @@index([email, phone])
+}
+
+model Nominee {
+  id           String           @id @default(cuid())
+  userId       String
+  name         String
+  relationship RelationshipType
+  phone        String
+  dob          DateTime
+  email        String
+  address      String
+  panNumber    String
+  percentage   Float
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  user         User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model UserVerification {
   id        String   @id @default(cuid())
   userId    String   @unique
-  stage     KYCStage @default(ONE)
-  /// Current verification stage for a user's onboarding/compliance process.
-  ///
-  /// Purpose:
-  /// - Represents the user's progress through a multi-step verification workflow.
-  /// - Useful for gating access to features, triggering reminders, and audit logging.
-  ///
-  /// Stages (integer values recommended, consider using an enum for clarity):
-  /// 1 — Initial verification: PAN card and email verification completed.
-  /// - Indicates basic identity & contact validation.
-  /// - Typical prerequisites: panCardVerified = true, emailVerified = true.
-  ///
-  /// 2 — Address verification: Address proof verified.
-  /// - Indicates proof of residence confirmed.
-  /// - Typical prerequisite: addressProofVerified = true.
-  ///
-  /// 3 — Income verification: Income / financial documents verified.
-  /// - Final stage for full KYC/compliance clearance.
-  /// - Typical prerequisite: incomeProofVerified = true.
-  ///
-  /// Notes & recommendations:
-  /// - Prefer using a Prisma enum (e.g., VerificationStage) instead of raw integers to improve readability.
-  /// - Store individual boolean flags for each proof (panCardVerified, emailVerified, addressProofVerified, incomeProofVerified)
-  /// alongside this stage value to make checks explicit and simplify queries.
-  /// - Ensure transitions are strictly ordered (1 → 2 → 3) and validated in application/business logic.
-  /// - Maintain an audit trail (timestamps and actor IDs) for each stage change to meet compliance requirements.
-  /// - Consider a separate "verificationStatus" (e.g., pending/failed/approved) per stage to capture in-progress or failed checks.
-  /// - When migrating schema or adding stages, map existing integer values carefully and provide a one-time migration script if needed.
+  stage     KYCStage @default(ZERO)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model UserProfile {
-  id                String      @id @default(cuid())
-  userId            String      @unique
-  addressLine1      String
+  id                String             @id @default(cuid())
+  userId            String             @unique
+  addressLine1      String?
   addressLine2      String?
-  city              String
-  state             String
-  pincode           String
+  city              String?
+  state             String?
+  pincode           String?
   fatherName        String?
   motherName        String?
-  maritalStatus     String?
-  country           String      @default("India")
-  occupation        String?
+  maritalStatus     MartialStatusType?
+  country           String?            @default("India")
+  occupation        OccupationType?
   annualIncome      String?
   tradingExperience String?
-  riskProfile       RiskProfile @default(MODERATE)
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime    @updatedAt
-  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  signature         String?
+  riskProfile       RiskProfile        @default(MODERATE)
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model BankAccount {
   id                String          @id @default(cuid())
   userId            String
-  accountNumber     String
-  ifscCode          String
-  bankName          String
-  branchName        String
-  accountHolderName String
+  accountNumber     String?
+  ifscCode          String?
+  bankName          String?
+  micrCode          String?
+  upiId             String?
+  branchName        String?
+  accountHolderName String?
   accountType       BankAccountType
   isPrimary         Boolean         @default(false)
   isVerified        Boolean         @default(false)
@@ -744,7 +739,16 @@ enum CorporateActionType {
   DELISTING
 }
 
-enum MartialStatus {
+enum RelationshipType {
+  FATHER
+  MOTHER
+  SPOUSE
+  SIBLING
+  CHILD
+  OTHER
+}
+
+enum MartialStatusType {
   SINGLE
   MARRIED
 }
@@ -766,7 +770,7 @@ enum TradingExperience {
   MORE_THAN_15_YEARS
 }
 
-enum Occupation {
+enum OccupationType {
   BUSINESS
   HOUSEWIFE
   STUDENT
@@ -789,4 +793,5 @@ enum KYCStage {
   ONE
   TWO
   THREE
+  FOUR
 }

@@ -1,0 +1,9 @@
+-- AlterTable
+ALTER TABLE "UserProfile" ALTER COLUMN "addressLine1" DROP NOT NULL,
+ALTER COLUMN "city" DROP NOT NULL,
+ALTER COLUMN "state" DROP NOT NULL,
+ALTER COLUMN "pincode" DROP NOT NULL,
+ALTER COLUMN "country" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "UserVerification" ALTER COLUMN "stage" SET DEFAULT 'ZERO';

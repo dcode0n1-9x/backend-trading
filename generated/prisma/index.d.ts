@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model Nominee
+ * 
+ */
+export type Nominee = $Result.DefaultSelection<Prisma.$NomineePayload>
+/**
  * Model UserVerification
  * 
  */
@@ -415,12 +420,24 @@ export const CorporateActionType: {
 export type CorporateActionType = (typeof CorporateActionType)[keyof typeof CorporateActionType]
 
 
-export const MartialStatus: {
+export const RelationshipType: {
+  FATHER: 'FATHER',
+  MOTHER: 'MOTHER',
+  SPOUSE: 'SPOUSE',
+  SIBLING: 'SIBLING',
+  CHILD: 'CHILD',
+  OTHER: 'OTHER'
+};
+
+export type RelationshipType = (typeof RelationshipType)[keyof typeof RelationshipType]
+
+
+export const MartialStatusType: {
   SINGLE: 'SINGLE',
   MARRIED: 'MARRIED'
 };
 
-export type MartialStatus = (typeof MartialStatus)[keyof typeof MartialStatus]
+export type MartialStatusType = (typeof MartialStatusType)[keyof typeof MartialStatusType]
 
 
 export const AnnualIncome: {
@@ -446,7 +463,7 @@ export const TradingExperience: {
 export type TradingExperience = (typeof TradingExperience)[keyof typeof TradingExperience]
 
 
-export const Occupation: {
+export const OccupationType: {
   BUSINESS: 'BUSINESS',
   HOUSEWIFE: 'HOUSEWIFE',
   STUDENT: 'STUDENT',
@@ -459,7 +476,7 @@ export const Occupation: {
   OTHERS: 'OTHERS'
 };
 
-export type Occupation = (typeof Occupation)[keyof typeof Occupation]
+export type OccupationType = (typeof OccupationType)[keyof typeof OccupationType]
 
 
 export const SettlementType: {
@@ -474,7 +491,8 @@ export const KYCStage: {
   ZERO: 'ZERO',
   ONE: 'ONE',
   TWO: 'TWO',
-  THREE: 'THREE'
+  THREE: 'THREE',
+  FOUR: 'FOUR'
 };
 
 export type KYCStage = (typeof KYCStage)[keyof typeof KYCStage]
@@ -585,9 +603,13 @@ export type CorporateActionType = $Enums.CorporateActionType
 
 export const CorporateActionType: typeof $Enums.CorporateActionType
 
-export type MartialStatus = $Enums.MartialStatus
+export type RelationshipType = $Enums.RelationshipType
 
-export const MartialStatus: typeof $Enums.MartialStatus
+export const RelationshipType: typeof $Enums.RelationshipType
+
+export type MartialStatusType = $Enums.MartialStatusType
+
+export const MartialStatusType: typeof $Enums.MartialStatusType
 
 export type AnnualIncome = $Enums.AnnualIncome
 
@@ -597,9 +619,9 @@ export type TradingExperience = $Enums.TradingExperience
 
 export const TradingExperience: typeof $Enums.TradingExperience
 
-export type Occupation = $Enums.Occupation
+export type OccupationType = $Enums.OccupationType
 
-export const Occupation: typeof $Enums.Occupation
+export const OccupationType: typeof $Enums.OccupationType
 
 export type SettlementType = $Enums.SettlementType
 
@@ -736,6 +758,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.nominee`: Exposes CRUD operations for the **Nominee** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Nominees
+    * const nominees = await prisma.nominee.findMany()
+    * ```
+    */
+  get nominee(): Prisma.NomineeDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.userVerification`: Exposes CRUD operations for the **UserVerification** model.
@@ -1428,6 +1460,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    Nominee: 'Nominee',
     UserVerification: 'UserVerification',
     UserProfile: 'UserProfile',
     BankAccount: 'BankAccount',
@@ -1471,7 +1504,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "userVerification" | "userProfile" | "bankAccount" | "session" | "fundTransaction" | "margin" | "instrument" | "marketDepth" | "priceHistory" | "portfolio" | "holding" | "position" | "order" | "trade" | "tradeCharges" | "gTTOrder" | "watchlist" | "watchlistItem" | "alert" | "notification" | "basket" | "basketItem" | "corporateAction" | "tradeJournal" | "dailyPnL"
+      modelProps: "user" | "nominee" | "userVerification" | "userProfile" | "bankAccount" | "session" | "fundTransaction" | "margin" | "instrument" | "marketDepth" | "priceHistory" | "portfolio" | "holding" | "position" | "order" | "trade" | "tradeCharges" | "gTTOrder" | "watchlist" | "watchlistItem" | "alert" | "notification" | "basket" | "basketItem" | "corporateAction" | "tradeJournal" | "dailyPnL"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1546,6 +1579,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Nominee: {
+        payload: Prisma.$NomineePayload<ExtArgs>
+        fields: Prisma.NomineeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NomineeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NomineePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NomineeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NomineePayload>
+          }
+          findFirst: {
+            args: Prisma.NomineeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NomineePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NomineeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NomineePayload>
+          }
+          findMany: {
+            args: Prisma.NomineeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NomineePayload>[]
+          }
+          create: {
+            args: Prisma.NomineeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NomineePayload>
+          }
+          createMany: {
+            args: Prisma.NomineeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NomineeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NomineePayload>[]
+          }
+          delete: {
+            args: Prisma.NomineeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NomineePayload>
+          }
+          update: {
+            args: Prisma.NomineeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NomineePayload>
+          }
+          deleteMany: {
+            args: Prisma.NomineeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NomineeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.NomineeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NomineePayload>[]
+          }
+          upsert: {
+            args: Prisma.NomineeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NomineePayload>
+          }
+          aggregate: {
+            args: Prisma.NomineeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNominee>
+          }
+          groupBy: {
+            args: Prisma.NomineeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NomineeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NomineeCountArgs<ExtArgs>
+            result: $Utils.Optional<NomineeCountAggregateOutputType> | number
           }
         }
       }
@@ -3496,6 +3603,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    nominee?: NomineeOmit
     userVerification?: UserVerificationOmit
     userProfile?: UserProfileOmit
     bankAccount?: BankAccountOmit
@@ -3614,6 +3722,7 @@ export namespace Prisma {
     sessions: number
     trades: number
     watchlists: number
+    nominees: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3630,6 +3739,7 @@ export namespace Prisma {
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     trades?: boolean | UserCountOutputTypeCountTradesArgs
     watchlists?: boolean | UserCountOutputTypeCountWatchlistsArgs
+    nominees?: boolean | UserCountOutputTypeCountNomineesArgs
   }
 
   // Custom InputTypes
@@ -3732,6 +3842,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountWatchlistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: WatchlistWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountNomineesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NomineeWhereInput
   }
 
 
@@ -4200,6 +4317,7 @@ export namespace Prisma {
     profile?: boolean | User$profileArgs<ExtArgs>
     UserVerification?: boolean | User$UserVerificationArgs<ExtArgs>
     watchlists?: boolean | User$watchlistsArgs<ExtArgs>
+    nominees?: boolean | User$nomineesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4283,6 +4401,7 @@ export namespace Prisma {
     profile?: boolean | User$profileArgs<ExtArgs>
     UserVerification?: boolean | User$UserVerificationArgs<ExtArgs>
     watchlists?: boolean | User$watchlistsArgs<ExtArgs>
+    nominees?: boolean | User$nomineesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -4306,6 +4425,7 @@ export namespace Prisma {
       profile: Prisma.$UserProfilePayload<ExtArgs> | null
       UserVerification: Prisma.$UserVerificationPayload<ExtArgs> | null
       watchlists: Prisma.$WatchlistPayload<ExtArgs>[]
+      nominees: Prisma.$NomineePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4735,6 +4855,7 @@ export namespace Prisma {
     profile<T extends User$profileArgs<ExtArgs> = {}>(args?: Subset<T, User$profileArgs<ExtArgs>>): Prisma__UserProfileClient<$Result.GetResult<Prisma.$UserProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     UserVerification<T extends User$UserVerificationArgs<ExtArgs> = {}>(args?: Subset<T, User$UserVerificationArgs<ExtArgs>>): Prisma__UserVerificationClient<$Result.GetResult<Prisma.$UserVerificationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     watchlists<T extends User$watchlistsArgs<ExtArgs> = {}>(args?: Subset<T, User$watchlistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WatchlistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    nominees<T extends User$nomineesArgs<ExtArgs> = {}>(args?: Subset<T, User$nomineesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NomineePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5520,6 +5641,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.nominees
+   */
+  export type User$nomineesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Nominee
+     */
+    select?: NomineeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Nominee
+     */
+    omit?: NomineeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NomineeInclude<ExtArgs> | null
+    where?: NomineeWhereInput
+    orderBy?: NomineeOrderByWithRelationInput | NomineeOrderByWithRelationInput[]
+    cursor?: NomineeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NomineeScalarFieldEnum | NomineeScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5535,6 +5680,1189 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Nominee
+   */
+
+  export type AggregateNominee = {
+    _count: NomineeCountAggregateOutputType | null
+    _avg: NomineeAvgAggregateOutputType | null
+    _sum: NomineeSumAggregateOutputType | null
+    _min: NomineeMinAggregateOutputType | null
+    _max: NomineeMaxAggregateOutputType | null
+  }
+
+  export type NomineeAvgAggregateOutputType = {
+    percentage: number | null
+  }
+
+  export type NomineeSumAggregateOutputType = {
+    percentage: number | null
+  }
+
+  export type NomineeMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    relationship: $Enums.RelationshipType | null
+    phone: string | null
+    dob: Date | null
+    email: string | null
+    address: string | null
+    panNumber: string | null
+    percentage: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NomineeMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    relationship: $Enums.RelationshipType | null
+    phone: string | null
+    dob: Date | null
+    email: string | null
+    address: string | null
+    panNumber: string | null
+    percentage: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type NomineeCountAggregateOutputType = {
+    id: number
+    userId: number
+    name: number
+    relationship: number
+    phone: number
+    dob: number
+    email: number
+    address: number
+    panNumber: number
+    percentage: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type NomineeAvgAggregateInputType = {
+    percentage?: true
+  }
+
+  export type NomineeSumAggregateInputType = {
+    percentage?: true
+  }
+
+  export type NomineeMinAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    relationship?: true
+    phone?: true
+    dob?: true
+    email?: true
+    address?: true
+    panNumber?: true
+    percentage?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NomineeMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    relationship?: true
+    phone?: true
+    dob?: true
+    email?: true
+    address?: true
+    panNumber?: true
+    percentage?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type NomineeCountAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    relationship?: true
+    phone?: true
+    dob?: true
+    email?: true
+    address?: true
+    panNumber?: true
+    percentage?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type NomineeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Nominee to aggregate.
+     */
+    where?: NomineeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Nominees to fetch.
+     */
+    orderBy?: NomineeOrderByWithRelationInput | NomineeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NomineeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Nominees from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Nominees.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Nominees
+    **/
+    _count?: true | NomineeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: NomineeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: NomineeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NomineeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NomineeMaxAggregateInputType
+  }
+
+  export type GetNomineeAggregateType<T extends NomineeAggregateArgs> = {
+        [P in keyof T & keyof AggregateNominee]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNominee[P]>
+      : GetScalarType<T[P], AggregateNominee[P]>
+  }
+
+
+
+
+  export type NomineeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NomineeWhereInput
+    orderBy?: NomineeOrderByWithAggregationInput | NomineeOrderByWithAggregationInput[]
+    by: NomineeScalarFieldEnum[] | NomineeScalarFieldEnum
+    having?: NomineeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NomineeCountAggregateInputType | true
+    _avg?: NomineeAvgAggregateInputType
+    _sum?: NomineeSumAggregateInputType
+    _min?: NomineeMinAggregateInputType
+    _max?: NomineeMaxAggregateInputType
+  }
+
+  export type NomineeGroupByOutputType = {
+    id: string
+    userId: string
+    name: string
+    relationship: $Enums.RelationshipType
+    phone: string
+    dob: Date
+    email: string
+    address: string
+    panNumber: string
+    percentage: number
+    createdAt: Date
+    updatedAt: Date
+    _count: NomineeCountAggregateOutputType | null
+    _avg: NomineeAvgAggregateOutputType | null
+    _sum: NomineeSumAggregateOutputType | null
+    _min: NomineeMinAggregateOutputType | null
+    _max: NomineeMaxAggregateOutputType | null
+  }
+
+  type GetNomineeGroupByPayload<T extends NomineeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NomineeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NomineeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NomineeGroupByOutputType[P]>
+            : GetScalarType<T[P], NomineeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NomineeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    relationship?: boolean
+    phone?: boolean
+    dob?: boolean
+    email?: boolean
+    address?: boolean
+    panNumber?: boolean
+    percentage?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["nominee"]>
+
+  export type NomineeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    relationship?: boolean
+    phone?: boolean
+    dob?: boolean
+    email?: boolean
+    address?: boolean
+    panNumber?: boolean
+    percentage?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["nominee"]>
+
+  export type NomineeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    relationship?: boolean
+    phone?: boolean
+    dob?: boolean
+    email?: boolean
+    address?: boolean
+    panNumber?: boolean
+    percentage?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["nominee"]>
+
+  export type NomineeSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    relationship?: boolean
+    phone?: boolean
+    dob?: boolean
+    email?: boolean
+    address?: boolean
+    panNumber?: boolean
+    percentage?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type NomineeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "relationship" | "phone" | "dob" | "email" | "address" | "panNumber" | "percentage" | "createdAt" | "updatedAt", ExtArgs["result"]["nominee"]>
+  export type NomineeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type NomineeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type NomineeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $NomineePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Nominee"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      name: string
+      relationship: $Enums.RelationshipType
+      phone: string
+      dob: Date
+      email: string
+      address: string
+      panNumber: string
+      percentage: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["nominee"]>
+    composites: {}
+  }
+
+  type NomineeGetPayload<S extends boolean | null | undefined | NomineeDefaultArgs> = $Result.GetResult<Prisma.$NomineePayload, S>
+
+  type NomineeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NomineeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NomineeCountAggregateInputType | true
+    }
+
+  export interface NomineeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Nominee'], meta: { name: 'Nominee' } }
+    /**
+     * Find zero or one Nominee that matches the filter.
+     * @param {NomineeFindUniqueArgs} args - Arguments to find a Nominee
+     * @example
+     * // Get one Nominee
+     * const nominee = await prisma.nominee.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NomineeFindUniqueArgs>(args: SelectSubset<T, NomineeFindUniqueArgs<ExtArgs>>): Prisma__NomineeClient<$Result.GetResult<Prisma.$NomineePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Nominee that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NomineeFindUniqueOrThrowArgs} args - Arguments to find a Nominee
+     * @example
+     * // Get one Nominee
+     * const nominee = await prisma.nominee.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NomineeFindUniqueOrThrowArgs>(args: SelectSubset<T, NomineeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NomineeClient<$Result.GetResult<Prisma.$NomineePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Nominee that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NomineeFindFirstArgs} args - Arguments to find a Nominee
+     * @example
+     * // Get one Nominee
+     * const nominee = await prisma.nominee.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NomineeFindFirstArgs>(args?: SelectSubset<T, NomineeFindFirstArgs<ExtArgs>>): Prisma__NomineeClient<$Result.GetResult<Prisma.$NomineePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Nominee that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NomineeFindFirstOrThrowArgs} args - Arguments to find a Nominee
+     * @example
+     * // Get one Nominee
+     * const nominee = await prisma.nominee.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NomineeFindFirstOrThrowArgs>(args?: SelectSubset<T, NomineeFindFirstOrThrowArgs<ExtArgs>>): Prisma__NomineeClient<$Result.GetResult<Prisma.$NomineePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Nominees that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NomineeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Nominees
+     * const nominees = await prisma.nominee.findMany()
+     * 
+     * // Get first 10 Nominees
+     * const nominees = await prisma.nominee.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const nomineeWithIdOnly = await prisma.nominee.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NomineeFindManyArgs>(args?: SelectSubset<T, NomineeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NomineePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Nominee.
+     * @param {NomineeCreateArgs} args - Arguments to create a Nominee.
+     * @example
+     * // Create one Nominee
+     * const Nominee = await prisma.nominee.create({
+     *   data: {
+     *     // ... data to create a Nominee
+     *   }
+     * })
+     * 
+     */
+    create<T extends NomineeCreateArgs>(args: SelectSubset<T, NomineeCreateArgs<ExtArgs>>): Prisma__NomineeClient<$Result.GetResult<Prisma.$NomineePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Nominees.
+     * @param {NomineeCreateManyArgs} args - Arguments to create many Nominees.
+     * @example
+     * // Create many Nominees
+     * const nominee = await prisma.nominee.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NomineeCreateManyArgs>(args?: SelectSubset<T, NomineeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Nominees and returns the data saved in the database.
+     * @param {NomineeCreateManyAndReturnArgs} args - Arguments to create many Nominees.
+     * @example
+     * // Create many Nominees
+     * const nominee = await prisma.nominee.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Nominees and only return the `id`
+     * const nomineeWithIdOnly = await prisma.nominee.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NomineeCreateManyAndReturnArgs>(args?: SelectSubset<T, NomineeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NomineePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Nominee.
+     * @param {NomineeDeleteArgs} args - Arguments to delete one Nominee.
+     * @example
+     * // Delete one Nominee
+     * const Nominee = await prisma.nominee.delete({
+     *   where: {
+     *     // ... filter to delete one Nominee
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NomineeDeleteArgs>(args: SelectSubset<T, NomineeDeleteArgs<ExtArgs>>): Prisma__NomineeClient<$Result.GetResult<Prisma.$NomineePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Nominee.
+     * @param {NomineeUpdateArgs} args - Arguments to update one Nominee.
+     * @example
+     * // Update one Nominee
+     * const nominee = await prisma.nominee.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NomineeUpdateArgs>(args: SelectSubset<T, NomineeUpdateArgs<ExtArgs>>): Prisma__NomineeClient<$Result.GetResult<Prisma.$NomineePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Nominees.
+     * @param {NomineeDeleteManyArgs} args - Arguments to filter Nominees to delete.
+     * @example
+     * // Delete a few Nominees
+     * const { count } = await prisma.nominee.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NomineeDeleteManyArgs>(args?: SelectSubset<T, NomineeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Nominees.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NomineeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Nominees
+     * const nominee = await prisma.nominee.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NomineeUpdateManyArgs>(args: SelectSubset<T, NomineeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Nominees and returns the data updated in the database.
+     * @param {NomineeUpdateManyAndReturnArgs} args - Arguments to update many Nominees.
+     * @example
+     * // Update many Nominees
+     * const nominee = await prisma.nominee.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Nominees and only return the `id`
+     * const nomineeWithIdOnly = await prisma.nominee.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends NomineeUpdateManyAndReturnArgs>(args: SelectSubset<T, NomineeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NomineePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Nominee.
+     * @param {NomineeUpsertArgs} args - Arguments to update or create a Nominee.
+     * @example
+     * // Update or create a Nominee
+     * const nominee = await prisma.nominee.upsert({
+     *   create: {
+     *     // ... data to create a Nominee
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Nominee we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NomineeUpsertArgs>(args: SelectSubset<T, NomineeUpsertArgs<ExtArgs>>): Prisma__NomineeClient<$Result.GetResult<Prisma.$NomineePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Nominees.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NomineeCountArgs} args - Arguments to filter Nominees to count.
+     * @example
+     * // Count the number of Nominees
+     * const count = await prisma.nominee.count({
+     *   where: {
+     *     // ... the filter for the Nominees we want to count
+     *   }
+     * })
+    **/
+    count<T extends NomineeCountArgs>(
+      args?: Subset<T, NomineeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NomineeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Nominee.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NomineeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NomineeAggregateArgs>(args: Subset<T, NomineeAggregateArgs>): Prisma.PrismaPromise<GetNomineeAggregateType<T>>
+
+    /**
+     * Group by Nominee.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NomineeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NomineeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NomineeGroupByArgs['orderBy'] }
+        : { orderBy?: NomineeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NomineeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNomineeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Nominee model
+   */
+  readonly fields: NomineeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Nominee.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NomineeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Nominee model
+   */
+  interface NomineeFieldRefs {
+    readonly id: FieldRef<"Nominee", 'String'>
+    readonly userId: FieldRef<"Nominee", 'String'>
+    readonly name: FieldRef<"Nominee", 'String'>
+    readonly relationship: FieldRef<"Nominee", 'RelationshipType'>
+    readonly phone: FieldRef<"Nominee", 'String'>
+    readonly dob: FieldRef<"Nominee", 'DateTime'>
+    readonly email: FieldRef<"Nominee", 'String'>
+    readonly address: FieldRef<"Nominee", 'String'>
+    readonly panNumber: FieldRef<"Nominee", 'String'>
+    readonly percentage: FieldRef<"Nominee", 'Float'>
+    readonly createdAt: FieldRef<"Nominee", 'DateTime'>
+    readonly updatedAt: FieldRef<"Nominee", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Nominee findUnique
+   */
+  export type NomineeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Nominee
+     */
+    select?: NomineeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Nominee
+     */
+    omit?: NomineeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NomineeInclude<ExtArgs> | null
+    /**
+     * Filter, which Nominee to fetch.
+     */
+    where: NomineeWhereUniqueInput
+  }
+
+  /**
+   * Nominee findUniqueOrThrow
+   */
+  export type NomineeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Nominee
+     */
+    select?: NomineeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Nominee
+     */
+    omit?: NomineeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NomineeInclude<ExtArgs> | null
+    /**
+     * Filter, which Nominee to fetch.
+     */
+    where: NomineeWhereUniqueInput
+  }
+
+  /**
+   * Nominee findFirst
+   */
+  export type NomineeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Nominee
+     */
+    select?: NomineeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Nominee
+     */
+    omit?: NomineeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NomineeInclude<ExtArgs> | null
+    /**
+     * Filter, which Nominee to fetch.
+     */
+    where?: NomineeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Nominees to fetch.
+     */
+    orderBy?: NomineeOrderByWithRelationInput | NomineeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Nominees.
+     */
+    cursor?: NomineeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Nominees from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Nominees.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Nominees.
+     */
+    distinct?: NomineeScalarFieldEnum | NomineeScalarFieldEnum[]
+  }
+
+  /**
+   * Nominee findFirstOrThrow
+   */
+  export type NomineeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Nominee
+     */
+    select?: NomineeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Nominee
+     */
+    omit?: NomineeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NomineeInclude<ExtArgs> | null
+    /**
+     * Filter, which Nominee to fetch.
+     */
+    where?: NomineeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Nominees to fetch.
+     */
+    orderBy?: NomineeOrderByWithRelationInput | NomineeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Nominees.
+     */
+    cursor?: NomineeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Nominees from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Nominees.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Nominees.
+     */
+    distinct?: NomineeScalarFieldEnum | NomineeScalarFieldEnum[]
+  }
+
+  /**
+   * Nominee findMany
+   */
+  export type NomineeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Nominee
+     */
+    select?: NomineeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Nominee
+     */
+    omit?: NomineeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NomineeInclude<ExtArgs> | null
+    /**
+     * Filter, which Nominees to fetch.
+     */
+    where?: NomineeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Nominees to fetch.
+     */
+    orderBy?: NomineeOrderByWithRelationInput | NomineeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Nominees.
+     */
+    cursor?: NomineeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Nominees from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Nominees.
+     */
+    skip?: number
+    distinct?: NomineeScalarFieldEnum | NomineeScalarFieldEnum[]
+  }
+
+  /**
+   * Nominee create
+   */
+  export type NomineeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Nominee
+     */
+    select?: NomineeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Nominee
+     */
+    omit?: NomineeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NomineeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Nominee.
+     */
+    data: XOR<NomineeCreateInput, NomineeUncheckedCreateInput>
+  }
+
+  /**
+   * Nominee createMany
+   */
+  export type NomineeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Nominees.
+     */
+    data: NomineeCreateManyInput | NomineeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Nominee createManyAndReturn
+   */
+  export type NomineeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Nominee
+     */
+    select?: NomineeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Nominee
+     */
+    omit?: NomineeOmit<ExtArgs> | null
+    /**
+     * The data used to create many Nominees.
+     */
+    data: NomineeCreateManyInput | NomineeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NomineeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Nominee update
+   */
+  export type NomineeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Nominee
+     */
+    select?: NomineeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Nominee
+     */
+    omit?: NomineeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NomineeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Nominee.
+     */
+    data: XOR<NomineeUpdateInput, NomineeUncheckedUpdateInput>
+    /**
+     * Choose, which Nominee to update.
+     */
+    where: NomineeWhereUniqueInput
+  }
+
+  /**
+   * Nominee updateMany
+   */
+  export type NomineeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Nominees.
+     */
+    data: XOR<NomineeUpdateManyMutationInput, NomineeUncheckedUpdateManyInput>
+    /**
+     * Filter which Nominees to update
+     */
+    where?: NomineeWhereInput
+    /**
+     * Limit how many Nominees to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Nominee updateManyAndReturn
+   */
+  export type NomineeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Nominee
+     */
+    select?: NomineeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Nominee
+     */
+    omit?: NomineeOmit<ExtArgs> | null
+    /**
+     * The data used to update Nominees.
+     */
+    data: XOR<NomineeUpdateManyMutationInput, NomineeUncheckedUpdateManyInput>
+    /**
+     * Filter which Nominees to update
+     */
+    where?: NomineeWhereInput
+    /**
+     * Limit how many Nominees to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NomineeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Nominee upsert
+   */
+  export type NomineeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Nominee
+     */
+    select?: NomineeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Nominee
+     */
+    omit?: NomineeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NomineeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Nominee to update in case it exists.
+     */
+    where: NomineeWhereUniqueInput
+    /**
+     * In case the Nominee found by the `where` argument doesn't exist, create a new Nominee with this data.
+     */
+    create: XOR<NomineeCreateInput, NomineeUncheckedCreateInput>
+    /**
+     * In case the Nominee was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NomineeUpdateInput, NomineeUncheckedUpdateInput>
+  }
+
+  /**
+   * Nominee delete
+   */
+  export type NomineeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Nominee
+     */
+    select?: NomineeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Nominee
+     */
+    omit?: NomineeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NomineeInclude<ExtArgs> | null
+    /**
+     * Filter which Nominee to delete.
+     */
+    where: NomineeWhereUniqueInput
+  }
+
+  /**
+   * Nominee deleteMany
+   */
+  export type NomineeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Nominees to delete
+     */
+    where?: NomineeWhereInput
+    /**
+     * Limit how many Nominees to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Nominee without action
+   */
+  export type NomineeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Nominee
+     */
+    select?: NomineeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Nominee
+     */
+    omit?: NomineeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NomineeInclude<ExtArgs> | null
   }
 
 
@@ -5751,35 +7079,6 @@ export namespace Prisma {
       id: string
       userId: string
       stage: $Enums.KYCStage
-      /**
-       * Current verification stage for a user's onboarding/compliance process.
-       * 
-       * Purpose:
-       * - Represents the user's progress through a multi-step verification workflow.
-       * - Useful for gating access to features, triggering reminders, and audit logging.
-       * 
-       * Stages (integer values recommended, consider using an enum for clarity):
-       * 1 — Initial verification: PAN card and email verification completed.
-       * - Indicates basic identity & contact validation.
-       * - Typical prerequisites: panCardVerified = true, emailVerified = true.
-       * 
-       * 2 — Address verification: Address proof verified.
-       * - Indicates proof of residence confirmed.
-       * - Typical prerequisite: addressProofVerified = true.
-       * 
-       * 3 — Income verification: Income / financial documents verified.
-       * - Final stage for full KYC/compliance clearance.
-       * - Typical prerequisite: incomeProofVerified = true.
-       * 
-       * Notes & recommendations:
-       * - Prefer using a Prisma enum (e.g., VerificationStage) instead of raw integers to improve readability.
-       * - Store individual boolean flags for each proof (panCardVerified, emailVerified, addressProofVerified, incomeProofVerified)
-       * alongside this stage value to make checks explicit and simplify queries.
-       * - Ensure transitions are strictly ordered (1 → 2 → 3) and validated in application/business logic.
-       * - Maintain an audit trail (timestamps and actor IDs) for each stage change to meet compliance requirements.
-       * - Consider a separate "verificationStatus" (e.g., pending/failed/approved) per stage to capture in-progress or failed checks.
-       * - When migrating schema or adding stages, map existing integer values carefully and provide a one-time migration script if needed.
-       */
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["userVerification"]>
@@ -6645,11 +7944,12 @@ export namespace Prisma {
     pincode: string | null
     fatherName: string | null
     motherName: string | null
-    maritalStatus: string | null
+    maritalStatus: $Enums.MartialStatusType | null
     country: string | null
-    occupation: string | null
+    occupation: $Enums.OccupationType | null
     annualIncome: string | null
     tradingExperience: string | null
+    signature: string | null
     riskProfile: $Enums.RiskProfile | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6665,11 +7965,12 @@ export namespace Prisma {
     pincode: string | null
     fatherName: string | null
     motherName: string | null
-    maritalStatus: string | null
+    maritalStatus: $Enums.MartialStatusType | null
     country: string | null
-    occupation: string | null
+    occupation: $Enums.OccupationType | null
     annualIncome: string | null
     tradingExperience: string | null
+    signature: string | null
     riskProfile: $Enums.RiskProfile | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6690,6 +7991,7 @@ export namespace Prisma {
     occupation: number
     annualIncome: number
     tradingExperience: number
+    signature: number
     riskProfile: number
     createdAt: number
     updatedAt: number
@@ -6712,6 +8014,7 @@ export namespace Prisma {
     occupation?: true
     annualIncome?: true
     tradingExperience?: true
+    signature?: true
     riskProfile?: true
     createdAt?: true
     updatedAt?: true
@@ -6732,6 +8035,7 @@ export namespace Prisma {
     occupation?: true
     annualIncome?: true
     tradingExperience?: true
+    signature?: true
     riskProfile?: true
     createdAt?: true
     updatedAt?: true
@@ -6752,6 +8056,7 @@ export namespace Prisma {
     occupation?: true
     annualIncome?: true
     tradingExperience?: true
+    signature?: true
     riskProfile?: true
     createdAt?: true
     updatedAt?: true
@@ -6833,18 +8138,19 @@ export namespace Prisma {
   export type UserProfileGroupByOutputType = {
     id: string
     userId: string
-    addressLine1: string
+    addressLine1: string | null
     addressLine2: string | null
-    city: string
-    state: string
-    pincode: string
+    city: string | null
+    state: string | null
+    pincode: string | null
     fatherName: string | null
     motherName: string | null
-    maritalStatus: string | null
-    country: string
-    occupation: string | null
+    maritalStatus: $Enums.MartialStatusType | null
+    country: string | null
+    occupation: $Enums.OccupationType | null
     annualIncome: string | null
     tradingExperience: string | null
+    signature: string | null
     riskProfile: $Enums.RiskProfile
     createdAt: Date
     updatedAt: Date
@@ -6882,6 +8188,7 @@ export namespace Prisma {
     occupation?: boolean
     annualIncome?: boolean
     tradingExperience?: boolean
+    signature?: boolean
     riskProfile?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6903,6 +8210,7 @@ export namespace Prisma {
     occupation?: boolean
     annualIncome?: boolean
     tradingExperience?: boolean
+    signature?: boolean
     riskProfile?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6924,6 +8232,7 @@ export namespace Prisma {
     occupation?: boolean
     annualIncome?: boolean
     tradingExperience?: boolean
+    signature?: boolean
     riskProfile?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6945,12 +8254,13 @@ export namespace Prisma {
     occupation?: boolean
     annualIncome?: boolean
     tradingExperience?: boolean
+    signature?: boolean
     riskProfile?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "addressLine1" | "addressLine2" | "city" | "state" | "pincode" | "fatherName" | "motherName" | "maritalStatus" | "country" | "occupation" | "annualIncome" | "tradingExperience" | "riskProfile" | "createdAt" | "updatedAt", ExtArgs["result"]["userProfile"]>
+  export type UserProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "addressLine1" | "addressLine2" | "city" | "state" | "pincode" | "fatherName" | "motherName" | "maritalStatus" | "country" | "occupation" | "annualIncome" | "tradingExperience" | "signature" | "riskProfile" | "createdAt" | "updatedAt", ExtArgs["result"]["userProfile"]>
   export type UserProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -6969,18 +8279,19 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
-      addressLine1: string
+      addressLine1: string | null
       addressLine2: string | null
-      city: string
-      state: string
-      pincode: string
+      city: string | null
+      state: string | null
+      pincode: string | null
       fatherName: string | null
       motherName: string | null
-      maritalStatus: string | null
-      country: string
-      occupation: string | null
+      maritalStatus: $Enums.MartialStatusType | null
+      country: string | null
+      occupation: $Enums.OccupationType | null
       annualIncome: string | null
       tradingExperience: string | null
+      signature: string | null
       riskProfile: $Enums.RiskProfile
       createdAt: Date
       updatedAt: Date
@@ -7417,11 +8728,12 @@ export namespace Prisma {
     readonly pincode: FieldRef<"UserProfile", 'String'>
     readonly fatherName: FieldRef<"UserProfile", 'String'>
     readonly motherName: FieldRef<"UserProfile", 'String'>
-    readonly maritalStatus: FieldRef<"UserProfile", 'String'>
+    readonly maritalStatus: FieldRef<"UserProfile", 'MartialStatusType'>
     readonly country: FieldRef<"UserProfile", 'String'>
-    readonly occupation: FieldRef<"UserProfile", 'String'>
+    readonly occupation: FieldRef<"UserProfile", 'OccupationType'>
     readonly annualIncome: FieldRef<"UserProfile", 'String'>
     readonly tradingExperience: FieldRef<"UserProfile", 'String'>
+    readonly signature: FieldRef<"UserProfile", 'String'>
     readonly riskProfile: FieldRef<"UserProfile", 'RiskProfile'>
     readonly createdAt: FieldRef<"UserProfile", 'DateTime'>
     readonly updatedAt: FieldRef<"UserProfile", 'DateTime'>
@@ -7855,6 +9167,8 @@ export namespace Prisma {
     accountNumber: string | null
     ifscCode: string | null
     bankName: string | null
+    micrCode: string | null
+    upiId: string | null
     branchName: string | null
     accountHolderName: string | null
     accountType: $Enums.BankAccountType | null
@@ -7870,6 +9184,8 @@ export namespace Prisma {
     accountNumber: string | null
     ifscCode: string | null
     bankName: string | null
+    micrCode: string | null
+    upiId: string | null
     branchName: string | null
     accountHolderName: string | null
     accountType: $Enums.BankAccountType | null
@@ -7885,6 +9201,8 @@ export namespace Prisma {
     accountNumber: number
     ifscCode: number
     bankName: number
+    micrCode: number
+    upiId: number
     branchName: number
     accountHolderName: number
     accountType: number
@@ -7902,6 +9220,8 @@ export namespace Prisma {
     accountNumber?: true
     ifscCode?: true
     bankName?: true
+    micrCode?: true
+    upiId?: true
     branchName?: true
     accountHolderName?: true
     accountType?: true
@@ -7917,6 +9237,8 @@ export namespace Prisma {
     accountNumber?: true
     ifscCode?: true
     bankName?: true
+    micrCode?: true
+    upiId?: true
     branchName?: true
     accountHolderName?: true
     accountType?: true
@@ -7932,6 +9254,8 @@ export namespace Prisma {
     accountNumber?: true
     ifscCode?: true
     bankName?: true
+    micrCode?: true
+    upiId?: true
     branchName?: true
     accountHolderName?: true
     accountType?: true
@@ -8017,11 +9341,13 @@ export namespace Prisma {
   export type BankAccountGroupByOutputType = {
     id: string
     userId: string
-    accountNumber: string
-    ifscCode: string
-    bankName: string
-    branchName: string
-    accountHolderName: string
+    accountNumber: string | null
+    ifscCode: string | null
+    bankName: string | null
+    micrCode: string | null
+    upiId: string | null
+    branchName: string | null
+    accountHolderName: string | null
     accountType: $Enums.BankAccountType
     isPrimary: boolean
     isVerified: boolean
@@ -8052,6 +9378,8 @@ export namespace Prisma {
     accountNumber?: boolean
     ifscCode?: boolean
     bankName?: boolean
+    micrCode?: boolean
+    upiId?: boolean
     branchName?: boolean
     accountHolderName?: boolean
     accountType?: boolean
@@ -8068,6 +9396,8 @@ export namespace Prisma {
     accountNumber?: boolean
     ifscCode?: boolean
     bankName?: boolean
+    micrCode?: boolean
+    upiId?: boolean
     branchName?: boolean
     accountHolderName?: boolean
     accountType?: boolean
@@ -8084,6 +9414,8 @@ export namespace Prisma {
     accountNumber?: boolean
     ifscCode?: boolean
     bankName?: boolean
+    micrCode?: boolean
+    upiId?: boolean
     branchName?: boolean
     accountHolderName?: boolean
     accountType?: boolean
@@ -8100,6 +9432,8 @@ export namespace Prisma {
     accountNumber?: boolean
     ifscCode?: boolean
     bankName?: boolean
+    micrCode?: boolean
+    upiId?: boolean
     branchName?: boolean
     accountHolderName?: boolean
     accountType?: boolean
@@ -8109,7 +9443,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type BankAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "accountNumber" | "ifscCode" | "bankName" | "branchName" | "accountHolderName" | "accountType" | "isPrimary" | "isVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["bankAccount"]>
+  export type BankAccountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "accountNumber" | "ifscCode" | "bankName" | "micrCode" | "upiId" | "branchName" | "accountHolderName" | "accountType" | "isPrimary" | "isVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["bankAccount"]>
   export type BankAccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -8128,11 +9462,13 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
-      accountNumber: string
-      ifscCode: string
-      bankName: string
-      branchName: string
-      accountHolderName: string
+      accountNumber: string | null
+      ifscCode: string | null
+      bankName: string | null
+      micrCode: string | null
+      upiId: string | null
+      branchName: string | null
+      accountHolderName: string | null
       accountType: $Enums.BankAccountType
       isPrimary: boolean
       isVerified: boolean
@@ -8567,6 +9903,8 @@ export namespace Prisma {
     readonly accountNumber: FieldRef<"BankAccount", 'String'>
     readonly ifscCode: FieldRef<"BankAccount", 'String'>
     readonly bankName: FieldRef<"BankAccount", 'String'>
+    readonly micrCode: FieldRef<"BankAccount", 'String'>
+    readonly upiId: FieldRef<"BankAccount", 'String'>
     readonly branchName: FieldRef<"BankAccount", 'String'>
     readonly accountHolderName: FieldRef<"BankAccount", 'String'>
     readonly accountType: FieldRef<"BankAccount", 'BankAccountType'>
@@ -35548,6 +36886,24 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const NomineeScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    name: 'name',
+    relationship: 'relationship',
+    phone: 'phone',
+    dob: 'dob',
+    email: 'email',
+    address: 'address',
+    panNumber: 'panNumber',
+    percentage: 'percentage',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type NomineeScalarFieldEnum = (typeof NomineeScalarFieldEnum)[keyof typeof NomineeScalarFieldEnum]
+
+
   export const UserVerificationScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -35574,6 +36930,7 @@ export namespace Prisma {
     occupation: 'occupation',
     annualIncome: 'annualIncome',
     tradingExperience: 'tradingExperience',
+    signature: 'signature',
     riskProfile: 'riskProfile',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -35588,6 +36945,8 @@ export namespace Prisma {
     accountNumber: 'accountNumber',
     ifscCode: 'ifscCode',
     bankName: 'bankName',
+    micrCode: 'micrCode',
+    upiId: 'upiId',
     branchName: 'branchName',
     accountHolderName: 'accountHolderName',
     accountType: 'accountType',
@@ -36053,6 +37412,19 @@ export namespace Prisma {
   export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
 
 
+  export const NomineeOrderByRelevanceFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    name: 'name',
+    phone: 'phone',
+    email: 'email',
+    address: 'address',
+    panNumber: 'panNumber'
+  };
+
+  export type NomineeOrderByRelevanceFieldEnum = (typeof NomineeOrderByRelevanceFieldEnum)[keyof typeof NomineeOrderByRelevanceFieldEnum]
+
+
   export const UserVerificationOrderByRelevanceFieldEnum: {
     id: 'id',
     userId: 'userId'
@@ -36071,11 +37443,10 @@ export namespace Prisma {
     pincode: 'pincode',
     fatherName: 'fatherName',
     motherName: 'motherName',
-    maritalStatus: 'maritalStatus',
     country: 'country',
-    occupation: 'occupation',
     annualIncome: 'annualIncome',
-    tradingExperience: 'tradingExperience'
+    tradingExperience: 'tradingExperience',
+    signature: 'signature'
   };
 
   export type UserProfileOrderByRelevanceFieldEnum = (typeof UserProfileOrderByRelevanceFieldEnum)[keyof typeof UserProfileOrderByRelevanceFieldEnum]
@@ -36087,6 +37458,8 @@ export namespace Prisma {
     accountNumber: 'accountNumber',
     ifscCode: 'ifscCode',
     bankName: 'bankName',
+    micrCode: 'micrCode',
+    upiId: 'upiId',
     branchName: 'branchName',
     accountHolderName: 'accountHolderName'
   };
@@ -36422,6 +37795,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'RelationshipType'
+   */
+  export type EnumRelationshipTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RelationshipType'>
+    
+
+
+  /**
+   * Reference to a field of type 'RelationshipType[]'
+   */
+  export type ListEnumRelationshipTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RelationshipType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
    * Reference to a field of type 'KYCStage'
    */
   export type EnumKYCStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'KYCStage'>
@@ -36432,6 +37833,34 @@ export namespace Prisma {
    * Reference to a field of type 'KYCStage[]'
    */
   export type ListEnumKYCStageFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'KYCStage[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MartialStatusType'
+   */
+  export type EnumMartialStatusTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MartialStatusType'>
+    
+
+
+  /**
+   * Reference to a field of type 'MartialStatusType[]'
+   */
+  export type ListEnumMartialStatusTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MartialStatusType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'OccupationType'
+   */
+  export type EnumOccupationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OccupationType'>
+    
+
+
+  /**
+   * Reference to a field of type 'OccupationType[]'
+   */
+  export type ListEnumOccupationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OccupationType[]'>
     
 
 
@@ -36474,20 +37903,6 @@ export namespace Prisma {
    * Reference to a field of type 'FundTransactionType[]'
    */
   export type ListEnumFundTransactionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FundTransactionType[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
@@ -36811,6 +38226,7 @@ export namespace Prisma {
     profile?: XOR<UserProfileNullableScalarRelationFilter, UserProfileWhereInput> | null
     UserVerification?: XOR<UserVerificationNullableScalarRelationFilter, UserVerificationWhereInput> | null
     watchlists?: WatchlistListRelationFilter
+    nominees?: NomineeListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -36847,6 +38263,7 @@ export namespace Prisma {
     profile?: UserProfileOrderByWithRelationInput
     UserVerification?: UserVerificationOrderByWithRelationInput
     watchlists?: WatchlistOrderByRelationAggregateInput
+    nominees?: NomineeOrderByRelationAggregateInput
     _relevance?: UserOrderByRelevanceInput
   }
 
@@ -36855,13 +38272,13 @@ export namespace Prisma {
     email?: string
     phone?: string
     panNumber?: string
+    aadhaarNumber?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     password?: StringNullableFilter<"User"> | string | null
     firstName?: StringNullableFilter<"User"> | string | null
     lastName?: StringNullableFilter<"User"> | string | null
-    aadhaarNumber?: StringNullableFilter<"User"> | string | null
     dob?: DateTimeNullableFilter<"User"> | Date | string | null
     kycStatus?: EnumKYCStatusNullableFilter<"User"> | $Enums.KYCStatus | null
     accountType?: EnumAccountTypeNullableFilter<"User"> | $Enums.AccountType | null
@@ -36887,7 +38304,8 @@ export namespace Prisma {
     profile?: XOR<UserProfileNullableScalarRelationFilter, UserProfileWhereInput> | null
     UserVerification?: XOR<UserVerificationNullableScalarRelationFilter, UserVerificationWhereInput> | null
     watchlists?: WatchlistListRelationFilter
-  }, "id" | "email" | "phone" | "panNumber">
+    nominees?: NomineeListRelationFilter
+  }, "id" | "email" | "phone" | "panNumber" | "aadhaarNumber">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -36935,6 +38353,99 @@ export namespace Prisma {
     updatedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     isVerified?: BoolWithAggregatesFilter<"User"> | boolean
     segment?: EnumSegmentWithAggregatesFilter<"User"> | $Enums.Segment
+  }
+
+  export type NomineeWhereInput = {
+    AND?: NomineeWhereInput | NomineeWhereInput[]
+    OR?: NomineeWhereInput[]
+    NOT?: NomineeWhereInput | NomineeWhereInput[]
+    id?: StringFilter<"Nominee"> | string
+    userId?: StringFilter<"Nominee"> | string
+    name?: StringFilter<"Nominee"> | string
+    relationship?: EnumRelationshipTypeFilter<"Nominee"> | $Enums.RelationshipType
+    phone?: StringFilter<"Nominee"> | string
+    dob?: DateTimeFilter<"Nominee"> | Date | string
+    email?: StringFilter<"Nominee"> | string
+    address?: StringFilter<"Nominee"> | string
+    panNumber?: StringFilter<"Nominee"> | string
+    percentage?: FloatFilter<"Nominee"> | number
+    createdAt?: DateTimeFilter<"Nominee"> | Date | string
+    updatedAt?: DateTimeFilter<"Nominee"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type NomineeOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    relationship?: SortOrder
+    phone?: SortOrder
+    dob?: SortOrder
+    email?: SortOrder
+    address?: SortOrder
+    panNumber?: SortOrder
+    percentage?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    _relevance?: NomineeOrderByRelevanceInput
+  }
+
+  export type NomineeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: NomineeWhereInput | NomineeWhereInput[]
+    OR?: NomineeWhereInput[]
+    NOT?: NomineeWhereInput | NomineeWhereInput[]
+    userId?: StringFilter<"Nominee"> | string
+    name?: StringFilter<"Nominee"> | string
+    relationship?: EnumRelationshipTypeFilter<"Nominee"> | $Enums.RelationshipType
+    phone?: StringFilter<"Nominee"> | string
+    dob?: DateTimeFilter<"Nominee"> | Date | string
+    email?: StringFilter<"Nominee"> | string
+    address?: StringFilter<"Nominee"> | string
+    panNumber?: StringFilter<"Nominee"> | string
+    percentage?: FloatFilter<"Nominee"> | number
+    createdAt?: DateTimeFilter<"Nominee"> | Date | string
+    updatedAt?: DateTimeFilter<"Nominee"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type NomineeOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    relationship?: SortOrder
+    phone?: SortOrder
+    dob?: SortOrder
+    email?: SortOrder
+    address?: SortOrder
+    panNumber?: SortOrder
+    percentage?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: NomineeCountOrderByAggregateInput
+    _avg?: NomineeAvgOrderByAggregateInput
+    _max?: NomineeMaxOrderByAggregateInput
+    _min?: NomineeMinOrderByAggregateInput
+    _sum?: NomineeSumOrderByAggregateInput
+  }
+
+  export type NomineeScalarWhereWithAggregatesInput = {
+    AND?: NomineeScalarWhereWithAggregatesInput | NomineeScalarWhereWithAggregatesInput[]
+    OR?: NomineeScalarWhereWithAggregatesInput[]
+    NOT?: NomineeScalarWhereWithAggregatesInput | NomineeScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Nominee"> | string
+    userId?: StringWithAggregatesFilter<"Nominee"> | string
+    name?: StringWithAggregatesFilter<"Nominee"> | string
+    relationship?: EnumRelationshipTypeWithAggregatesFilter<"Nominee"> | $Enums.RelationshipType
+    phone?: StringWithAggregatesFilter<"Nominee"> | string
+    dob?: DateTimeWithAggregatesFilter<"Nominee"> | Date | string
+    email?: StringWithAggregatesFilter<"Nominee"> | string
+    address?: StringWithAggregatesFilter<"Nominee"> | string
+    panNumber?: StringWithAggregatesFilter<"Nominee"> | string
+    percentage?: FloatWithAggregatesFilter<"Nominee"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Nominee"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Nominee"> | Date | string
   }
 
   export type UserVerificationWhereInput = {
@@ -36999,18 +38510,19 @@ export namespace Prisma {
     NOT?: UserProfileWhereInput | UserProfileWhereInput[]
     id?: StringFilter<"UserProfile"> | string
     userId?: StringFilter<"UserProfile"> | string
-    addressLine1?: StringFilter<"UserProfile"> | string
+    addressLine1?: StringNullableFilter<"UserProfile"> | string | null
     addressLine2?: StringNullableFilter<"UserProfile"> | string | null
-    city?: StringFilter<"UserProfile"> | string
-    state?: StringFilter<"UserProfile"> | string
-    pincode?: StringFilter<"UserProfile"> | string
+    city?: StringNullableFilter<"UserProfile"> | string | null
+    state?: StringNullableFilter<"UserProfile"> | string | null
+    pincode?: StringNullableFilter<"UserProfile"> | string | null
     fatherName?: StringNullableFilter<"UserProfile"> | string | null
     motherName?: StringNullableFilter<"UserProfile"> | string | null
-    maritalStatus?: StringNullableFilter<"UserProfile"> | string | null
-    country?: StringFilter<"UserProfile"> | string
-    occupation?: StringNullableFilter<"UserProfile"> | string | null
+    maritalStatus?: EnumMartialStatusTypeNullableFilter<"UserProfile"> | $Enums.MartialStatusType | null
+    country?: StringNullableFilter<"UserProfile"> | string | null
+    occupation?: EnumOccupationTypeNullableFilter<"UserProfile"> | $Enums.OccupationType | null
     annualIncome?: StringNullableFilter<"UserProfile"> | string | null
     tradingExperience?: StringNullableFilter<"UserProfile"> | string | null
+    signature?: StringNullableFilter<"UserProfile"> | string | null
     riskProfile?: EnumRiskProfileFilter<"UserProfile"> | $Enums.RiskProfile
     createdAt?: DateTimeFilter<"UserProfile"> | Date | string
     updatedAt?: DateTimeFilter<"UserProfile"> | Date | string
@@ -37020,18 +38532,19 @@ export namespace Prisma {
   export type UserProfileOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    addressLine1?: SortOrder
+    addressLine1?: SortOrderInput | SortOrder
     addressLine2?: SortOrderInput | SortOrder
-    city?: SortOrder
-    state?: SortOrder
-    pincode?: SortOrder
+    city?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
+    pincode?: SortOrderInput | SortOrder
     fatherName?: SortOrderInput | SortOrder
     motherName?: SortOrderInput | SortOrder
     maritalStatus?: SortOrderInput | SortOrder
-    country?: SortOrder
+    country?: SortOrderInput | SortOrder
     occupation?: SortOrderInput | SortOrder
     annualIncome?: SortOrderInput | SortOrder
     tradingExperience?: SortOrderInput | SortOrder
+    signature?: SortOrderInput | SortOrder
     riskProfile?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -37045,18 +38558,19 @@ export namespace Prisma {
     AND?: UserProfileWhereInput | UserProfileWhereInput[]
     OR?: UserProfileWhereInput[]
     NOT?: UserProfileWhereInput | UserProfileWhereInput[]
-    addressLine1?: StringFilter<"UserProfile"> | string
+    addressLine1?: StringNullableFilter<"UserProfile"> | string | null
     addressLine2?: StringNullableFilter<"UserProfile"> | string | null
-    city?: StringFilter<"UserProfile"> | string
-    state?: StringFilter<"UserProfile"> | string
-    pincode?: StringFilter<"UserProfile"> | string
+    city?: StringNullableFilter<"UserProfile"> | string | null
+    state?: StringNullableFilter<"UserProfile"> | string | null
+    pincode?: StringNullableFilter<"UserProfile"> | string | null
     fatherName?: StringNullableFilter<"UserProfile"> | string | null
     motherName?: StringNullableFilter<"UserProfile"> | string | null
-    maritalStatus?: StringNullableFilter<"UserProfile"> | string | null
-    country?: StringFilter<"UserProfile"> | string
-    occupation?: StringNullableFilter<"UserProfile"> | string | null
+    maritalStatus?: EnumMartialStatusTypeNullableFilter<"UserProfile"> | $Enums.MartialStatusType | null
+    country?: StringNullableFilter<"UserProfile"> | string | null
+    occupation?: EnumOccupationTypeNullableFilter<"UserProfile"> | $Enums.OccupationType | null
     annualIncome?: StringNullableFilter<"UserProfile"> | string | null
     tradingExperience?: StringNullableFilter<"UserProfile"> | string | null
+    signature?: StringNullableFilter<"UserProfile"> | string | null
     riskProfile?: EnumRiskProfileFilter<"UserProfile"> | $Enums.RiskProfile
     createdAt?: DateTimeFilter<"UserProfile"> | Date | string
     updatedAt?: DateTimeFilter<"UserProfile"> | Date | string
@@ -37066,18 +38580,19 @@ export namespace Prisma {
   export type UserProfileOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    addressLine1?: SortOrder
+    addressLine1?: SortOrderInput | SortOrder
     addressLine2?: SortOrderInput | SortOrder
-    city?: SortOrder
-    state?: SortOrder
-    pincode?: SortOrder
+    city?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
+    pincode?: SortOrderInput | SortOrder
     fatherName?: SortOrderInput | SortOrder
     motherName?: SortOrderInput | SortOrder
     maritalStatus?: SortOrderInput | SortOrder
-    country?: SortOrder
+    country?: SortOrderInput | SortOrder
     occupation?: SortOrderInput | SortOrder
     annualIncome?: SortOrderInput | SortOrder
     tradingExperience?: SortOrderInput | SortOrder
+    signature?: SortOrderInput | SortOrder
     riskProfile?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -37092,18 +38607,19 @@ export namespace Prisma {
     NOT?: UserProfileScalarWhereWithAggregatesInput | UserProfileScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"UserProfile"> | string
     userId?: StringWithAggregatesFilter<"UserProfile"> | string
-    addressLine1?: StringWithAggregatesFilter<"UserProfile"> | string
+    addressLine1?: StringNullableWithAggregatesFilter<"UserProfile"> | string | null
     addressLine2?: StringNullableWithAggregatesFilter<"UserProfile"> | string | null
-    city?: StringWithAggregatesFilter<"UserProfile"> | string
-    state?: StringWithAggregatesFilter<"UserProfile"> | string
-    pincode?: StringWithAggregatesFilter<"UserProfile"> | string
+    city?: StringNullableWithAggregatesFilter<"UserProfile"> | string | null
+    state?: StringNullableWithAggregatesFilter<"UserProfile"> | string | null
+    pincode?: StringNullableWithAggregatesFilter<"UserProfile"> | string | null
     fatherName?: StringNullableWithAggregatesFilter<"UserProfile"> | string | null
     motherName?: StringNullableWithAggregatesFilter<"UserProfile"> | string | null
-    maritalStatus?: StringNullableWithAggregatesFilter<"UserProfile"> | string | null
-    country?: StringWithAggregatesFilter<"UserProfile"> | string
-    occupation?: StringNullableWithAggregatesFilter<"UserProfile"> | string | null
+    maritalStatus?: EnumMartialStatusTypeNullableWithAggregatesFilter<"UserProfile"> | $Enums.MartialStatusType | null
+    country?: StringNullableWithAggregatesFilter<"UserProfile"> | string | null
+    occupation?: EnumOccupationTypeNullableWithAggregatesFilter<"UserProfile"> | $Enums.OccupationType | null
     annualIncome?: StringNullableWithAggregatesFilter<"UserProfile"> | string | null
     tradingExperience?: StringNullableWithAggregatesFilter<"UserProfile"> | string | null
+    signature?: StringNullableWithAggregatesFilter<"UserProfile"> | string | null
     riskProfile?: EnumRiskProfileWithAggregatesFilter<"UserProfile"> | $Enums.RiskProfile
     createdAt?: DateTimeWithAggregatesFilter<"UserProfile"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"UserProfile"> | Date | string
@@ -37115,11 +38631,13 @@ export namespace Prisma {
     NOT?: BankAccountWhereInput | BankAccountWhereInput[]
     id?: StringFilter<"BankAccount"> | string
     userId?: StringFilter<"BankAccount"> | string
-    accountNumber?: StringFilter<"BankAccount"> | string
-    ifscCode?: StringFilter<"BankAccount"> | string
-    bankName?: StringFilter<"BankAccount"> | string
-    branchName?: StringFilter<"BankAccount"> | string
-    accountHolderName?: StringFilter<"BankAccount"> | string
+    accountNumber?: StringNullableFilter<"BankAccount"> | string | null
+    ifscCode?: StringNullableFilter<"BankAccount"> | string | null
+    bankName?: StringNullableFilter<"BankAccount"> | string | null
+    micrCode?: StringNullableFilter<"BankAccount"> | string | null
+    upiId?: StringNullableFilter<"BankAccount"> | string | null
+    branchName?: StringNullableFilter<"BankAccount"> | string | null
+    accountHolderName?: StringNullableFilter<"BankAccount"> | string | null
     accountType?: EnumBankAccountTypeFilter<"BankAccount"> | $Enums.BankAccountType
     isPrimary?: BoolFilter<"BankAccount"> | boolean
     isVerified?: BoolFilter<"BankAccount"> | boolean
@@ -37131,11 +38649,13 @@ export namespace Prisma {
   export type BankAccountOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    accountNumber?: SortOrder
-    ifscCode?: SortOrder
-    bankName?: SortOrder
-    branchName?: SortOrder
-    accountHolderName?: SortOrder
+    accountNumber?: SortOrderInput | SortOrder
+    ifscCode?: SortOrderInput | SortOrder
+    bankName?: SortOrderInput | SortOrder
+    micrCode?: SortOrderInput | SortOrder
+    upiId?: SortOrderInput | SortOrder
+    branchName?: SortOrderInput | SortOrder
+    accountHolderName?: SortOrderInput | SortOrder
     accountType?: SortOrder
     isPrimary?: SortOrder
     isVerified?: SortOrder
@@ -37151,11 +38671,13 @@ export namespace Prisma {
     OR?: BankAccountWhereInput[]
     NOT?: BankAccountWhereInput | BankAccountWhereInput[]
     userId?: StringFilter<"BankAccount"> | string
-    accountNumber?: StringFilter<"BankAccount"> | string
-    ifscCode?: StringFilter<"BankAccount"> | string
-    bankName?: StringFilter<"BankAccount"> | string
-    branchName?: StringFilter<"BankAccount"> | string
-    accountHolderName?: StringFilter<"BankAccount"> | string
+    accountNumber?: StringNullableFilter<"BankAccount"> | string | null
+    ifscCode?: StringNullableFilter<"BankAccount"> | string | null
+    bankName?: StringNullableFilter<"BankAccount"> | string | null
+    micrCode?: StringNullableFilter<"BankAccount"> | string | null
+    upiId?: StringNullableFilter<"BankAccount"> | string | null
+    branchName?: StringNullableFilter<"BankAccount"> | string | null
+    accountHolderName?: StringNullableFilter<"BankAccount"> | string | null
     accountType?: EnumBankAccountTypeFilter<"BankAccount"> | $Enums.BankAccountType
     isPrimary?: BoolFilter<"BankAccount"> | boolean
     isVerified?: BoolFilter<"BankAccount"> | boolean
@@ -37167,11 +38689,13 @@ export namespace Prisma {
   export type BankAccountOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    accountNumber?: SortOrder
-    ifscCode?: SortOrder
-    bankName?: SortOrder
-    branchName?: SortOrder
-    accountHolderName?: SortOrder
+    accountNumber?: SortOrderInput | SortOrder
+    ifscCode?: SortOrderInput | SortOrder
+    bankName?: SortOrderInput | SortOrder
+    micrCode?: SortOrderInput | SortOrder
+    upiId?: SortOrderInput | SortOrder
+    branchName?: SortOrderInput | SortOrder
+    accountHolderName?: SortOrderInput | SortOrder
     accountType?: SortOrder
     isPrimary?: SortOrder
     isVerified?: SortOrder
@@ -37188,11 +38712,13 @@ export namespace Prisma {
     NOT?: BankAccountScalarWhereWithAggregatesInput | BankAccountScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"BankAccount"> | string
     userId?: StringWithAggregatesFilter<"BankAccount"> | string
-    accountNumber?: StringWithAggregatesFilter<"BankAccount"> | string
-    ifscCode?: StringWithAggregatesFilter<"BankAccount"> | string
-    bankName?: StringWithAggregatesFilter<"BankAccount"> | string
-    branchName?: StringWithAggregatesFilter<"BankAccount"> | string
-    accountHolderName?: StringWithAggregatesFilter<"BankAccount"> | string
+    accountNumber?: StringNullableWithAggregatesFilter<"BankAccount"> | string | null
+    ifscCode?: StringNullableWithAggregatesFilter<"BankAccount"> | string | null
+    bankName?: StringNullableWithAggregatesFilter<"BankAccount"> | string | null
+    micrCode?: StringNullableWithAggregatesFilter<"BankAccount"> | string | null
+    upiId?: StringNullableWithAggregatesFilter<"BankAccount"> | string | null
+    branchName?: StringNullableWithAggregatesFilter<"BankAccount"> | string | null
+    accountHolderName?: StringNullableWithAggregatesFilter<"BankAccount"> | string | null
     accountType?: EnumBankAccountTypeWithAggregatesFilter<"BankAccount"> | $Enums.BankAccountType
     isPrimary?: BoolWithAggregatesFilter<"BankAccount"> | boolean
     isVerified?: BoolWithAggregatesFilter<"BankAccount"> | boolean
@@ -39407,6 +40933,7 @@ export namespace Prisma {
     profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
     watchlists?: WatchlistCreateNestedManyWithoutUserInput
+    nominees?: NomineeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -39443,6 +40970,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
     watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+    nominees?: NomineeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -39479,6 +41007,7 @@ export namespace Prisma {
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -39515,6 +41044,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -39580,6 +41110,110 @@ export namespace Prisma {
     segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
   }
 
+  export type NomineeCreateInput = {
+    id?: string
+    name: string
+    relationship: $Enums.RelationshipType
+    phone: string
+    dob: Date | string
+    email: string
+    address: string
+    panNumber: string
+    percentage: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutNomineesInput
+  }
+
+  export type NomineeUncheckedCreateInput = {
+    id?: string
+    userId: string
+    name: string
+    relationship: $Enums.RelationshipType
+    phone: string
+    dob: Date | string
+    email: string
+    address: string
+    panNumber: string
+    percentage: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NomineeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    relationship?: EnumRelationshipTypeFieldUpdateOperationsInput | $Enums.RelationshipType
+    phone?: StringFieldUpdateOperationsInput | string
+    dob?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    panNumber?: StringFieldUpdateOperationsInput | string
+    percentage?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutNomineesNestedInput
+  }
+
+  export type NomineeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    relationship?: EnumRelationshipTypeFieldUpdateOperationsInput | $Enums.RelationshipType
+    phone?: StringFieldUpdateOperationsInput | string
+    dob?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    panNumber?: StringFieldUpdateOperationsInput | string
+    percentage?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NomineeCreateManyInput = {
+    id?: string
+    userId: string
+    name: string
+    relationship: $Enums.RelationshipType
+    phone: string
+    dob: Date | string
+    email: string
+    address: string
+    panNumber: string
+    percentage: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NomineeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    relationship?: EnumRelationshipTypeFieldUpdateOperationsInput | $Enums.RelationshipType
+    phone?: StringFieldUpdateOperationsInput | string
+    dob?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    panNumber?: StringFieldUpdateOperationsInput | string
+    percentage?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NomineeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    relationship?: EnumRelationshipTypeFieldUpdateOperationsInput | $Enums.RelationshipType
+    phone?: StringFieldUpdateOperationsInput | string
+    dob?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    panNumber?: StringFieldUpdateOperationsInput | string
+    percentage?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserVerificationCreateInput = {
     id?: string
     stage?: $Enums.KYCStage
@@ -39637,18 +41271,19 @@ export namespace Prisma {
 
   export type UserProfileCreateInput = {
     id?: string
-    addressLine1: string
+    addressLine1?: string | null
     addressLine2?: string | null
-    city: string
-    state: string
-    pincode: string
+    city?: string | null
+    state?: string | null
+    pincode?: string | null
     fatherName?: string | null
     motherName?: string | null
-    maritalStatus?: string | null
-    country?: string
-    occupation?: string | null
+    maritalStatus?: $Enums.MartialStatusType | null
+    country?: string | null
+    occupation?: $Enums.OccupationType | null
     annualIncome?: string | null
     tradingExperience?: string | null
+    signature?: string | null
     riskProfile?: $Enums.RiskProfile
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -39658,18 +41293,19 @@ export namespace Prisma {
   export type UserProfileUncheckedCreateInput = {
     id?: string
     userId: string
-    addressLine1: string
+    addressLine1?: string | null
     addressLine2?: string | null
-    city: string
-    state: string
-    pincode: string
+    city?: string | null
+    state?: string | null
+    pincode?: string | null
     fatherName?: string | null
     motherName?: string | null
-    maritalStatus?: string | null
-    country?: string
-    occupation?: string | null
+    maritalStatus?: $Enums.MartialStatusType | null
+    country?: string | null
+    occupation?: $Enums.OccupationType | null
     annualIncome?: string | null
     tradingExperience?: string | null
+    signature?: string | null
     riskProfile?: $Enums.RiskProfile
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -39677,18 +41313,19 @@ export namespace Prisma {
 
   export type UserProfileUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    addressLine1?: StringFieldUpdateOperationsInput | string
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    state?: StringFieldUpdateOperationsInput | string
-    pincode?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
-    country?: StringFieldUpdateOperationsInput | string
-    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMartialStatusTypeFieldUpdateOperationsInput | $Enums.MartialStatusType | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableEnumOccupationTypeFieldUpdateOperationsInput | $Enums.OccupationType | null
     annualIncome?: NullableStringFieldUpdateOperationsInput | string | null
     tradingExperience?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
     riskProfile?: EnumRiskProfileFieldUpdateOperationsInput | $Enums.RiskProfile
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39698,18 +41335,19 @@ export namespace Prisma {
   export type UserProfileUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    addressLine1?: StringFieldUpdateOperationsInput | string
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    state?: StringFieldUpdateOperationsInput | string
-    pincode?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
-    country?: StringFieldUpdateOperationsInput | string
-    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMartialStatusTypeFieldUpdateOperationsInput | $Enums.MartialStatusType | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableEnumOccupationTypeFieldUpdateOperationsInput | $Enums.OccupationType | null
     annualIncome?: NullableStringFieldUpdateOperationsInput | string | null
     tradingExperience?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
     riskProfile?: EnumRiskProfileFieldUpdateOperationsInput | $Enums.RiskProfile
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39718,18 +41356,19 @@ export namespace Prisma {
   export type UserProfileCreateManyInput = {
     id?: string
     userId: string
-    addressLine1: string
+    addressLine1?: string | null
     addressLine2?: string | null
-    city: string
-    state: string
-    pincode: string
+    city?: string | null
+    state?: string | null
+    pincode?: string | null
     fatherName?: string | null
     motherName?: string | null
-    maritalStatus?: string | null
-    country?: string
-    occupation?: string | null
+    maritalStatus?: $Enums.MartialStatusType | null
+    country?: string | null
+    occupation?: $Enums.OccupationType | null
     annualIncome?: string | null
     tradingExperience?: string | null
+    signature?: string | null
     riskProfile?: $Enums.RiskProfile
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -39737,18 +41376,19 @@ export namespace Prisma {
 
   export type UserProfileUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    addressLine1?: StringFieldUpdateOperationsInput | string
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    state?: StringFieldUpdateOperationsInput | string
-    pincode?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
-    country?: StringFieldUpdateOperationsInput | string
-    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMartialStatusTypeFieldUpdateOperationsInput | $Enums.MartialStatusType | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableEnumOccupationTypeFieldUpdateOperationsInput | $Enums.OccupationType | null
     annualIncome?: NullableStringFieldUpdateOperationsInput | string | null
     tradingExperience?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
     riskProfile?: EnumRiskProfileFieldUpdateOperationsInput | $Enums.RiskProfile
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39757,18 +41397,19 @@ export namespace Prisma {
   export type UserProfileUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    addressLine1?: StringFieldUpdateOperationsInput | string
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    state?: StringFieldUpdateOperationsInput | string
-    pincode?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
-    country?: StringFieldUpdateOperationsInput | string
-    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMartialStatusTypeFieldUpdateOperationsInput | $Enums.MartialStatusType | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableEnumOccupationTypeFieldUpdateOperationsInput | $Enums.OccupationType | null
     annualIncome?: NullableStringFieldUpdateOperationsInput | string | null
     tradingExperience?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
     riskProfile?: EnumRiskProfileFieldUpdateOperationsInput | $Enums.RiskProfile
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -39776,11 +41417,13 @@ export namespace Prisma {
 
   export type BankAccountCreateInput = {
     id?: string
-    accountNumber: string
-    ifscCode: string
-    bankName: string
-    branchName: string
-    accountHolderName: string
+    accountNumber?: string | null
+    ifscCode?: string | null
+    bankName?: string | null
+    micrCode?: string | null
+    upiId?: string | null
+    branchName?: string | null
+    accountHolderName?: string | null
     accountType: $Enums.BankAccountType
     isPrimary?: boolean
     isVerified?: boolean
@@ -39792,11 +41435,13 @@ export namespace Prisma {
   export type BankAccountUncheckedCreateInput = {
     id?: string
     userId: string
-    accountNumber: string
-    ifscCode: string
-    bankName: string
-    branchName: string
-    accountHolderName: string
+    accountNumber?: string | null
+    ifscCode?: string | null
+    bankName?: string | null
+    micrCode?: string | null
+    upiId?: string | null
+    branchName?: string | null
+    accountHolderName?: string | null
     accountType: $Enums.BankAccountType
     isPrimary?: boolean
     isVerified?: boolean
@@ -39806,11 +41451,13 @@ export namespace Prisma {
 
   export type BankAccountUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    accountNumber?: StringFieldUpdateOperationsInput | string
-    ifscCode?: StringFieldUpdateOperationsInput | string
-    bankName?: StringFieldUpdateOperationsInput | string
-    branchName?: StringFieldUpdateOperationsInput | string
-    accountHolderName?: StringFieldUpdateOperationsInput | string
+    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    micrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountHolderName?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -39822,11 +41469,13 @@ export namespace Prisma {
   export type BankAccountUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    accountNumber?: StringFieldUpdateOperationsInput | string
-    ifscCode?: StringFieldUpdateOperationsInput | string
-    bankName?: StringFieldUpdateOperationsInput | string
-    branchName?: StringFieldUpdateOperationsInput | string
-    accountHolderName?: StringFieldUpdateOperationsInput | string
+    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    micrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountHolderName?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -39837,11 +41486,13 @@ export namespace Prisma {
   export type BankAccountCreateManyInput = {
     id?: string
     userId: string
-    accountNumber: string
-    ifscCode: string
-    bankName: string
-    branchName: string
-    accountHolderName: string
+    accountNumber?: string | null
+    ifscCode?: string | null
+    bankName?: string | null
+    micrCode?: string | null
+    upiId?: string | null
+    branchName?: string | null
+    accountHolderName?: string | null
     accountType: $Enums.BankAccountType
     isPrimary?: boolean
     isVerified?: boolean
@@ -39851,11 +41502,13 @@ export namespace Prisma {
 
   export type BankAccountUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    accountNumber?: StringFieldUpdateOperationsInput | string
-    ifscCode?: StringFieldUpdateOperationsInput | string
-    bankName?: StringFieldUpdateOperationsInput | string
-    branchName?: StringFieldUpdateOperationsInput | string
-    accountHolderName?: StringFieldUpdateOperationsInput | string
+    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    micrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountHolderName?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -39866,11 +41519,13 @@ export namespace Prisma {
   export type BankAccountUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    accountNumber?: StringFieldUpdateOperationsInput | string
-    ifscCode?: StringFieldUpdateOperationsInput | string
-    bankName?: StringFieldUpdateOperationsInput | string
-    branchName?: StringFieldUpdateOperationsInput | string
-    accountHolderName?: StringFieldUpdateOperationsInput | string
+    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    micrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountHolderName?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -42511,6 +44166,12 @@ export namespace Prisma {
     none?: WatchlistWhereInput
   }
 
+  export type NomineeListRelationFilter = {
+    every?: NomineeWhereInput
+    some?: NomineeWhereInput
+    none?: NomineeWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -42565,6 +44226,10 @@ export namespace Prisma {
   }
 
   export type WatchlistOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type NomineeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -42745,11 +44410,11 @@ export namespace Prisma {
     _max?: NestedEnumSegmentFilter<$PrismaModel>
   }
 
-  export type EnumKYCStageFilter<$PrismaModel = never> = {
-    equals?: $Enums.KYCStage | EnumKYCStageFieldRefInput<$PrismaModel>
-    in?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
-    notIn?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
-    not?: NestedEnumKYCStageFilter<$PrismaModel> | $Enums.KYCStage
+  export type EnumRelationshipTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.RelationshipType | EnumRelationshipTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RelationshipType[] | ListEnumRelationshipTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RelationshipType[] | ListEnumRelationshipTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRelationshipTypeFilter<$PrismaModel> | $Enums.RelationshipType
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -42763,9 +44428,126 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
+  }
+
+  export type NomineeOrderByRelevanceInput = {
+    fields: NomineeOrderByRelevanceFieldEnum | NomineeOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type NomineeCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    relationship?: SortOrder
+    phone?: SortOrder
+    dob?: SortOrder
+    email?: SortOrder
+    address?: SortOrder
+    panNumber?: SortOrder
+    percentage?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NomineeAvgOrderByAggregateInput = {
+    percentage?: SortOrder
+  }
+
+  export type NomineeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    relationship?: SortOrder
+    phone?: SortOrder
+    dob?: SortOrder
+    email?: SortOrder
+    address?: SortOrder
+    panNumber?: SortOrder
+    percentage?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NomineeMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    relationship?: SortOrder
+    phone?: SortOrder
+    dob?: SortOrder
+    email?: SortOrder
+    address?: SortOrder
+    panNumber?: SortOrder
+    percentage?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type NomineeSumOrderByAggregateInput = {
+    percentage?: SortOrder
+  }
+
+  export type EnumRelationshipTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RelationshipType | EnumRelationshipTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RelationshipType[] | ListEnumRelationshipTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RelationshipType[] | ListEnumRelationshipTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRelationshipTypeWithAggregatesFilter<$PrismaModel> | $Enums.RelationshipType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRelationshipTypeFilter<$PrismaModel>
+    _max?: NestedEnumRelationshipTypeFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type EnumKYCStageFilter<$PrismaModel = never> = {
+    equals?: $Enums.KYCStage | EnumKYCStageFieldRefInput<$PrismaModel>
+    in?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumKYCStageFilter<$PrismaModel> | $Enums.KYCStage
   }
 
   export type UserVerificationOrderByRelevanceInput = {
@@ -42808,18 +44590,18 @@ export namespace Prisma {
     _max?: NestedEnumKYCStageFilter<$PrismaModel>
   }
 
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+  export type EnumMartialStatusTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.MartialStatusType | EnumMartialStatusTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.MartialStatusType[] | ListEnumMartialStatusTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.MartialStatusType[] | ListEnumMartialStatusTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumMartialStatusTypeNullableFilter<$PrismaModel> | $Enums.MartialStatusType | null
+  }
+
+  export type EnumOccupationTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.OccupationType | EnumOccupationTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.OccupationType[] | ListEnumOccupationTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.OccupationType[] | ListEnumOccupationTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumOccupationTypeNullableFilter<$PrismaModel> | $Enums.OccupationType | null
   }
 
   export type EnumRiskProfileFilter<$PrismaModel = never> = {
@@ -42850,6 +44632,7 @@ export namespace Prisma {
     occupation?: SortOrder
     annualIncome?: SortOrder
     tradingExperience?: SortOrder
+    signature?: SortOrder
     riskProfile?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -42870,6 +44653,7 @@ export namespace Prisma {
     occupation?: SortOrder
     annualIncome?: SortOrder
     tradingExperience?: SortOrder
+    signature?: SortOrder
     riskProfile?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -42890,9 +44674,30 @@ export namespace Prisma {
     occupation?: SortOrder
     annualIncome?: SortOrder
     tradingExperience?: SortOrder
+    signature?: SortOrder
     riskProfile?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumMartialStatusTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MartialStatusType | EnumMartialStatusTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.MartialStatusType[] | ListEnumMartialStatusTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.MartialStatusType[] | ListEnumMartialStatusTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumMartialStatusTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.MartialStatusType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumMartialStatusTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumMartialStatusTypeNullableFilter<$PrismaModel>
+  }
+
+  export type EnumOccupationTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OccupationType | EnumOccupationTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.OccupationType[] | ListEnumOccupationTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.OccupationType[] | ListEnumOccupationTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumOccupationTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.OccupationType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumOccupationTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumOccupationTypeNullableFilter<$PrismaModel>
   }
 
   export type EnumRiskProfileWithAggregatesFilter<$PrismaModel = never> = {
@@ -42924,6 +44729,8 @@ export namespace Prisma {
     accountNumber?: SortOrder
     ifscCode?: SortOrder
     bankName?: SortOrder
+    micrCode?: SortOrder
+    upiId?: SortOrder
     branchName?: SortOrder
     accountHolderName?: SortOrder
     accountType?: SortOrder
@@ -42939,6 +44746,8 @@ export namespace Prisma {
     accountNumber?: SortOrder
     ifscCode?: SortOrder
     bankName?: SortOrder
+    micrCode?: SortOrder
+    upiId?: SortOrder
     branchName?: SortOrder
     accountHolderName?: SortOrder
     accountType?: SortOrder
@@ -42954,6 +44763,8 @@ export namespace Prisma {
     accountNumber?: SortOrder
     ifscCode?: SortOrder
     bankName?: SortOrder
+    micrCode?: SortOrder
+    upiId?: SortOrder
     branchName?: SortOrder
     accountHolderName?: SortOrder
     accountType?: SortOrder
@@ -43020,17 +44831,6 @@ export namespace Prisma {
     in?: $Enums.FundTransactionType[] | ListEnumFundTransactionTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.FundTransactionType[] | ListEnumFundTransactionTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumFundTransactionTypeFilter<$PrismaModel> | $Enums.FundTransactionType
-  }
-
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type EnumTransactionStatusFilter<$PrismaModel = never> = {
@@ -43114,22 +44914,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumFundTransactionTypeFilter<$PrismaModel>
     _max?: NestedEnumFundTransactionTypeFilter<$PrismaModel>
-  }
-
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type EnumTransactionStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -45069,6 +46853,13 @@ export namespace Prisma {
     connect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
   }
 
+  export type NomineeCreateNestedManyWithoutUserInput = {
+    create?: XOR<NomineeCreateWithoutUserInput, NomineeUncheckedCreateWithoutUserInput> | NomineeCreateWithoutUserInput[] | NomineeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NomineeCreateOrConnectWithoutUserInput | NomineeCreateOrConnectWithoutUserInput[]
+    createMany?: NomineeCreateManyUserInputEnvelope
+    connect?: NomineeWhereUniqueInput | NomineeWhereUniqueInput[]
+  }
+
   export type AlertUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AlertCreateWithoutUserInput, AlertUncheckedCreateWithoutUserInput> | AlertCreateWithoutUserInput[] | AlertUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AlertCreateOrConnectWithoutUserInput | AlertCreateOrConnectWithoutUserInput[]
@@ -45170,6 +46961,13 @@ export namespace Prisma {
     connectOrCreate?: WatchlistCreateOrConnectWithoutUserInput | WatchlistCreateOrConnectWithoutUserInput[]
     createMany?: WatchlistCreateManyUserInputEnvelope
     connect?: WatchlistWhereUniqueInput | WatchlistWhereUniqueInput[]
+  }
+
+  export type NomineeUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<NomineeCreateWithoutUserInput, NomineeUncheckedCreateWithoutUserInput> | NomineeCreateWithoutUserInput[] | NomineeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NomineeCreateOrConnectWithoutUserInput | NomineeCreateOrConnectWithoutUserInput[]
+    createMany?: NomineeCreateManyUserInputEnvelope
+    connect?: NomineeWhereUniqueInput | NomineeWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -45410,6 +47208,20 @@ export namespace Prisma {
     deleteMany?: WatchlistScalarWhereInput | WatchlistScalarWhereInput[]
   }
 
+  export type NomineeUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NomineeCreateWithoutUserInput, NomineeUncheckedCreateWithoutUserInput> | NomineeCreateWithoutUserInput[] | NomineeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NomineeCreateOrConnectWithoutUserInput | NomineeCreateOrConnectWithoutUserInput[]
+    upsert?: NomineeUpsertWithWhereUniqueWithoutUserInput | NomineeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NomineeCreateManyUserInputEnvelope
+    set?: NomineeWhereUniqueInput | NomineeWhereUniqueInput[]
+    disconnect?: NomineeWhereUniqueInput | NomineeWhereUniqueInput[]
+    delete?: NomineeWhereUniqueInput | NomineeWhereUniqueInput[]
+    connect?: NomineeWhereUniqueInput | NomineeWhereUniqueInput[]
+    update?: NomineeUpdateWithWhereUniqueWithoutUserInput | NomineeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NomineeUpdateManyWithWhereWithoutUserInput | NomineeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NomineeScalarWhereInput | NomineeScalarWhereInput[]
+  }
+
   export type AlertUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AlertCreateWithoutUserInput, AlertUncheckedCreateWithoutUserInput> | AlertCreateWithoutUserInput[] | AlertUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AlertCreateOrConnectWithoutUserInput | AlertCreateOrConnectWithoutUserInput[]
@@ -45612,6 +47424,50 @@ export namespace Prisma {
     deleteMany?: WatchlistScalarWhereInput | WatchlistScalarWhereInput[]
   }
 
+  export type NomineeUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NomineeCreateWithoutUserInput, NomineeUncheckedCreateWithoutUserInput> | NomineeCreateWithoutUserInput[] | NomineeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NomineeCreateOrConnectWithoutUserInput | NomineeCreateOrConnectWithoutUserInput[]
+    upsert?: NomineeUpsertWithWhereUniqueWithoutUserInput | NomineeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NomineeCreateManyUserInputEnvelope
+    set?: NomineeWhereUniqueInput | NomineeWhereUniqueInput[]
+    disconnect?: NomineeWhereUniqueInput | NomineeWhereUniqueInput[]
+    delete?: NomineeWhereUniqueInput | NomineeWhereUniqueInput[]
+    connect?: NomineeWhereUniqueInput | NomineeWhereUniqueInput[]
+    update?: NomineeUpdateWithWhereUniqueWithoutUserInput | NomineeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NomineeUpdateManyWithWhereWithoutUserInput | NomineeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NomineeScalarWhereInput | NomineeScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutNomineesInput = {
+    create?: XOR<UserCreateWithoutNomineesInput, UserUncheckedCreateWithoutNomineesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNomineesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumRelationshipTypeFieldUpdateOperationsInput = {
+    set?: $Enums.RelationshipType
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutNomineesNestedInput = {
+    create?: XOR<UserCreateWithoutNomineesInput, UserUncheckedCreateWithoutNomineesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNomineesInput
+    upsert?: UserUpsertWithoutNomineesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNomineesInput, UserUpdateWithoutNomineesInput>, UserUncheckedUpdateWithoutNomineesInput>
+  }
+
   export type UserCreateNestedOneWithoutUserVerificationInput = {
     create?: XOR<UserCreateWithoutUserVerificationInput, UserUncheckedCreateWithoutUserVerificationInput>
     connectOrCreate?: UserCreateOrConnectWithoutUserVerificationInput
@@ -45620,10 +47476,6 @@ export namespace Prisma {
 
   export type EnumKYCStageFieldUpdateOperationsInput = {
     set?: $Enums.KYCStage
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
   }
 
   export type UserUpdateOneRequiredWithoutUserVerificationNestedInput = {
@@ -45638,6 +47490,14 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutProfileInput, UserUncheckedCreateWithoutProfileInput>
     connectOrCreate?: UserCreateOrConnectWithoutProfileInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type NullableEnumMartialStatusTypeFieldUpdateOperationsInput = {
+    set?: $Enums.MartialStatusType | null
+  }
+
+  export type NullableEnumOccupationTypeFieldUpdateOperationsInput = {
+    set?: $Enums.OccupationType | null
   }
 
   export type EnumRiskProfileFieldUpdateOperationsInput = {
@@ -45692,14 +47552,6 @@ export namespace Prisma {
 
   export type EnumFundTransactionTypeFieldUpdateOperationsInput = {
     set?: $Enums.FundTransactionType
-  }
-
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type EnumTransactionStatusFieldUpdateOperationsInput = {
@@ -46764,11 +48616,11 @@ export namespace Prisma {
     _max?: NestedEnumSegmentFilter<$PrismaModel>
   }
 
-  export type NestedEnumKYCStageFilter<$PrismaModel = never> = {
-    equals?: $Enums.KYCStage | EnumKYCStageFieldRefInput<$PrismaModel>
-    in?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
-    notIn?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
-    not?: NestedEnumKYCStageFilter<$PrismaModel> | $Enums.KYCStage
+  export type NestedEnumRelationshipTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.RelationshipType | EnumRelationshipTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RelationshipType[] | ListEnumRelationshipTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RelationshipType[] | ListEnumRelationshipTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRelationshipTypeFilter<$PrismaModel> | $Enums.RelationshipType
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -46782,14 +48634,25 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type NestedEnumKYCStageWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.KYCStage | EnumKYCStageFieldRefInput<$PrismaModel>
-    in?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
-    notIn?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
-    not?: NestedEnumKYCStageWithAggregatesFilter<$PrismaModel> | $Enums.KYCStage
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedEnumRelationshipTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RelationshipType | EnumRelationshipTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.RelationshipType[] | ListEnumRelationshipTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RelationshipType[] | ListEnumRelationshipTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumRelationshipTypeWithAggregatesFilter<$PrismaModel> | $Enums.RelationshipType
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumKYCStageFilter<$PrismaModel>
-    _max?: NestedEnumKYCStageFilter<$PrismaModel>
+    _min?: NestedEnumRelationshipTypeFilter<$PrismaModel>
+    _max?: NestedEnumRelationshipTypeFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -46806,11 +48669,78 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedEnumKYCStageFilter<$PrismaModel = never> = {
+    equals?: $Enums.KYCStage | EnumKYCStageFieldRefInput<$PrismaModel>
+    in?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumKYCStageFilter<$PrismaModel> | $Enums.KYCStage
+  }
+
+  export type NestedEnumKYCStageWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.KYCStage | EnumKYCStageFieldRefInput<$PrismaModel>
+    in?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
+    notIn?: $Enums.KYCStage[] | ListEnumKYCStageFieldRefInput<$PrismaModel>
+    not?: NestedEnumKYCStageWithAggregatesFilter<$PrismaModel> | $Enums.KYCStage
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumKYCStageFilter<$PrismaModel>
+    _max?: NestedEnumKYCStageFilter<$PrismaModel>
+  }
+
+  export type NestedEnumMartialStatusTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.MartialStatusType | EnumMartialStatusTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.MartialStatusType[] | ListEnumMartialStatusTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.MartialStatusType[] | ListEnumMartialStatusTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumMartialStatusTypeNullableFilter<$PrismaModel> | $Enums.MartialStatusType | null
+  }
+
+  export type NestedEnumOccupationTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.OccupationType | EnumOccupationTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.OccupationType[] | ListEnumOccupationTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.OccupationType[] | ListEnumOccupationTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumOccupationTypeNullableFilter<$PrismaModel> | $Enums.OccupationType | null
+  }
+
   export type NestedEnumRiskProfileFilter<$PrismaModel = never> = {
     equals?: $Enums.RiskProfile | EnumRiskProfileFieldRefInput<$PrismaModel>
     in?: $Enums.RiskProfile[] | ListEnumRiskProfileFieldRefInput<$PrismaModel>
     notIn?: $Enums.RiskProfile[] | ListEnumRiskProfileFieldRefInput<$PrismaModel>
     not?: NestedEnumRiskProfileFilter<$PrismaModel> | $Enums.RiskProfile
+  }
+
+  export type NestedEnumMartialStatusTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MartialStatusType | EnumMartialStatusTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.MartialStatusType[] | ListEnumMartialStatusTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.MartialStatusType[] | ListEnumMartialStatusTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumMartialStatusTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.MartialStatusType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumMartialStatusTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumMartialStatusTypeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumOccupationTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OccupationType | EnumOccupationTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.OccupationType[] | ListEnumOccupationTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.OccupationType[] | ListEnumOccupationTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumOccupationTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.OccupationType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumOccupationTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumOccupationTypeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumRiskProfileWithAggregatesFilter<$PrismaModel = never> = {
@@ -46847,17 +48777,6 @@ export namespace Prisma {
     not?: NestedEnumFundTransactionTypeFilter<$PrismaModel> | $Enums.FundTransactionType
   }
 
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type NestedEnumTransactionStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.TransactionStatus | EnumTransactionStatusFieldRefInput<$PrismaModel>
     in?: $Enums.TransactionStatus[] | ListEnumTransactionStatusFieldRefInput<$PrismaModel>
@@ -46880,22 +48799,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumFundTransactionTypeFilter<$PrismaModel>
     _max?: NestedEnumFundTransactionTypeFilter<$PrismaModel>
-  }
-
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type NestedEnumTransactionStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -47290,11 +49193,13 @@ export namespace Prisma {
 
   export type BankAccountCreateWithoutUserInput = {
     id?: string
-    accountNumber: string
-    ifscCode: string
-    bankName: string
-    branchName: string
-    accountHolderName: string
+    accountNumber?: string | null
+    ifscCode?: string | null
+    bankName?: string | null
+    micrCode?: string | null
+    upiId?: string | null
+    branchName?: string | null
+    accountHolderName?: string | null
     accountType: $Enums.BankAccountType
     isPrimary?: boolean
     isVerified?: boolean
@@ -47304,11 +49209,13 @@ export namespace Prisma {
 
   export type BankAccountUncheckedCreateWithoutUserInput = {
     id?: string
-    accountNumber: string
-    ifscCode: string
-    bankName: string
-    branchName: string
-    accountHolderName: string
+    accountNumber?: string | null
+    ifscCode?: string | null
+    bankName?: string | null
+    micrCode?: string | null
+    upiId?: string | null
+    branchName?: string | null
+    accountHolderName?: string | null
     accountType: $Enums.BankAccountType
     isPrimary?: boolean
     isVerified?: boolean
@@ -47782,18 +49689,19 @@ export namespace Prisma {
 
   export type UserProfileCreateWithoutUserInput = {
     id?: string
-    addressLine1: string
+    addressLine1?: string | null
     addressLine2?: string | null
-    city: string
-    state: string
-    pincode: string
+    city?: string | null
+    state?: string | null
+    pincode?: string | null
     fatherName?: string | null
     motherName?: string | null
-    maritalStatus?: string | null
-    country?: string
-    occupation?: string | null
+    maritalStatus?: $Enums.MartialStatusType | null
+    country?: string | null
+    occupation?: $Enums.OccupationType | null
     annualIncome?: string | null
     tradingExperience?: string | null
+    signature?: string | null
     riskProfile?: $Enums.RiskProfile
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -47801,18 +49709,19 @@ export namespace Prisma {
 
   export type UserProfileUncheckedCreateWithoutUserInput = {
     id?: string
-    addressLine1: string
+    addressLine1?: string | null
     addressLine2?: string | null
-    city: string
-    state: string
-    pincode: string
+    city?: string | null
+    state?: string | null
+    pincode?: string | null
     fatherName?: string | null
     motherName?: string | null
-    maritalStatus?: string | null
-    country?: string
-    occupation?: string | null
+    maritalStatus?: $Enums.MartialStatusType | null
+    country?: string | null
+    occupation?: $Enums.OccupationType | null
     annualIncome?: string | null
     tradingExperience?: string | null
+    signature?: string | null
     riskProfile?: $Enums.RiskProfile
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -47867,6 +49776,44 @@ export namespace Prisma {
 
   export type WatchlistCreateManyUserInputEnvelope = {
     data: WatchlistCreateManyUserInput | WatchlistCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NomineeCreateWithoutUserInput = {
+    id?: string
+    name: string
+    relationship: $Enums.RelationshipType
+    phone: string
+    dob: Date | string
+    email: string
+    address: string
+    panNumber: string
+    percentage: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NomineeUncheckedCreateWithoutUserInput = {
+    id?: string
+    name: string
+    relationship: $Enums.RelationshipType
+    phone: string
+    dob: Date | string
+    email: string
+    address: string
+    panNumber: string
+    percentage: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type NomineeCreateOrConnectWithoutUserInput = {
+    where: NomineeWhereUniqueInput
+    create: XOR<NomineeCreateWithoutUserInput, NomineeUncheckedCreateWithoutUserInput>
+  }
+
+  export type NomineeCreateManyUserInputEnvelope = {
+    data: NomineeCreateManyUserInput | NomineeCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -47926,11 +49873,13 @@ export namespace Prisma {
     NOT?: BankAccountScalarWhereInput | BankAccountScalarWhereInput[]
     id?: StringFilter<"BankAccount"> | string
     userId?: StringFilter<"BankAccount"> | string
-    accountNumber?: StringFilter<"BankAccount"> | string
-    ifscCode?: StringFilter<"BankAccount"> | string
-    bankName?: StringFilter<"BankAccount"> | string
-    branchName?: StringFilter<"BankAccount"> | string
-    accountHolderName?: StringFilter<"BankAccount"> | string
+    accountNumber?: StringNullableFilter<"BankAccount"> | string | null
+    ifscCode?: StringNullableFilter<"BankAccount"> | string | null
+    bankName?: StringNullableFilter<"BankAccount"> | string | null
+    micrCode?: StringNullableFilter<"BankAccount"> | string | null
+    upiId?: StringNullableFilter<"BankAccount"> | string | null
+    branchName?: StringNullableFilter<"BankAccount"> | string | null
+    accountHolderName?: StringNullableFilter<"BankAccount"> | string | null
     accountType?: EnumBankAccountTypeFilter<"BankAccount"> | $Enums.BankAccountType
     isPrimary?: BoolFilter<"BankAccount"> | boolean
     isVerified?: BoolFilter<"BankAccount"> | boolean
@@ -48325,18 +50274,19 @@ export namespace Prisma {
 
   export type UserProfileUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    addressLine1?: StringFieldUpdateOperationsInput | string
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    state?: StringFieldUpdateOperationsInput | string
-    pincode?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
-    country?: StringFieldUpdateOperationsInput | string
-    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMartialStatusTypeFieldUpdateOperationsInput | $Enums.MartialStatusType | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableEnumOccupationTypeFieldUpdateOperationsInput | $Enums.OccupationType | null
     annualIncome?: NullableStringFieldUpdateOperationsInput | string | null
     tradingExperience?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
     riskProfile?: EnumRiskProfileFieldUpdateOperationsInput | $Enums.RiskProfile
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48344,18 +50294,19 @@ export namespace Prisma {
 
   export type UserProfileUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    addressLine1?: StringFieldUpdateOperationsInput | string
+    addressLine1?: NullableStringFieldUpdateOperationsInput | string | null
     addressLine2?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    state?: StringFieldUpdateOperationsInput | string
-    pincode?: StringFieldUpdateOperationsInput | string
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    pincode?: NullableStringFieldUpdateOperationsInput | string | null
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
     motherName?: NullableStringFieldUpdateOperationsInput | string | null
-    maritalStatus?: NullableStringFieldUpdateOperationsInput | string | null
-    country?: StringFieldUpdateOperationsInput | string
-    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    maritalStatus?: NullableEnumMartialStatusTypeFieldUpdateOperationsInput | $Enums.MartialStatusType | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableEnumOccupationTypeFieldUpdateOperationsInput | $Enums.OccupationType | null
     annualIncome?: NullableStringFieldUpdateOperationsInput | string | null
     tradingExperience?: NullableStringFieldUpdateOperationsInput | string | null
+    signature?: NullableStringFieldUpdateOperationsInput | string | null
     riskProfile?: EnumRiskProfileFieldUpdateOperationsInput | $Enums.RiskProfile
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -48414,6 +50365,200 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Watchlist"> | Date | string
   }
 
+  export type NomineeUpsertWithWhereUniqueWithoutUserInput = {
+    where: NomineeWhereUniqueInput
+    update: XOR<NomineeUpdateWithoutUserInput, NomineeUncheckedUpdateWithoutUserInput>
+    create: XOR<NomineeCreateWithoutUserInput, NomineeUncheckedCreateWithoutUserInput>
+  }
+
+  export type NomineeUpdateWithWhereUniqueWithoutUserInput = {
+    where: NomineeWhereUniqueInput
+    data: XOR<NomineeUpdateWithoutUserInput, NomineeUncheckedUpdateWithoutUserInput>
+  }
+
+  export type NomineeUpdateManyWithWhereWithoutUserInput = {
+    where: NomineeScalarWhereInput
+    data: XOR<NomineeUpdateManyMutationInput, NomineeUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type NomineeScalarWhereInput = {
+    AND?: NomineeScalarWhereInput | NomineeScalarWhereInput[]
+    OR?: NomineeScalarWhereInput[]
+    NOT?: NomineeScalarWhereInput | NomineeScalarWhereInput[]
+    id?: StringFilter<"Nominee"> | string
+    userId?: StringFilter<"Nominee"> | string
+    name?: StringFilter<"Nominee"> | string
+    relationship?: EnumRelationshipTypeFilter<"Nominee"> | $Enums.RelationshipType
+    phone?: StringFilter<"Nominee"> | string
+    dob?: DateTimeFilter<"Nominee"> | Date | string
+    email?: StringFilter<"Nominee"> | string
+    address?: StringFilter<"Nominee"> | string
+    panNumber?: StringFilter<"Nominee"> | string
+    percentage?: FloatFilter<"Nominee"> | number
+    createdAt?: DateTimeFilter<"Nominee"> | Date | string
+    updatedAt?: DateTimeFilter<"Nominee"> | Date | string
+  }
+
+  export type UserCreateWithoutNomineesInput = {
+    id?: string
+    email?: string | null
+    phone: string
+    password?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    panNumber?: string | null
+    aadhaarNumber?: string | null
+    dob?: Date | string | null
+    kycStatus?: $Enums.KYCStatus | null
+    accountType?: $Enums.AccountType | null
+    role?: $Enums.UserRole | null
+    isActive?: boolean | null
+    twoFactorEnabled?: boolean | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    isVerified?: boolean
+    segment?: $Enums.Segment
+    alerts?: AlertCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountCreateNestedManyWithoutUserInput
+    baskets?: BasketCreateNestedManyWithoutUserInput
+    funds?: FundTransactionCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderCreateNestedManyWithoutUserInput
+    holdings?: HoldingCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    orders?: OrderCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioCreateNestedManyWithoutUserInput
+    positions?: PositionCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    trades?: TradeCreateNestedManyWithoutUserInput
+    profile?: UserProfileCreateNestedOneWithoutUserInput
+    UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutNomineesInput = {
+    id?: string
+    email?: string | null
+    phone: string
+    password?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    panNumber?: string | null
+    aadhaarNumber?: string | null
+    dob?: Date | string | null
+    kycStatus?: $Enums.KYCStatus | null
+    accountType?: $Enums.AccountType | null
+    role?: $Enums.UserRole | null
+    isActive?: boolean | null
+    twoFactorEnabled?: boolean | null
+    createdAt?: Date | string | null
+    updatedAt?: Date | string | null
+    isVerified?: boolean
+    segment?: $Enums.Segment
+    alerts?: AlertUncheckedCreateNestedManyWithoutUserInput
+    bankAccounts?: BankAccountUncheckedCreateNestedManyWithoutUserInput
+    baskets?: BasketUncheckedCreateNestedManyWithoutUserInput
+    funds?: FundTransactionUncheckedCreateNestedManyWithoutUserInput
+    gttOrders?: GTTOrderUncheckedCreateNestedManyWithoutUserInput
+    holdings?: HoldingUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    orders?: OrderUncheckedCreateNestedManyWithoutUserInput
+    portfolios?: PortfolioUncheckedCreateNestedManyWithoutUserInput
+    positions?: PositionUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    trades?: TradeUncheckedCreateNestedManyWithoutUserInput
+    profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
+    UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
+    watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutNomineesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutNomineesInput, UserUncheckedCreateWithoutNomineesInput>
+  }
+
+  export type UserUpsertWithoutNomineesInput = {
+    update: XOR<UserUpdateWithoutNomineesInput, UserUncheckedUpdateWithoutNomineesInput>
+    create: XOR<UserCreateWithoutNomineesInput, UserUncheckedCreateWithoutNomineesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutNomineesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutNomineesInput, UserUncheckedUpdateWithoutNomineesInput>
+  }
+
+  export type UserUpdateWithoutNomineesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
+    accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
+    role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
+    alerts?: AlertUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUpdateManyWithoutUserNestedInput
+    baskets?: BasketUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    orders?: OrderUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUpdateManyWithoutUserNestedInput
+    positions?: PositionUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    trades?: TradeUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUpdateOneWithoutUserNestedInput
+    UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutNomineesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    aadhaarNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    kycStatus?: NullableEnumKYCStatusFieldUpdateOperationsInput | $Enums.KYCStatus | null
+    accountType?: NullableEnumAccountTypeFieldUpdateOperationsInput | $Enums.AccountType | null
+    role?: NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
+    isActive?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    twoFactorEnabled?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    segment?: EnumSegmentFieldUpdateOperationsInput | $Enums.Segment
+    alerts?: AlertUncheckedUpdateManyWithoutUserNestedInput
+    bankAccounts?: BankAccountUncheckedUpdateManyWithoutUserNestedInput
+    baskets?: BasketUncheckedUpdateManyWithoutUserNestedInput
+    funds?: FundTransactionUncheckedUpdateManyWithoutUserNestedInput
+    gttOrders?: GTTOrderUncheckedUpdateManyWithoutUserNestedInput
+    holdings?: HoldingUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
+    portfolios?: PortfolioUncheckedUpdateManyWithoutUserNestedInput
+    positions?: PositionUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
+    profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
+    UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
+    watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutUserVerificationInput = {
     id?: string
     email?: string | null
@@ -48447,6 +50592,7 @@ export namespace Prisma {
     trades?: TradeCreateNestedManyWithoutUserInput
     profile?: UserProfileCreateNestedOneWithoutUserInput
     watchlists?: WatchlistCreateNestedManyWithoutUserInput
+    nominees?: NomineeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUserVerificationInput = {
@@ -48482,6 +50628,7 @@ export namespace Prisma {
     trades?: TradeUncheckedCreateNestedManyWithoutUserInput
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+    nominees?: NomineeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUserVerificationInput = {
@@ -48533,6 +50680,7 @@ export namespace Prisma {
     trades?: TradeUpdateManyWithoutUserNestedInput
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUserVerificationInput = {
@@ -48568,6 +50716,7 @@ export namespace Prisma {
     trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutProfileInput = {
@@ -48603,6 +50752,7 @@ export namespace Prisma {
     trades?: TradeCreateNestedManyWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
     watchlists?: WatchlistCreateNestedManyWithoutUserInput
+    nominees?: NomineeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProfileInput = {
@@ -48638,6 +50788,7 @@ export namespace Prisma {
     trades?: TradeUncheckedCreateNestedManyWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
     watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+    nominees?: NomineeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProfileInput = {
@@ -48689,6 +50840,7 @@ export namespace Prisma {
     trades?: TradeUpdateManyWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProfileInput = {
@@ -48724,6 +50876,7 @@ export namespace Prisma {
     trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutBankAccountsInput = {
@@ -48759,6 +50912,7 @@ export namespace Prisma {
     profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
     watchlists?: WatchlistCreateNestedManyWithoutUserInput
+    nominees?: NomineeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBankAccountsInput = {
@@ -48794,6 +50948,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
     watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+    nominees?: NomineeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBankAccountsInput = {
@@ -48845,6 +51000,7 @@ export namespace Prisma {
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBankAccountsInput = {
@@ -48880,6 +51036,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -48915,6 +51072,7 @@ export namespace Prisma {
     profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
     watchlists?: WatchlistCreateNestedManyWithoutUserInput
+    nominees?: NomineeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -48950,6 +51108,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
     watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+    nominees?: NomineeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -49001,6 +51160,7 @@ export namespace Prisma {
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -49036,6 +51196,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutFundsInput = {
@@ -49071,6 +51232,7 @@ export namespace Prisma {
     profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
     watchlists?: WatchlistCreateNestedManyWithoutUserInput
+    nominees?: NomineeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFundsInput = {
@@ -49106,6 +51268,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
     watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+    nominees?: NomineeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFundsInput = {
@@ -49157,6 +51320,7 @@ export namespace Prisma {
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFundsInput = {
@@ -49192,6 +51356,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type HoldingCreateWithoutInstrumentInput = {
@@ -49942,6 +52107,7 @@ export namespace Prisma {
     profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
     watchlists?: WatchlistCreateNestedManyWithoutUserInput
+    nominees?: NomineeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPortfoliosInput = {
@@ -49977,6 +52143,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
     watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+    nominees?: NomineeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPortfoliosInput = {
@@ -50028,6 +52195,7 @@ export namespace Prisma {
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPortfoliosInput = {
@@ -50063,6 +52231,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type InstrumentCreateWithoutHoldingsInput = {
@@ -50157,6 +52326,7 @@ export namespace Prisma {
     profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
     watchlists?: WatchlistCreateNestedManyWithoutUserInput
+    nominees?: NomineeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutHoldingsInput = {
@@ -50192,6 +52362,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
     watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+    nominees?: NomineeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutHoldingsInput = {
@@ -50308,6 +52479,7 @@ export namespace Prisma {
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutHoldingsInput = {
@@ -50343,6 +52515,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type InstrumentCreateWithoutPositionsInput = {
@@ -50437,6 +52610,7 @@ export namespace Prisma {
     profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
     watchlists?: WatchlistCreateNestedManyWithoutUserInput
+    nominees?: NomineeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPositionsInput = {
@@ -50472,6 +52646,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
     watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+    nominees?: NomineeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPositionsInput = {
@@ -50588,6 +52763,7 @@ export namespace Prisma {
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPositionsInput = {
@@ -50623,6 +52799,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type InstrumentCreateWithoutOrdersInput = {
@@ -50717,6 +52894,7 @@ export namespace Prisma {
     profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
     watchlists?: WatchlistCreateNestedManyWithoutUserInput
+    nominees?: NomineeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOrdersInput = {
@@ -50752,6 +52930,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
     watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+    nominees?: NomineeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOrdersInput = {
@@ -50912,6 +53091,7 @@ export namespace Prisma {
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -50947,6 +53127,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TradeUpsertWithWhereUniqueWithoutOrderInput = {
@@ -51134,6 +53315,7 @@ export namespace Prisma {
     profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
     watchlists?: WatchlistCreateNestedManyWithoutUserInput
+    nominees?: NomineeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTradesInput = {
@@ -51169,6 +53351,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
     watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+    nominees?: NomineeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTradesInput = {
@@ -51397,6 +53580,7 @@ export namespace Prisma {
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTradesInput = {
@@ -51432,6 +53616,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TradeChargesUpsertWithoutTradeInput = {
@@ -51586,6 +53771,7 @@ export namespace Prisma {
     profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
     watchlists?: WatchlistCreateNestedManyWithoutUserInput
+    nominees?: NomineeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutGttOrdersInput = {
@@ -51621,6 +53807,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
     watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+    nominees?: NomineeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutGttOrdersInput = {
@@ -51672,6 +53859,7 @@ export namespace Prisma {
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGttOrdersInput = {
@@ -51707,6 +53895,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutWatchlistsInput = {
@@ -51742,6 +53931,7 @@ export namespace Prisma {
     trades?: TradeCreateNestedManyWithoutUserInput
     profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
+    nominees?: NomineeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWatchlistsInput = {
@@ -51777,6 +53967,7 @@ export namespace Prisma {
     trades?: TradeUncheckedCreateNestedManyWithoutUserInput
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
+    nominees?: NomineeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWatchlistsInput = {
@@ -51852,6 +54043,7 @@ export namespace Prisma {
     trades?: TradeUpdateManyWithoutUserNestedInput
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
+    nominees?: NomineeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWatchlistsInput = {
@@ -51887,6 +54079,7 @@ export namespace Prisma {
     trades?: TradeUncheckedUpdateManyWithoutUserNestedInput
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
+    nominees?: NomineeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WatchlistItemUpsertWithWhereUniqueWithoutWatchlistInput = {
@@ -52114,6 +54307,7 @@ export namespace Prisma {
     profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
     watchlists?: WatchlistCreateNestedManyWithoutUserInput
+    nominees?: NomineeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAlertsInput = {
@@ -52149,6 +54343,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
     watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+    nominees?: NomineeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAlertsInput = {
@@ -52200,6 +54395,7 @@ export namespace Prisma {
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAlertsInput = {
@@ -52235,6 +54431,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -52270,6 +54467,7 @@ export namespace Prisma {
     profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
     watchlists?: WatchlistCreateNestedManyWithoutUserInput
+    nominees?: NomineeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -52305,6 +54503,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
     watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+    nominees?: NomineeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -52356,6 +54555,7 @@ export namespace Prisma {
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -52391,6 +54591,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutBasketsInput = {
@@ -52426,6 +54627,7 @@ export namespace Prisma {
     profile?: UserProfileCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationCreateNestedOneWithoutUserInput
     watchlists?: WatchlistCreateNestedManyWithoutUserInput
+    nominees?: NomineeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBasketsInput = {
@@ -52461,6 +54663,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedCreateNestedOneWithoutUserInput
     UserVerification?: UserVerificationUncheckedCreateNestedOneWithoutUserInput
     watchlists?: WatchlistUncheckedCreateNestedManyWithoutUserInput
+    nominees?: NomineeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBasketsInput = {
@@ -52550,6 +54753,7 @@ export namespace Prisma {
     profile?: UserProfileUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBasketsInput = {
@@ -52585,6 +54789,7 @@ export namespace Prisma {
     profile?: UserProfileUncheckedUpdateOneWithoutUserNestedInput
     UserVerification?: UserVerificationUncheckedUpdateOneWithoutUserNestedInput
     watchlists?: WatchlistUncheckedUpdateManyWithoutUserNestedInput
+    nominees?: NomineeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BasketItemUpsertWithWhereUniqueWithoutBasketInput = {
@@ -52697,11 +54902,13 @@ export namespace Prisma {
 
   export type BankAccountCreateManyUserInput = {
     id?: string
-    accountNumber: string
-    ifscCode: string
-    bankName: string
-    branchName: string
-    accountHolderName: string
+    accountNumber?: string | null
+    ifscCode?: string | null
+    bankName?: string | null
+    micrCode?: string | null
+    upiId?: string | null
+    branchName?: string | null
+    accountHolderName?: string | null
     accountType: $Enums.BankAccountType
     isPrimary?: boolean
     isVerified?: boolean
@@ -52891,6 +55098,20 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type NomineeCreateManyUserInput = {
+    id?: string
+    name: string
+    relationship: $Enums.RelationshipType
+    phone: string
+    dob: Date | string
+    email: string
+    address: string
+    panNumber: string
+    percentage: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type AlertUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     instrumentId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -52935,11 +55156,13 @@ export namespace Prisma {
 
   export type BankAccountUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    accountNumber?: StringFieldUpdateOperationsInput | string
-    ifscCode?: StringFieldUpdateOperationsInput | string
-    bankName?: StringFieldUpdateOperationsInput | string
-    branchName?: StringFieldUpdateOperationsInput | string
-    accountHolderName?: StringFieldUpdateOperationsInput | string
+    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    micrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountHolderName?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -52949,11 +55172,13 @@ export namespace Prisma {
 
   export type BankAccountUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    accountNumber?: StringFieldUpdateOperationsInput | string
-    ifscCode?: StringFieldUpdateOperationsInput | string
-    bankName?: StringFieldUpdateOperationsInput | string
-    branchName?: StringFieldUpdateOperationsInput | string
-    accountHolderName?: StringFieldUpdateOperationsInput | string
+    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    micrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountHolderName?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -52963,11 +55188,13 @@ export namespace Prisma {
 
   export type BankAccountUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    accountNumber?: StringFieldUpdateOperationsInput | string
-    ifscCode?: StringFieldUpdateOperationsInput | string
-    bankName?: StringFieldUpdateOperationsInput | string
-    branchName?: StringFieldUpdateOperationsInput | string
-    accountHolderName?: StringFieldUpdateOperationsInput | string
+    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    ifscCode?: NullableStringFieldUpdateOperationsInput | string | null
+    bankName?: NullableStringFieldUpdateOperationsInput | string | null
+    micrCode?: NullableStringFieldUpdateOperationsInput | string | null
+    upiId?: NullableStringFieldUpdateOperationsInput | string | null
+    branchName?: NullableStringFieldUpdateOperationsInput | string | null
+    accountHolderName?: NullableStringFieldUpdateOperationsInput | string | null
     accountType?: EnumBankAccountTypeFieldUpdateOperationsInput | $Enums.BankAccountType
     isPrimary?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
@@ -53525,6 +55752,48 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     isDefault?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NomineeUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    relationship?: EnumRelationshipTypeFieldUpdateOperationsInput | $Enums.RelationshipType
+    phone?: StringFieldUpdateOperationsInput | string
+    dob?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    panNumber?: StringFieldUpdateOperationsInput | string
+    percentage?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NomineeUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    relationship?: EnumRelationshipTypeFieldUpdateOperationsInput | $Enums.RelationshipType
+    phone?: StringFieldUpdateOperationsInput | string
+    dob?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    panNumber?: StringFieldUpdateOperationsInput | string
+    percentage?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NomineeUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    relationship?: EnumRelationshipTypeFieldUpdateOperationsInput | $Enums.RelationshipType
+    phone?: StringFieldUpdateOperationsInput | string
+    dob?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    panNumber?: StringFieldUpdateOperationsInput | string
+    percentage?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

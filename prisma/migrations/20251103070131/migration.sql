@@ -1,0 +1,2 @@
+-- AlterEnum
+ALTER TYPE "KYCStage" ADD VALUE 'FOUR';

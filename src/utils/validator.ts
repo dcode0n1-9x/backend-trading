@@ -1,4 +1,4 @@
-import { Segment, AnnualIncome, Occupation, TradingExperience, MartialStatus } from "../../generated/prisma";
+import { Segment, AnnualIncome, OccupationType, TradingExperience, MartialStatusType, BankAccountType, RelationshipType } from "../../generated/prisma";
 import { Elysia, t } from "elysia";
 
 
@@ -24,20 +24,38 @@ const verificationLayer2 = t.Object({
 const verificationLayer3 = t.Object({
   fatherName: t.String(),
   motherName: t.String(),
-  maritalStatus: t.Enum(MartialStatus),
+  maritalStatus: t.Enum(MartialStatusType),
   annualIncome: t.Enum(AnnualIncome),
   tradingExperience: t.Enum(TradingExperience),
-  occupation: t.Enum(Occupation),
+  occupation: t.Enum(OccupationType),
   upiId: t.String({ minLength: 5, maxLength: 15 }),
   accountNumber: t.String({ minLength: 10, maxLength: 10 }),
   ifscCode: t.String({ minLength: 11, maxLength: 11 }),
   bankName: t.String(),
   branchName: t.String(),
+  accountType: t.Enum(BankAccountType),
+  accountHolderName: t.String(),
+  micrCode: t.String({ minLength: 9, maxLength: 9 }),
 });
 
 const presignedURLRequest = t.Object({
   fileType: t.String(),
-}); 
+});
+
+const verififcationLayer4 = t.Object({
+  signature: t.String(),
+  nominee: t.Array(t.Object({
+    name: t.String(),
+    email: t.String({ format: "email" }),
+    phone: t.String({ minLength: 10, maxLength: 15 }),
+    relationship: t.Enum(RelationshipType),
+    percentage: t.Number({ minimum: 0, maximum: 100 }),
+    panNumber: t.String({ minLength: 10, maxLength: 10 }),
+    dob: t.String({ format: "date-time" }),
+    address: t.String(),
+  })
+  ),
+})
 // Login Body
 const loginBody = t.Union([
   t.Object({
@@ -51,14 +69,14 @@ const loginBody = t.Union([
 ]);
 
 
-
 export const signUpValidator = new Elysia().model({
   "auth.signup.sendotp": sendOTPLayer,
   "auth.signup.verifyotp": verifyOTPLayer,
   "auth.signup.layer1": verificationLayer1,
   "auth.signup.layer2": verificationLayer2,
   "auth.signup.layer3": verificationLayer3,
-  "auth.signup.presigned": presignedURLRequest
+  "auth.signup.presigned": presignedURLRequest,
+  "auth.signup.layer4": verififcationLayer4,
 });
 
 export const authValidator = new Elysia().model({

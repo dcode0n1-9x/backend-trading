@@ -12,6 +12,7 @@ import { config } from "../config/generalconfig";
 import { signUpLayer2 } from "../modules/signup/signupLayer2";
 import { signUpLayer3 } from "../modules/signup/signUpLayer3";
 import { presignedURLSignature } from "../modules/signup/presignedURLSignature";
+import { signUpLayer4 } from "../modules/signup/signUpLayer4";
 
 export const signUpRouter = new Elysia({
   name: "sign-up",
@@ -114,18 +115,30 @@ export const signUpRouter = new Elysia({
   }, {
     body: "auth.signup.layer3",
   }
-)
-.post("/presigned-signature", async ({ body, user }) => {
-  try {
-    const result = await presignedURLSignature({
-      prisma,
-      data: body,
-      userId: user!.id,
-    });
-    return new HttpResponse(200, "PRESIGNED_URL_GENERATED", result).toResponse();
-  } catch (error) {
-    return new HttpResponse(400, (error as Error).message).toResponse();
-  }
-}, {
-  body: "auth.signup.presigned",
-})
+  )
+  .post("/presigned-signature", async ({ body, user }) => {
+    try {
+      const result = await presignedURLSignature({
+        prisma,
+        data: body,
+        userId: user!.id,
+      });
+      return new HttpResponse(200, "PRESIGNED_URL_GENERATED", result).toResponse();
+    } catch (error) {
+      return new HttpResponse(400, (error as Error).message).toResponse();
+    }
+  }, {
+    body: "auth.signup.presigned",
+  })
+  .post("/layer-4", async ({ body, user }) => {
+    try {
+      const result = await signUpLayer4({ prisma, data: body, userId: user!.id });
+      return new HttpResponse(200, "LAYER4_COMPLETED", result).toResponse();
+    } catch (error) {
+      return new HttpResponse(400, (error as Error).message).toResponse();
+    }
+  },
+    {
+      body: "auth.signup.layer4",
+    }
+  )

@@ -141,6 +141,21 @@ exports.Prisma.UserScalarFieldEnum = {
   segment: 'segment'
 };
 
+exports.Prisma.NomineeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  relationship: 'relationship',
+  phone: 'phone',
+  dob: 'dob',
+  email: 'email',
+  address: 'address',
+  panNumber: 'panNumber',
+  percentage: 'percentage',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.UserVerificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -164,6 +179,7 @@ exports.Prisma.UserProfileScalarFieldEnum = {
   occupation: 'occupation',
   annualIncome: 'annualIncome',
   tradingExperience: 'tradingExperience',
+  signature: 'signature',
   riskProfile: 'riskProfile',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -175,6 +191,8 @@ exports.Prisma.BankAccountScalarFieldEnum = {
   accountNumber: 'accountNumber',
   ifscCode: 'ifscCode',
   bankName: 'bankName',
+  micrCode: 'micrCode',
+  upiId: 'upiId',
   branchName: 'branchName',
   accountHolderName: 'accountHolderName',
   accountType: 'accountType',
@@ -559,6 +577,16 @@ exports.Prisma.UserOrderByRelevanceFieldEnum = {
   aadhaarNumber: 'aadhaarNumber'
 };
 
+exports.Prisma.NomineeOrderByRelevanceFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  phone: 'phone',
+  email: 'email',
+  address: 'address',
+  panNumber: 'panNumber'
+};
+
 exports.Prisma.UserVerificationOrderByRelevanceFieldEnum = {
   id: 'id',
   userId: 'userId'
@@ -574,11 +602,10 @@ exports.Prisma.UserProfileOrderByRelevanceFieldEnum = {
   pincode: 'pincode',
   fatherName: 'fatherName',
   motherName: 'motherName',
-  maritalStatus: 'maritalStatus',
   country: 'country',
-  occupation: 'occupation',
   annualIncome: 'annualIncome',
-  tradingExperience: 'tradingExperience'
+  tradingExperience: 'tradingExperience',
+  signature: 'signature'
 };
 
 exports.Prisma.BankAccountOrderByRelevanceFieldEnum = {
@@ -587,6 +614,8 @@ exports.Prisma.BankAccountOrderByRelevanceFieldEnum = {
   accountNumber: 'accountNumber',
   ifscCode: 'ifscCode',
   bankName: 'bankName',
+  micrCode: 'micrCode',
+  upiId: 'upiId',
   branchName: 'branchName',
   accountHolderName: 'accountHolderName'
 };
@@ -783,11 +812,39 @@ exports.Segment = exports.$Enums.Segment = {
   COMMODITY: 'COMMODITY'
 };
 
+exports.RelationshipType = exports.$Enums.RelationshipType = {
+  FATHER: 'FATHER',
+  MOTHER: 'MOTHER',
+  SPOUSE: 'SPOUSE',
+  SIBLING: 'SIBLING',
+  CHILD: 'CHILD',
+  OTHER: 'OTHER'
+};
+
 exports.KYCStage = exports.$Enums.KYCStage = {
   ZERO: 'ZERO',
   ONE: 'ONE',
   TWO: 'TWO',
-  THREE: 'THREE'
+  THREE: 'THREE',
+  FOUR: 'FOUR'
+};
+
+exports.MartialStatusType = exports.$Enums.MartialStatusType = {
+  SINGLE: 'SINGLE',
+  MARRIED: 'MARRIED'
+};
+
+exports.OccupationType = exports.$Enums.OccupationType = {
+  BUSINESS: 'BUSINESS',
+  HOUSEWIFE: 'HOUSEWIFE',
+  STUDENT: 'STUDENT',
+  PROFESSIONAL: 'PROFESSIONAL',
+  PRIVATE_SECTOR: 'PRIVATE_SECTOR',
+  AGRICULTURIST: 'AGRICULTURIST',
+  GOVERMENT_SERVICE: 'GOVERMENT_SERVICE',
+  PUBLIC_SECTOR: 'PUBLIC_SECTOR',
+  RETIRED: 'RETIRED',
+  OTHERS: 'OTHERS'
 };
 
 exports.RiskProfile = exports.$Enums.RiskProfile = {
@@ -953,6 +1010,7 @@ exports.CorporateActionType = exports.$Enums.CorporateActionType = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Nominee: 'Nominee',
   UserVerification: 'UserVerification',
   UserProfile: 'UserProfile',
   BankAccount: 'BankAccount',

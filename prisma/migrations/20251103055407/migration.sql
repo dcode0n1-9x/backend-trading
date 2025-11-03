@@ -1,0 +1,8 @@
+-- AlterTable
+ALTER TABLE "BankAccount" ADD COLUMN     "micrCode" TEXT,
+ADD COLUMN     "upiId" TEXT,
+ALTER COLUMN "accountNumber" DROP NOT NULL,
+ALTER COLUMN "ifscCode" DROP NOT NULL,
+ALTER COLUMN "bankName" DROP NOT NULL,
+ALTER COLUMN "branchName" DROP NOT NULL,
+ALTER COLUMN "accountHolderName" DROP NOT NULL;
