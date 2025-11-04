@@ -29,6 +29,12 @@ interface IRegisterProp {
 export async function signUpLayer3({ prisma, data, userId }: IRegisterProp) {
     const { fatherName, motherName, maritalStatus, annualIncome, tradingExperience, occupation, upiId, accountNumber, ifscCode, bankName, branchName, accountType, accountHolderName, micrCode } = data;
     let createBankAccounts = { userId, isPrimary: true, isVerified: true } as any;
+    const checkLayers = await prisma.userVerification.findUnique({
+        where: { userId, stage: 'TWO' },
+    });
+    if (!checkLayers) {
+        throw new Error("INVALID_USER_STAGE");
+    }
     if (upiId) {
         createBankAccounts["upiId"] = upiId
     } else {
@@ -39,12 +45,6 @@ export async function signUpLayer3({ prisma, data, userId }: IRegisterProp) {
         createBankAccounts["accountType"] = accountType;
         createBankAccounts["accountHolderName"] = accountHolderName;
         createBankAccounts["micrCode"] = micrCode;
-    }
-    const checkLayers = await prisma.userVerification.findUnique({
-        where: { userId, stage: 'TWO' },
-    });
-    if (!checkLayers) {
-        throw new Error("INVALID_USER_STAGE");
     }
     const [updateUser, updateStage] = await prisma.$transaction([
         prisma.userProfile.create({

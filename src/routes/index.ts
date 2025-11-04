@@ -1,7 +1,13 @@
-import { signUpRouter } from "./Auth/signup.routes.js";
+import { dashboardRouter } from "./dashboard.routes.js";
+import { forgetPasswordRoutes } from "./forgetPassword.routes.js";
+import { authRouter } from "./login.routes.js";
+import { signUpRouter } from "./signup.routes.js";
 
 
 
 export const indexRouter = {
-    signUpRouter
+    signUpRouter,
+    forgetPasswordRoutes,
+    authRouter, 
+    dashboardRouter
 }

@@ -77,7 +77,10 @@ CREATE TYPE "Priority" AS ENUM ('LOW', 'NORMAL', 'HIGH', 'URGENT');
 CREATE TYPE "CorporateActionType" AS ENUM ('DIVIDEND', 'BONUS', 'SPLIT', 'MERGER', 'RIGHTS', 'BUYBACK', 'DELISTING');
 
 -- CreateEnum
-CREATE TYPE "MartialStatus" AS ENUM ('SINGLE', 'MARRIED');
+CREATE TYPE "RelationshipType" AS ENUM ('FATHER', 'MOTHER', 'SPOUSE', 'SIBLING', 'CHILD', 'OTHER');
+
+-- CreateEnum
+CREATE TYPE "MartialStatusType" AS ENUM ('SINGLE', 'MARRIED');
 
 -- CreateEnum
 CREATE TYPE "AnnualIncome" AS ENUM ('BELOW_1_LAKH', 'BETWEEN_1_TO_5_LAKHS', 'BETWEEN_5_TO_10_LAKHS', 'BETWEEN_10_TO_25_LAKHS', 'BETWEEN_25_TO_1_CRORE', 'ABOVE_1_CRORE');
@@ -86,13 +89,16 @@ CREATE TYPE "AnnualIncome" AS ENUM ('BELOW_1_LAKH', 'BETWEEN_1_TO_5_LAKHS', 'BET
 CREATE TYPE "TradingExperience" AS ENUM ('NEW', 'BETWEEN_1_TO_5_YEARS', 'BETWEEN_5_TO_10_YEARS', 'BETWEEN_10_TO_15_YEARS', 'MORE_THAN_15_YEARS');
 
 -- CreateEnum
-CREATE TYPE "Occupation" AS ENUM ('BUSINESS', 'HOUSEWIFE', 'STUDENT', 'PROFESSIONAL', 'PRIVATE_SECTOR', 'AGRICULTURIST', 'GOVERMENT_SERVICE', 'PUBLIC_SECTOR', 'RETIRED', 'OTHERS');
+CREATE TYPE "OccupationType" AS ENUM ('BUSINESS', 'HOUSEWIFE', 'STUDENT', 'PROFESSIONAL', 'PRIVATE_SECTOR', 'AGRICULTURIST', 'GOVERMENT_SERVICE', 'PUBLIC_SECTOR', 'RETIRED', 'OTHERS');
 
 -- CreateEnum
 CREATE TYPE "SettlementType" AS ENUM ('QUATERLY', 'MONTHLY');
 
 -- CreateEnum
-CREATE TYPE "KYCStage" AS ENUM ('ZERO', 'ONE', 'TWO', 'THREE');
+CREATE TYPE "KYCStage" AS ENUM ('ZERO', 'ONE', 'TWO', 'THREE', 'FOUR');
+
+-- CreateEnum
+CREATE TYPE "OTPPreferenceType" AS ENUM ('EMAIL', 'SMS');
 
 -- CreateTable
 CREATE TABLE "User" (
@@ -113,16 +119,34 @@ CREATE TABLE "User" (
     "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
     "isVerified" BOOLEAN NOT NULL DEFAULT false,
-    "segment" "Segment" NOT NULL,
+    "segment" "Segment" NOT NULL DEFAULT 'EQUITY',
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Nominee" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "relationship" "RelationshipType" NOT NULL,
+    "phone" TEXT NOT NULL,
+    "dob" TIMESTAMP(3) NOT NULL,
+    "email" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
+    "panNumber" TEXT NOT NULL,
+    "percentage" DOUBLE PRECISION NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Nominee_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "UserVerification" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "stage" "KYCStage" NOT NULL DEFAULT 'ONE',
+    "stage" "KYCStage" NOT NULL DEFAULT 'ZERO',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -133,18 +157,19 @@ CREATE TABLE "UserVerification" (
 CREATE TABLE "UserProfile" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "addressLine1" TEXT NOT NULL,
+    "addressLine1" TEXT,
     "addressLine2" TEXT,
-    "city" TEXT NOT NULL,
-    "state" TEXT NOT NULL,
-    "pincode" TEXT NOT NULL,
+    "city" TEXT,
+    "state" TEXT,
+    "pincode" TEXT,
     "fatherName" TEXT,
     "motherName" TEXT,
-    "maritalStatus" TEXT,
-    "country" TEXT NOT NULL DEFAULT 'India',
-    "occupation" TEXT,
+    "maritalStatus" "MartialStatusType",
+    "country" TEXT DEFAULT 'India',
+    "occupation" "OccupationType",
     "annualIncome" TEXT,
     "tradingExperience" TEXT,
+    "signature" TEXT,
     "riskProfile" "RiskProfile" NOT NULL DEFAULT 'MODERATE',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -156,12 +181,14 @@ CREATE TABLE "UserProfile" (
 CREATE TABLE "BankAccount" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "accountNumber" TEXT NOT NULL,
-    "ifscCode" TEXT NOT NULL,
-    "bankName" TEXT NOT NULL,
-    "branchName" TEXT NOT NULL,
-    "accountHolderName" TEXT NOT NULL,
-    "accountType" "BankAccountType" NOT NULL,
+    "accountNumber" TEXT,
+    "ifscCode" TEXT,
+    "bankName" TEXT,
+    "micrCode" TEXT,
+    "upiId" TEXT,
+    "branchName" TEXT,
+    "accountHolderName" TEXT,
+    "accountType" "BankAccountType",
     "isPrimary" BOOLEAN NOT NULL DEFAULT false,
     "isVerified" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -595,7 +622,13 @@ CREATE UNIQUE INDEX "User_phone_key" ON "User"("phone");
 CREATE UNIQUE INDEX "User_panNumber_key" ON "User"("panNumber");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "User_aadhaarNumber_key" ON "User"("aadhaarNumber");
+
+-- CreateIndex
 CREATE INDEX "User_email_phone_idx" ON "User"("email", "phone");
+
+-- CreateIndex
+CREATE INDEX "Nominee_userId_idx" ON "Nominee"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "UserVerification_userId_key" ON "UserVerification"("userId");
@@ -718,6 +751,9 @@ CREATE UNIQUE INDEX "DailyPnL_date_key" ON "DailyPnL"("date");
 CREATE INDEX "DailyPnL_userId_date_idx" ON "DailyPnL"("userId", "date");
 
 -- AddForeignKey
+ALTER TABLE "Nominee" ADD CONSTRAINT "Nominee_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "UserVerification" ADD CONSTRAINT "UserVerification_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -742,31 +778,31 @@ ALTER TABLE "PriceHistory" ADD CONSTRAINT "PriceHistory_instrumentId_fkey" FOREI
 ALTER TABLE "Portfolio" ADD CONSTRAINT "Portfolio_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Holding" ADD CONSTRAINT "Holding_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "Holding" ADD CONSTRAINT "Holding_instrumentId_fkey" FOREIGN KEY ("instrumentId") REFERENCES "Instrument"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Position" ADD CONSTRAINT "Position_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Holding" ADD CONSTRAINT "Holding_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Position" ADD CONSTRAINT "Position_instrumentId_fkey" FOREIGN KEY ("instrumentId") REFERENCES "Instrument"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Order" ADD CONSTRAINT "Order_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Position" ADD CONSTRAINT "Position_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Order" ADD CONSTRAINT "Order_instrumentId_fkey" FOREIGN KEY ("instrumentId") REFERENCES "Instrument"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Order" ADD CONSTRAINT "Order_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Trade" ADD CONSTRAINT "Trade_instrumentId_fkey" FOREIGN KEY ("instrumentId") REFERENCES "Instrument"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Trade" ADD CONSTRAINT "Trade_orderId_fkey" FOREIGN KEY ("orderId") REFERENCES "Order"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Trade" ADD CONSTRAINT "Trade_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Trade" ADD CONSTRAINT "Trade_instrumentId_fkey" FOREIGN KEY ("instrumentId") REFERENCES "Instrument"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "TradeCharges" ADD CONSTRAINT "TradeCharges_tradeId_fkey" FOREIGN KEY ("tradeId") REFERENCES "Trade"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -778,10 +814,10 @@ ALTER TABLE "GTTOrder" ADD CONSTRAINT "GTTOrder_userId_fkey" FOREIGN KEY ("userI
 ALTER TABLE "Watchlist" ADD CONSTRAINT "Watchlist_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "WatchlistItem" ADD CONSTRAINT "WatchlistItem_watchlistId_fkey" FOREIGN KEY ("watchlistId") REFERENCES "Watchlist"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "WatchlistItem" ADD CONSTRAINT "WatchlistItem_instrumentId_fkey" FOREIGN KEY ("instrumentId") REFERENCES "Instrument"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "WatchlistItem" ADD CONSTRAINT "WatchlistItem_instrumentId_fkey" FOREIGN KEY ("instrumentId") REFERENCES "Instrument"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "WatchlistItem" ADD CONSTRAINT "WatchlistItem_watchlistId_fkey" FOREIGN KEY ("watchlistId") REFERENCES "Watchlist"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Alert" ADD CONSTRAINT "Alert_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

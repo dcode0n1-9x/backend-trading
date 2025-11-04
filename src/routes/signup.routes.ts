@@ -1,18 +1,18 @@
 import { Elysia, t } from "elysia";
-import { prisma } from "../../db/index";
-import { signUpValidator } from "../../utils/validator";
+import { prisma } from "../db/index";
+import { signUpValidator } from "../utils/validator";
 // import { setAuthCookies } from "../utils/setCookies";
-import { sendOTP } from "../../modules/signup/sendOTP";
+import { sendOTP } from "../modules/signup/sendOTP";
 import { jwt } from "@elysiajs/jwt";
-import { verifyOTP } from "../../modules/signup/verifyOTP";
-import { HttpResponse } from "../../utils/response/success";
-import { signUpLayer1 } from "../../modules/signup/signupLayer1";
-import { authMiddleware } from "../../middleware/auth";
-import { config } from "../../config/generalconfig";
-import { signUpLayer2 } from "../../modules/signup/signupLayer2";
-import { signUpLayer3 } from "../../modules/signup/signUpLayer3";
-import { presignedURLSignature } from "../../modules/signup/presignedURLSignature";
-import { signUpLayer4 } from "../../modules/signup/signUpLayer4";
+import { verifyOTP } from "../modules/signup/verifyOTP";
+import { HttpResponse } from "../utils/response/success";
+import { signUpLayer1 } from "../modules/signup/signupLayer1";
+import { authMiddleware } from "../middleware/authMiddleware";
+import { config } from "../config/generalconfig";
+import { signUpLayer2 } from "../modules/signup/signupLayer2";
+import { signUpLayer3 } from "../modules/signup/signUpLayer3";
+import { presignedURLSignature } from "../modules/signup/presignedURLSignature";
+import { signUpLayer4 } from "../modules/signup/signUpLayer4";
 
 export const signUpRouter = new Elysia({
   name: "sign-up",

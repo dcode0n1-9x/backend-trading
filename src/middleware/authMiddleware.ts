@@ -19,8 +19,6 @@ export const authMiddleware = (app: Elysia) =>
         throw new Error("Authentication required");
       }
       const payload = await jwt.verify(token);
-      console.log(payload)
-
       if (!payload) {
         set.status = 401;
         throw new Error("Invalid or expired token");

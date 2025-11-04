@@ -10,46 +10,48 @@ datasource db {
 }
 
 model User {
-  id               String             @id @default(cuid())
-  email            String?            @unique
-  phone            String             @unique
-  password         String?
-  firstName        String?
-  lastName         String?
-  panNumber        String?            @unique
-  aadhaarNumber    String?            @unique
-  dob              DateTime?
-  kycStatus        KYCStatus?         @default(PENDING)
-  accountType      AccountType?       @default(INDIVIDUAL)
-  role             UserRole?          @default(USER)
-  isActive         Boolean?           @default(true)
-  twoFactorEnabled Boolean?           @default(false)
-  createdAt        DateTime?          @default(now())
-  updatedAt        DateTime?          @updatedAt
-  isVerified       Boolean            @default(false)
-  segment          Segment            @default(EQUITY)
-  alerts           Alert[]
-  bankAccounts     BankAccount[]
-  baskets          Basket[]
-  funds            FundTransaction[]
-  gttOrders        GTTOrder[]
-  holdings         Holding[]
-  notifications    Notification[]
-  orders           Order[]
-  portfolios       Portfolio[]
-  positions        Position[]
-  sessions         Session[]
-  trades           Trade[]
-  profile          UserProfile?
-  UserVerification UserVerification?
-  watchlists       Watchlist[]
-  nominees         Nominee[]
-  @@index([email,  phone])
+  id                  String              @id @default(cuid())
+  email               String?             @unique
+  // userIdentifier   String            @default(dbgenerated("'MP' || LPAD(nextval('user_identifier_seq')::text, 6, '0')"))
+  phone               String              @unique
+  password            String?
+  firstName           String?
+  lastName            String?
+  panNumber           String?             @unique
+  aadhaarNumber       String?             @unique
+  dob                 DateTime?
+  twoFactorPreference OTPPreferenceType?  @default(SMS)
+  kycStatus           KYCStatus?          @default(PENDING)
+  accountType         AccountType?        @default(INDIVIDUAL)
+  role                UserRole?           @default(USER)
+  isActive            Boolean?            @default(true)
+  twoFactorEnabled    Boolean?            @default(false)
+  createdAt           DateTime?           @default(now())
+  updatedAt           DateTime?           @updatedAt
+  isVerified          Boolean             @default(false)
+  segment             Segment             @default(EQUITY)
+  alerts              Alert[]
+  bankAccounts        BankAccount[]
+  baskets             Basket[]
+  funds               FundTransaction[]
+  gttOrders           GTTOrder[]
+  holdings            Holding[]
+  notifications       Notification[]
+  orders              Order[]
+  portfolios          Portfolio[]
+  positions           Position[]
+  sessions            Session[]
+  trades              Trade[]
+  profile             UserProfile?
+  UserVerification    UserVerification?
+  watchlists          Watchlist[]
+  nominees            Nominee[]
+
+  @@index([email, phone ])
 }
 
-
 model Nominee {
-  id           String    @id @default(cuid())
+  id           String            @id @default(cuid())
   userId       String
   name         String
   relationship RelationshipType
@@ -59,11 +61,13 @@ model Nominee {
   address      String
   panNumber    String
   percentage   Float
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  user         User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@index([userId])
 }
+
 model UserVerification {
   id        String    @id @default(cuid())
   userId    String    @unique
@@ -74,8 +78,8 @@ model UserVerification {
 }
 
 model UserProfile {
-  id                String       @id @default(cuid())
-  userId            String       @unique
+  id                String              @id @default(cuid())
+  userId            String              @unique
   addressLine1      String?
   addressLine2      String?
   city              String?
@@ -84,19 +88,19 @@ model UserProfile {
   fatherName        String?
   motherName        String?
   maritalStatus     MartialStatusType?
-  country           String?      @default("India")
+  country           String?             @default("India")
   occupation        OccupationType?
   annualIncome      String?
   tradingExperience String?
   signature         String?
-  riskProfile       RiskProfile  @default(MODERATE)
-  createdAt         DateTime     @default(now())
-  updatedAt         DateTime     @updatedAt
-  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  riskProfile       RiskProfile         @default(MODERATE)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model BankAccount {
-  id                String           @id @default(cuid())
+  id                String            @id @default(cuid())
   userId            String
   accountNumber     String?
   ifscCode          String?
@@ -106,11 +110,12 @@ model BankAccount {
   branchName        String?
   accountHolderName String?
   accountType       BankAccountType?
-  isPrimary         Boolean          @default(false)
-  isVerified        Boolean          @default(false)
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
-  user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  isPrimary         Boolean           @default(false)
+  isVerified        Boolean           @default(false)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  user              User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@index([userId])
 }
 
@@ -417,7 +422,7 @@ model Watchlist {
   @@index([userId])
 }
 
-model  WatchlistItem {
+model WatchlistItem {
   id           String      @id @default(cuid())
   watchlistId  String
   instrumentId String
@@ -791,4 +796,9 @@ enum KYCStage {
   TWO
   THREE
   FOUR
+}
+
+enum OTPPreferenceType {
+  EMAIL
+  SMS
 }

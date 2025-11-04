@@ -1,11 +1,10 @@
 import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
-import { signUpRouter } from "./routes/Auth/signup.routes";
+import { indexRouter } from "./routes/index";
 import openapi from "@elysiajs/openapi";
 // import { handleResponse, ILang, Lang } from "./utils/responseCodec";
 // import { opentelemetry } from '@elysiajs/opentelemetry'
 import { config } from "./config/generalconfig";
-import { authRouter } from "./routes/Auth/login.routes";
 
 
 const app = new Elysia({
@@ -49,8 +48,10 @@ const app = new Elysia({
       description: "Health check endpoint to verify server status"
     }
   })
-  .use(signUpRouter)
-  .use(authRouter);
+  .use(indexRouter.signUpRouter)
+  .use(indexRouter.forgetPasswordRoutes)
+  .use(indexRouter.authRouter)
+  .use(indexRouter.dashboardRouter);
 
 export type App = typeof app;
 

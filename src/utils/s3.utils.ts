@@ -9,12 +9,12 @@ import {
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { s3Client } from "../config/s3/s3.config";
 import { config } from "../config/generalconfig";
-
+import mime from 'mime-types';
 
 export const generateSignedURL = async (filePath: string, fileType: string = "image/jpeg") => {
     const command = new PutObjectCommand({
-        Bucket: config.R2.R2_BUCKET,
-        Key: filePath,
+        Bucket: config.S3.BUCKET,
+        Key: `${filePath}.${mime.extension(fileType)}`,
         ContentType: fileType
     });
     const url = await getSignedUrl(s3Client as any, command as any, { expiresIn: 3600 });
@@ -25,7 +25,7 @@ export const generateSignedURL = async (filePath: string, fileType: string = "im
 export async function deleteImageFromR2(filePath: string,): Promise<boolean> {
     try {
         const command = new DeleteObjectCommand({
-            Bucket: config.R2.R2_BUCKET,
+            Bucket: config.S3.BUCKET,
             Key: filePath,
         });
         let response = await s3Client.send(command);

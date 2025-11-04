@@ -5,6 +5,7 @@ export const config = {
     REDIS: process.env.REDIS_URI!,
     SMS : {
         MAX_OTP_PER_DAY: Number(process.env.MAX_OTP_PER_DAY) || 5,
+        MAX_OTP_FORGET_PASSWORD_PER_DAY: Number(process.env.MAX_OTP_FORGET_PASSWORD_PER_DAY) || 2,
         AUTHENTIC_KEY: process.env.AUTHENTIC_KEY || ''
     },
     JWT : {
@@ -26,12 +27,12 @@ export const config = {
     },
     BUN_ENV: process.env.BUN_ENV || 'production',
     HOSTNAME: process.env.HOSTNAME || 'http://localhost:3000',
-    R2: {
-        R2_ENDPOINT: process.env.R2_ENDPOINT!,
-        R2_ACCESS_KEY_ID: process.env.R2_ACCESS_KEY_ID!,
-        R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY!,
-        R2_REGION: process.env.R2_REGION!,
-        R2_BUCKET: process.env.R2_BUCKET!,
+    S3: {
+        ENDPOINT: process.env.S3_ENDPOINT!,
+        ACCESS_KEY_ID: process.env.S3_ACCESS_KEY_ID!,
+        SECRET_ACCESS_KEY: process.env.S3_SECRET_ACCESS_KEY!,
+        REGION: process.env.S3_REGION!,
+        BUCKET: process.env.S3_BUCKET!,
         R2_PUBLIC_URL: process.env.R2_PUBLIC_URL!
     },
 };
