@@ -1,3 +1,4 @@
+import { Margin } from './../../../generated/prisma/index.d';
 import type { PrismaClient } from "../../../generated/prisma";
 import { redis } from "../../config/redis/redis.config";
 import { HttpResponse } from "../../utils/response/success";
@@ -25,21 +26,27 @@ export async function verifyOTP({ prisma, data }: IRegisterProp) {
     if (!checkUser) {
         const createUser = await prisma.user.create({
             data: {
-                phone
-            }
-        })
-        if (!createUser) {
-            return new Error("USER_CREATION_FAILED");
-        }   
-        return { userStage: "ZERO", id: createUser.id };
+                phone,
+                userVerification: {
+                    create: { stage: "ZERO" }
+                },
+                margin: {
+                    create: {}
+                },
+                dailyPnls: {
+                    create: {}
+                },
+            },
+            select: { id: true }
+        });
+    if (!createUser) {
+        return new Error("USER_CREATION_FAILED");
     }
-    if (checkUser && checkUser.isVerified) {
-        return new Error("USER_ALREADY_VERIFIED");
-    }
-    if (checkUser && !checkUser.isVerified) {
-        const check = await prisma.userVerification.create({ data: { userId: checkUser.id, stage: "ZERO" }, select: { stage: true, id: true } });
-        return { userStage: check.stage, id: checkUser.id };
-    }
-    return { userStage: "ZERO" , id: checkUser.id };
+    return { userStage: "ZERO", id: createUser.id };
+}
+if (checkUser && checkUser.isVerified) {
+    return new Error("USER_ALREADY_VERIFIED");
+}
+return { userStage: "ZERO", id: checkUser.id };
 
 }

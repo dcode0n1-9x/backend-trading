@@ -36,6 +36,7 @@ model User {
   funds               FundTransaction[]
   gttOrders           GTTOrder[]
   holdings            Holding[]
+  margin              Margin[]
   notifications       Notification[]
   orders              Order[]
   portfolios          Portfolio[]
@@ -43,9 +44,10 @@ model User {
   sessions            Session[]
   trades              Trade[]
   profile             UserProfile?
-  UserVerification    UserVerification?
+  userVerification    UserVerification?
   watchlists          Watchlist[]
   nominees            Nominee[]
+  dailyPnls           DailyPnL[]
 
   @@index([email, phone ])
 }
@@ -154,7 +156,7 @@ model FundTransaction {
 
 model Margin {
   id              String    @id @default(cuid())
-  userId          String    @unique
+  userId          String
   availableCash   Float     @default(0.0)
   usedMargin      Float     @default(0.0)
   availableMargin Float     @default(0.0)
@@ -166,6 +168,7 @@ model Margin {
   exposureMargin  Float     @default(0.0)
   optionPremium   Float     @default(0.0)
   updatedAt       DateTime  @updatedAt
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
@@ -409,32 +412,48 @@ model GTTOrder {
   @@index([userId, status])
 }
 
+
+
 model Watchlist {
-  id        String           @id @default(cuid())
+  id        String            @id @default(cuid())
   userId    String
   name      String
-  isDefault Boolean          @default(false)
-  createdAt DateTime         @default(now())
-  updatedAt DateTime         @updatedAt
-  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  items     WatchlistItem[]
+  isDefault Boolean           @default(false)
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  groups    WatchlistGroup[]
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
 
-model WatchlistItem {
-  id           String      @id @default(cuid())
-  watchlistId  String
-  instrumentId String
-  sortOrder    Int         @default(0)
-  addedAt      DateTime    @default(now())
-  instrument   Instrument @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
-  watchlist    Watchlist  @relation(fields: [watchlistId], references: [id], onDelete: Cascade)
+model WatchlistGroup {
+  id          String           @id @default(cuid())
+  watchlistId String
+  name        String
+  color       Int              @default(0)
+  sortOrder   Int              @default(autoincrement())
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  watchlist   Watchlist       @relation(fields: [watchlistId], references: [id], onDelete: Cascade)
+  items       WatchlistItem[]
 
-  @@unique([watchlistId, instrumentId])
   @@index([watchlistId])
 }
 
+model WatchlistItem {
+  id           String          @id @default(cuid())
+  groupId      String
+  instrumentId String
+  sortOrder    Int             @default(autoincrement())
+  addedAt      DateTime        @default(now())
+  group        WatchlistGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  instrument   Instrument     @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, instrumentId])
+  @@index([groupId])
+  @@index([instrumentId])
+}
 model Alert {
   id           String     @id @default(cuid())
   userId       String
@@ -539,7 +558,7 @@ model TradeJournal {
 model DailyPnL {
   id            String    @id @default(cuid())
   userId        String
-  date          DateTime  @unique
+  date          DateTime  @default(now())
   realizedPnl   Float     @default(0.0)
   unrealizedPnl Float     @default(0.0)
   totalPnl      Float     @default(0.0)
@@ -548,6 +567,7 @@ model DailyPnL {
   commodityPnl  Float     @default(0.0)
   charges       Float     @default(0.0)
   createdAt     DateTime  @default(now())
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, date])
 }

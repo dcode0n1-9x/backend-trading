@@ -26,10 +26,9 @@ export async function signUpLayer1({ prisma, data, userId }: IRegisterProp) {
                 firstName: name
             },
         }),
-        prisma.userVerification.upsert({
+        prisma.userVerification.update({
             where: { userId, stage: 'ZERO' },
-            create: { userId, stage: 'ONE' },
-            update: { stage: 'ONE' }
+            data: { stage: 'ONE' }
         }),
     ])
     if (!updatedUser) {

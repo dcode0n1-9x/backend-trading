@@ -50,12 +50,16 @@ export async function signUpLayer4({ prisma, data, userId }: IRegisterProp) {
             skipDuplicates: true
         }),
         prisma.userVerification.update({
-            where: { id: userId },
+            where: { userId : userId },
             data: { stage: 'FOUR' }
         }),
         prisma.userProfile.update({
             where: { userId },
             data: { signature }
+        }),
+        prisma.user.update({
+            where: { id: userId },
+            data: { isVerified: true }
         })
     ]);
     if (!createNominee || !updateStage) {

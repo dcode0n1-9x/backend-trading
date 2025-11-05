@@ -1,4 +1,4 @@
-import { OTPPreferenceType ,Segment, AnnualIncome, OccupationType, TradingExperience, MartialStatusType, BankAccountType, RelationshipType } from "../../generated/prisma";
+import { OTPPreferenceType, Segment, AnnualIncome, OccupationType, TradingExperience, MartialStatusType, BankAccountType, RelationshipType } from "../../generated/prisma";
 import { Elysia, t } from "elysia";
 import { config } from "../config/generalconfig";
 
@@ -6,11 +6,11 @@ import { config } from "../config/generalconfig";
 
 // Signup Layers
 const sendOTPLayer = t.Object({
-  phone: t.String({ minLength: 10, maxLength: 15, example: "1234567890", error: "INVALID_PHONE_FORMAT" }),
+  phone: t.String({ minLength: 10, maxLength: 15, example: "6376877564", error: "INVALID_PHONE_FORMAT" }),
 });
 
 const verifyOTPLayer = t.Object({
-  phone: t.String({ minLength: 10, maxLength: 15, example: "1234567890", error: "INVALID_PHONE_FORMAT" }),
+  phone: t.String({ minLength: 10, maxLength: 15, example: "6376877564", error: "INVALID_PHONE_FORMAT" }),
   otp: t.String({ minLength: 6, maxLength: 6, example: "123456", error: "INVALID_OTP_FORMAT" }),
 });
 
@@ -23,7 +23,7 @@ const verificationLayer1 = t.Object({
 
 const verificationLayer2 = t.Object({
   segment: t.Enum(Segment, { example: "EQUITY", error: "INVALID_SEGMENT_FORMAT" }),
-  aadhaarNumber: t.String({ minLength: 12, maxLength: 12, example: "123456789012", error: "INVALID_AADHAAR_FORMAT" }),
+  aadhaarNumber: t.String({ minLength: 12, maxLength: 12, example: "637687756412", error: "INVALID_AADHAAR_FORMAT" }),
 });
 
 
@@ -45,7 +45,7 @@ const upiVariant = t.Object({
 
 const bankVariant = t.Object({
   ...commonFields,
-  accountNumber: t.String({ minLength: 10, maxLength: 10, example: "1234567890", error: "INVALID_ACCOUNT_NUMBER_FORMAT" }),
+  accountNumber: t.String({ minLength: 10, maxLength: 10, example: "6376877564", error: "INVALID_ACCOUNT_NUMBER_FORMAT" }),
   ifscCode: t.String({ minLength: 11, maxLength: 11, example: "SBIN0001234", error: "INVALID_IFSC_FORMAT" }),
   bankName: t.String({ minLength: 2, maxLength: 100, example: "State Bank of India", error: "INVALID_BANK_NAME_FORMAT" }),
   branchName: t.String({ minLength: 2, maxLength: 100, example: "Connaught Place", error: "INVALID_BRANCH_NAME_FORMAT" }),
@@ -66,7 +66,7 @@ const verificationLayer4 = t.Object({
   nominee: t.Array(t.Object({
     name: t.String({ minLength: 2, maxLength: 100, example: "John Doe" }),
     email: t.String({ format: "email", example: "john.doe@example.com" }),
-    phone: t.String({ minLength: 10, maxLength: 15, example: "1234567890" }),
+    phone: t.String({ minLength: 10, maxLength: 15, example: "6376877564" }),
     relationship: t.Enum(RelationshipType, { example: "SPOUSE" }),
     percentage: t.Number({ minimum: 0, maximum: 100, example: 50 }),
     panNumber: t.String({ minLength: 10, maxLength: 10, example: "ABCDE1234F" }),
@@ -83,7 +83,7 @@ const loginBody = t.Union([
     password: t.String({ minLength: 8, error: "INVALID_PASSWORD_FORMAT", example: "strongpassword123" })
   }),
   t.Object({
-    phone: t.String({ minLength: 10, maxLength: 15, error: "INVALID_PHONE_FORMAT", example: "1234567890" }),
+    phone: t.String({ minLength: 10, maxLength: 15, error: "INVALID_PHONE_FORMAT", example: "6376877564" }),
     password: t.String({ minLength: 8, error: "INVALID_PASSWORD_FORMAT", example: "strongpassword123" })
   })
 ]);
@@ -102,16 +102,76 @@ const forgetPasswordEmailVarient = t.Object({
 
 const forgetPasswordPhoneVarient = t.Object({
   ...forgetPasswordBody,
-  phone: t.String({ minLength: 10, maxLength: 15, example: "1234567890" }),
+  phone: t.String({ minLength: 10, maxLength: 15, example: "6376877564" }),
 })
 
 const forgetPasswordValidator = t.Union([forgetPasswordEmailVarient, forgetPasswordPhoneVarient]);
 
 
 const verifyOTPForgetPasswordLayer = t.Object({
-  token: t.String({ minLength: 10, maxLength: 100, example: "abcdef1234567890" }),
+  token: t.String({ minLength: 10, maxLength: 100, example: "abcdef6376877564" }),
   password: t.String({ minLength: 8, error: "INVALID_PASSWORD_FORMAT", example: "strongpassword123" })
 });
+
+
+const watchlistCreateValidator = t.Object({
+  name: t.String({ minLength: 2, maxLength: 100, example: "My Watchlist", error: "INVALID_WATCHLIST_NAME" }),
+});
+
+const watchlistUpdateValidator = t.Object({
+  name: t.String({ minLength: 2, maxLength: 100, example: "Updated Watchlist", error: "INVALID_WATCHLIST_NAME" }),
+});
+
+const watchListIdParam = t.Object({
+  watchlistId: t.String({ minLength: 10, maxLength: 100, example: "watchlist12345", error: "INVALID_WATCHLIST_ID" }),
+});
+
+
+const watchlistGroupCreateValidator = t.Object({
+  name: t.String({ minLength: 2, maxLength: 100, example: "My Watchlist Group", error: "INVALID_WATCHLIST_GROUP_NAME" }),
+});
+
+const watchlistGroupIdParam = t.Object({
+  watchlistGroupId: t.String({ minLength: 10, maxLength: 100, example: 'cmhlp8iup0000kes08qi10uiz', error: "INVALID_WATCHLIST_GROUP_ID" }),
+});
+
+const watchListGroupUpdateValidator = t.Object({
+  name: t.String({ minLength: 2, maxLength: 100, example: "Updated Watchlist Group", error: "INVALID_WATCHLIST_GROUP_NAME" }),
+  color: t.Number({ minimum: 1, maximum: 20, example: 5, error: "INVALID_COLOR_VALUE" }),
+  sortOrder: t.Number({ minimum: 1, maximum: 100, example: 1, error: "INVALID_SORT_ORDER" }),
+});
+
+
+
+const watchListItemCreateValidator = t.Object({
+  instrumentId: t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_INSTRUMENT_ID" }),
+});
+
+export const watchlistItemValidator = new Elysia().model({
+  "watchlist-item.createWatchlistItem": watchListItemCreateValidator,
+  "watchlist-item.id": watchListIdParam,
+  "watchlist-groupId": watchlistGroupIdParam,
+  "watchlist-item.watchlistGroupId": watchlistGroupIdParam,
+  "watchlist-item.deleteWatchlistItem": watchlistGroupIdParam,
+  "watchlist-item.updateWatchlistItem": watchListGroupUpdateValidator,
+});
+
+export const watchlistGroupValidator = new Elysia().model({
+  "watchlist.createWatchlistGroup": watchlistGroupCreateValidator,
+  "watchlist.id": watchListIdParam,
+  "watchlist.watchlistGroupId": watchlistGroupIdParam,
+  "watchlist.deleteWatchlistGroup": watchlistGroupIdParam,
+  "watchlist.updateWatchlistGroup": watchListGroupUpdateValidator,
+});
+
+export const watchlistValidator = new Elysia().model({
+  "watchlist.createWatchlist": watchlistCreateValidator,
+  "watchlist.id": watchListIdParam,
+  "watchlist.deleteWatchlist": watchListIdParam,
+  "watchlist.updateWatchlist": watchlistUpdateValidator,
+});
+
+
 
 export const passwordValidator = new Elysia().model({
   "auth.forgetpassword": forgetPasswordValidator,

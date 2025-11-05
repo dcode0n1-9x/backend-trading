@@ -51,7 +51,10 @@ const app = new Elysia({
   .use(indexRouter.signUpRouter)
   .use(indexRouter.forgetPasswordRoutes)
   .use(indexRouter.authRouter)
-  .use(indexRouter.dashboardRouter);
+  .use(indexRouter.dashboardRouter)
+  .use(indexRouter.watchlistRouter)
+  .use(indexRouter.watchlistGroupRouter)
+  .use(indexRouter.watchlistItemRouter);
 
 export type App = typeof app;
 
