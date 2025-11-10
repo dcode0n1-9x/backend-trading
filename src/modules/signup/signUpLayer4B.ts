@@ -1,7 +1,6 @@
 
 
 import type { PrismaClient, RelationshipType } from "../../../generated/prisma";
-import { skip } from "../../../generated/prisma/runtime/library";
 
 
 interface RegisterData {
@@ -15,7 +14,6 @@ interface RegisterData {
         dob: string
         address: string
     }[]
-    signature: string
 }
 
 interface IRegisterProp {
@@ -24,10 +22,10 @@ interface IRegisterProp {
     userId: string;
 }
 
-export async function signUpLayer4({ prisma, data, userId }: IRegisterProp) {
-    const { nominee, signature } = data;
+export async function signUpLayer4B({ prisma, data, userId }: IRegisterProp) {
+    const { nominee} = data;
     const checkLayers = await prisma.userVerification.findUnique({
-        where: { userId, stage: 'THREE' },
+        where: { userId, stage: 'FOURA' },
     });
 
     if (!checkLayers) {
@@ -44,26 +42,22 @@ export async function signUpLayer4({ prisma, data, userId }: IRegisterProp) {
         dob: new Date(nom.dob),
         address: nom.address
     }));
-    const [createNominee, updateStage] = await prisma.$transaction([
+    const createNominee = await prisma.$transaction([
         prisma.nominee.createMany({
             data: mapped,
             skipDuplicates: true
         }),
         prisma.userVerification.update({
             where: { userId : userId },
-            data: { stage: 'FOUR' }
-        }),
-        prisma.userProfile.update({
-            where: { userId },
-            data: { signature }
+            data: { stage: 'FOURA' }
         }),
         prisma.user.update({
             where: { id: userId },
             data: { isVerified: true }
         })
     ]);
-    if (!createNominee || !updateStage) {
+    if (!createNominee) {
         throw new Error("SIGNUP_FAILED");
     }
-    return { userStage: "FOUR" };
+    return { userStage: "FOURB" };
 }

@@ -95,7 +95,7 @@ CREATE TYPE "OccupationType" AS ENUM ('BUSINESS', 'HOUSEWIFE', 'STUDENT', 'PROFE
 CREATE TYPE "SettlementType" AS ENUM ('QUATERLY', 'MONTHLY');
 
 -- CreateEnum
-CREATE TYPE "KYCStage" AS ENUM ('ZERO', 'ONE', 'TWO', 'THREE', 'FOUR');
+CREATE TYPE "KYCStage" AS ENUM ('ZERO', 'ONE', 'TWO', 'THREEA', 'THREEB', 'THREEC', 'FOURA', 'FOURB');
 
 -- CreateEnum
 CREATE TYPE "OTPPreferenceType" AS ENUM ('EMAIL', 'SMS');
@@ -111,6 +111,7 @@ CREATE TABLE "User" (
     "panNumber" TEXT,
     "aadhaarNumber" TEXT,
     "dob" TIMESTAMP(3),
+    "twoFactorPreference" "OTPPreferenceType" DEFAULT 'SMS',
     "kycStatus" "KYCStatus" DEFAULT 'PENDING',
     "accountType" "AccountType" DEFAULT 'INDIVIDUAL',
     "role" "UserRole" DEFAULT 'USER',
@@ -119,7 +120,7 @@ CREATE TABLE "User" (
     "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
     "isVerified" BOOLEAN NOT NULL DEFAULT false,
-    "segment" "Segment" NOT NULL DEFAULT 'EQUITY',
+    "segment" "Segment"[] DEFAULT ARRAY['EQUITY']::"Segment"[],
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -170,6 +171,7 @@ CREATE TABLE "UserProfile" (
     "annualIncome" TEXT,
     "tradingExperience" TEXT,
     "signature" TEXT,
+    "webcam" TEXT,
     "riskProfile" "RiskProfile" NOT NULL DEFAULT 'MODERATE',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -483,11 +485,24 @@ CREATE TABLE "Watchlist" (
 );
 
 -- CreateTable
-CREATE TABLE "WatchlistItem" (
+CREATE TABLE "WatchlistGroup" (
     "id" TEXT NOT NULL,
     "watchlistId" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "color" INTEGER NOT NULL DEFAULT 0,
+    "sortOrder" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "WatchlistGroup_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "WatchlistItem" (
+    "id" TEXT NOT NULL,
+    "groupId" TEXT NOT NULL,
     "instrumentId" TEXT NOT NULL,
-    "sortOrder" INTEGER NOT NULL DEFAULT 0,
+    "sortOrder" SERIAL NOT NULL,
     "addedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "WatchlistItem_pkey" PRIMARY KEY ("id")
@@ -599,7 +614,7 @@ CREATE TABLE "TradeJournal" (
 CREATE TABLE "DailyPnL" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "realizedPnl" DOUBLE PRECISION NOT NULL DEFAULT 0.0,
     "unrealizedPnl" DOUBLE PRECISION NOT NULL DEFAULT 0.0,
     "totalPnl" DOUBLE PRECISION NOT NULL DEFAULT 0.0,
@@ -650,9 +665,6 @@ CREATE UNIQUE INDEX "FundTransaction_utrNumber_key" ON "FundTransaction"("utrNum
 
 -- CreateIndex
 CREATE INDEX "FundTransaction_userId_transactionType_status_idx" ON "FundTransaction"("userId", "transactionType", "status");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Margin_userId_key" ON "Margin"("userId");
 
 -- CreateIndex
 CREATE INDEX "Margin_userId_idx" ON "Margin"("userId");
@@ -721,10 +733,16 @@ CREATE INDEX "GTTOrder_userId_status_idx" ON "GTTOrder"("userId", "status");
 CREATE INDEX "Watchlist_userId_idx" ON "Watchlist"("userId");
 
 -- CreateIndex
-CREATE INDEX "WatchlistItem_watchlistId_idx" ON "WatchlistItem"("watchlistId");
+CREATE INDEX "WatchlistGroup_watchlistId_idx" ON "WatchlistGroup"("watchlistId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "WatchlistItem_watchlistId_instrumentId_key" ON "WatchlistItem"("watchlistId", "instrumentId");
+CREATE INDEX "WatchlistItem_groupId_idx" ON "WatchlistItem"("groupId");
+
+-- CreateIndex
+CREATE INDEX "WatchlistItem_instrumentId_idx" ON "WatchlistItem"("instrumentId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "WatchlistItem_groupId_instrumentId_key" ON "WatchlistItem"("groupId", "instrumentId");
 
 -- CreateIndex
 CREATE INDEX "Alert_userId_isTriggered_isRead_idx" ON "Alert"("userId", "isTriggered", "isRead");
@@ -743,9 +761,6 @@ CREATE INDEX "CorporateAction_instrumentId_exDate_idx" ON "CorporateAction"("ins
 
 -- CreateIndex
 CREATE INDEX "TradeJournal_userId_date_idx" ON "TradeJournal"("userId", "date");
-
--- CreateIndex
-CREATE UNIQUE INDEX "DailyPnL_date_key" ON "DailyPnL"("date");
 
 -- CreateIndex
 CREATE INDEX "DailyPnL_userId_date_idx" ON "DailyPnL"("userId", "date");
@@ -767,6 +782,9 @@ ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId"
 
 -- AddForeignKey
 ALTER TABLE "FundTransaction" ADD CONSTRAINT "FundTransaction_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Margin" ADD CONSTRAINT "Margin_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "MarketDepth" ADD CONSTRAINT "MarketDepth_instrumentId_fkey" FOREIGN KEY ("instrumentId") REFERENCES "Instrument"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -814,10 +832,13 @@ ALTER TABLE "GTTOrder" ADD CONSTRAINT "GTTOrder_userId_fkey" FOREIGN KEY ("userI
 ALTER TABLE "Watchlist" ADD CONSTRAINT "Watchlist_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "WatchlistItem" ADD CONSTRAINT "WatchlistItem_instrumentId_fkey" FOREIGN KEY ("instrumentId") REFERENCES "Instrument"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "WatchlistGroup" ADD CONSTRAINT "WatchlistGroup_watchlistId_fkey" FOREIGN KEY ("watchlistId") REFERENCES "Watchlist"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "WatchlistItem" ADD CONSTRAINT "WatchlistItem_watchlistId_fkey" FOREIGN KEY ("watchlistId") REFERENCES "Watchlist"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "WatchlistItem" ADD CONSTRAINT "WatchlistItem_groupId_fkey" FOREIGN KEY ("groupId") REFERENCES "WatchlistGroup"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "WatchlistItem" ADD CONSTRAINT "WatchlistItem_instrumentId_fkey" FOREIGN KEY ("instrumentId") REFERENCES "Instrument"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Alert" ADD CONSTRAINT "Alert_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -830,3 +851,6 @@ ALTER TABLE "Basket" ADD CONSTRAINT "Basket_userId_fkey" FOREIGN KEY ("userId") 
 
 -- AddForeignKey
 ALTER TABLE "BasketItem" ADD CONSTRAINT "BasketItem_basketId_fkey" FOREIGN KEY ("basketId") REFERENCES "Basket"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "DailyPnL" ADD CONSTRAINT "DailyPnL_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

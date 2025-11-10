@@ -3,7 +3,7 @@ import type { PrismaClient, Segment } from "../../../generated/prisma";
 
 interface RegisterData {
     aadhaarNumber: string,
-    segment: Segment,
+    segment: Segment[],
 }
 
 interface IRegisterProp {

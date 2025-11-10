@@ -29,7 +29,7 @@ model User {
   createdAt           DateTime?           @default(now())
   updatedAt           DateTime?           @updatedAt
   isVerified          Boolean             @default(false)
-  segment             Segment             @default(EQUITY)
+  segment             Segment[]           @default([EQUITY])
   alerts              Alert[]
   bankAccounts        BankAccount[]
   baskets             Basket[]
@@ -95,6 +95,7 @@ model UserProfile {
   annualIncome      String?
   tradingExperience String?
   signature         String?
+  webcam            String?
   riskProfile       RiskProfile         @default(MODERATE)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
@@ -814,8 +815,11 @@ enum KYCStage {
   ZERO
   ONE
   TWO
-  THREE
-  FOUR
+  THREEA
+  THREEB
+  THREEC
+  FOURA
+  FOURB
 }
 
 enum OTPPreferenceType {
