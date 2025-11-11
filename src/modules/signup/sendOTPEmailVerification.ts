@@ -32,7 +32,7 @@ export async function sendOTPEmailVerification({ prisma, data }: IRegisterProp) 
     await redis.set(redisKey, JSON.stringify({
         OTP,
         name
-    }), "EX", 90000);
+    }), "EX", 900);
     return new HttpResponse(200, "OTP_SENT_SUCCESSFULLY").toResponse();
 }
 

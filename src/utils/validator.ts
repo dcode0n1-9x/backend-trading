@@ -1,4 +1,4 @@
-import { OTPPreferenceType, Segment, AnnualIncome, OccupationType, TradingExperience, MartialStatusType, BankAccountType, RelationshipType } from "../../generated/prisma";
+import { OTPPreferenceType, Segment, AnnualIncome, OccupationType, TradingExperience, MartialStatusType, BankAccountType, RelationshipType, OrderVariety, OrderType, TransactionType, ProductType, Exchange, OrderValidity } from "../../generated/prisma";
 import { Elysia, t } from "elysia";
 import { config } from "../config/generalconfig";
 
@@ -160,13 +160,19 @@ const watchListItemCreateValidator = t.Object({
   instrumentId: t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_INSTRUMENT_ID" }),
 });
 
+const watchListItemIdParam = t.Object({
+  watchlistItemId: t.String({ minLength: 10, maxLength: 100, example: "watchlist12345", error: "INVALID_WATCHLIST_ID" })
+})
+
+const watchListItemUpdateValidator = t.Object({
+  sortOrder: t.Number({ minimum: 1, maximum: 100, example: 1, error: "INVALID_SORT_ORDER" }),
+})
+
 export const watchlistItemValidator = new Elysia().model({
   "watchlist-item.createWatchlistItem": watchListItemCreateValidator,
-  "watchlist-item.id": watchListIdParam,
+  "watchlist-item.id": watchListItemIdParam,
   "watchlist-groupId": watchlistGroupIdParam,
-  "watchlist-item.watchlistGroupId": watchlistGroupIdParam,
-  "watchlist-item.deleteWatchlistItem": watchlistGroupIdParam,
-  "watchlist-item.updateWatchlistItem": watchListGroupUpdateValidator,
+  "watchlist-item.updateWatchlistItem": watchListItemUpdateValidator,
 });
 
 export const watchlistGroupValidator = new Elysia().model({
@@ -203,11 +209,58 @@ export const signUpValidator = new Elysia().model({
   "auth.signup.layer3C": verificationLayer3C,
   "auth.signup.presigned": presignedURLRequest,
   "auth.signup.layer4A": verificationLayer4A,
-  "auth.signup.layer4B" : verificationLayer4B
+  "auth.signup.layer4B": verificationLayer4B
 })
+
 
 export const authValidator = new Elysia().model({
   "auth.login": loginBody,
 });
 
 
+
+
+
+
+
+const createOrderValidator = t.Object({
+  variety: t.Enum(OrderVariety),
+  orderType: t.Enum(OrderType),
+  transactionType: t.Enum(TransactionType),
+  validity: t.Enum(OrderValidity),
+  product: t.Enum(ProductType),
+  exchange: t.Enum(Exchange),
+  tradingSymbol: t.String({ examples: "TATASTEEL" }),
+  instrumentId: t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_INSTRUMENT_ID" }),
+  quantity: t.Number({ minimum: 1, maximum: 2000, example: 5, error: "QUANTITY_INVALID" }),
+  price: t.Number({ minimum: 0, maximum: 2000000, example: 5, error: "QUANTITY_INVALID" }),
+})
+
+const cancelOrderValidator = t.Object({
+  quantity: t.Number({ minimum: 0, maximum: 2000000, example: 5, error: "QUANTITY_INVALID" }),
+})
+
+const updateOrderValidator = t.Object({
+  variety: t.Optional(t.Enum(OrderVariety)),
+  orderType: t.Optional(t.Enum(OrderType)),
+  transactionType: t.Optional(t.Enum(TransactionType)),
+  validity: t.Optional(t.Enum(OrderValidity)),
+  product: t.Optional(t.Enum(ProductType)),
+  exchange: t.Optional(t.Enum(Exchange)),
+  tradingSymbol: t.Optional(t.String({ examples: "TATASTEEL" })),
+  instrumentId: t.Optional(t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_INSTRUMENT_ID" })),
+  quantity: t.Optional(t.Number({ minimum: 1, maximum: 2000, example: 5, error: "QUANTITY_INVALID" })),
+  price: t.Optional(t.Number({ minimum: 0, maximum: 2000000, example: 5, error: "QUANTITY_INVALID" })),
+})
+
+
+const orderIdParams = t.Object({
+  orderId: t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_ORDER_ID" }),
+})
+
+export const orderValidator = new Elysia().model({
+  "order.createOrder": createOrderValidator,
+  "order.cancelOrder": cancelOrderValidator,
+  "order.updateOrder": updateOrderValidator,
+  "order.orderId": orderIdParams
+});

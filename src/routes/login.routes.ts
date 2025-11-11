@@ -8,7 +8,7 @@ export const authRouter = new Elysia({
     prefix: "/auth",
     detail : {
         tags: ["Auth"],
-        description: "APIs related to user authentication"
+        summary : "User Authentication APIs",
     }
 })
     .use(authValidator)
@@ -22,6 +22,10 @@ export const authRouter = new Elysia({
         },
         {
             body: "auth.login",
+            detail: {
+                summary : "User Login",
+                description: "Authenticates a user with their credentials and returns an authentication token upon successful login."
+            }
         }
     )
 

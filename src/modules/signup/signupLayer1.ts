@@ -14,24 +14,26 @@ interface IRegisterProp {
 
 export async function signUpLayer1({ prisma, data, userId }: IRegisterProp) {
     const { panNumber, dob } = data;
-    const [updatedUser, updatedStage] = await prisma.$transaction([
-        prisma.user.update({
-            where: { id: userId },
-            data: {
-                panNumber,
-                dob: new Date(dob), // ensure date format
-            },
-        }),
-        prisma.userVerification.update({
-            where: { userId, stage: 'ZERO' },
-            data: { stage: 'ONE' }
-        }),
-    ])
-    if (!updatedUser) {
+
+    const updateUser = await prisma.user.update({
+        where: { id: userId , userVerification :  {
+            stage : 'ZERO'
+        } },
+        data: {
+            panNumber,
+            dob: new Date(dob), // ensure date format
+            userVerification: {
+                update: {
+                    stage: "ONE"
+                }
+            }
+        },
+        include: {
+            userVerification: true
+        }
+    })
+    if (!updateUser) {
         throw new Error("USER_UPDATE_FAILED");
-    }
-    if (!updatedStage) {
-        throw new Error("USER_STAGE_UPDATE_FAILED");
     }
     return { userStage: "ONE" };
 }

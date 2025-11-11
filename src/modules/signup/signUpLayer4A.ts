@@ -15,25 +15,35 @@ interface IRegisterProp {
 
 export async function signUpLayer4A({ prisma, data, userId }: IRegisterProp) {
     const { signature } = data;
-    const checkLayers = await prisma.userVerification.findUnique({
-        where: { userId, stage: 'THREEC' },
-    });
 
-    if (!checkLayers) {
-        throw new Error("INVALID_USER_STAGE");
-    }
-    const updateStage = await prisma.$transaction([
-        prisma.userVerification.update({
-            where: { userId: userId },
-            data: { stage: 'FOURA' }
-        }),
-        prisma.userProfile.update({
+    return await prisma.$transaction(async (tx) => {
+        // 1. Validate stage atomically
+        const verification = await tx.userVerification.findUnique({
             where: { userId },
-            data: { signature }
-        }),
-    ]);
-    if (!updateStage) {
-        throw new Error("SIGNUP_FAILED");
-    }
-    return { userStage: "FOURA" };
+            select: { stage: true }
+        });
+
+        if (verification?.stage !== "THREEC") {
+            throw new Error(`INVALID_USER_STAGE: Expected THREEC, got ${verification?.stage}`);
+        }
+
+        // 2. Single update with nested updates (one query)
+        const result = await tx.user.update({
+            where: { id: userId },
+            data: {
+                profile: {
+                    update: { signature }
+                },
+                userVerification: {
+                    update: { stage: "FOURA" }
+                }
+            },
+            include: {
+                profile: true,
+                userVerification: true
+            }
+        });
+
+        return { userStage: "FOURA", data: result };
+    });
 }

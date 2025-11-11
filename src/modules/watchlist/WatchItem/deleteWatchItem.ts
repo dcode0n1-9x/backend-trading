@@ -11,10 +11,10 @@ interface IRegisterProp {
     data: RegisterData;
 }
 
-export async function deleteWatchGroup({ prisma, data }: IRegisterProp) {
+export async function deleteWatchlistItem({ prisma, data }: IRegisterProp) {
     const { watchlistItemId } = data;
     const deleteWatchItem = await prisma.watchlistItem.delete({
-        where: { id: watchlistItemId },
+        where: { id: watchlistItemId},
     });
     if (!deleteWatchItem) {
         return new HttpResponse(500, "WATCHLIST_ITEM_DELETION_FAILED").toResponse();

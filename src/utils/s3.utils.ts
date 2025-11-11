@@ -29,10 +29,8 @@ export async function deleteImageFromR2(filePath: string,): Promise<boolean> {
             Key: filePath,
         });
         let response = await s3Client.send(command);
-        console.log(response)
         return true;
     } catch (error) {
-        console.log(error)
         return false; // Or handle as a soft error
     }
 }

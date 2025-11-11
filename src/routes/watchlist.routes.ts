@@ -3,7 +3,7 @@ import { prisma } from "../db/index";
 import { authMiddleware } from "../middleware/authMiddleware";
 import { getWatchListUser } from "../modules/watchlist/WatchList/getWatchlistAndMakeDefault";
 import { createWatchList } from "../modules/watchlist/WatchList/createWatchlist";
-import { watchlistGroupValidator, watchlistValidator } from "../utils/validator";
+import { watchlistValidator } from "../utils/validator";
 import { deleteWatchList } from "../modules/watchlist/WatchList/deleteWatchList";
 import { updateWatchList } from "../modules/watchlist/WatchList/updateWatchList";
 
@@ -25,7 +25,12 @@ export const watchlistRouter = new Elysia({
                 userId: user.id,
             })
 
+        }, {
+        detail: {
+            summary: "Get All Watchlist",
+            description: "This is the end-point to fetch all the watchlist of the user"
         }
+    }
     )
     .post("/", async ({ body, user }) => {
         return await createWatchList({
@@ -35,6 +40,10 @@ export const watchlistRouter = new Elysia({
         })
     }, {
         body: "watchlist.createWatchlist",
+        detail: {
+            summary: "Create the Watchlist",
+            description: "This is to create a watchlist tab for the user"
+        }
     })
     .delete("/:watchlistId", async ({ params }) => {
         const { watchlistId } = params;
@@ -43,7 +52,11 @@ export const watchlistRouter = new Elysia({
             data: { watchlistId },
         });
     }, {
-        params: "watchlist.deleteWatchlist"
+        params: "watchlist.deleteWatchlist",
+        detail: {
+            summary: "Delete the Watchlist",
+            description: "This is the end-point for deleting up the watchlist"
+        }
     })
     .put("/:watchlistId", async ({ params, body, user }) => {
         const { watchlistId } = params;
@@ -56,8 +69,12 @@ export const watchlistRouter = new Elysia({
             userId: user.id,
         });
     }, {
-        params : "watchlist.id",
+        params: "watchlist.id",
         body: "watchlist.updateWatchlist",
+        detail : {
+            summary : "Update the Watchlist" , 
+            description : "This is to update the name of the watchlist"
+        }
     });
-    
+
 

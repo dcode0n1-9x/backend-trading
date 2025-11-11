@@ -24,7 +24,7 @@ export const signUpRouter = new Elysia({
   name: "sign-up",
   prefix: "/sign-up",
   detail: {
-    tags: ["Auth"],
+    tags: ["Sign-up"],
     description: "APIs related to user sign-up process"
   }
 })
@@ -39,6 +39,10 @@ export const signUpRouter = new Elysia({
     },
     {
       body: "auth.signup.sendotp",
+      detail: {
+        summary : "Send OTP for Sign-Up",
+        description: "Sends an OTP to the provided phone number for verification during the sign-up process."
+      }
     }
   )
   .use(jwt({
@@ -78,6 +82,10 @@ export const signUpRouter = new Elysia({
     },
     {
       body: "auth.signup.verifyotp",
+      detail: {
+        summary : "Verify OTP for Sign-Up",
+        description: "Verifies the OTP sent to the user's phone number and creates a new user account upon successful verification."
+      }
     }
   )
   .use(authMiddleware)
@@ -88,7 +96,13 @@ export const signUpRouter = new Elysia({
       return new HttpResponse(500, (error as Error).message).toResponse()
     }
   },
-    { body: "auth.signup.sendotpemail" }
+    {
+      body: "auth.signup.sendotpemail",
+      detail: {
+        summary : "Send OTP to Email for Verification",
+        description: "Sends an OTP to the provided email address for verification during the sign-up process."
+      }
+    }
   )
   .post("/layer-0", async ({ body, user }) => {
     try {
@@ -98,11 +112,14 @@ export const signUpRouter = new Elysia({
       }
       return new HttpResponse(200, "LAYER0_COMPLETED", result).toResponse()
     } catch (error) {
-      console.log(error)
-      return new HttpResponse(400, (error as Error).message).toResponse()
+      return new HttpResponse(500, (error as Error).message).toResponse()
     }
   }, {
-    body: "auth.signup.layer0"
+    body: "auth.signup.layer0",
+    detail: {
+      summary : "Complete Sign-Up Layer 0",
+      description: "Completes the initial layer of the sign-up process by confirming the email verification OTP."
+    }
   })
   .post("/layer-1",
     async ({ body, user }) => {
@@ -112,13 +129,16 @@ export const signUpRouter = new Elysia({
           data: body,
           userId: user!.id,
         });
-        console.log("Layer 1 result:", result);
         return new HttpResponse(200, "LAYER1_COMPLETED", result).toResponse();
       } catch (error) {
-        return new HttpResponse(400, (error as Error).message).toResponse();
+        return new HttpResponse(500, (error as Error).message).toResponse();
       }
     }, {
     body: "auth.signup.layer1",
+    detail: {
+      summary : "Complete Sign-Up Layer 1",
+      description: "Completes the first layer of the sign-up process by collecting pan and dob information."
+    }
   })
   .post("/layer-2", async ({ body, user }) => {
     try {
@@ -133,6 +153,10 @@ export const signUpRouter = new Elysia({
     }
   }, {
     body: "auth.signup.layer2",
+    detail: {
+      summary : "Complete Sign-Up Layer 2",
+      description: "Completes the second layer of the sign-up process by collecting addharNumber and segment preference of user."
+    }
   })
   .post("/layer-3-A", async ({ body, user }) => {
     try {
@@ -147,6 +171,10 @@ export const signUpRouter = new Elysia({
     }
   }, {
     body: "auth.signup.layer3A",
+    detail: {
+      summary : "Complete Sign-Up Layer 3A",
+      description: "Completes the third layer A of the sign-up process by collecting user basic information."
+    }
   }
   )
   .post("/layer-3-B", async ({ body, user }) => {
@@ -162,6 +190,10 @@ export const signUpRouter = new Elysia({
     }
   }, {
     body: "auth.signup.layer3B",
+    detail: {
+      summary : "Complete Sign-Up Layer 3B",
+      description: "Completes the third layer B of the sign-up process by collecting user bank account information."
+    }
   }
   )
   .post("/presigned-webcam", async ({ body, user }) => {
@@ -177,6 +209,10 @@ export const signUpRouter = new Elysia({
     }
   }, {
     body: "auth.signup.presigned",
+    detail: {
+      summary : "Generate Presigned URL for Webcam Upload",
+      description: "Generates a presigned URL for uploading the user's webcam image during the sign-up process."
+    }
   })
   .post("/layer-3-C", async ({ body, user }) => {
     try {
@@ -191,6 +227,10 @@ export const signUpRouter = new Elysia({
     }
   }, {
     body: "auth.signup.layer3C",
+    detail: {
+      summary : "Complete Sign-Up Layer 3C",
+      description: "Completes the third layer C of the sign-up process by collecting user's webcam information."
+    }
   }
   )
   .post("/presigned-signature", async ({ body, user }) => {
@@ -206,6 +246,10 @@ export const signUpRouter = new Elysia({
     }
   }, {
     body: "auth.signup.presigned",
+    detail: {
+      summary : "Generate Presigned URL for Signature Upload",
+      description: "Generates a presigned URL for uploading the user's signature image during the sign-up process."
+    }
   })
   .post("/layer-4-A", async ({ body, user }) => {
     try {
@@ -217,6 +261,10 @@ export const signUpRouter = new Elysia({
   },
     {
       body: "auth.signup.layer4A",
+      detail: {
+        summary : "Complete Sign-Up Layer 4A",
+        description: "Completes the fourth layer A of the sign-up process by collecting user's signature information."
+      }
     }
   )
   .post("/layer-4-B", async ({ body, user }) => {
@@ -229,6 +277,10 @@ export const signUpRouter = new Elysia({
   },
     {
       body: "auth.signup.layer4B",
+      detail: {
+        summary : "Complete Sign-Up Layer 4B",
+        description: "Completes the fourth layer B of the sign-up process by collecting user's nominee details"
+      }
     }
   )
   .get("/current-stage", async ({ user }) => {
@@ -236,5 +288,10 @@ export const signUpRouter = new Elysia({
       return await getCurrentStage({ prisma, userId: user.id })
     } catch (error) {
       return new HttpResponse(400, (error as Error).message).toResponse();
+    }
+  } , {
+    detail: {
+      summary : "Get Current Sign-Up Stage",
+      description: "Retrieves the current stage of the user's sign-up process."
     }
   })

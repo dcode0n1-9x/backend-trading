@@ -28,6 +28,10 @@ export const forgetPasswordRoutes = new Elysia({
         },
         {
             body: "auth.forgetpassword",
+            detail : {
+                summary : "Initiate Forget Password",
+                description: "Initiates the forget password process by sending a reset token to the user's registered email address."
+            }
         }
     )
     .put(
@@ -40,6 +44,10 @@ export const forgetPasswordRoutes = new Elysia({
         },
         {
             body: "auth.verifyotp.forgetpassword",
+            detail : {
+                summary : "Verify OTP for Forget Password",
+                description: "Verifies the OTP sent to the user during the forget password process and allows the user to reset their password."
+            }
         }
     );
 

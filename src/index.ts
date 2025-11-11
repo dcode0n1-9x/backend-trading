@@ -54,7 +54,8 @@ const app = new Elysia({
   .use(indexRouter.dashboardRouter)
   .use(indexRouter.watchlistRouter)
   .use(indexRouter.watchlistGroupRouter)
-  .use(indexRouter.watchlistItemRouter);
+  .use(indexRouter.watchlistItemRouter)
+  .use(indexRouter.orderRoutes)
 
 export type App = typeof app;
 

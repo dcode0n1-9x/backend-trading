@@ -25,7 +25,6 @@ export async function createWatchListGroup({ prisma, data }: IRegisterProp) {
         }
         return new HttpResponse(200, "WATCHLIST_GROUP_CREATED_SUCCESSFULLY", { watchlistGroupId: createWatchGroup.id }).toResponse();
     } catch (error) {
-        console.log(error);
         return new HttpResponse(500, "WATCHLIST_GROUP_CREATION_FAILED").toResponse();
     }
 }

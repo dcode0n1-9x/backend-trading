@@ -25,7 +25,6 @@ export async function updateWatchList({ prisma, data  }: IRegisterProp) {
         }
         return new HttpResponse(200, "WATCHLIST_UPDATED_SUCCESSFULLY", { watchlistId: updateWatchList.id }).toResponse();
     }catch (error) {
-        console.log(error)
         return new HttpResponse(500, "WATCHLIST_UPDATE_FAILED").toResponse();
     }
 }

@@ -13,7 +13,7 @@ export const watchlistGroupRouter = new Elysia({
     name: "watchlist-group",
     prefix: "/watchlist-group",
     detail: {
-        tags: ["Watchlist Group"],
+        tags: ["Watchlist"],
         description: "APIs related to user watchlist groups"
     }
 })
@@ -30,6 +30,10 @@ export const watchlistGroupRouter = new Elysia({
     }, {
         params: "watchlist.id",
         body: "watchlist.createWatchlistGroup",
+        detail : {
+            summary : "Create Watchlist Group",
+            description: "Creates a new watchlist group under the specified watchlist."
+        }
     })
     .delete("/:watchlistGroupId", async ({ params }) => {
         return await deleteWatchGroup({
@@ -39,7 +43,11 @@ export const watchlistGroupRouter = new Elysia({
             },
         });
     }, {
-        params: "watchlist.deleteWatchlistGroup"
+        params: "watchlist.deleteWatchlistGroup",
+        detail : {
+            summary : "Delete Watchlist Group",
+            description: "Deletes the specified watchlist group from the user's watchlist."
+        }
     })
     .put("/:watchlistGroupId", async ({ params, body }) => {
         return await updateWatchGroup({
@@ -54,4 +62,8 @@ export const watchlistGroupRouter = new Elysia({
     }, {
         params: "watchlist.watchlistGroupId",
         body: "watchlist.updateWatchlistGroup",
+        detail : {
+            summary : "Update Watchlist Group",
+            description: "Updates the details of the specified watchlist group, such as its name, color, and sort order."
+        }
     });

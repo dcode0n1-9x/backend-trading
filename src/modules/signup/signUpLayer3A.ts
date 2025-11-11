@@ -19,35 +19,55 @@ interface IRegisterProp {
 }
 
 export async function signUpLayer3A({ prisma, data, userId }: IRegisterProp) {
-    const { fatherName, motherName, maritalStatus, annualIncome, tradingExperience, occupation} = data;
-    const checkLayers = await prisma.userVerification.findUnique({
-        where: { userId, stage: 'TWO' },
-    });
-    if (!checkLayers) {
-        throw new Error("INVALID_USER_STAGE");
-    }
-    const [updateUser, updateStage] = await prisma.$transaction([
-        prisma.userProfile.create({
+    const { fatherName, motherName, maritalStatus, annualIncome, tradingExperience, occupation } = data;
+
+    return await prisma.$transaction(async (tx) => {
+        // Validate stage
+        const verification = await tx.userVerification.findUnique({
+            where: { userId },
+            select: { stage: true }
+        });
+
+        if (verification?.stage !== "TWO") {
+            throw new Error(`INVALID_USER_STAGE: Expected TWO, got ${verification?.stage}`);
+        }
+
+        // Update user with nested profile upsert
+        const result = await tx.user.update({
+            where: { id: userId },
             data: {
-                userId,
-                fatherName,
-                motherName,
-                maritalStatus,
-                annualIncome,
-                tradingExperience,
-                occupation
+                profile: {
+                    upsert: {
+                        create: {
+                            fatherName,
+                            motherName,
+                            maritalStatus,
+                            annualIncome,
+                            tradingExperience,
+                            occupation
+                        },
+                        update: {
+                            fatherName,
+                            motherName,
+                            maritalStatus,
+                            annualIncome,
+                            tradingExperience,
+                            occupation
+                        }
+                    }
+                },
+                userVerification: {
+                    update: {
+                        stage: "THREEA"
+                    }
+                }
+            },
+            include: {
+                profile: true,
+                userVerification: true
             }
-        }),
-        prisma.userVerification.update({
-            where: { userId: userId },
-            data: { stage: "THREEA" }
-        })
-    ])
-    if (!updateUser) {
-        throw new Error("USER_UPDATE_FAILED");
-    }
-    if (!updateStage) {
-        throw new Error("USER_STAGE_UPDATE_FAILED");
-    }
-    return { userStage: "THREE" };
+        });
+
+        return { userStage: "THREEA", data: result };
+    });
 }

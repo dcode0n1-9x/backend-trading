@@ -344,7 +344,7 @@ model Order {
   instrument         Instrument      @relation(fields: [instrumentId], references: [id])
   user               User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   trades             Trade[]
-
+  modificationCount  Int              @default(0)
   @@index([userId,   status])
   @@index([orderId])
   @@index([tradingSymbol, exchange])

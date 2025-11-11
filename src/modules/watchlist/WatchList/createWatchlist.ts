@@ -13,7 +13,6 @@ interface IRegisterProp {
 }
 
 export async function createWatchList({ prisma, data, userId }: IRegisterProp) {
-    console.log(data)
     const { name } = data;
     const create = await prisma.watchlist.create({
         data: {

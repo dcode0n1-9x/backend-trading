@@ -24,9 +24,9 @@ export const dashboardRouter = new Elysia({
                 return new HttpResponse(400, response.message).toResponse();
             }
             response["products"] = [
-              ProductType.CNC,
-              ProductType.MIS,
-              ProductType.NRML
+                ProductType.CNC,
+                ProductType.MIS,
+                ProductType.NRML
             ]
             response["order_types"] = [
                 Exchange.NSE,
@@ -38,9 +38,18 @@ export const dashboardRouter = new Elysia({
             ]
             response["broker"] = "MONEYPLANTFX NINEX"
             return new HttpResponse(200, "DASHBOARD_DETAIL_FETCHED", response).toResponse();
-        },
-    )
-    .get("/margin" , async ({ user }) => {
+        }, {
+        detail: {
+            summary: "Get Dashboard Details",
+            description: "Fetches comprehensive details for the user's dashboard, including account info, watchlists, and preferences."
+        }
+    })
+    .get("/margin", async ({ user }) => {
 
+    }, {
+        detail: {
+            summary: "Get User Margin Details",
+            description: "Fetches the margin details for the authenticated user."
+        }
     })
 
