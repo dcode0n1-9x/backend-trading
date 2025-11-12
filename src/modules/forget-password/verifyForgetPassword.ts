@@ -1,4 +1,4 @@
-import { hash } from "crypto";
+import { hash } from "bcrypt";
 import type { PrismaClient } from "../../../generated/prisma";
 import { redis } from "../../config/redis/redis.config";
 import { HttpResponse } from "../../utils/response/success";
@@ -19,7 +19,7 @@ export async function verifyOTPAfterForgetPassword({ prisma, data }: IRegisterPr
     if (!checkCache) {
         throw new Error("OTP_EXPIRED");
     }
-    const hashedPassword = hash(password, '10');
+    const hashedPassword = await hash(password, 10);
     const { userId } = JSON.parse(checkCache);
     const update = await prisma.user.update({
         where: { id: userId },

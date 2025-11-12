@@ -5,7 +5,7 @@ import { forgetPassword } from "../modules/forget-password/forgetPassword";
 import { verifyOTPAfterForgetPassword } from "../modules/forget-password/verifyForgetPassword";
 import { HttpResponse } from "../utils/response/success";
 
-export const forgetPasswordRoutes = new Elysia({
+export const forgetPasswordRouter = new Elysia({
     name: "Forget Password",
     detail: {
         tags: ["Forget Password"],
@@ -23,6 +23,8 @@ export const forgetPasswordRoutes = new Elysia({
             if (response instanceof Error) {
                 return new HttpResponse(400, response.message).toResponse();
             }
+            console.log("Reset Token:", response.resetToken);
+            console.log(response)
             const { resetToken } = response;
             redirect(`/reset-password?token=${resetToken}`);
         },

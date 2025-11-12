@@ -36,7 +36,9 @@ export async function signUpLayer2({ prisma, data, userId }: IRegisterProp) {
             }
         },
         include: {
-            userVerification: true
+            userVerification: {
+                select : { stage: true }
+            }
         }
     })
     if (!updateUser) {

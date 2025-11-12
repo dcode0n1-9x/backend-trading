@@ -28,10 +28,15 @@ export async function verifyOTP({ prisma, data }: IRegisterProp) {
             data: {
                 phone,
                 userVerification: {
-                    create: { stage: "ZERO" }
+                    create: {}
                 },
                 margin: {
-                    create: {}
+                    createMany: {
+                        data: [
+                            { type: "EQUITY" },
+                            { type: "COMMODITY" },
+                        ]
+                    }
                 },
                 dailyPnls: {
                     create: {}
@@ -39,14 +44,14 @@ export async function verifyOTP({ prisma, data }: IRegisterProp) {
             },
             select: { id: true }
         });
-    if (!createUser) {
-        return new Error("USER_CREATION_FAILED");
+        if (!createUser) {
+            return new Error("USER_CREATION_FAILED");
+        }
+        return { userStage: "ZERO", id: createUser.id };
     }
-    return { userStage: "ZERO", id: createUser.id };
-}
-if (checkUser && checkUser.isVerified) {
-    return new Error("USER_ALREADY_VERIFIED");
-}
-return { userStage: "ZERO", id: checkUser.id };
+    if (checkUser && checkUser.isVerified) {
+        return new Error("USER_ALREADY_VERIFIED");
+    }
+    return { userStage: "ZERO", id: checkUser.id };
 
 }

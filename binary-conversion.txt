@@ -1,0 +1,4 @@
+COMMANDS TO RUN THE ENTIRE CODE INTO BINARIES FROM THE ROOT.
+
+
+bun build     --compile       --minify-whitespace     --minify-syntax         --target bun    --outfile server        src/index.ts

@@ -6,7 +6,7 @@ import type { TradingExperience, MartialStatusType, AnnualIncome, BankAccountTyp
 interface RegisterData {
     fatherName: string,
     motherName: string,
-    maritalStatus: MartialStatusType    ,
+    maritalStatus: MartialStatusType,
     annualIncome: AnnualIncome,
     tradingExperience: TradingExperience,
     occupation: OccupationType,
@@ -62,12 +62,11 @@ export async function signUpLayer3A({ prisma, data, userId }: IRegisterProp) {
                     }
                 }
             },
-            include: {
-                profile: true,
-                userVerification: true
-            }
+            select: {
+                firstName: true,
+                email: true,
+            },
         });
-
-        return { userStage: "THREEA", data: result };
+        return { userStage: "THREEA", ...result };
     });
 }

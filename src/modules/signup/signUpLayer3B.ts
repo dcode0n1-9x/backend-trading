@@ -37,7 +37,7 @@ export async function signUpLayer3B({ prisma, data, userId }: IRegisterProp) {
         const result = await tx.user.update({
             where: { id: userId },
             data: {
-                bankAccounts: {
+            bankAccounts: {
                     create: {
                         isPrimary: true,
                         isVerified: true,
@@ -58,15 +58,13 @@ export async function signUpLayer3B({ prisma, data, userId }: IRegisterProp) {
                     }
                 }
             },
-            include: {
-                bankAccounts: {
-                    where: { isPrimary: true }
-                },
-                userVerification: true
+            select: {
+                firstName: true,
+                email: true,
             }
         });
 
-        return { userStage: "THREEB", data: result };
+        return { userStage: "THREEB", ...result };
     });
 }
 

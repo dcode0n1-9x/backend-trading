@@ -38,12 +38,12 @@ export async function signUpLayer4A({ prisma, data, userId }: IRegisterProp) {
                     update: { stage: "FOURA" }
                 }
             },
-            include: {
-                profile: true,
-                userVerification: true
+            select: {
+                firstName: true,
+                email : true,
             }
         });
 
-        return { userStage: "FOURA", data: result };
+        return { userStage: "FOURA", ...result };
     });
 }

@@ -15,6 +15,7 @@ model User {
   // userIdentifier   String            @default(dbgenerated("'MP' || LPAD(nextval('user_identifier_seq')::text, 6, '0')"))
   phone               String              @unique
   password            String?
+  avatar              String?
   firstName           String?
   lastName            String?
   panNumber           String?             @unique
@@ -158,6 +159,7 @@ model FundTransaction {
 model Margin {
   id              String    @id @default(cuid())
   userId          String
+  type            Segment
   availableCash   Float     @default(0.0)
   usedMargin      Float     @default(0.0)
   availableMargin Float     @default(0.0)
@@ -170,7 +172,6 @@ model Margin {
   optionPremium   Float     @default(0.0)
   updatedAt       DateTime  @updatedAt
   user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
   @@index([userId])
 }
 
@@ -203,6 +204,7 @@ model Instrument {
 
   @@index([tradingSymbol, exchange])
   @@index([instrumentToken])
+  @@index([name , tradingSymbol])
 }
 
 model MarketDepth {
@@ -826,3 +828,5 @@ enum OTPPreferenceType {
   EMAIL
   SMS
 }
+
+

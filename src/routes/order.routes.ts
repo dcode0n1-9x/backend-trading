@@ -6,7 +6,7 @@ import { authMiddleware } from "../middleware/authMiddleware";
 import { updateOrder } from "../modules/order/updateOrder";
 import { cancelOrder } from "../modules/order/cancelOrder";
 
-export const orderRoutes = new Elysia({
+export const orderRouter = new Elysia({
     name: "Order",
     prefix: "/order",
     detail: {

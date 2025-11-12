@@ -2,9 +2,8 @@ import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
 import { indexRouter } from "./routes/index";
 import openapi from "@elysiajs/openapi";
-// import { handleResponse, ILang, Lang } from "./utils/responseCodec";
-// import { opentelemetry } from '@elysiajs/opentelemetry'
 import { config } from "./config/generalconfig";
+// import prometheusPlugin from 'elysia-prometheus'
 
 
 const app = new Elysia({
@@ -19,6 +18,17 @@ const app = new Elysia({
   }
   )
 })
+// .use(
+//   prometheusPlugin({
+//     metricsPath: '/metrics',
+//     staticLabels: { service: 'my-app' },
+//     dynamicLabels: {
+//       userAgent: ({ request }) =>
+//         request.headers.get('user-agent') ?? 'unknown'
+//     },
+//     useRoutePath : true
+//   })
+// )
   .use(
     cors({
       origin: "*",
@@ -49,13 +59,14 @@ const app = new Elysia({
     }
   })
   .use(indexRouter.signUpRouter)
-  .use(indexRouter.forgetPasswordRoutes)
+  .use(indexRouter.forgetPasswordRouter)
   .use(indexRouter.authRouter)
-  .use(indexRouter.dashboardRouter)
+  .use(indexRouter.commonRouter)
   .use(indexRouter.watchlistRouter)
   .use(indexRouter.watchlistGroupRouter)
   .use(indexRouter.watchlistItemRouter)
-  .use(indexRouter.orderRoutes)
+  .use(indexRouter.orderRouter)
+  .use(indexRouter.holdingRouter);
 
 export type App = typeof app;
 

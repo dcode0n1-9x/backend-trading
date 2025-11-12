@@ -30,6 +30,7 @@
     "bcrypt": "^6.0.0",
     "bun-mock-prisma": "^1.2.1",
     "elysia": "^1.4.9",
+    "elysia-prometheus": "^1.0.0",
     "ioredis": "^5.8.2",
     "jsonwebtoken": "^9.0.2",
     "mime-types": "^3.0.1",

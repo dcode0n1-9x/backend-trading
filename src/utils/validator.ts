@@ -1,6 +1,10 @@
 import { OTPPreferenceType, Segment, AnnualIncome, OccupationType, TradingExperience, MartialStatusType, BankAccountType, RelationshipType, OrderVariety, OrderType, TransactionType, ProductType, Exchange, OrderValidity } from "../../generated/prisma";
 import { Elysia, t } from "elysia";
 import { config } from "../config/generalconfig";
+import { SortOrder } from "./types";
+
+
+
 
 
 
@@ -223,14 +227,15 @@ export const authValidator = new Elysia().model({
 
 
 
+
 const createOrderValidator = t.Object({
-  variety: t.Enum(OrderVariety),
-  orderType: t.Enum(OrderType),
-  transactionType: t.Enum(TransactionType),
-  validity: t.Enum(OrderValidity),
-  product: t.Enum(ProductType),
-  exchange: t.Enum(Exchange),
-  tradingSymbol: t.String({ examples: "TATASTEEL" }),
+  variety: t.Enum(OrderVariety, { error: "INVALID_ORDER_VARIETY", examples: [OrderVariety.REGULAR] }),
+  orderType: t.Enum(OrderType, { error: "INVALID_ORDER_TYPE", examples: [OrderType.MARKET] }),
+  transactionType: t.Enum(TransactionType, { error: "INVALID_TRANSACTION_TYPE", examples: [TransactionType.BUY] }),
+  validity: t.Enum(OrderValidity, { error: "INVALID_ORDER_VALIDITY", examples: [OrderValidity.DAY] }),
+  product: t.Enum(ProductType, { error: "INVALID_PRODUCT_TYPE", examples: [ProductType.CNC] }),
+  exchange: t.Enum(Exchange, { error: "INVALID_EXCHANGE", examples: [Exchange.NSE] }),
+  tradingSymbol: t.String({ examples: ["TATASTEEL"], error: "INVALID_TRADING_SYMBOL" }),
   instrumentId: t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_INSTRUMENT_ID" }),
   quantity: t.Number({ minimum: 1, maximum: 2000, example: 5, error: "QUANTITY_INVALID" }),
   price: t.Number({ minimum: 0, maximum: 2000000, example: 5, error: "QUANTITY_INVALID" }),
@@ -241,13 +246,13 @@ const cancelOrderValidator = t.Object({
 })
 
 const updateOrderValidator = t.Object({
-  variety: t.Optional(t.Enum(OrderVariety)),
-  orderType: t.Optional(t.Enum(OrderType)),
-  transactionType: t.Optional(t.Enum(TransactionType)),
-  validity: t.Optional(t.Enum(OrderValidity)),
-  product: t.Optional(t.Enum(ProductType)),
-  exchange: t.Optional(t.Enum(Exchange)),
-  tradingSymbol: t.Optional(t.String({ examples: "TATASTEEL" })),
+  variety: t.Optional(t.Enum(OrderVariety, { examples: [OrderVariety.REGULAR], error: "INVALID_ORDER_VARIETY" })),
+  orderType: t.Optional(t.Enum(OrderType, { examples: [OrderType.MARKET], error: "INVALID_ORDER_TYPE" })),
+  transactionType: t.Optional(t.Enum(TransactionType, { examples: [TransactionType.BUY], error: "INVALID_TRANSACTION_TYPE" })),
+  validity: t.Optional(t.Enum(OrderValidity, { examples: [OrderValidity.DAY], error: "INVALID_ORDER_VALIDITY" })),
+  product: t.Optional(t.Enum(ProductType, { examples: [ProductType.CNC], error: "INVALID_PRODUCT_TYPE" })),
+  exchange: t.Optional(t.Enum(Exchange, { examples: [Exchange.NSE], error: "INVALID_EXCHANGE" })),
+  tradingSymbol: t.Optional(t.String({ examples: ["TATASTEEL"], error: "INVALID_TRADING_SYMBOL" })),
   instrumentId: t.Optional(t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_INSTRUMENT_ID" })),
   quantity: t.Optional(t.Number({ minimum: 1, maximum: 2000, example: 5, error: "QUANTITY_INVALID" })),
   price: t.Optional(t.Number({ minimum: 0, maximum: 2000000, example: 5, error: "QUANTITY_INVALID" })),
@@ -263,4 +268,42 @@ export const orderValidator = new Elysia().model({
   "order.cancelOrder": cancelOrderValidator,
   "order.updateOrder": updateOrderValidator,
   "order.orderId": orderIdParams
+});
+
+
+const holdingIdParam = t.Object({
+  holdingId: t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_HOLDING_ID" }),
+})
+
+
+
+
+
+const getHoldingValidator = t.Object({
+  type: t.Optional(t.Enum(ProductType, { error: "INVALID_PRODUCT_TYPE", examples: [ProductType.CNC] })),
+  sort: t.Optional(t.Enum(SortOrder, { error: "INVALID_SORT_TYPE", examples: ['asc'] })),
+  skip: t.Optional(t.Number({ minimum: 0, maximum: 10000, example: 0, error: "INVALID_SKIP_VALUE" })),
+  search: t.Optional(t.String({ minLength: 1, maxLength: 100, example: "TATA", error: "INVALID_SEARCH_VALUE" })),
+  limit: t.Optional(t.Number({ minimum: 1, maximum: 1000, example: 20, error: "INVALID_LIMIT_VALUE" })),
+  cursor: t.Optional(t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_CURSOR_VALUE" })),
+})
+
+
+export const holdingValidator = new Elysia().model({
+  "holding.getHolding": getHoldingValidator,
+  "holding.id": holdingIdParam
+});
+
+
+
+
+
+
+export const updateAvatarValidator = t.Object({
+  avatar: t.String({ example: `https://${config.S3.BUCKET}.s3.${config.S3.REGION}.amazonaws.com/cmhk8ryhl0000kev0hxkw5cyw/avatar`, error: "INVALID_AVATAR_FORMAT" })
+})
+
+export const commonValidator = new Elysia().model({
+  "common.presigned-avatar": presignedURLRequest,
+  "common.upload-avatar": updateAvatarValidator,
 });

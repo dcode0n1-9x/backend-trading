@@ -38,12 +38,12 @@ export async function signUpLayer3C({ prisma, data, userId }: IRegisterProp) {
                     update: { stage: "THREEC" }
                 }
             },
-            include: {
-                profile: true,
-                userVerification: true
+            select: {
+                firstName: true,
+                email: true,
             }
         });
 
-        return { userStage: "THREEC", data: result };
+        return { userStage: "THREEC", ...result };
     });
 }

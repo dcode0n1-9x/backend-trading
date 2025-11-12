@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import { compare } from "bcrypt";
 import jwt from "jsonwebtoken";
 import type { PrismaClient } from "../../../generated/prisma";
 import { config } from "../../config/generalconfig";
@@ -25,7 +25,11 @@ export async function login({ prisma, data }: ILoginProp) {
   if (!user) {
     throw new HttpResponse(404, "USER_NOT_FOUND");
   }
-  const isPasswordValid = await bcrypt.compare(password, user.password!);
+  // const checkPassword = password === user.password;
+  // if (!checkPassword) {
+  //   throw new HttpResponse(401, "INVALID_PASSWORD");
+  // }
+  const isPasswordValid = await compare(password, user.password!);
   if (!isPasswordValid) {
     throw new HttpResponse(401, "INVALID_PASSWORD");
   }

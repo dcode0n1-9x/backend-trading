@@ -6,24 +6,30 @@ import { login } from "../modules/auth/login";
 export const authRouter = new Elysia({
     name: "auth",
     prefix: "/auth",
-    detail : {
+    detail: {
         tags: ["Auth"],
-        summary : "User Authentication APIs",
+        summary: "User Authentication APIs",
     }
 })
     .use(authValidator)
     .post(
         "/login",
         async ({ body }) => {
-            return await login({
+            try{const check = await login({
                 prisma,
                 data: body,
             });
+            console.log(check)
+            return check;}
+            catch(err){
+                console.log(err)
+                return err;
+            }
         },
         {
             body: "auth.login",
             detail: {
-                summary : "User Login",
+                summary: "User Login",
                 description: "Authenticates a user with their credentials and returns an authentication token upon successful login."
             }
         }
