@@ -1,4 +1,4 @@
-import { OTPPreferenceType, Segment, AnnualIncome, OccupationType, TradingExperience, MartialStatusType, BankAccountType, RelationshipType, OrderVariety, OrderType, TransactionType, ProductType, Exchange, OrderValidity } from "../../generated/prisma";
+import { OTPPreferenceType, Segment, AnnualIncome, OccupationType, TradingExperience, MartialStatusType, BankAccountType, RelationshipType, OrderVariety, OrderType, TransactionType, ProductType, Exchange, OrderValidity, AlertType, InstrumentType } from "../../generated/prisma";
 import { Elysia, t } from "elysia";
 import { config } from "../config/generalconfig";
 import { SortOrder } from "./types";
@@ -173,25 +173,25 @@ const watchListItemUpdateValidator = t.Object({
 })
 
 export const watchlistItemValidator = new Elysia().model({
-  "watchlist-item.createWatchlistItem": watchListItemCreateValidator,
+  "watchlist-item.create": watchListItemCreateValidator,
   "watchlist-item.id": watchListItemIdParam,
   "watchlist-groupId": watchlistGroupIdParam,
-  "watchlist-item.updateWatchlistItem": watchListItemUpdateValidator,
+  "watchlist-item.update": watchListItemUpdateValidator,
 });
 
 export const watchlistGroupValidator = new Elysia().model({
-  "watchlist.createWatchlistGroup": watchlistGroupCreateValidator,
-  "watchlist.id": watchListIdParam,
-  "watchlist.watchlistGroupId": watchlistGroupIdParam,
-  "watchlist.deleteWatchlistGroup": watchlistGroupIdParam,
-  "watchlist.updateWatchlistGroup": watchListGroupUpdateValidator,
+  "watchlist-group.create": watchlistGroupCreateValidator,
+  "watchlist-group.id": watchListIdParam,
+  "watchlist-group.watchlistGroupId": watchlistGroupIdParam,
+  "watchlist-group.delete": watchlistGroupIdParam,
+  "watchlist-group.update": watchListGroupUpdateValidator,
 });
 
 export const watchlistValidator = new Elysia().model({
-  "watchlist.createWatchlist": watchlistCreateValidator,
+  "watchlist.create": watchlistCreateValidator,
   "watchlist.id": watchListIdParam,
-  "watchlist.deleteWatchlist": watchListIdParam,
-  "watchlist.updateWatchlist": watchlistUpdateValidator,
+  "watchlist.delete": watchListIdParam,
+  "watchlist.update": watchlistUpdateValidator,
 });
 
 
@@ -264,10 +264,10 @@ const orderIdParams = t.Object({
 })
 
 export const orderValidator = new Elysia().model({
-  "order.createOrder": createOrderValidator,
-  "order.cancelOrder": cancelOrderValidator,
-  "order.updateOrder": updateOrderValidator,
-  "order.orderId": orderIdParams
+  "order.create": createOrderValidator,
+  "order.cancel": cancelOrderValidator,
+  "order.update": updateOrderValidator,
+  "order.id": orderIdParams
 });
 
 
@@ -290,7 +290,7 @@ const getHoldingValidator = t.Object({
 
 
 export const holdingValidator = new Elysia().model({
-  "holding.getHolding": getHoldingValidator,
+  "holding.get": getHoldingValidator,
   "holding.id": holdingIdParam
 });
 
@@ -299,11 +299,110 @@ export const holdingValidator = new Elysia().model({
 
 
 
-export const updateAvatarValidator = t.Object({
+const updateAvatarValidator = t.Object({
   avatar: t.String({ example: `https://${config.S3.BUCKET}.s3.${config.S3.REGION}.amazonaws.com/cmhk8ryhl0000kev0hxkw5cyw/avatar`, error: "INVALID_AVATAR_FORMAT" })
 })
 
 export const commonValidator = new Elysia().model({
   "common.presigned-avatar": presignedURLRequest,
   "common.upload-avatar": updateAvatarValidator,
+});
+
+
+
+
+const alertIdParams = t.Object({
+  alertId: t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_ALERT_ID" }),
+})
+
+
+
+
+const createAlertValidator = t.Object({
+    instrumentId: t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_INSTRUMENT_ID" }),
+    alertType: t.Enum(AlertType, { error: "INVALID_ALERT_TYPE", examples: [AlertType.ORDER_UPDATE] }),
+    message: t.String({ minLength: 5, maxLength: 500, example: "Alert when price drops below 100", error: "INVALID_ALERT_MESSAGE" }),
+    triggerPrice: t.Number({ minimum: 0, maximum: 10000000, example: 100, error: "INVALID_TRIGGER_PRICE" }),
+    condition: t.String({ minLength: 5, maxLength: 100, example: "LESS_THAN", error: "INVALID_CONDITION" }),
+})
+
+const updateAlertValidator = t.Object({
+  alertType: t.Optional(t.Enum(AlertType, { error: "INVALID_ALERT_TYPE", examples: [AlertType.ORDER_UPDATE] })),
+  instrumentId: t.Optional(t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_INSTRUMENT_ID" })),
+  message: t.Optional(t.String({ minLength: 5, maxLength: 500, example: "Alert when price drops below 100", error: "INVALID_ALERT_MESSAGE" })),
+  triggerPrice: t.Optional(t.Number({ minimum: 0, maximum: 10000000, example: 100, error: "INVALID_TRIGGER_PRICE" })),
+  condition: t.Optional(t.String({ minLength: 5, maxLength: 100, example: "LESS_THAN", error: "INVALID_CONDITION" })),
+  isRead: t.Optional(t.Boolean()),
+  isTriggered: t.Optional(t.Boolean()),
+  triggeredAt: t.Optional(t.String({ format: "date-time", example: "2024-01-01T00:00:00Z", error: "INVALID_TRIGGERED_AT_FORMAT" })),
+  expiresAt: t.Optional(t.String({ format: "date-time", example: "2024-12-31T23:59:59Z", error: "INVALID_EXPIRES_AT_FORMAT" })),
+})
+
+export const alertValidator  = new Elysia().model({
+  "alert.id" : alertIdParams,
+  "alert.create" : createAlertValidator,
+  "alert.update" : updateAlertValidator, 
+})  
+
+
+
+const basketIdParam = t.Object({
+  basketId: t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_BASKET_ID" }),
+})
+
+const createBasketValidator = t.Object({
+  name: t.String({ minLength: 2, maxLength: 100, example: "My Basket", error: "INVALID_BASKET_NAME" }),
+});
+
+const updateBasketValidator = t.Object({
+  name: t.String({ minLength: 2, maxLength: 100, example: "Updated Basket", error: "INVALID_BASKET_NAME" }),
+});
+
+export const basketValidator  = new Elysia().model({
+  "basket.id" : basketIdParam,
+  "basket.create" : createBasketValidator,
+  "basket.update" : updateBasketValidator,
+});
+
+
+const createBasketItemValidator = t.Object({
+  instrumentId: t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_INSTRUMENT_ID" }),
+  tradingSymbol: t.String({ minLength: 2, maxLength: 100, example: "TATASTEEL", error: "INVALID_TRADING_SYMBOL" }),
+  exchange: t.Enum(Exchange, { example: "NSE", error: "INVALID_EXCHANGE" }),
+  transactionType: t.Enum(TransactionType, { example: "BUY", error: "INVALID_TRANSACTION_TYPE" }),
+  orderType: t.Enum(OrderType, { example: "MARKET", error: "INVALID_ORDER_TYPE" }),
+  quantity: t.Number({ minimum: 1, maximum: 2000, example: 5, error: "QUANTITY_INVALID" }),
+  price: t.Number({ minimum: 0, maximum: 2000000, example: 5, error: "PRICE_INVALID" }),
+  triggeredPrice: t.String({ minLength: 1, maxLength: 100, example: "100.50", error: "INVALID_TRIGGERED_PRICE" }),
+  product: t.Enum(ProductType, { example: "CNC", error: "INVALID_PRODUCT_TYPE" }),
+});
+
+
+
+export const basketItemValidator  = new Elysia().model({
+  "basket-item.id" : basketIdParam  ,
+  "basket-item.create" : createBasketItemValidator,
+});
+
+
+
+const intrumentIdParam = t.Object({
+  instrumentId: t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_INSTRUMENT_ID" }),
+})
+
+
+const createInstrumentValidator = t.Object({
+  instrumentToken : t.String({ minLength: 5, maxLength: 100, example: "123456", error: "INVALID_INSTRUMENT_TOKEN" }),
+  exchangeToken : t.String({ minLength: 5, maxLength: 100, example: "654321", error: "INVALID_EXCHANGE_TOKEN" }),
+  tradingSymbol : t.String({ minLength: 2, maxLength: 100, example: "TATASTEEL", error: "INVALID_TRADING_SYMBOL" }),
+  name : t.String({ minLength: 2, maxLength: 200, example: "Tata Steel Limited", error: "INVALID_INSTRUMENT_NAME" }),
+  segment : t.Enum(Segment, { example: "EQUITY", error: "INVALID_SEGMENT" }),
+  exchange : t.Enum(Exchange, { example: "NSE", error: "INVALID_EXCHANGE" }),
+  instrumentType : t.Enum(InstrumentType, { example: "STOCK", error: "INVALID_INSTRUMENT_TYPE" }),
+});
+
+
+export const instrumentValidator  = new Elysia().model({
+  "instrument.id" : intrumentIdParam,
+  "instrument.create": createInstrumentValidator,
 });

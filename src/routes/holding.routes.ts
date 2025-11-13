@@ -36,7 +36,7 @@ export const holdingRouter = new Elysia({
             }
         },
         {
-            query: "holding.getHolding",
+            query: "holding.get",
             detail: {
                 summary: "Get User Holding",
                 description: "Retrieves the holding information for a specific user."

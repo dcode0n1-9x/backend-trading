@@ -1,75 +1,13 @@
-import { Elysia } from "elysia";
-import { cors } from "@elysiajs/cors";
-import { indexRouter } from "./routes/index";
-import openapi from "@elysiajs/openapi";
-import { config } from "./config/generalconfig";
-// import prometheusPlugin from 'elysia-prometheus'
+import cluster from 'node:cluster'
+import os from 'node:os'
+import process from 'node:process'
 
-
-const app = new Elysia({
-  aot: true,  // build time optimization,
-  prefix: "/api",
-  ...(config.BUN_ENV === 'production' && {
-    hostname: config.HOSTNAME,
-    tls: {
-      cert: "./certs/cert.pem",
-      key: "./certs/key.pem"
-    }
-  }
-  )
-})
-// .use(
-//   prometheusPlugin({
-//     metricsPath: '/metrics',
-//     staticLabels: { service: 'my-app' },
-//     dynamicLabels: {
-//       userAgent: ({ request }) =>
-//         request.headers.get('user-agent') ?? 'unknown'
-//     },
-//     useRoutePath : true
-//   })
-// )
-  .use(
-    cors({
-      origin: "*",
-    })
-  )
-  .use(openapi({
-    documentation: {
-      components: {
-        securitySchemes: {
-          BearerAuth: {
-            type: "http",
-            scheme: "bearer",
-            bearerFormat: "JWT"
-          }
-        }
-      },
-      info: {
-        title: "MoneyplantFX Backend API",
-        description: "API documentation for MoneyplantFX Backend services",
-        version: "1.0.0"
-      }
-    }
-  }))
-  .get("/health", () => "Working fine" , {
-    detail: {
-      tags: ["Health Check"],
-      description: "Health check endpoint to verify server status"
-    }
-  })
-  .use(indexRouter.signUpRouter)
-  .use(indexRouter.forgetPasswordRouter)
-  .use(indexRouter.authRouter)
-  .use(indexRouter.commonRouter)
-  .use(indexRouter.watchlistRouter)
-  .use(indexRouter.watchlistGroupRouter)
-  .use(indexRouter.watchlistItemRouter)
-  .use(indexRouter.orderRouter)
-  .use(indexRouter.holdingRouter);
-
-export type App = typeof app;
-
-app.listen(config.PORT, () => console.log("running at 3000"));
-
-export default app;
+if (cluster.isPrimary) {
+    for (let i = 0; i < os.availableParallelism(); i++)
+        cluster.fork()
+} else {
+    (async () => {
+        await import('./server')
+        console.log(`Worker ${process.pid} started`)
+    })();
+}

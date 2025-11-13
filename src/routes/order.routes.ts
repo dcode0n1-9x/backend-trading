@@ -25,7 +25,7 @@ export const orderRouter = new Elysia({
                 userId: user.id
             })
         }, {
-        body: "order.createOrder",
+        body: "order.create",
         detail : {
             summary : "Create an Order",
             description: "This is to create an Order to the Order-book"
@@ -42,8 +42,8 @@ export const orderRouter = new Elysia({
             userId: user.id
         })
     }, {
-        body: "order.updateOrder",
-        params: "order.orderId",
+        body: "order.update",
+        params: "order.id",
           detail: {
             summary: "Update the Order",
             description: "This is to update the order after execution"
@@ -60,8 +60,8 @@ export const orderRouter = new Elysia({
             userId: user.id
         })
     }, {
-        body: "order.cancelOrder",
-        params: "order.orderId",
+        body: "order.cancel",
+        params: "order.id",
         detail: {
             summary: "Cancel Order",
             description: "This is the end-point to cancel the order",

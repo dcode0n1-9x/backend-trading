@@ -6,6 +6,7 @@ import { createWatchListItem } from "../modules/watchlist/WatchItem/createWatchL
 import { deleteWatchList } from "../modules/watchlist/WatchList/deleteWatchList";
 import { deleteWatchlistItem } from "../modules/watchlist/WatchItem/deleteWatchItem";
 import { updateWatchlistItem } from "../modules/watchlist/WatchItem/updateWatchItem";
+import { HttpResponse } from "../utils/response/success";
 
 
 export const watchlistItemRouter = new Elysia({
@@ -19,48 +20,53 @@ export const watchlistItemRouter = new Elysia({
     .use(authMiddleware)
     .use(watchlistItemValidator)
     .post("/:watchlistGroupId", async ({ params, body }) => {
-        return await createWatchListItem({
-            prisma,
-            data: {
-                groupId: params.watchlistGroupId,
-                instrumentId: body.instrumentId,
-            },
-        });
+        try {
+            return await createWatchListItem({
+                prisma,
+                data: {
+                    groupId: params.watchlistGroupId,
+                    instrumentId: body.instrumentId,
+                },
+            });
+        }catch (err) {
+            console.error(err);
+            return new HttpResponse(400, (err as Error).message).toResponse();
+        }
     }, {
         params: "watchlist-groupId",
-        body: "watchlist-item.createWatchlistItem",
+        body: "watchlist-item.create",
         detail: {
-            summary : "Create Watchlist Item",
+            summary: "Create Watchlist Item",
             description: "Creates a new watchlist item under the specified watchlist group."
         }
     })
-    .delete("/:watchlistItemId" , async ({params }) => {
+    .delete("/:watchlistItemId", async ({ params }) => {
         return await deleteWatchlistItem({
-            prisma , 
-            data : {
-                watchlistItemId :  params.watchlistItemId
+            prisma,
+            data: {
+                watchlistItemId: params.watchlistItemId
             }
         })
-    },{
-        params:  "watchlist-item.id",
+    }, {
+        params: "watchlist-item.id",
         detail: {
-            summary : "Delete Watchlist Item",
+            summary: "Delete Watchlist Item",
             description: "Deletes the specified watchlist item from the user's watchlist."
         }
     })
-    .put("/watchlistItemId" , async ({params ,body}) => {
+    .put("/watchlistItemId", async ({ params, body }) => {
         return await updateWatchlistItem({
-            prisma , 
-            data : {
-                watchlistItemId :  params.watchlistItemId ,
-                sortOrder : body.sortOrder
+            prisma,
+            data: {
+                watchlistItemId: params.watchlistItemId,
+                sortOrder: body.sortOrder
             }
         })
-    } , {
-        params : "watchlist-item.id",
-        body : "watchlist-item.updateWatchlistItem",
+    }, {
+        params: "watchlist-item.id",
+        body: "watchlist-item.update",
         detail: {
-            summary : "Update Watchlist Item",
+            summary: "Update Watchlist Item",
             description: "Updates the details of the specified watchlist item, such as its sort order."
         }
     })

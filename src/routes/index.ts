@@ -1,6 +1,10 @@
+import { alertRouter } from "./alert.routes.js";
+import { basketRouter } from "./basket.routes.js";
+import { basketItemRouter } from "./basketItem.routes.js";
 import { commonRouter } from "./common.routes.js";
 import { forgetPasswordRouter } from "./forgetPassword.routes.js";
 import { holdingRouter } from "./holding.routes.js";
+import { instrumentRouter } from "./instrument.routes.js";
 import { authRouter } from "./login.routes.js";
 import { orderRouter } from "./order.routes.js";
 import { signUpRouter } from "./signup.routes.js";
@@ -19,5 +23,9 @@ export const indexRouter = {
     watchlistGroupRouter,
     watchlistItemRouter,
     orderRouter,
-    holdingRouter
+    holdingRouter,
+    alertRouter,
+    basketRouter,
+    basketItemRouter,
+    instrumentRouter
 }

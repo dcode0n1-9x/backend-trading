@@ -10,7 +10,6 @@ import { uploadAvatar } from "../modules/common/uploadAvatar";
 
 export const commonRouter = new Elysia({
     name: "common",
-    prefix: "/",
     detail: {
         tags: ["Common"],
         description: "APIs related to user common APIs"

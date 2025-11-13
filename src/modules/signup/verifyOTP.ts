@@ -41,6 +41,9 @@ export async function verifyOTP({ prisma, data }: IRegisterProp) {
                 dailyPnls: {
                     create: {}
                 },
+                portfolios : {
+                    create: {}
+                }
             },
             select: { id: true }
         });

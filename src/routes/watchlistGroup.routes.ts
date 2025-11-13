@@ -28,8 +28,8 @@ export const watchlistGroupRouter = new Elysia({
             },
         });
     }, {
-        params: "watchlist.id",
-        body: "watchlist.createWatchlistGroup",
+        params: "watchlist-group.id",
+        body: "watchlist-group.create",
         detail : {
             summary : "Create Watchlist Group",
             description: "Creates a new watchlist group under the specified watchlist."
@@ -43,7 +43,7 @@ export const watchlistGroupRouter = new Elysia({
             },
         });
     }, {
-        params: "watchlist.deleteWatchlistGroup",
+        params: "watchlist-group.delete",
         detail : {
             summary : "Delete Watchlist Group",
             description: "Deletes the specified watchlist group from the user's watchlist."
@@ -60,8 +60,8 @@ export const watchlistGroupRouter = new Elysia({
             },
         });
     }, {
-        params: "watchlist.watchlistGroupId",
-        body: "watchlist.updateWatchlistGroup",
+        params: "watchlist-group.watchlistGroupId",
+        body: "watchlist-group.update",
         detail : {
             summary : "Update Watchlist Group",
             description: "Updates the details of the specified watchlist group, such as its name, color, and sort order."

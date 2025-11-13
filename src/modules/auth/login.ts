@@ -1,4 +1,4 @@
-import { compare } from "bcrypt";
+import { compare } from "bcryptjs";
 import jwt from "jsonwebtoken";
 import type { PrismaClient } from "../../../generated/prisma";
 import { config } from "../../config/generalconfig";

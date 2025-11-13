@@ -1,4 +1,5 @@
 import type { PrismaClient } from "../../../../generated/prisma";
+import { checkInstrument, checkWatchlistGroup } from "../../../helpers/helpers";
 import { HttpResponse } from "../../../utils/response/success";
 
 
@@ -14,6 +15,14 @@ interface IRegisterProp {
 
 export async function createWatchListItem({ prisma, data }: IRegisterProp) {
     const { groupId, instrumentId } = data;
+    const checkG = await checkWatchlistGroup(groupId);
+    if (!checkG) {
+        return new HttpResponse(400, "INVALID_WATCHLIST_GROUP_ID").toResponse();
+    }
+    const check = await checkInstrument(instrumentId);
+    if (!check) {
+        return new HttpResponse(400, "INVALID_INSTRUMENT_ID").toResponse();
+    }
     const createWatchListItem = await prisma.watchlistItem.create({
         data: {
             groupId,

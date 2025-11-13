@@ -39,7 +39,7 @@ export const watchlistRouter = new Elysia({
             userId: user.id,
         })
     }, {
-        body: "watchlist.createWatchlist",
+        body: "watchlist.create",
         detail: {
             summary: "Create the Watchlist",
             description: "This is to create a watchlist tab for the user"
@@ -52,7 +52,7 @@ export const watchlistRouter = new Elysia({
             data: { watchlistId },
         });
     }, {
-        params: "watchlist.deleteWatchlist",
+        params: "watchlist.delete",
         detail: {
             summary: "Delete the Watchlist",
             description: "This is the end-point for deleting up the watchlist"
@@ -70,7 +70,7 @@ export const watchlistRouter = new Elysia({
         });
     }, {
         params: "watchlist.id",
-        body: "watchlist.updateWatchlist",
+        body: "watchlist.update",
         detail : {
             summary : "Update the Watchlist" , 
             description : "This is to update the name of the watchlist"

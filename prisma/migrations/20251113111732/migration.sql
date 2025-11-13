@@ -106,6 +106,7 @@ CREATE TABLE "User" (
     "email" TEXT,
     "phone" TEXT NOT NULL,
     "password" TEXT,
+    "avatar" TEXT,
     "firstName" TEXT,
     "lastName" TEXT,
     "panNumber" TEXT,
@@ -236,6 +237,7 @@ CREATE TABLE "FundTransaction" (
 CREATE TABLE "Margin" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
+    "type" "Segment" NOT NULL,
     "availableCash" DOUBLE PRECISION NOT NULL DEFAULT 0.0,
     "usedMargin" DOUBLE PRECISION NOT NULL DEFAULT 0.0,
     "availableMargin" DOUBLE PRECISION NOT NULL DEFAULT 0.0,
@@ -407,6 +409,7 @@ CREATE TABLE "Order" (
     "cancelledBy" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "modificationCount" INTEGER NOT NULL DEFAULT 0,
 
     CONSTRAINT "Order_pkey" PRIMARY KEY ("id")
 );
@@ -677,6 +680,9 @@ CREATE INDEX "Instrument_tradingSymbol_exchange_idx" ON "Instrument"("tradingSym
 
 -- CreateIndex
 CREATE INDEX "Instrument_instrumentToken_idx" ON "Instrument"("instrumentToken");
+
+-- CreateIndex
+CREATE INDEX "Instrument_name_tradingSymbol_idx" ON "Instrument"("name", "tradingSymbol");
 
 -- CreateIndex
 CREATE INDEX "MarketDepth_instrumentId_side_timestamp_idx" ON "MarketDepth"("instrumentId", "side", "timestamp");

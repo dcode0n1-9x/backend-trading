@@ -1,4 +1,4 @@
-import { Prisma, type PrismaClient, type Segment } from "../../../generated/prisma";
+import { Prisma, type PrismaClient } from "../../../generated/prisma";
 import { HttpResponse } from "../../utils/response/success";
 
 
