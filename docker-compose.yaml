@@ -49,8 +49,9 @@ services:
       dockerfile: Dockerfile
     container_name: myapp
     restart: unless-stopped
+    ports:
+      - "${PORT:-3000}:${PORT:-3000}"
     environment:
-      PORT: ${PORT:-3000}
       BUN_ENV: ${BUN_ENV:-production}
       HOSTNAME: ${HOSTNAME:-https://yourdomain.com}
       DATABASE_URL: postgresql://${POSTGRES_USER:-myuser}:${POSTGRES_PASSWORD:-mypassword}@postgres:5432/${POSTGRES_DB:-mydatabase}

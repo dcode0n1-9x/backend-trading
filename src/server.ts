@@ -11,10 +11,6 @@ const app = new Elysia({
   prefix: "/api",
   ...(config.BUN_ENV === 'production' && {
     hostname: config.HOSTNAME,
-    tls: {
-      cert: "./certs/cert.pem",
-      key: "./certs/key.pem"
-    }
   }
   )
 })
@@ -74,6 +70,6 @@ const app = new Elysia({
 
 export type App = typeof app;
 
-app.listen(config.PORT, () => console.log("running at 3000"));
+app.listen(3001, () => console.log("running at 3000"));
 
 export default app;
