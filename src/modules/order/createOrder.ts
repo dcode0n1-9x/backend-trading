@@ -32,7 +32,7 @@ export async function createOrder({ prisma, data, userId }: IRegisterProp) {
         data: {
             userId,
             placedBy: "H",
-            orderId: "asdadasd",
+            orderId: "aaa",
             pendingQuantity: data.quantity,
             status: "PENDING",
             ...data

@@ -5,6 +5,7 @@ import { createOrder } from "../modules/order/createOrder";
 import { authMiddleware } from "../middleware/authMiddleware";
 import { updateOrder } from "../modules/order/updateOrder";
 import { cancelOrder } from "../modules/order/cancelOrder";
+import { HttpResponse } from "../utils/response/success";
 
 export const orderRouter = new Elysia({
     name: "Order",
@@ -19,15 +20,20 @@ export const orderRouter = new Elysia({
     .post(
         "/",
         async ({ body, user }) => {
-            return await createOrder({
-                prisma,
-                data: body,
-                userId: user.id
-            })
+            try {
+                return await createOrder({
+                    prisma,
+                    data: body,
+                    userId: user.id
+                })
+            } catch (error) {
+                console.error("Error creating order", error);
+                return new HttpResponse(500, "INTERNAL_SERVER_ERROR").toResponse()
+            }
         }, {
         body: "order.create",
-        detail : {
-            summary : "Create an Order",
+        detail: {
+            summary: "Create an Order",
             description: "This is to create an Order to the Order-book"
         }
     }
@@ -44,7 +50,7 @@ export const orderRouter = new Elysia({
     }, {
         body: "order.update",
         params: "order.id",
-          detail: {
+        detail: {
             summary: "Update the Order",
             description: "This is to update the order after execution"
         }

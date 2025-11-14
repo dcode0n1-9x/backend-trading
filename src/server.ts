@@ -74,6 +74,6 @@ const app = new Elysia({
 
 export type App = typeof app;
 
-app.listen(config.PORT, () => console.log("running at 3000"));
+app.listen(3001, () => console.log(`running at ${config.PORT}`));
 
 export default app;
