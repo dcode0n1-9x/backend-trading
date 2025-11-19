@@ -13,7 +13,7 @@ RUN bun install
 
 # Copy Prisma schema and generate client (requires dev deps)
 COPY prisma ./prisma
-COPY generated ./generated
+
 RUN bunx prisma generate
 
 # Copy source code

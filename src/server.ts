@@ -3,6 +3,7 @@ import { cors } from "@elysiajs/cors";
 import { indexRouter } from "./routes/index";
 import openapi from "@elysiajs/openapi";
 import { config } from "./config/generalconfig";
+import { disconnectKafka, initializeKafka } from "./config/kafka/kafka.config";
 // import prometheusPlugin from 'elysia-prometheus'
 
 
@@ -18,17 +19,35 @@ const app = new Elysia({
   }
   )
 })
-// .use(
-//   prometheusPlugin({
-//     metricsPath: '/metrics',
-//     staticLabels: { service: 'my-app' },
-//     dynamicLabels: {
-//       userAgent: ({ request }) =>
-//         request.headers.get('user-agent') ?? 'unknown'
-//     },
-//     useRoutePath : true
-//   })
-// )
+  .onStart(async () => {
+    console.log(`🚀 Server started in ${config.BUN_ENV} mode`)
+    await initializeKafka();
+  })
+  // .onStop(async () => {
+  //   process.on('SIGTERM', async () => {
+  //     console.log('SIGTERM received, shutting down gracefully');
+  //     await disconnectKafka();
+  //     process.exit(0);
+  //   });
+
+  //   process.on('SIGINT', async () => {
+  //     console.log('SIGINT received, shutting down gracefully');
+  //     await disconnectKafka();
+  //     process.exit(0);
+  //   });
+  //   console.log("🛑 Server stopped")
+  // })
+  // .use(
+  //   prometheusPlugin({
+  //     metricsPath: '/metrics',
+  //     staticLabels: { service: 'my-app' },
+  //     dynamicLabels: {
+  //       userAgent: ({ request }) =>
+  //         request.headers.get('user-agent') ?? 'unknown'
+  //     },
+  //     useRoutePath : true
+  //   })
+  // )
   .use(
     cors({
       origin: "*",
@@ -52,7 +71,7 @@ const app = new Elysia({
       }
     }
   }))
-  .get("/health", () => "Working fine" , {
+  .get("/health", () => "Working fine", {
     detail: {
       tags: ["Health Check"],
       summary: "Health Check Endpoint",
@@ -70,10 +89,12 @@ const app = new Elysia({
   .use(indexRouter.alertRouter)
   .use(indexRouter.holdingRouter)
   .use(indexRouter.basketRouter)
-  .use(indexRouter.instrumentRouter);
+  .use(indexRouter.basketItemRouter)
+  .use(indexRouter.instrumentRouter)
+
 
 export type App = typeof app;
 
-app.listen(3001, () => console.log(`running at ${config.PORT}`));
+app.listen(config.PORT, () => console.log(`running at ${config.PORT}`));
 
 export default app;

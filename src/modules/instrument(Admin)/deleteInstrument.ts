@@ -1,4 +1,5 @@
 import type { PrismaClient } from "../../../generated/prisma";
+import { sendMessage } from "../../utils/kakfa.utils";
 import { HttpResponse } from "../../utils/response/success";
 
 
@@ -19,5 +20,7 @@ export async function deleteInstrument({ prisma, data }: IRegisterProp) {
     if (!deleteInstrument) {
         return new HttpResponse(500, "INSTRUMENT_DELETION_FAILED").toResponse();
     }
+    // FOR CREATING AN ORDER BOOK FOR THE RECENT CREATED INSTRUMENTS
+    await sendMessage("instrument.delete", instrumentId, { instrument: deleteInstrument })
     return new HttpResponse(200, "INSTRUMENT_DELETED_SUCCESSFULLY", { instrumentId: deleteInstrument.id }).toResponse();
 }

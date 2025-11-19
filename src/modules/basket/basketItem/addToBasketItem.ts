@@ -2,6 +2,7 @@ import { OrderType } from './../../../../generated/prisma/index.d';
 
 import type { Exchange, PrismaClient, ProductType, TransactionType } from "../../../../generated/prisma";
 import { HttpResponse } from "../../../utils/response/success";
+import { checkInstrument } from '../../../helpers/helpers';
 
 
 interface RegisterData {
@@ -24,14 +25,18 @@ interface IRegisterProp {
 
 export async function createBasketItem({ prisma, data }: IRegisterProp) {
     try {
+        const instrumentExist = await checkInstrument(data.instrumentId);
+        if (!instrumentExist) { 
+            return new HttpResponse(400, "INVALID_INSTRUMENT_ID").toResponse();
+        }
         const createBasketItem = await prisma.basketItem.create({
             data
         });
         if (!createBasketItem) {
-            return new HttpResponse(500, "WATCHLIST_GROUP_CREATION_FAILED").toResponse();
+            return new HttpResponse(500, "BASKET_ITEM_CREATION_FAILED").toResponse();
         }
-        return new HttpResponse(200, "WATCHLIST_GROUP_CREATED_SUCCESSFULLY", { watchlistGroupId: createBasketItem.id }).toResponse();
+        return new HttpResponse(200, "BASKET_ITEM_CREATED_SUCCESSFULLY", { basketItemId: createBasketItem.id }).toResponse();
     } catch (error) {
-        return new HttpResponse(500, "WATCHLIST_GROUP_CREATION_FAILED").toResponse();
+        return new HttpResponse(500, "BASKET_ITEM_CREATION_FAILED").toResponse();
     }
 }

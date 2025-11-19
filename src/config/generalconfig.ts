@@ -35,4 +35,9 @@ export const config = {
         BUCKET: process.env.S3_BUCKET!,
         R2_PUBLIC_URL: process.env.R2_PUBLIC_URL!
     },
+    KAFKA : {
+        BROKERS: process.env.KAFKA_BROKERS ? process.env.KAFKA_BROKERS.split(",") : ["localhost:9092"],
+        CLIENT_ID: process.env.KAFKA_CLIENT_ID || "trading-api-server"
+    },
+    // PRISMA_OPTIMIZE_API_KEY: process.env.OPTIMIZE_API_KEY || ''
 };

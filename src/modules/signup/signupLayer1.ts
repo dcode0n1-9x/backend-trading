@@ -14,11 +14,12 @@ interface IRegisterProp {
 
 export async function signUpLayer1({ prisma, data, userId }: IRegisterProp) {
     const { panNumber, dob } = data;
-
     const updateUser = await prisma.user.update({
-        where: { id: userId , userVerification :  {
-            stage : 'ZERO'
-        } },
+        where: {
+            id: userId, userVerification: {
+                stage: 'ZERO'
+            }
+        },
         data: {
             panNumber,
             dob: new Date(dob), // ensure date format
