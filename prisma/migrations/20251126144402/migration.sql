@@ -1,4 +1,7 @@
 -- CreateEnum
+CREATE TYPE "TicketStatus" AS ENUM ('OPEN', 'IN_PROGRESS', 'RESOLVED', 'CLOSED');
+
+-- CreateEnum
 CREATE TYPE "UserRole" AS ENUM ('USER', 'ADMIN', 'BROKER');
 
 -- CreateEnum
@@ -101,12 +104,14 @@ CREATE TYPE "KYCStage" AS ENUM ('ZERO', 'ONE', 'TWO', 'THREEA', 'THREEB', 'THREE
 CREATE TYPE "OTPPreferenceType" AS ENUM ('EMAIL', 'SMS');
 
 -- CreateEnum
-CREATE TYPE "Permission" AS ENUM ('CREATE_USERS', 'VIEW_USERS', 'EDIT_USERS', 'DELETE_USERS', 'CREATE_FUNDS', 'VIEW_ORDERS', 'EDIT_ORDERS', 'DELETE_ORDERS', 'CREATE_ORDERS', 'VIEW_FUNDS', 'EDIT_FUNDS', 'DELETE_FUNDS', 'CREATE_ROLES', 'VIEW_ROLES', 'EDIT_ROLES', 'DELETE_ROLES', 'CREATE_INSTRUMENTS', 'VIEW_INSTRUMENTS', 'EDIT_INSTRUMENTS', 'DELETE_INSTRUMENTS', 'CREATE_TRADES', 'VIEW_TRADES', 'EDIT_TRADES', 'DELETE_TRADES', 'CREATE_REPORTS', 'EDIT_REPORTS', 'VIEW_REPORTS');
+CREATE TYPE "Permission" AS ENUM ('CREATE_STAFF', 'VIEW_STAFF', 'EDIT_STAFF', 'DELETE_STAFF', 'CREATE_USERS', 'VIEW_USERS', 'EDIT_USERS', 'DELETE_USERS', 'CREATE_FUNDS', 'VIEW_FUNDS', 'EDIT_FUNDS', 'DELETE_FUNDS', 'VIEW_ORDERS', 'EDIT_ORDERS', 'DELETE_ORDERS', 'CREATE_ORDERS', 'CREATE_ROLES', 'VIEW_ROLES', 'EDIT_ROLES', 'DELETE_ROLES', 'CREATE_INSTRUMENTS', 'VIEW_INSTRUMENTS', 'EDIT_INSTRUMENTS', 'DELETE_INSTRUMENTS', 'VIEW_TRADES', 'EDIT_TRADES', 'DELETE_TRADES', 'CREATE_REPORTS', 'EDIT_REPORTS', 'VIEW_REPORTS', 'DELETE_REPORTS', 'VIEW_TRANSACTIONS', 'UPDATE_TRANSACTIONS', 'CREATE_TRANSACTIONS', 'DELETE_TRANSACTIONS', 'UPDATE_TICKETS', 'VIEW_TICKETS');
 
 -- CreateTable
-CREATE TABLE "Admin" (
+CREATE TABLE "Staff" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "dob" TIMESTAMP(3) NOT NULL,
     "password" TEXT NOT NULL,
     "roleId" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
@@ -114,10 +119,11 @@ CREATE TABLE "Admin" (
     "refreshToken" TEXT,
     "photo" TEXT,
     "address" TEXT,
+    "isActive" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "Admin_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Staff_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -143,11 +149,9 @@ CREATE TABLE "User" (
     "aadhaarNumber" TEXT,
     "fcmToken" TEXT,
     "dob" TIMESTAMP(3),
-    "permissions" "Permission"[] DEFAULT ARRAY[]::"Permission"[],
     "twoFactorPreference" "OTPPreferenceType" DEFAULT 'SMS',
     "kycStatus" "KYCStatus" DEFAULT 'PENDING',
     "accountType" "AccountType" DEFAULT 'INDIVIDUAL',
-    "role" "UserRole" DEFAULT 'USER',
     "isActive" BOOLEAN DEFAULT true,
     "twoFactorEnabled" BOOLEAN DEFAULT false,
     "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
@@ -662,17 +666,33 @@ CREATE TABLE "DailyPnL" (
     CONSTRAINT "DailyPnL_pkey" PRIMARY KEY ("id")
 );
 
--- CreateIndex
-CREATE UNIQUE INDEX "Admin_email_key" ON "Admin"("email");
+-- CreateTable
+CREATE TABLE "SupportTicket" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "staffId" TEXT,
+    "subject" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "attachments" TEXT[] DEFAULT ARRAY[]::TEXT[],
+    "status" "TicketStatus" NOT NULL DEFAULT 'OPEN',
+    "priority" "Priority" NOT NULL DEFAULT 'NORMAL',
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "SupportTicket_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Admin_phone_key" ON "Admin"("phone");
+CREATE UNIQUE INDEX "Staff_email_key" ON "Staff"("email");
 
 -- CreateIndex
-CREATE INDEX "Admin_email_phone_idx" ON "Admin"("email", "phone");
+CREATE UNIQUE INDEX "Staff_phone_key" ON "Staff"("phone");
 
 -- CreateIndex
-CREATE INDEX "Admin_roleId_idx" ON "Admin"("roleId");
+CREATE INDEX "Staff_email_phone_idx" ON "Staff"("email", "phone");
+
+-- CreateIndex
+CREATE INDEX "Staff_roleId_idx" ON "Staff"("roleId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Role_name_key" ON "Role"("name");
@@ -818,8 +838,14 @@ CREATE INDEX "TradeJournal_userId_date_idx" ON "TradeJournal"("userId", "date");
 -- CreateIndex
 CREATE INDEX "DailyPnL_userId_date_idx" ON "DailyPnL"("userId", "date");
 
+-- CreateIndex
+CREATE INDEX "SupportTicket_userId_status_idx" ON "SupportTicket"("userId", "status");
+
+-- CreateIndex
+CREATE INDEX "SupportTicket_staffId_status_idx" ON "SupportTicket"("staffId", "status");
+
 -- AddForeignKey
-ALTER TABLE "Admin" ADD CONSTRAINT "Admin_roleId_fkey" FOREIGN KEY ("roleId") REFERENCES "Role"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Staff" ADD CONSTRAINT "Staff_roleId_fkey" FOREIGN KEY ("roleId") REFERENCES "Role"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Nominee" ADD CONSTRAINT "Nominee_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -916,3 +942,9 @@ ALTER TABLE "BasketItem" ADD CONSTRAINT "BasketItem_basketId_fkey" FOREIGN KEY (
 
 -- AddForeignKey
 ALTER TABLE "DailyPnL" ADD CONSTRAINT "DailyPnL_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "SupportTicket" ADD CONSTRAINT "SupportTicket_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "SupportTicket" ADD CONSTRAINT "SupportTicket_staffId_fkey" FOREIGN KEY ("staffId") REFERENCES "Staff"("id") ON DELETE CASCADE ON UPDATE CASCADE;

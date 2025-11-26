@@ -3,9 +3,9 @@ import { authMiddleware } from "../middleware/authMiddleware";
 import { gttOrderValidator } from "../utils/validator";
 import { HttpResponse } from "../utils/response/success";
 import { prisma } from "../db";
-import { createGttOrder, } from "../modules/gttorder/createGTTOrder";
-import { getAllGTTOrder } from "../modules/gttOrder/getAllGTTOrder";
-import { changeGTTStatus } from "../modules/gttorder/changeGTTStatus";
+import { createGttOrder } from "../modules/gttOrder/createGTTOrder";
+import { getAllGTTOrder } from "../modules/gttOrder/getAllGttOrder";
+import { changeGTTStatus } from "../modules/gttOrder/changeGTTStatus";
 
 export const gttOrderRouter = new Elysia({
     name: "gtt-order",
@@ -17,7 +17,7 @@ export const gttOrderRouter = new Elysia({
 })
     .use(authMiddleware)
     .use(gttOrderValidator)
-    .post("/", async ({ params, user, body }) => {
+    .post("/", async ({ user, body }) => {
         try {
             return await createGttOrder({
                 prisma,

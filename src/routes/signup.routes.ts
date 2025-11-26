@@ -33,10 +33,14 @@ export const signUpRouter = new Elysia({
   .post(
     "/send-otp",
     async ({ body }) => {
-      return await sendOTP({
-        prisma,
-        data: body,
-      });
+      try {
+        return await sendOTP({
+          prisma,
+          data: body,
+        });
+      } catch (error) {
+        return new HttpResponse(500, (error as Error).message).toResponse();
+      }
     },
     {
       body: "auth.signup.sendotp",

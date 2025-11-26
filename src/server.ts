@@ -19,10 +19,10 @@ const app = new Elysia({
   }
   )
 })
-  .onStart(async () => {
-    console.log(`🚀 Server started in ${config.BUN_ENV} mode`)
-    await initializeKafka();
-  })
+  // .onStart(async () => {
+  //   console.log(`🚀 Server started in ${config.BUN_ENV} mode`)
+  //   await initializeKafka();
+  // })
   // .onStop(async () => {
   //   process.on('SIGTERM', async () => {
   //     console.log('SIGTERM received, shutting down gracefully');
@@ -91,11 +91,8 @@ const app = new Elysia({
   .use(indexRouter.basketRouter)
   .use(indexRouter.basketItemRouter)
   .use(indexRouter.instrumentRouter)
-  .use(indexRouter.gttOrderRouter);
+  .use(indexRouter.gttOrderRouter)
+  .listen({ port: config.PORT || 3000 });
 
+export type AppType = typeof app;
 
-export type App = typeof app;
-
-app.listen(config.PORT, () => console.log(`running at ${config.PORT}`));
-
-export default app;

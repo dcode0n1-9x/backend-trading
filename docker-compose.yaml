@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   postgres:
-    image: postgres:15-alpine
+    image: postgres:15.15-trixie
     container_name: postgres
     restart: unless-stopped
     environment:
@@ -46,15 +46,15 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: myapp
-    restart: unless-stopped
+    # restart: unless-stopped
     ports:
       - "${PORT:-3000}:${PORT:-3000}"
     environment:
       PORT: ${PORT:-3000}
-      BUN_ENV: ${BUN_ENV:-production}
+      BUN_ENV: ${BUN_ENV:-development}
       HOSTNAME: ${HOSTNAME:-https://yourdomain.com}
       DATABASE_URL: postgresql://${POSTGRES_USER:-myuser}:${POSTGRES_PASSWORD:-mypassword}@postgres:5432/${POSTGRES_DB:-mydatabase}
-      REDIS_URI: ${REDIS_URI:-redis://:${REDIS_PASSWORD:-}redis:6379}
+      REDIS_URI: ${REDIS_URI:-redis://:${REDIS_PASSWORD:-}@redis:6379}
       # JWT (required for auth; generate strong secrets)
       JWT_SECRET: ${JWT_SECRET:-your_jwt_secret}  # e.g., openssl rand -base64 32
       JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-your_refresh_secret}

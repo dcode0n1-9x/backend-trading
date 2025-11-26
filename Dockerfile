@@ -1,5 +1,5 @@
 # Build stage: Use specific Bun version for reproducibility
-FROM oven/bun:1.1 AS build
+FROM oven/bun:latest AS build
 
 WORKDIR /app
 
@@ -38,7 +38,7 @@ FROM gcr.io/distroless/base
 # Copy the compiled binary
 COPY --from=build /app/server .
 
-ENV BUN_ENV=production
+ENV BUN_ENV=development
 
 CMD ["./server"]
 
