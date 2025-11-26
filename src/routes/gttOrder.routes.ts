@@ -3,8 +3,8 @@ import { authMiddleware } from "../middleware/authMiddleware";
 import { gttOrderValidator } from "../utils/validator";
 import { HttpResponse } from "../utils/response/success";
 import { prisma } from "../db";
-import { createGttOrder, } from "../modules/gttorder/createGttOrder";
-import { getAllGTTOrder } from "../modules/gttOrder/getAllGttOrder";
+import { createGttOrder, } from "../modules/gttorder/createGTTOrder";
+import { getAllGTTOrder } from "../modules/gttOrder/getAllGTTOrder";
 import { changeGTTStatus } from "../modules/gttorder/changeGTTStatus";
 
 export const gttOrderRouter = new Elysia({
