@@ -100,6 +100,36 @@ CREATE TYPE "KYCStage" AS ENUM ('ZERO', 'ONE', 'TWO', 'THREEA', 'THREEB', 'THREE
 -- CreateEnum
 CREATE TYPE "OTPPreferenceType" AS ENUM ('EMAIL', 'SMS');
 
+-- CreateEnum
+CREATE TYPE "Permission" AS ENUM ('CREATE_USERS', 'VIEW_USERS', 'EDIT_USERS', 'DELETE_USERS', 'CREATE_FUNDS', 'VIEW_ORDERS', 'EDIT_ORDERS', 'DELETE_ORDERS', 'CREATE_ORDERS', 'VIEW_FUNDS', 'EDIT_FUNDS', 'DELETE_FUNDS', 'CREATE_ROLES', 'VIEW_ROLES', 'EDIT_ROLES', 'DELETE_ROLES', 'CREATE_INSTRUMENTS', 'VIEW_INSTRUMENTS', 'EDIT_INSTRUMENTS', 'DELETE_INSTRUMENTS', 'CREATE_TRADES', 'VIEW_TRADES', 'EDIT_TRADES', 'DELETE_TRADES', 'CREATE_REPORTS', 'EDIT_REPORTS', 'VIEW_REPORTS');
+
+-- CreateTable
+CREATE TABLE "Admin" (
+    "id" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "roleId" TEXT NOT NULL,
+    "phone" TEXT NOT NULL,
+    "fcmToken" TEXT,
+    "refreshToken" TEXT,
+    "photo" TEXT,
+    "address" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Admin_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Role" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "permissions" "Permission"[] DEFAULT ARRAY[]::"Permission"[],
+    "isActive" BOOLEAN NOT NULL DEFAULT true,
+
+    CONSTRAINT "Role_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -111,7 +141,9 @@ CREATE TABLE "User" (
     "lastName" TEXT,
     "panNumber" TEXT,
     "aadhaarNumber" TEXT,
+    "fcmToken" TEXT,
     "dob" TIMESTAMP(3),
+    "permissions" "Permission"[] DEFAULT ARRAY[]::"Permission"[],
     "twoFactorPreference" "OTPPreferenceType" DEFAULT 'SMS',
     "kycStatus" "KYCStatus" DEFAULT 'PENDING',
     "accountType" "AccountType" DEFAULT 'INDIVIDUAL',
@@ -631,6 +663,21 @@ CREATE TABLE "DailyPnL" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Admin_email_key" ON "Admin"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Admin_phone_key" ON "Admin"("phone");
+
+-- CreateIndex
+CREATE INDEX "Admin_email_phone_idx" ON "Admin"("email", "phone");
+
+-- CreateIndex
+CREATE INDEX "Admin_roleId_idx" ON "Admin"("roleId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Role_name_key" ON "Role"("name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
@@ -772,6 +819,9 @@ CREATE INDEX "TradeJournal_userId_date_idx" ON "TradeJournal"("userId", "date");
 CREATE INDEX "DailyPnL_userId_date_idx" ON "DailyPnL"("userId", "date");
 
 -- AddForeignKey
+ALTER TABLE "Admin" ADD CONSTRAINT "Admin_roleId_fkey" FOREIGN KEY ("roleId") REFERENCES "Role"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Nominee" ADD CONSTRAINT "Nominee_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -814,7 +864,7 @@ ALTER TABLE "Position" ADD CONSTRAINT "Position_instrumentId_fkey" FOREIGN KEY (
 ALTER TABLE "Position" ADD CONSTRAINT "Position_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Order" ADD CONSTRAINT "Order_instrumentId_fkey" FOREIGN KEY ("instrumentId") REFERENCES "Instrument"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Order" ADD CONSTRAINT "Order_instrumentId_fkey" FOREIGN KEY ("instrumentId") REFERENCES "Instrument"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Order" ADD CONSTRAINT "Order_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -830,6 +880,9 @@ ALTER TABLE "Trade" ADD CONSTRAINT "Trade_userId_fkey" FOREIGN KEY ("userId") RE
 
 -- AddForeignKey
 ALTER TABLE "TradeCharges" ADD CONSTRAINT "TradeCharges_tradeId_fkey" FOREIGN KEY ("tradeId") REFERENCES "Trade"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "GTTOrder" ADD CONSTRAINT "GTTOrder_instrumentId_fkey" FOREIGN KEY ("instrumentId") REFERENCES "Instrument"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "GTTOrder" ADD CONSTRAINT "GTTOrder_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -854,6 +907,9 @@ ALTER TABLE "Notification" ADD CONSTRAINT "Notification_userId_fkey" FOREIGN KEY
 
 -- AddForeignKey
 ALTER TABLE "Basket" ADD CONSTRAINT "Basket_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "BasketItem" ADD CONSTRAINT "BasketItem_instrumentId_fkey" FOREIGN KEY ("instrumentId") REFERENCES "Instrument"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "BasketItem" ADD CONSTRAINT "BasketItem_basketId_fkey" FOREIGN KEY ("basketId") REFERENCES "Basket"("id") ON DELETE CASCADE ON UPDATE CASCADE;

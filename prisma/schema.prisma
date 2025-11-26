@@ -1,5 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
+  provider        = "prisma-client" // Changed to the rust engines
   output          = "../generated/prisma"
   // engineType      = "library"              
   // binaryTargets   = ["debian-openssl-3.0.x"]
@@ -8,7 +8,36 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+}
+
+model Staff {
+  id             String           @id @default(cuid())
+  email          String           @unique
+  name           String
+  dob            DateTime
+  password       String
+  roleId         String
+  phone          String           @unique
+  fcmToken       String?
+  refreshToken   String?
+  photo          String?
+  address        String?
+  isActive       Boolean          @default(true)
+  role           Role            @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  supportTickets SupportTicket[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@index([email, phone])
+  @@index([roleId])
+}
+
+model Role {
+  id          String        @id @default(cuid())
+  name        String        @unique
+  permissions Permission[]  @default([])
+  isActive    Boolean       @default(true)
+  staffs      Staff[]
 }
 
 model User {
@@ -22,11 +51,11 @@ model User {
   lastName            String?
   panNumber           String?             @unique
   aadhaarNumber       String?             @unique
+  fcmToken            String?
   dob                 DateTime?
   twoFactorPreference OTPPreferenceType?  @default(SMS)
   kycStatus           KYCStatus?          @default(PENDING)
   accountType         AccountType?        @default(INDIVIDUAL)
-  role                UserRole?           @default(USER)
   isActive            Boolean?            @default(true)
   twoFactorEnabled    Boolean?            @default(false)
   createdAt           DateTime?           @default(now())
@@ -51,8 +80,9 @@ model User {
   watchlists          Watchlist[]
   nominees            Nominee[]
   dailyPnls           DailyPnL[]
+  supportTickets      SupportTicket[]
 
-  @@index([email, phone ])
+  @@index([email,     phone])
 }
 
 model Nominee {
@@ -174,6 +204,7 @@ model Margin {
   optionPremium   Float     @default(0.0)
   updatedAt       DateTime  @updatedAt
   user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@index([userId])
 }
 
@@ -203,10 +234,12 @@ model Instrument {
   priceHistory    PriceHistory[]
   trades          Trade[]
   watchlistItems  WatchlistItem[]
+  gttorders       GTTOrder[]
+  basketItems     BasketItem[]
 
   @@index([tradingSymbol, exchange])
   @@index([instrumentToken])
-  @@index([name , tradingSymbol])
+  @@index([name,  tradingSymbol])
 }
 
 model MarketDepth {
@@ -345,10 +378,11 @@ model Order {
   cancelledBy        String?
   createdAt          DateTime         @default(now())
   updatedAt          DateTime         @updatedAt
-  instrument         Instrument      @relation(fields: [instrumentId], references: [id])
+  instrument         Instrument      @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
   user               User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   trades             Trade[]
   modificationCount  Int              @default(0)
+
   @@index([userId,   status])
   @@index([orderId])
   @@index([tradingSymbol, exchange])
@@ -412,12 +446,11 @@ model GTTOrder {
   triggeredAt   DateTime?
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
+  instrument    Instrument  @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, status])
 }
-
-
 
 model Watchlist {
   id        String            @id @default(cuid())
@@ -459,6 +492,7 @@ model WatchlistItem {
   @@index([groupId])
   @@index([instrumentId])
 }
+
 model Alert {
   id           String     @id @default(cuid())
   userId       String
@@ -519,6 +553,7 @@ model BasketItem {
   triggerPrice    Float?
   product         ProductType
   sortOrder       Int              @default(0)
+  instrument      Instrument      @relation(fields: [instrumentId], references: [id])
   basket          Basket          @relation(fields: [basketId], references: [id], onDelete: Cascade)
 
   @@index([basketId])
@@ -575,6 +610,32 @@ model DailyPnL {
   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, date])
+}
+
+model SupportTicket {
+  id          String        @id @default(cuid())
+  userId      String
+  staffId     String?
+  subject     String
+  description String
+  attachments String[]      @default([])
+  status      TicketStatus  @default(OPEN)
+  priority    Priority      @default(NORMAL)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  staff       Staff?       @relation(fields: [staffId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+  @@index([staffId, status])
+}
+
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
 }
 
 enum UserRole {
@@ -831,4 +892,51 @@ enum OTPPreferenceType {
   SMS
 }
 
+enum Permission {
+  CREATE_STAFF
+  VIEW_STAFF
+  EDIT_STAFF
+  DELETE_STAFF
 
+  CREATE_USERS
+  VIEW_USERS
+  EDIT_USERS
+  DELETE_USERS
+
+  CREATE_FUNDS
+  VIEW_FUNDS
+  EDIT_FUNDS
+  DELETE_FUNDS
+
+  VIEW_ORDERS
+  EDIT_ORDERS
+  DELETE_ORDERS
+  CREATE_ORDERS
+
+  CREATE_ROLES
+  VIEW_ROLES
+  EDIT_ROLES
+  DELETE_ROLES
+
+  CREATE_INSTRUMENTS
+  VIEW_INSTRUMENTS
+  EDIT_INSTRUMENTS
+  DELETE_INSTRUMENTS
+  
+  VIEW_TRADES
+  EDIT_TRADES
+  DELETE_TRADES
+
+  CREATE_REPORTS
+  EDIT_REPORTS
+  VIEW_REPORTS
+  DELETE_REPORTS
+
+  VIEW_TRANSACTIONS
+  UPDATE_TRANSACTIONS
+  CREATE_TRANSACTIONS
+  DELETE_TRANSACTIONS
+
+  UPDATE_TICKETS
+  VIEW_TICKETS
+}

@@ -1,5 +1,6 @@
-import { PrismaClient } from "../../../generated/prisma";
+import { PrismaClient } from "../../../generated/prisma/client";
 import { redis } from "../../config/redis/redis.config";
+import { HttpResponse } from "../../utils/response/success";
 
 interface RegisterData {
     email: string;
@@ -12,31 +13,49 @@ interface IRegisterProp {
     userId: string;
 }
 
-export async function signUpLayer0({
-    prisma,
-    data,
-    userId
-}: IRegisterProp) {
-        const { email, otp } = data;
+export async function signUpLayer0({ prisma, data, userId }: IRegisterProp) {
+    const { email, otp } = data;
+
+    return await prisma.$transaction(async (tx) => {
+        // Validate OTP from Redis cache
         const checkCache = await redis.get(`OTP:${email}`);
         if (!checkCache) {
-            throw new Error("OTP_EXPIRED");
+            return new HttpResponse(400, "OTP_EXPIRED");
         }
-        const cacheData = JSON.parse(checkCache)
+
+        const cacheData = JSON.parse(checkCache);
         if (cacheData.OTP !== otp) {
-            return new Error("INVALID_OTP");
+            return new HttpResponse(400, "INVALID_OTP");
         }
-        const updatedUser = await prisma.user.update({
-                where: { id: userId },
-                data: {
-                    firstName: cacheData.name,
-                    email: email
-                },
-            })
-        if (!updatedUser) {
-            throw new Error("USER_UPDATE_FAILED");
+
+        // Validate stage
+        const verification = await tx.userVerification.findUnique({
+            where: { userId },
+            select: { stage: true }
+        });
+
+        if (verification?.stage !== 'ZERO') {
+            return new HttpResponse(400, `INVALID_USER_STAGE: Expected ZERO, got ${verification?.stage}`);
         }
-        if (email) {
-            // SEND KAFKA EMAIL EVENT AND LET
-        }
-    }
+
+        // Update user with verified email
+        const updatedUser = await tx.user.update({
+            where: { id: userId },
+            data: {
+                firstName: cacheData.name,
+                email: email,
+                isVerified: true
+            },
+            select: {
+                id: true,
+                email: true,
+                firstName: true
+            }
+        });
+
+        // Clear OTP from Redis after successful verification
+        await redis.del(`OTP:${email}`);
+
+        return new HttpResponse(200, "LAYER0_COMPLETED", updatedUser).toResponse();
+    });
+}

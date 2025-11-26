@@ -1,5 +1,5 @@
 import { hash } from "bcryptjs";
-import type { PrismaClient } from "../../../generated/prisma";
+import type { PrismaClient } from "../../../generated/prisma/client";
 import { redis } from "../../config/redis/redis.config";
 import { HttpResponse } from "../../utils/response/success";
 

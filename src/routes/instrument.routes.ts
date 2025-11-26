@@ -36,14 +36,12 @@ export const instrumentRouter = new Elysia({
     )
     .delete("/:instrumentId", async ({ params }) => {
         try {
-            const { instrumentId } = params;
             return await deleteInstrument({
                 prisma,
-                data: {
-                    instrumentId,
-                },
+                data: params,
             });
         } catch (err) {
+            console.log(err);
             return new HttpResponse(400, (err as Error).message).toResponse();
         }
     }, {    

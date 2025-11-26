@@ -1,5 +1,5 @@
 import { hash } from "crypto";
-import type { Exchange, OrderType, OrderValidity, OrderVariety, PrismaClient, ProductType, TransactionType } from "../../../generated/prisma";
+import type { Exchange, OrderType, OrderValidity, OrderVariety, PrismaClient, ProductType, TransactionType } from "../../../generated/prisma/client";
 import { redis } from "../../config/redis/redis.config";
 import { HttpResponse } from "../../utils/response/success";
 import { checkInstrument } from "../../helpers/helpers";

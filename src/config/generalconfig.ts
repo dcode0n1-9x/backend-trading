@@ -39,5 +39,5 @@ export const config = {
         BROKERS: process.env.KAFKA_BROKERS ? process.env.KAFKA_BROKERS.split(",") : ["localhost:9092"],
         CLIENT_ID: process.env.KAFKA_CLIENT_ID || "trading-api-server"
     },
-    // PRISMA_OPTIMIZE_API_KEY: process.env.OPTIMIZE_API_KEY || ''
+    PRISMA_OPTIMIZE_API_KEY: process.env.OPTIMIZE_API_KEY || ''
 };

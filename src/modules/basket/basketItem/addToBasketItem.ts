@@ -1,6 +1,6 @@
-import { OrderType } from './../../../../generated/prisma/index.d';
+import { OrderType } from './../../../../generated/prisma/client/enums';
 
-import type { Exchange, PrismaClient, ProductType, TransactionType } from "../../../../generated/prisma";
+import type { Exchange, PrismaClient, ProductType, TransactionType } from "../../../../generated/prisma/client";
 import { HttpResponse } from "../../../utils/response/success";
 import { checkInstrument } from '../../../helpers/helpers';
 

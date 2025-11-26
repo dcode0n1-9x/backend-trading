@@ -3,6 +3,7 @@ import { basketRouter } from "./basket.routes.js";
 import { basketItemRouter } from "./basketItem.routes.js";
 import { commonRouter } from "./common.routes.js";
 import { forgetPasswordRouter } from "./forgetPassword.routes.js";
+import { gttOrderRouter } from "./gttOrder.routes.js";
 import { holdingRouter } from "./holding.routes.js";
 import { instrumentRouter } from "./instrument.routes.js";
 import { authRouter } from "./login.routes.js";
@@ -27,5 +28,6 @@ export const indexRouter = {
     alertRouter,
     basketRouter,
     basketItemRouter,
-    instrumentRouter
+    instrumentRouter,
+    gttOrderRouter
 }

@@ -1,4 +1,4 @@
-import type { Exchange, InstrumentType, PrismaClient, Segment } from "../../../generated/prisma";
+import type { Exchange, InstrumentType, PrismaClient, Segment } from "../../../generated/prisma/client";
 import { sendMessage } from "../../utils/kakfa.utils";
 import { HttpResponse } from "../../utils/response/success";
 

@@ -1,6 +1,7 @@
 
 
-import type { PrismaClient, RelationshipType } from "../../../generated/prisma";
+import type { PrismaClient, RelationshipType } from "../../../generated/prisma/client";
+import { HttpResponse } from "../../utils/response/success";
 
 
 interface RegisterData {
@@ -33,7 +34,7 @@ export async function signUpLayer4B({ prisma, data, userId }: IRegisterProp) {
         });
 
         if (verification?.stage !== "FOURA") {
-            throw new Error(`INVALID_USER_STAGE: Expected FOURA, got ${verification?.stage}`);
+            return new HttpResponse(400, `INVALID_USER_STAGE: Expected FOURA, got ${verification?.stage}`);
         }
 
         // 2. Bulk create nominees (efficient)
@@ -69,6 +70,6 @@ export async function signUpLayer4B({ prisma, data, userId }: IRegisterProp) {
             }
         });
 
-        return { userStage: "FOURB", data: result };
+        return new HttpResponse(200, "LAYER4B_COMPLETED", { userStage: "FOURB", data: result }).toResponse();
     });
 }

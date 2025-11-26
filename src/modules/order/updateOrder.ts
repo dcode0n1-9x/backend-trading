@@ -1,4 +1,4 @@
-import { OrderType, OrderValidity, PrismaClient } from "../../../generated/prisma";
+import { OrderType, OrderValidity, PrismaClient } from "../../../generated/prisma/client";
 import { HttpResponse } from "../../utils/response/success";
 interface IModifyOrderData {
     orderId: string;

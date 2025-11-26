@@ -6,8 +6,6 @@ export const kafka = new Kafka({
     clientId: config.KAFKA.CLIENT_ID,
     brokers: config.KAFKA.BROKERS,
     logLevel: config.BUN_ENV === "production" ? logLevel.WARN : logLevel.INFO,
-
-    // Production retry configuration with exponential backoff
     retry: {
         initialRetryTime: 100,
         retries: 8,
@@ -15,12 +13,8 @@ export const kafka = new Kafka({
         multiplier: 2,
         factor: 0.2,
     },
-
-    // Connection timeouts
     connectionTimeout: 10000,
     requestTimeout: 30000,
-
-    // Enable SASL/SSL for production
     ...(config.BUN_ENV === "production" && {
         ssl: true,
         sasl: {

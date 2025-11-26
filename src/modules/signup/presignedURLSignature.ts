@@ -1,4 +1,5 @@
-import type { PrismaClient } from "../../../generated/prisma";
+import type { PrismaClient } from "../../../generated/prisma/client";
+import { HttpResponse } from "../../utils/response/success";
 import { generateSignedURL } from '../../utils/s3.utils';
 
 
@@ -15,5 +16,5 @@ interface IRegisterProp {
 export async function presignedURLSignature({ data, userId }: IRegisterProp) {
     const { fileType } = data;
     const presignedUrl = await generateSignedURL(`${userId}/kyc/signature`, fileType);
-    return { presignedUrl };
+    return new HttpResponse(200, "PRESIGNED_URL_GENERATED", { presignedUrl }).toResponse();
 }

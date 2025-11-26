@@ -1,6 +1,6 @@
 import { compare } from "bcryptjs";
 import jwt from "jsonwebtoken";
-import type { PrismaClient } from "../../../generated/prisma";
+import type { PrismaClient } from "../../../generated/prisma/client";
 import { config } from "../../config/generalconfig";
 import { HttpResponse } from "../../utils/response/success";
 
@@ -20,10 +20,13 @@ export async function login({ prisma, data }: ILoginProp) {
   const { email, phone, password } = data;
   const user = await prisma.user.findFirst({
     where: { OR: [{ email }, { phone }], password: { not: null } },
-    select: { id: true, password: true }
+    select: { id: true, password: true , isActive: true}
   });
   if (!user) {
     throw new HttpResponse(404, "USER_NOT_FOUND");
+  }
+  if (!user.isActive) {
+    throw new HttpResponse(403, "USER_INACTIVE");
   }
   // const checkPassword = password === user.password;
   // if (!checkPassword) {

@@ -1,4 +1,4 @@
-import type { PrismaClient } from "../../../../generated/prisma";
+import type { PrismaClient } from "../../../../generated/prisma/client";
 import { checkInstrument, checkWatchlistGroup } from "../../../helpers/helpers";
 import { HttpResponse } from "../../../utils/response/success";
 

@@ -19,6 +19,7 @@ import { signUpLayer3C } from "../modules/signup/signUpLayer3C";
 import { signUpLayer4A } from "../modules/signup/signUpLayer4A";
 import { signUpLayer4B } from "../modules/signup/signUpLayer4B";
 import { getCurrentStage } from "../modules/signup/getCurrentStage";
+import { presignedURLWebCamera } from "../modules/signup/presignedURLWebCamera";
 
 export const signUpRouter = new Elysia({
   name: "sign-up",
@@ -40,7 +41,7 @@ export const signUpRouter = new Elysia({
     {
       body: "auth.signup.sendotp",
       detail: {
-        summary : "Send OTP for Sign-Up",
+        summary: "Send OTP for Sign-Up",
         description: "Sends an OTP to the provided phone number for verification during the sign-up process."
       }
     }
@@ -77,13 +78,13 @@ export const signUpRouter = new Elysia({
         })
         return new HttpResponse(200, "USER_CREATED", { userStage: userStage }).toResponse();
       } catch (error) {
-        return new HttpResponse(400, (error as Error).message).toResponse();
+        return new HttpResponse(500, (error as Error).message).toResponse();
       }
     },
     {
       body: "auth.signup.verifyotp",
       detail: {
-        summary : "Verify OTP for Sign-Up",
+        summary: "Verify OTP for Sign-Up",
         description: "Verifies the OTP sent to the user's phone number and creates a new user account upon successful verification."
       }
     }
@@ -99,62 +100,57 @@ export const signUpRouter = new Elysia({
     {
       body: "auth.signup.sendotpemail",
       detail: {
-        summary : "Send OTP to Email for Verification",
+        summary: "Send OTP to Email for Verification",
         description: "Sends an OTP to the provided email address for verification during the sign-up process."
       }
     }
   )
   .post("/layer-0", async ({ body, user }) => {
     try {
-      const result = await signUpLayer0({ prisma, data: body, userId: user.id })
-      if (result instanceof Error) {
-        return new HttpResponse(400, result.message).toResponse();
-      }
-      return new HttpResponse(200, "LAYER0_COMPLETED", result).toResponse()
+      return await signUpLayer0({ prisma, data: body, userId: user.id })
+
     } catch (error) {
       return new HttpResponse(500, (error as Error).message).toResponse()
     }
   }, {
     body: "auth.signup.layer0",
     detail: {
-      summary : "Complete Sign-Up Layer 0",
+      summary: "Complete Sign-Up Layer 0",
       description: "Completes the initial layer of the sign-up process by confirming the email verification OTP."
     }
   })
   .post("/layer-1",
     async ({ body, user }) => {
       try {
-        const result = await signUpLayer1({
+        return await signUpLayer1({
           prisma,
           data: body,
           userId: user!.id,
         });
-        return new HttpResponse(200, "LAYER1_COMPLETED", result).toResponse();
       } catch (error) {
         return new HttpResponse(500, (error as Error).message).toResponse();
       }
     }, {
     body: "auth.signup.layer1",
     detail: {
-      summary : "Complete Sign-Up Layer 1",
+      summary: "Complete Sign-Up Layer 1",
       description: "Completes the first layer of the sign-up process by collecting pan and dob information."
     }
   })
   .post("/layer-2", async ({ body, user }) => {
     try {
-      const result = await signUpLayer2({
+      return await signUpLayer2({
         prisma,
         data: body,
         userId: user!.id,
       });
-      return new HttpResponse(200, "LAYER2_COMPLETED", result).toResponse();
     } catch (error) {
-      return new HttpResponse(400, (error as Error).message).toResponse();
+      return new HttpResponse(500, (error as Error).message).toResponse();
     }
   }, {
     body: "auth.signup.layer2",
     detail: {
-      summary : "Complete Sign-Up Layer 2",
+      summary: "Complete Sign-Up Layer 2",
       description: "Completes the second layer of the sign-up process by collecting addharNumber and segment preference of user."
     }
   })
@@ -167,118 +163,112 @@ export const signUpRouter = new Elysia({
       });
       return new HttpResponse(200, "LAYER3A_COMPLETED", result).toResponse();
     } catch (error) {
-      return new HttpResponse(400, (error as Error).message).toResponse();
+      return new HttpResponse(500, (error as Error).message).toResponse();
     }
   }, {
     body: "auth.signup.layer3A",
     detail: {
-      summary : "Complete Sign-Up Layer 3A",
+      summary: "Complete Sign-Up Layer 3A",
       description: "Completes the third layer A of the sign-up process by collecting user basic information."
     }
   }
   )
   .post("/layer-3-B", async ({ body, user }) => {
     try {
-      const result = await signUpLayer3B({
+      return await signUpLayer3B({
         prisma,
         data: body,
         userId: user!.id,
       });
-      return new HttpResponse(200, "LAYER3B_COMPLETED", result).toResponse();
     } catch (error) {
-      return new HttpResponse(400, (error as Error).message).toResponse();
+      return new HttpResponse(500, (error as Error).message).toResponse();
     }
   }, {
     body: "auth.signup.layer3B",
     detail: {
-      summary : "Complete Sign-Up Layer 3B",
+      summary: "Complete Sign-Up Layer 3B",
       description: "Completes the third layer B of the sign-up process by collecting user bank account information."
     }
   }
   )
   .post("/presigned-webcam", async ({ body, user }) => {
     try {
-      const result = await presignedURLSignature({
+      return await presignedURLWebCamera({
         prisma,
         data: body,
         userId: user!.id,
       });
-      return new HttpResponse(200, "PRESIGNED_URL_GENERATED", result).toResponse();
     } catch (error) {
-      return new HttpResponse(400, (error as Error).message).toResponse();
+      return new HttpResponse(500, (error as Error).message).toResponse();
     }
   }, {
     body: "auth.signup.presigned",
     detail: {
-      summary : "Generate Presigned URL for Webcam Upload",
+      summary: "Generate Presigned URL for Webcam Upload",
       description: "Generates a presigned URL for uploading the user's webcam image during the sign-up process."
     }
   })
   .post("/layer-3-C", async ({ body, user }) => {
     try {
-      const result = await signUpLayer3C({
+      return await signUpLayer3C({
         prisma,
         data: body,
         userId: user!.id,
       });
-      return new HttpResponse(200, "LAYER3A_COMPLETED", result).toResponse();
     } catch (error) {
-      return new HttpResponse(400, (error as Error).message).toResponse();
+      return new HttpResponse(500, (error as Error).message).toResponse();
     }
   }, {
     body: "auth.signup.layer3C",
     detail: {
-      summary : "Complete Sign-Up Layer 3C",
+      summary: "Complete Sign-Up Layer 3C",
       description: "Completes the third layer C of the sign-up process by collecting user's webcam information."
     }
   }
   )
   .post("/presigned-signature", async ({ body, user }) => {
     try {
-      const result = await presignedURLSignature({
+      return await presignedURLSignature({
         prisma,
         data: body,
         userId: user!.id,
       });
-      return new HttpResponse(200, "PRESIGNED_URL_GENERATED", result).toResponse();
     } catch (error) {
-      return new HttpResponse(400, (error as Error).message).toResponse();
+      return new HttpResponse(500, (error as Error).message).toResponse();
     }
   }, {
     body: "auth.signup.presigned",
     detail: {
-      summary : "Generate Presigned URL for Signature Upload",
+      summary: "Generate Presigned URL for Signature Upload",
       description: "Generates a presigned URL for uploading the user's signature image during the sign-up process."
     }
   })
   .post("/layer-4-A", async ({ body, user }) => {
     try {
-      const result = await signUpLayer4A({ prisma, data: body, userId: user!.id });
-      return new HttpResponse(200, "LAYER4_COMPLETED", result).toResponse();
+      return signUpLayer4A({ prisma, data: body, userId: user!.id });
     } catch (error) {
-      return new HttpResponse(400, (error as Error).message).toResponse();
+      return new HttpResponse(500, (error as Error).message).toResponse();
     }
   },
     {
       body: "auth.signup.layer4A",
       detail: {
-        summary : "Complete Sign-Up Layer 4A",
+        summary: "Complete Sign-Up Layer 4A",
         description: "Completes the fourth layer A of the sign-up process by collecting user's signature information."
       }
     }
   )
   .post("/layer-4-B", async ({ body, user }) => {
     try {
-      const result = await signUpLayer4B({ prisma, data: body, userId: user!.id });
-      return new HttpResponse(200, "LAYER4_COMPLETED", result).toResponse();
+      return await signUpLayer4B({ prisma, data: body, userId: user!.id });
     } catch (error) {
-      return new HttpResponse(400, (error as Error).message).toResponse();
+      return new HttpResponse(500, (error as Error).message).toResponse();
     }
   },
     {
       body: "auth.signup.layer4B",
       detail: {
-        summary : "Complete Sign-Up Layer 4B",
+        summary: "Complete Sign-Up Layer 4B",
         description: "Completes the fourth layer B of the sign-up process by collecting user's nominee details"
       }
     }
@@ -287,11 +277,11 @@ export const signUpRouter = new Elysia({
     try {
       return await getCurrentStage({ prisma, userId: user.id })
     } catch (error) {
-      return new HttpResponse(400, (error as Error).message).toResponse();
+      return new HttpResponse(500, (error as Error).message).toResponse();
     }
-  } , {
+  }, {
     detail: {
-      summary : "Get Current Sign-Up Stage",
+      summary: "Get Current Sign-Up Stage",
       description: "Retrieves the current stage of the user's sign-up process."
     }
   })

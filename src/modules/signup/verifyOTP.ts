@@ -1,7 +1,6 @@
-import { Margin } from './../../../generated/prisma/index.d';
-import type { PrismaClient } from "../../../generated/prisma";
+
+import type { PrismaClient } from "../../../generated/prisma/client";
 import { redis } from "../../config/redis/redis.config";
-import { HttpResponse } from "../../utils/response/success";
 
 interface RegisterData {
     phone: string
@@ -22,7 +21,13 @@ export async function verifyOTP({ prisma, data }: IRegisterProp) {
     if (checkCache !== otp) {
         return new Error("INVALID_OTP");
     }
-    const checkUser = await prisma.user.findUnique({ where: { phone }, select: { isVerified: true, id: true } });
+    const checkUser = await prisma.user.findUnique({
+        where: { phone }, select: {
+            isVerified: true, id: true, userVerification: {
+                select: { stage: true }
+            }
+        }
+    });
     if (!checkUser) {
         const createUser = await prisma.user.create({
             data: {
@@ -41,7 +46,7 @@ export async function verifyOTP({ prisma, data }: IRegisterProp) {
                 dailyPnls: {
                     create: {}
                 },
-                portfolios : {
+                portfolios: {
                     create: {}
                 }
             },
@@ -50,11 +55,11 @@ export async function verifyOTP({ prisma, data }: IRegisterProp) {
         if (!createUser) {
             return new Error("USER_CREATION_FAILED");
         }
+        await redis.del(`OTP:${phone}`);
         return { userStage: "ZERO", id: createUser.id };
     }
     if (checkUser && checkUser.isVerified) {
         return new Error("USER_ALREADY_VERIFIED");
     }
-    return { userStage: "ZERO", id: checkUser.id };
-
+    return { userStage: checkUser.userVerification?.stage || "ZERO", id: checkUser.id };
 }

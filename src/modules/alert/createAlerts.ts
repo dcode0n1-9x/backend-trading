@@ -1,4 +1,4 @@
-import type { AlertType, PrismaClient } from "../../../generated/prisma";
+import type { AlertType, PrismaClient } from "../../../generated/prisma/client";
 import { checkInstrument } from "../../helpers/helpers";
 import { sendMessage } from "../../utils/kakfa.utils";
 import { HttpResponse } from "../../utils/response/success";

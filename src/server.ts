@@ -91,6 +91,7 @@ const app = new Elysia({
   .use(indexRouter.basketRouter)
   .use(indexRouter.basketItemRouter)
   .use(indexRouter.instrumentRouter)
+  .use(indexRouter.gttOrderRouter);
 
 
 export type App = typeof app;

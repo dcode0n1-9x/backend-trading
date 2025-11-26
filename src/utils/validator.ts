@@ -1,4 +1,4 @@
-import { OTPPreferenceType, Segment, AnnualIncome, OccupationType, TradingExperience, MartialStatusType, BankAccountType, RelationshipType, OrderVariety, OrderType, TransactionType, ProductType, Exchange, OrderValidity, AlertType, InstrumentType } from "../../generated/prisma";
+import { OTPPreferenceType, Segment, AnnualIncome, OccupationType, TradingExperience, MartialStatusType, BankAccountType, RelationshipType, OrderVariety, OrderType, TransactionType, ProductType, Exchange, OrderValidity, AlertType, InstrumentType, TriggerType, GTTType, GTTStatus } from "../../generated/prisma/enums";
 import { Elysia, t } from "elysia";
 import { config } from "../config/generalconfig";
 import { SortOrder } from "./types";
@@ -405,4 +405,40 @@ const createInstrumentValidator = t.Object({
 export const instrumentValidator  = new Elysia().model({
   "instrument.id" : intrumentIdParam,
   "instrument.create": createInstrumentValidator,
+});
+
+
+const createGttOrderValidator = t.Object({
+  gttType: t.Enum(GTTType, { example: "PRICE_BASED", error: "INVALID_GTT_TYPE" }),
+  instrumentId: t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_INSTRUMENT_ID" }),
+  tradingSymbol: t.String({ minLength: 2, maxLength: 100, example: "TATASTEEL", error: "INVALID_TRADING_SYMBOL" }),
+  exchange: t.Enum(Exchange, { example: "NSE", error: "INVALID_EXCHANGE" }),
+  triggerType: t.Enum(TriggerType, { example: "LAST_PRICE", error: "INVALID_TRIGGER_TYPE" }),
+  triggerPrice: t.Number({ minimum: 0, maximum: 10000000, example: 100, error: "INVALID_TRIGGER_PRICE" }),
+  lastPrice: t.Number({ minimum: 0, maximum: 10000000, example: 100, error: "INVALID_LAST_PRICE" }),
+  quantity: t.Number({ minimum: 1, maximum: 2000, example: 5, error: "QUANTITY_INVALID" }),
+  product: t.Enum(ProductType, { example: "CNC", error: "INVALID_PRODUCT_TYPE" }),
+  orderType: t.Enum(OrderType, { example: "MARKET", error: "INVALID_ORDER_TYPE" }),
+});
+
+const getGttOrderValidator = t.Object({
+  sort: t.Optional(t.Enum(SortOrder, { error: "INVALID_SORT_TYPE", examples: ['asc'] })),
+  limit: t.Optional(t.Number({ minimum: 1, maximum: 1000, example: 20, error: "INVALID_LIMIT_VALUE" })),
+  cursor: t.Optional(t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_CURSOR_VALUE" })),
+  search: t.Optional(t.String({ minLength: 1, maxLength: 100, example: "TATA", error: "INVALID_SEARCH_VALUE" })),
+});
+
+
+const gttOrderIdParam = t.Object({
+  gttOrderId: t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_GTT_ORDER_ID" }),
+})
+const updateGttStatusValidator = t.Object({
+  status : t.Enum(GTTStatus, { example: "ACTIVE", error: "INVALID_GTT_STATUS" }),
+})
+
+export const gttOrderValidator  = new Elysia().model({
+  "gtt-order.create" : createGttOrderValidator,
+  "gtt-order.get" : getGttOrderValidator,
+  "gtt-order.id" : gttOrderIdParam,
+  "gtt-order.update-status" : updateGttStatusValidator,
 });

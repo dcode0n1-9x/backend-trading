@@ -1,4 +1,4 @@
-import type { PrismaClient, ProductType, Prisma } from "../../../generated/prisma";
+import type { PrismaClient, ProductType, Prisma } from "../../../generated/prisma/client";
 import { HttpResponse } from "../../utils/response/success";
 
 interface GetHoldingData {

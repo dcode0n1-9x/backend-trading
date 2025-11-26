@@ -1,6 +1,7 @@
 
 
-import type { BankAccountType, PrismaClient } from "../../../generated/prisma";
+import type { BankAccountType, PrismaClient } from "../../../generated/prisma/client";
+import { HttpResponse } from "../../utils/response/success";
 
 
 interface RegisterData {
@@ -30,7 +31,7 @@ export async function signUpLayer3B({ prisma, data, userId }: IRegisterProp) {
         });
 
         if (verification?.stage !== "THREEA") {
-            throw new Error(`INVALID_USER_STAGE: Expected THREEA, got ${verification?.stage}`);
+            return new HttpResponse(400, `INVALID_USER_STAGE: Expected THREEA, got ${verification?.stage}`).toResponse();
         }
 
         // 2. Single update with nested creates (one database call)
@@ -64,7 +65,7 @@ export async function signUpLayer3B({ prisma, data, userId }: IRegisterProp) {
             }
         });
 
-        return { userStage: "THREEB", ...result };
+        return new HttpResponse(200, "LAYER3B_COMPLETED", result).toResponse();
     });
 }
 

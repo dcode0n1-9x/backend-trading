@@ -1,6 +1,6 @@
 import { Elysia } from "elysia";
-import { Exchange, prisma, ProductType } from "../db/index";
 import { authMiddleware } from "../middleware/authMiddleware";
+import { prisma } from "../db";
 import { getFullDetail } from "../modules/common/getFullDetail";
 import { HttpResponse } from "../utils/response/success";
 import { getMarginDetails } from "../modules/common/getMarginDetails";

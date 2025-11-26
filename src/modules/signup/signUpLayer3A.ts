@@ -1,6 +1,7 @@
 
 
-import type { TradingExperience, MartialStatusType, AnnualIncome, BankAccountType, OccupationType, PrismaClient } from "../../../generated/prisma";
+import type { TradingExperience, MartialStatusType, AnnualIncome, BankAccountType, OccupationType, PrismaClient } from "../../../generated/prisma/client";
+import { HttpResponse } from "../../utils/response/success";
 
 
 interface RegisterData {
@@ -29,7 +30,7 @@ export async function signUpLayer3A({ prisma, data, userId }: IRegisterProp) {
         });
 
         if (verification?.stage !== "TWO") {
-            throw new Error(`INVALID_USER_STAGE: Expected TWO, got ${verification?.stage}`);
+            return new HttpResponse(400, `INVALID_USER_STAGE: Expected TWO, got ${verification?.stage}`);
         }
 
         // Update user with nested profile upsert
@@ -67,6 +68,6 @@ export async function signUpLayer3A({ prisma, data, userId }: IRegisterProp) {
                 email: true,
             },
         });
-        return { userStage: "THREEA", ...result };
+        return new HttpResponse(200, "LAYER3A_COMPLETED", { userStage: "THREEA", ...result }).toResponse();
     });
 }

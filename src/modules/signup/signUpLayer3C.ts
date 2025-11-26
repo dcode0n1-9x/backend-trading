@@ -1,6 +1,7 @@
 
 
-import type { PrismaClient } from "../../../generated/prisma";
+import type { PrismaClient } from "../../../generated/prisma/client";
+import { HttpResponse } from "../../utils/response/success";
 
 
 interface RegisterData {
@@ -24,7 +25,7 @@ export async function signUpLayer3C({ prisma, data, userId }: IRegisterProp) {
         });
 
         if (verification?.stage !== "THREEB") {
-            throw new Error(`INVALID_USER_STAGE: Expected THREEB, got ${verification?.stage}`);
+            return new HttpResponse(400, `INVALID_USER_STAGE: Expected THREEB, got ${verification?.stage}`).toResponse();
         }
 
         // 2. Single update with nested updates (one query)
@@ -44,6 +45,6 @@ export async function signUpLayer3C({ prisma, data, userId }: IRegisterProp) {
             }
         });
 
-        return { userStage: "THREEC", ...result };
+        return new HttpResponse(200, "LAYER3C_COMPLETED", { userStage: "THREEC", ...result }).toResponse();
     });
 }

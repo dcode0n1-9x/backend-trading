@@ -1,4 +1,4 @@
-import type { PrismaClient } from "../../../generated/prisma";
+import type { PrismaClient } from "../../../generated/prisma/client";
 import { config } from "../../config/generalconfig";
 import { redis } from "../../config/redis/redis.config";
 import { HttpResponse } from "../../utils/response/success";
