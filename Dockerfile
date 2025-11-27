@@ -3,6 +3,8 @@ FROM oven/bun:latest AS build
 
 WORKDIR /app
 
+
+RUN apt-get update -y && apt-get install -y openssl
 # RUN apk add --no-cache python3 make g++ pkgconfig pixman-dev cairo-dev pango-dev libjpeg-turbo-dev giflib-dev openssl
 
 # Copy package files for dependency caching

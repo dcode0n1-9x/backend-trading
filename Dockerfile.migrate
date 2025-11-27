@@ -12,10 +12,14 @@ COPY prisma ./prisma
 # If you use prisma.config.ts/js, also:
 COPY prisma.config.* ./
 
+
+COPY ./src ./src
+
+
 ARG DATABASE_URL
 ENV DATABASE_URL=${DATABASE_URL}
 
 RUN bunx prisma generate
 
 # Will be run at container start, not at build time
-CMD ["bunx", "prisma", "migrate", "deploy"]
+CMD ["sh", "-c", "bunx prisma migrate deploy && bunx prisma db seed"]

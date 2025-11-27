@@ -77,12 +77,23 @@ model User {
   trades              Trade[]
   profile             UserProfile?
   userVerification    UserVerification?
+  kycDocument         KycDocument?
   watchlists          Watchlist[]
   nominees            Nominee[]
   dailyPnls           DailyPnL[]
   supportTickets      SupportTicket[]
 
   @@index([email,     phone])
+}
+
+model KycDocument {
+  id          String    @id @default(cuid())
+  userId      String    @unique
+  aadharPhoto String?
+  panPhoto    String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Nominee {
@@ -104,12 +115,12 @@ model Nominee {
 }
 
 model UserVerification {
-  id        String    @id @default(cuid())
-  userId    String    @unique
-  stage     KYCStage  @default(ZERO)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String     @id @default(cuid())
+  userId    String     @unique
+  stage     UserStage  @default(ZERO)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model UserProfile {
@@ -273,7 +284,7 @@ model PriceHistory {
 
 model Portfolio {
   id               String    @id @default(cuid())
-  userId           String
+  userId           String   @unique
   totalValue       Float     @default(0.0)
   investedValue    Float     @default(0.0)
   currentValue     Float     @default(0.0)
@@ -876,7 +887,7 @@ enum SettlementType {
   MONTHLY
 }
 
-enum KYCStage {
+enum UserStage {
   ZERO
   ONE
   TWO

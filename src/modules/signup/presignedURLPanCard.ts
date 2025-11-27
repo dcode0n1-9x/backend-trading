@@ -1,0 +1,20 @@
+import type { PrismaClient } from "../../../generated/prisma/client";
+import { HttpResponse } from "../../utils/response/success";
+import { generateSignedURL } from '../../utils/s3.utils';
+
+
+interface RegisterData {
+    fileType: string
+}
+
+interface IRegisterProp {
+    prisma: PrismaClient;
+    data: RegisterData;
+    userId: string;
+}
+
+export async function presignedURLPanCard({ data, userId }: IRegisterProp) {
+    const { fileType } = data;
+    const presignedUrl = await generateSignedURL(`${userId}/kyc/pan-card`, fileType);
+    return new HttpResponse(200, "PRESIGNED_URL_GENERATED", { presignedUrl }).toResponse();
+}

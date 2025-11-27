@@ -98,7 +98,7 @@ CREATE TYPE "OccupationType" AS ENUM ('BUSINESS', 'HOUSEWIFE', 'STUDENT', 'PROFE
 CREATE TYPE "SettlementType" AS ENUM ('QUATERLY', 'MONTHLY');
 
 -- CreateEnum
-CREATE TYPE "KYCStage" AS ENUM ('ZERO', 'ONE', 'TWO', 'THREEA', 'THREEB', 'THREEC', 'FOURA', 'FOURB');
+CREATE TYPE "UserStage" AS ENUM ('ZERO', 'ONE', 'TWO', 'THREEA', 'THREEB', 'THREEC', 'FOURA', 'FOURB');
 
 -- CreateEnum
 CREATE TYPE "OTPPreferenceType" AS ENUM ('EMAIL', 'SMS');
@@ -163,6 +163,18 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
+CREATE TABLE "KycDocument" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "aadharPhoto" TEXT,
+    "panPhoto" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "KycDocument_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Nominee" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
@@ -184,7 +196,7 @@ CREATE TABLE "Nominee" (
 CREATE TABLE "UserVerification" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "stage" "KYCStage" NOT NULL DEFAULT 'ZERO',
+    "stage" "UserStage" NOT NULL DEFAULT 'ZERO',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -713,6 +725,9 @@ CREATE UNIQUE INDEX "User_aadhaarNumber_key" ON "User"("aadhaarNumber");
 CREATE INDEX "User_email_phone_idx" ON "User"("email", "phone");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "KycDocument_userId_key" ON "KycDocument"("userId");
+
+-- CreateIndex
 CREATE INDEX "Nominee_userId_idx" ON "Nominee"("userId");
 
 -- CreateIndex
@@ -759,6 +774,9 @@ CREATE INDEX "PriceHistory_instrumentId_ohlcDate_idx" ON "PriceHistory"("instrum
 
 -- CreateIndex
 CREATE UNIQUE INDEX "PriceHistory_instrumentId_ohlcDate_interval_key" ON "PriceHistory"("instrumentId", "ohlcDate", "interval");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Portfolio_userId_key" ON "Portfolio"("userId");
 
 -- CreateIndex
 CREATE INDEX "Portfolio_userId_idx" ON "Portfolio"("userId");
@@ -846,6 +864,9 @@ CREATE INDEX "SupportTicket_staffId_status_idx" ON "SupportTicket"("staffId", "s
 
 -- AddForeignKey
 ALTER TABLE "Staff" ADD CONSTRAINT "Staff_roleId_fkey" FOREIGN KEY ("roleId") REFERENCES "Role"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "KycDocument" ADD CONSTRAINT "KycDocument_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Nominee" ADD CONSTRAINT "Nominee_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
