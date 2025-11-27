@@ -1,0 +1,21 @@
+FROM oven/bun:latest
+
+WORKDIR /app
+
+RUN apt-get update -y && apt-get install -y openssl
+
+COPY package.json bun.lock* ./
+
+RUN bun install
+
+COPY prisma ./prisma
+# If you use prisma.config.ts/js, also:
+COPY prisma.config.* ./
+
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
+
+RUN bunx prisma generate
+
+# Will be run at container start, not at build time
+CMD ["bunx", "prisma", "migrate", "deploy"]

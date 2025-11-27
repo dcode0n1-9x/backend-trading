@@ -14,6 +14,13 @@ RUN bun install
 # Copy Prisma schema and generate client (requires dev deps)
 COPY prisma ./prisma
 
+
+COPY prisma.config.* ./
+
+# --- NEW: build arg + env ---
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
+
 RUN bunx prisma generate
 
 # Copy source code

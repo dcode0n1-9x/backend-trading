@@ -41,14 +41,32 @@ services:
           memory: 256M
         reservations:
           memory: 128M
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile.migrate
+      args:
+        DATABASE_URL: postgresql://${POSTGRES_USER:-myuser}:${POSTGRES_PASSWORD:-mypassword}@postgres:5432/${POSTGRES_DB:-mydatabase}
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-myuser}:${POSTGRES_PASSWORD:-mypassword}@postgres:5432/${POSTGRES_DB:-mydatabase}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+    volumes:
+      - ./prisma:/app/prisma 
+
   app:
     build:
+      args:
+        DATABASE_URL: postgresql://${POSTGRES_USER:-myuser}:${POSTGRES_PASSWORD:-mypassword}@postgres:5432/${POSTGRES_DB:-mydatabase}
       context: .
       dockerfile: Dockerfile
     container_name: myapp
-    # restart: unless-stopped
+    restart: unless-stopped
     ports:
       - "${PORT:-3000}:${PORT:-3000}"
+    
     environment:
       PORT: ${PORT:-3000}
       BUN_ENV: ${BUN_ENV:-development}
@@ -82,6 +100,8 @@ services:
       # General
       NODE_ENV: production  # Aligns with your Bun/Node setup
     depends_on:
+      migrate:
+        condition: service_completed_successfully
       postgres:
         condition: service_healthy
       redis:
