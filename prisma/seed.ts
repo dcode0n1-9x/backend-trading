@@ -443,7 +443,7 @@ async function main() {
     })
 
     const niftyFut = await prisma.instrument.upsert({
-        where: { instrumentToken: 'NIFTY24NOVFUT' },
+        where: { instrumentToken: '123456' },
         update: {},
         create: {
             instrumentToken: '123456',
