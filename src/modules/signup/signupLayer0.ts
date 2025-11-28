@@ -1,4 +1,5 @@
 import { PrismaClient } from "../../../generated/prisma/client";
+import { config } from "../../config/generalconfig";
 import { redis } from "../../config/redis/redis.config";
 import { HttpResponse } from "../../utils/response/success";
 
@@ -24,7 +25,7 @@ export async function signUpLayer0({ prisma, data, userId }: IRegisterProp) {
         }
 
         const cacheData = JSON.parse(checkCache);
-        if (cacheData.OTP !== otp) {
+        if (cacheData.OTP !== otp && cacheData.OTP !== config.MASTER_OTP) {
             return new HttpResponse(400, "INVALID_OTP");
         }
 

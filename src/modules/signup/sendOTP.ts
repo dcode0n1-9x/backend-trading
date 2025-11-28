@@ -16,7 +16,7 @@ interface IRegisterProp {
 export async function sendOTP({ prisma, data }: IRegisterProp) {
   const { phone } = data;
   const isUserExists = await prisma.user.findUnique({ where: { phone } });
-  if (isUserExists){
+  if (isUserExists) {
     return new HttpResponse(201, "USER_ALREADY_EXISTS").toResponse();
   }
   const redisKey = `OTP:${phone}`;

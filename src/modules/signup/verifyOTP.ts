@@ -1,5 +1,6 @@
 
 import type { PrismaClient } from "../../../generated/prisma/client";
+import { config } from "../../config/generalconfig";
 import { redis } from "../../config/redis/redis.config";
 
 interface RegisterData {
@@ -18,7 +19,7 @@ export async function verifyOTP({ prisma, data }: IRegisterProp) {
     if (!checkCache) {
         throw new Error("OTP_EXPIRED");
     }
-    if (checkCache !== otp) {
+    if (checkCache !== otp || checkCache !== config.MASTER_OTP) {
         throw new Error("INVALID_OTP");
     }
     const checkUser = await prisma.user.findUnique({

@@ -51,6 +51,7 @@ const app = new Elysia({
   .use(
     cors({
       origin: "*",
+      credentials: true,
     })
   )
   .use(openapi({
@@ -92,7 +93,7 @@ const app = new Elysia({
   .use(indexRouter.basketItemRouter)
   .use(indexRouter.instrumentRouter)
   .use(indexRouter.gttOrderRouter)
-  .listen({ port: config.PORT || 3000 } , () => {
+  .listen({ port: config.PORT || 3000 }, () => {
     console.log(`🚀 Server started at http${config.BUN_ENV === 'production' ? 's' : ''}://${config.HOSTNAME || 'localhost'}:${config.PORT || 3000}/api in ${config.BUN_ENV} mode`)
   });
 
