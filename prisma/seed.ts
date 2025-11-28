@@ -642,7 +642,7 @@ async function main() {
 
     const order1 = await prisma.order.create({
         data: {
-            orderId: 'ORD0001',
+            orderId: `ORD0001-${Date.now().toLocaleString()}`,
             userId: rajesh.id,
             instrumentId: reliance.id,
             parentOrderId: null,
@@ -671,7 +671,7 @@ async function main() {
 
     const trade1 = await prisma.trade.create({
         data: {
-            tradeId: 'TRD0001',
+            tradeId: 'TRD0001-' + Date.now().toLocaleString(),
             orderId: order1.id,
             userId: rajesh.id,
             instrumentId: reliance.id,
