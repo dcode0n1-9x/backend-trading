@@ -3,6 +3,7 @@ import type { Exchange, OrderType, OrderValidity, OrderVariety, PrismaClient, Pr
 import { redis } from "../../config/redis/redis.config";
 import { HttpResponse } from "../../utils/response/success";
 import { checkInstrument } from "../../helpers/helpers";
+import { sendMessage } from "../../utils/kakfa.utils";
 
 interface RegisterData {
     variety: OrderVariety
@@ -41,6 +42,8 @@ export async function createOrder({ prisma, data, userId }: IRegisterProp) {
     if (!createOrder) {
         return new HttpResponse(400, "UNABLE_TO_CREATE_ORDER").toResponse()
     }
+    console.log(createOrder)
+    await sendMessage("order.create", userId, { order: createOrder })
     // send this to kafka to send the entire data to the order book and as soon as it is in the order book we want to notify the user that your order has been placed usually takes less time but still.
     return new HttpResponse(200, "ORDER_HAS_BEEN_INITIATED")
 }

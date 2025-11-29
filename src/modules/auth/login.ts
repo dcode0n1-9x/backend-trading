@@ -1,6 +1,5 @@
 import { compare } from "bcryptjs";
 import type { PrismaClient } from "../../../generated/prisma/client";
-import { config } from "../../config/generalconfig";
 
 interface LoginData {
   phone?: string,

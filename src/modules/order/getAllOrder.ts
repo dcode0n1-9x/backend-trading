@@ -1,8 +1,8 @@
-import type { PrismaClient, ProductType, Prisma } from "../../../generated/prisma/client";
+import type { PrismaClient, ProductType, Prisma, OrderType } from "../../../generated/prisma/client";
 import { HttpResponse } from "../../utils/response/success";
 
-interface GetHoldingData {
-    type?: ProductType;
+interface GetOrderingData {
+    type?: ProductType
     sort?: 'asc' | 'desc';
     cursor?: string; // Holding ID for cursor pagination
     limit?: number;
@@ -11,17 +11,17 @@ interface GetHoldingData {
 
 interface IRegisterProp {
     prisma: PrismaClient;
-    data: GetHoldingData;
+    data: GetOrderingData;
     userId: string;
 }
 
-export async function getOrders({ prisma, userId, data }: IRegisterProp) {
+export async function getAllOrders({ prisma, userId, data }: IRegisterProp) {
     const { type, search, cursor, sort = 'desc', limit = 20 } = data;
 
     // Build dynamic where clause
     const whereClause: Prisma.OrderWhereInput = {
         userId,
-        ...(type && { product: type }),
+        ...(type && { product: type}),
         ...(search && {
             instrument: {
                 OR: [
@@ -35,7 +35,7 @@ export async function getOrders({ prisma, userId, data }: IRegisterProp) {
     };
 
     // Cursor-based pagination query
-    const orders = await prisma.order.findMany({
+    const orders = await prisma.order.findMany<Prisma.OrderFindManyArgs>({
         where: whereClause,
         orderBy: {
             createdAt: sort

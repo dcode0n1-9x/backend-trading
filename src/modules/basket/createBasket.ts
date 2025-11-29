@@ -1,4 +1,5 @@
 import type { PrismaClient } from "../../../generated/prisma/client";
+import { sendMessage } from "../../utils/kakfa.utils";
 import { HttpResponse } from "../../utils/response/success";
 
 
@@ -22,5 +23,6 @@ export async function createBasket({ prisma, data, userId }: IRegisterProp) {
     if (!createBasket) {
         return new HttpResponse(500, "BASKET_CREATION_FAILED").toResponse();
     }
+    await sendMessage("basket.create", createBasket.id, { basket: createBasket })
     return new HttpResponse(200, "BASKET_CREATED_SUCCESSFULLY", { basketId: createBasket.id }).toResponse();
 }

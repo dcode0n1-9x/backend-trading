@@ -1,4 +1,5 @@
 import type { PrismaClient } from "../../../generated/prisma/client";
+import { sendMessage } from "../../utils/kakfa.utils";
 import { HttpResponse } from "../../utils/response/success";
 
 
@@ -20,5 +21,6 @@ export async function deleteOrder({ prisma, data, userId }: IRegisterProp) {
     if (!deleteOrder) {
         return new HttpResponse(500, "UNABLE_TO_DELETE_ORDER").toResponse();
     }
+    await sendMessage("order.delete", userId, { order: deleteOrder })
     return new HttpResponse(200, "ORDER_DELETED_SUCCESSFULLY", { orderId: deleteOrder.id }).toResponse();
 }

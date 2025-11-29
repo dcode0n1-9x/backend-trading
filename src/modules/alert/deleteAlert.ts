@@ -21,6 +21,6 @@ export async function deleteAlert({ prisma, data }: IRegisterProp) {
     if (!deleteAlert) {
         return new HttpResponse(500, "ALERT_DELETION_FAILED").toResponse();
     }
-    await sendMessage("alert.deleted", data.userId, { alert: deleteAlert });
+    await sendMessage("alert.delete", data.userId, { alert: deleteAlert });
     return new HttpResponse(200, "ALERT_DELETED_SUCCESSFULLY", { alertId: deleteAlert.id }).toResponse();
 }

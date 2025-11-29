@@ -1,6 +1,13 @@
 import type { PrismaClient } from "../../../../generated/prisma/client";
 import { HttpResponse } from "../../../utils/response/success";
 
+
+interface GetHoldingData {
+    sort?: 'asc' | 'desc';
+    cursor?: string; // Holding ID for cursor pagination
+    limit?: number;
+    search?: string;
+}
 interface IRegisterProp {
     prisma: PrismaClient;
     userId: string;

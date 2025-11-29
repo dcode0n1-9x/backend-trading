@@ -96,8 +96,8 @@ const verificationLayer4B = t.Object({
 // Login Body
 const loginBody = t.Union([
   t.Object({
-    email: t.String({ format: "email", error: "INVALID_EMAIL_FORMAT", example: "john.doe@example.com" }),
-    password: t.String({ minLength: 8, error: "INVALID_PASSWORD_FORMAT", example: "strongpassword123" })
+    email: t.String({ format: "email", error: "INVALID_EMAIL_FORMAT", example: "dcode.0n1@gmail.com" }),
+    password: t.String({ minLength: 8, error: "INVALID_PASSWORD_FORMAT", example: "User@123" })
   }),
   t.Object({
     phone: t.String({ minLength: 10, maxLength: 15, error: "INVALID_PHONE_FORMAT", example: "6376877564" }),
@@ -263,7 +263,16 @@ const orderIdParams = t.Object({
   orderId: t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_ORDER_ID" }),
 })
 
+const getAllOrderValidator = t.Object({
+  type: t.Optional(t.Enum(ProductType, { error: "INVALID_PRODUCT_TYPE", examples: [ProductType.CNC] })),
+  sort: t.Optional(t.Enum(SortOrder, { error: "INVALID_SORT_TYPE", examples: ['asc'] })),
+  limit: t.Optional(t.Number({ minimum: 1, maximum: 1000, example: 20, error: "INVALID_LIMIT_VALUE" })),
+  search: t.Optional(t.String({ minLength: 1, maxLength: 100, example: "TATA", error: "INVALID_SEARCH_VALUE" })),
+  cursor: t.Optional(t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_CURSOR_VALUE" })),
+})
+
 export const orderValidator = new Elysia().model({
+  "order.get-all": getAllOrderValidator,
   "order.create": createOrderValidator,
   "order.cancel": cancelOrderValidator,
   "order.update": updateOrderValidator,
@@ -316,6 +325,14 @@ const alertIdParams = t.Object({
 })
 
 
+const getAllAlertsValidator = t.Object({
+  type: t.Optional(t.Enum(AlertType, { error: "INVALID_PRODUCT_TYPE", examples: [ProductType.CNC] })),
+  sort: t.Optional(t.Enum(SortOrder, { error: "INVALID_SORT_TYPE", examples: ['asc'] })),
+  limit: t.Optional(t.Number({ minimum: 1, maximum: 1000, example: 20, error: "INVALID_LIMIT_VALUE" })),
+  search: t.Optional(t.String({ minLength: 1, maxLength: 100, example: "TATA", error: "INVALID_SEARCH_VALUE" })),
+  cursor: t.Optional(t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_CURSOR_VALUE" })),
+})
+
 
 
 const createAlertValidator = t.Object({
@@ -339,6 +356,7 @@ const updateAlertValidator = t.Object({
 })
 
 export const alertValidator  = new Elysia().model({
+  "alert.get-all" : getAllAlertsValidator,
   "alert.id" : alertIdParams,
   "alert.create" : createAlertValidator,
   "alert.update" : updateAlertValidator, 
@@ -386,6 +404,14 @@ export const basketItemValidator  = new Elysia().model({
 
 
 
+const getAllInstrumentValidator = t.Object({
+  sort: t.Optional(t.Enum(SortOrder, { error: "INVALID_SORT_TYPE", examples: ['asc'] })),
+  limit: t.Optional(t.Number({ minimum: 1, maximum: 1000, example: 20, error: "INVALID_LIMIT_VALUE" })),
+  search: t.Optional(t.String({ minLength: 1, maxLength: 100, example: "TATA", error: "INVALID_SEARCH_VALUE" })),
+  cursor: t.Optional(t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_CURSOR_VALUE" })),
+});
+
+
 const intrumentIdParam = t.Object({
   instrumentId: t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_INSTRUMENT_ID" }),
 })
@@ -403,6 +429,7 @@ const createInstrumentValidator = t.Object({
 
 
 export const instrumentValidator  = new Elysia().model({
+  "instrument.get-all" : getAllInstrumentValidator,
   "instrument.id" : intrumentIdParam,
   "instrument.create": createInstrumentValidator,
 });

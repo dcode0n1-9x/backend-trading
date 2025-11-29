@@ -1,4 +1,5 @@
 import type { PrismaClient } from "../../../generated/prisma/client";
+import { sendMessage } from "../../utils/kakfa.utils";
 import { HttpResponse } from "../../utils/response/success";
 
 
@@ -26,5 +27,6 @@ export async function cancelOrder({ prisma, data , userId }: IRegisterProp) {
     if (!cancelOrder) {
         return new HttpResponse(400, "UNABLE_TO_CANCEL_ORDER").toResponse()
     }
+    await sendMessage("order.cancelled", userId, { order: cancelOrder })
     return new HttpResponse(200, "ORDER_CANCELLED_SUCCESSFULLY")
 }

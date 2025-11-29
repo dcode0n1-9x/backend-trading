@@ -17,25 +17,29 @@ export const alertRouter = new Elysia({
     }
 })
     .use(authMiddleware)
+    .use(alertValidator)
     .get(
         "/",
-        async ({ user }) => {
+        async ({ user, query }) => {
             try {
                 return await getAllAlerts({
                     prisma,
+                    data: query,
                     userId: user.id,
                 });
             } catch (err) {
+                console.log(err);
                 return new HttpResponse(400, (err as Error).message).toResponse();
             }
         },
         {
+            query: "alert.get-all",
             detail: {
                 summary: "Get All Alert Details",
                 description: "Fetches comprehensive details for the user's alerts."
             }
         })
-    .use(alertValidator)
+    
     .post(
         "/",
         async ({ user, body }) => {

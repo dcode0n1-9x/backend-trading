@@ -17,23 +17,6 @@ export const gttOrderRouter = new Elysia({
 })
     .use(authMiddleware)
     .use(gttOrderValidator)
-    .post("/", async ({ user, body }) => {
-        try {
-            return await createGttOrder({
-                prisma,
-                data: body,
-                userId: user.id,
-            })
-        } catch (err) {
-            return new HttpResponse(400, (err as Error).message).toResponse();
-        }
-    }, {
-        body: "gtt-order.create",
-        detail: {
-            summary: "Add GTT Order",
-            description: "Adds a new GTT order for the authenticated user."
-        }
-    })
     .get('/', async ({ user, query }) => {
         try {
             return await getAllGTTOrder({
@@ -51,6 +34,24 @@ export const gttOrderRouter = new Elysia({
             description: "Fetches all GTT orders for the authenticated user with optional pagination and sorting."
         }
     })
+    .post("/", async ({ user, body }) => {
+        try {
+            return await createGttOrder({
+                prisma,
+                data: body,
+                userId: user.id,
+            })
+        } catch (err) {
+            return new HttpResponse(400, (err as Error).message).toResponse();
+        }
+    }, {
+        body: "gtt-order.create",
+        detail: {
+            summary: "Add GTT Order",
+            description: "Adds a new GTT order for the authenticated user."
+        }
+    })
+
     .put('/:gttOrderId', async ({ params, user, body }) => {
         try {
             return await changeGTTStatus({

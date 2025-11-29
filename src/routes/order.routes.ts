@@ -4,6 +4,7 @@ import { orderValidator } from "../utils/validator";
 import { createOrder } from "../modules/order/createOrder";
 import { authMiddleware } from "../middleware/authMiddleware";
 import { updateOrder } from "../modules/order/updateOrder";
+import { getAllOrders } from "../modules/order/getAllOrder";
 import { cancelOrder } from "../modules/order/cancelOrder";
 import { HttpResponse } from "../utils/response/success";
 
@@ -17,6 +18,24 @@ export const orderRouter = new Elysia({
 })
     .use(orderValidator)
     .use(authMiddleware)
+    .get("/", async ({ query , user}) => {
+        try {
+            return await getAllOrders({
+                prisma,
+                data : query,
+                userId: user.id,
+            })
+        } catch (error) {
+            console.error("Error fetching orders", error);
+            return new HttpResponse(500, "INTERNAL_SERVER_ERROR").toResponse()
+        }
+    }, {
+        query: "order.get-all",
+        detail: {
+            summary: "Get All Orders",
+            description: "Fetches all orders for the authenticated user with optional filtering and pagination."
+        }
+    })
     .post(
         "/",
         async ({ body, user }) => {

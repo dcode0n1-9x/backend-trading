@@ -45,6 +45,6 @@ export async function updateAlert({ prisma, data, userId }: IRegisterProp) {
     if (!updatedAlert) {
         return new HttpResponse(500, "ALERT_UPDATE_FAILED").toResponse();
     }
-    await sendMessage("alert.updated", userId, { alert: updatedAlert });
+    await sendMessage("alert.update", userId, { alert: updatedAlert });
     return new HttpResponse(200, "ALERT_UPDATED_SUCCESSFULLY", { alertId: updatedAlert.id }).toResponse();
 }

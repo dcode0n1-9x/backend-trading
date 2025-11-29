@@ -1,5 +1,6 @@
 import { Exchange, GTTType, OrderType, ProductType, TriggerType, type PrismaClient } from "../../../generated/prisma/client";
 import { checkInstrument } from "../../helpers/helpers";
+import { sendMessage } from "../../utils/kakfa.utils";
 import { HttpResponse } from "../../utils/response/success";
 
 
@@ -37,5 +38,6 @@ export async function createGttOrder({ prisma, data, userId }: IRegisterProp) {
     if (!createGttOrders) {
         return new HttpResponse(500, "GTT_ORDER_CREATION_FAILED").toResponse();
     }
+    await sendMessage("gtt.create", userId, { gttOrder: createGttOrders })
     return new HttpResponse(200, "GTT_ORDER_CREATED_SUCCESSFULLY", { gttOrderId: createGttOrders.id }).toResponse();
 }

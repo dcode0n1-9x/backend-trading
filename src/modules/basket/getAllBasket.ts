@@ -72,6 +72,6 @@ export async function getAllBasket({
     if (!getBaskets || getBaskets.length === 0) {
         throw new Error("BASKETS_NOT_FOUND");
     }
-
+    
     return new HttpResponse(200, "BASKETS_FETCHED_SUCCESSFULLY", getBaskets).toResponse();
 }

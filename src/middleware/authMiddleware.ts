@@ -7,18 +7,18 @@ export const authMiddleware = (app: Elysia) =>
   app
     .use(
       jwt({
-        name: "jwt",
+        name: "accessToken",
         secret: config.JWT.SECRET, // Use your config secret
         exp: "7d",
       })
     )
-    .derive(async ({ cookie , set, jwt }) => {
-      const token = cookie.auth.value as string | undefined;
+    .derive(async ({ cookie, set, accessToken }) => {
+      const token = cookie["x-access-token"]?.value as string | undefined;
       if (!token) {
         set.status = 401;
         throw new Error("Authentication required");
       }
-      const payload = await jwt.verify(token);
+      const payload = await accessToken.verify(token);
       if (!payload) {
         set.status = 401;
         throw new Error("Invalid or expired token");

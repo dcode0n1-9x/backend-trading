@@ -1,9 +1,10 @@
 import cluster from 'node:cluster'
-import os from 'node:os'
+// import os from 'node:os'
 import process from 'node:process'
 
 if (cluster.isPrimary) {
-    for (let i = 0; i < os.availableParallelism(); i++)
+    // for (let i = 0; i < os.availableParallelism(); i++)
+        for (let i = 0; i < 2; i++)
         cluster.fork()
 } else {
     (async () => {

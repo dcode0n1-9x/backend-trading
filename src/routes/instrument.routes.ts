@@ -4,6 +4,7 @@ import { instrumentValidator } from "../utils/validator";
 import { createInstrument } from "../modules/instrument(Admin)/createInstrument";
 import { HttpResponse } from "../utils/response/success";
 import { deleteInstrument } from "../modules/instrument(Admin)/deleteInstrument";
+import { getAllInstrument } from "../modules/instrument(Admin)/getAllInstrument";
 
 export const instrumentRouter = new Elysia({
     name: "instrument",
@@ -14,6 +15,22 @@ export const instrumentRouter = new Elysia({
     }
 })
     .use(instrumentValidator)
+    .get("/", async ({ query }) => {
+        try {
+            return await getAllInstrument({
+                prisma,
+                data: query,
+            });
+        } catch (err) {
+            return new HttpResponse(400, (err as Error).message).toResponse();
+        }
+    }, {
+        query: "instrument.get-all",
+        detail: {
+            summary: "Get All Instruments",
+            description: "Retrieves a list of all instruments with optional filtering, sorting, and pagination."
+        }
+    })
     .post(
         "/",
         async ({ body }) => {
@@ -44,11 +61,12 @@ export const instrumentRouter = new Elysia({
             console.log(err);
             return new HttpResponse(400, (err as Error).message).toResponse();
         }
-    }, {    
+    }, {
         params: "instrument.id",
         detail: {
             summary: "Delete Instrument",
             description: "Deletes the specified instrument from the system."
         }
-    });
+    })
+   
 

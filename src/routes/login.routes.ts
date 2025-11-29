@@ -22,7 +22,7 @@ export const authRouter = new Elysia({
     .use(authValidator)
     .post(
         "/login",
-        async ({ body, accessToken, cookie: { auth } }) => {
+        async ({ body, accessToken, cookie: { "x-access-token": auth } }) => {
             try {
                 const result = await login({
                     prisma,
@@ -37,7 +37,13 @@ export const authRouter = new Elysia({
                     value: token,
                     httpOnly: config.BUN_ENV === "production",
                     secure: config.BUN_ENV === "production",
-                    sameSite: "none",
+                    maxAge: 86400, // 1 day in seconds
+                    sameSite : "lax",
+                    // sameSite: config.BUN_ENV === "production" ? "lax" : "none",
+                    // domain : config.COOKIE_DOMAIN,
+                    // priority: "high",
+                    // domain : ".moneyplant.com" \// Set your sub-domain here
+                    // partitioned: true,
                 });
                 // Set auth cookies
                 // setAuthCookies(auth, accessToken, refreshToken);

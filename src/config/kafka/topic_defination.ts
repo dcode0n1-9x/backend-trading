@@ -1,7 +1,7 @@
 
 
 
-export type TopicName = "instrument.create" | "instrument.delete" | "alert.created" | "alert.updated" | "alert.deleted" | "order.created" | "order.updated" | "order.cancelled" | "order.filled" | "notification.outbound" | "kyc.layer.completed" | "holding.updated" | "alert.triggered" | "audit.trail";
+export type TopicName = "instrument.create" | "instrument.delete" | "alert.create" | "alert.update" | "alert.delete" | "order.create" | "order.update" | "order.cancelled" | "order.filled" | "order.delete" | "notification.outbound" | "kyc.layer.completed" | "holding.update" | "alert.triggered" | "audit.trail" | "basket.create" | "basket.delete" |  "basket.update" | "gtt.create" | "gtt.update" | "gtt.delete";
     
 // Topic definitions with configs
 interface TopicConfig {
@@ -15,7 +15,7 @@ interface TopicConfig {
 
 export const TOPIC_DEFINITIONS: TopicConfig[] = [
     {
-        topic : "alert.created",
+        topic : "alert.create",
         numPartitions: 3,
         // replicationFactor: 3,
         config: {
@@ -25,7 +25,7 @@ export const TOPIC_DEFINITIONS: TopicConfig[] = [
         },
     },
     {
-        topic: "alert.updated",
+        topic: "alert.update",
         numPartitions: 3,
         // replicationFactor: 3,
         config: {
@@ -35,7 +35,7 @@ export const TOPIC_DEFINITIONS: TopicConfig[] = [
         },
     },
     {
-        topic: "alert.deleted",
+        topic: "alert.delete",
         numPartitions: 3,
         // replicationFactor: 3,
         config: {
@@ -45,7 +45,7 @@ export const TOPIC_DEFINITIONS: TopicConfig[] = [
         },
     },
     {
-        topic: "order.created",
+        topic: "order.create",
         numPartitions: 6,
         // replicationFactor: 3,
         config: {
@@ -55,7 +55,7 @@ export const TOPIC_DEFINITIONS: TopicConfig[] = [
         },
     },
     {
-        topic: "order.updated",
+        topic: "order.update",
         numPartitions: 6,
         // replicationFactor: 3,
         config: {
@@ -105,7 +105,7 @@ export const TOPIC_DEFINITIONS: TopicConfig[] = [
         },
     },
     {
-        topic: "holding.updated",
+        topic: "holding.update",
         numPartitions: 6,
         // replicationFactor: 3,
         config: {
@@ -135,6 +135,26 @@ export const TOPIC_DEFINITIONS: TopicConfig[] = [
         },
     },
     {
+        topic : "basket.create",
+        numPartitions: 3,
+        // replicationFactor: 2,
+        config: {
+            "retention.ms": "2592000000", // 30 days
+                //  "compression.type": "snappy",
+            "min.insync.replicas": "1",
+        },
+    },
+    {
+        topic : "instrument.delete",
+        numPartitions: 3,
+        // replicationFactor: 2,
+        config: {
+            "retention.ms": "2592000000", // 30 days
+              //  "compression.type": "snappy",
+            "min.insync.replicas": "1",
+        },
+    },  
+    {
         topic : "instrument.create",
         numPartitions: 3,
         // replicationFactor: 2,
@@ -143,5 +163,35 @@ export const TOPIC_DEFINITIONS: TopicConfig[] = [
               //  "compression.type": "snappy",
             "min.insync.replicas": "1",
         },
-    }
+    },
+    {
+        topic : "basket.delete",
+        numPartitions: 3,
+        // replicationFactor: 2,
+        config: {
+            "retention.ms": "2592000000", // 30 days
+                //  "compression.type": "snappy",
+            "min.insync.replicas": "1",
+        },
+    },
+    {
+        topic : "basket.update",
+        numPartitions: 3,
+        // replicationFactor: 2,
+        config: {
+            "retention.ms": "2592000000", // 30 days
+                //  "compression.type": "snappy",
+            "min.insync.replicas": "1",
+        },
+    },
+    {
+        topic : "gtt.create",
+        numPartitions: 3,
+        // replicationFactor: 2,
+        config: {
+            "retention.ms": "2592000000", // 30 days
+                //  "compression.type": "snappy",
+            "min.insync.replicas": "1",
+        },
+    },
 ];
