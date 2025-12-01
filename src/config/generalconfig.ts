@@ -25,7 +25,7 @@ export const config = {
         USER: process.env.MAILER_USER || '',
         PASS: process.env.MAILER_PASS || ''
     },
-    BUN_ENV: process.env.BUN_ENV || 'production',
+    BUN_ENV: process.env.BUN_ENV || 'development',
     HOSTNAME: process.env.HOSTNAME || 'http://localhost:3000',
     S3: {
         ENDPOINT: process.env.S3_ENDPOINT!,
