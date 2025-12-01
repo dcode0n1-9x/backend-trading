@@ -7,6 +7,7 @@ import { getMarginDetails } from "../modules/common/getMarginDetails";
 import { presignedURLAvatar } from "../modules/common/getPresignedURLAvatar";
 import { commonValidator } from "../utils/validator";
 import { uploadAvatar } from "../modules/common/uploadAvatar";
+import { Exchange } from "../../generated/prisma/enums";
 
 export const commonRouter = new Elysia({
     name: "common",

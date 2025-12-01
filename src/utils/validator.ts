@@ -336,11 +336,11 @@ const getAllAlertsValidator = t.Object({
 
 
 const createAlertValidator = t.Object({
-    instrumentId: t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_INSTRUMENT_ID" }),
-    alertType: t.Enum(AlertType, { error: "INVALID_ALERT_TYPE", examples: [AlertType.ORDER_UPDATE] }),
-    message: t.String({ minLength: 5, maxLength: 500, example: "Alert when price drops below 100", error: "INVALID_ALERT_MESSAGE" }),
-    triggerPrice: t.Number({ minimum: 0, maximum: 10000000, example: 100, error: "INVALID_TRIGGER_PRICE" }),
-    condition: t.String({ minLength: 5, maxLength: 100, example: "LESS_THAN", error: "INVALID_CONDITION" }),
+  instrumentId: t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_INSTRUMENT_ID" }),
+  alertType: t.Enum(AlertType, { error: "INVALID_ALERT_TYPE", examples: [AlertType.ORDER_UPDATE] }),
+  message: t.String({ minLength: 5, maxLength: 500, example: "Alert when price drops below 100", error: "INVALID_ALERT_MESSAGE" }),
+  triggerPrice: t.Number({ minimum: 0, maximum: 10000000, example: 100, error: "INVALID_TRIGGER_PRICE" }),
+  condition: t.String({ minLength: 5, maxLength: 100, example: "LESS_THAN", error: "INVALID_CONDITION" }),
 })
 
 const updateAlertValidator = t.Object({
@@ -355,12 +355,12 @@ const updateAlertValidator = t.Object({
   expiresAt: t.Optional(t.String({ format: "date-time", example: "2024-12-31T23:59:59Z", error: "INVALID_EXPIRES_AT_FORMAT" })),
 })
 
-export const alertValidator  = new Elysia().model({
-  "alert.get-all" : getAllAlertsValidator,
-  "alert.id" : alertIdParams,
-  "alert.create" : createAlertValidator,
-  "alert.update" : updateAlertValidator, 
-})  
+export const alertValidator = new Elysia().model({
+  "alert.get-all": getAllAlertsValidator,
+  "alert.id": alertIdParams,
+  "alert.create": createAlertValidator,
+  "alert.update": updateAlertValidator,
+})
 
 
 
@@ -375,11 +375,18 @@ const createBasketValidator = t.Object({
 const updateBasketValidator = t.Object({
   name: t.String({ minLength: 2, maxLength: 100, example: "Updated Basket", error: "INVALID_BASKET_NAME" }),
 });
+const getAllBasketValidator = t.Object({
+  sort: t.Optional(t.Enum(SortOrder, { error: "INVALID_SORT_TYPE", examples: ['asc'] })),
+  limit: t.Optional(t.Number({ minimum: 1, maximum: 1000, example: 20, error: "INVALID_LIMIT_VALUE" })),
+  search: t.Optional(t.String({ minLength: 1, maxLength: 100, example: "Tech Stocks", error: "INVALID_SEARCH_VALUE" })),
+  cursor: t.Optional(t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_CURSOR_VALUE" })),
+});
 
-export const basketValidator  = new Elysia().model({
-  "basket.id" : basketIdParam,
-  "basket.create" : createBasketValidator,
-  "basket.update" : updateBasketValidator,
+export const basketValidator = new Elysia().model({
+  "basket.get-all": getAllBasketValidator,
+  "basket.id": basketIdParam,
+  "basket.create": createBasketValidator,
+  "basket.update": updateBasketValidator,
 });
 
 
@@ -397,9 +404,9 @@ const createBasketItemValidator = t.Object({
 
 
 
-export const basketItemValidator  = new Elysia().model({
-  "basket-item.id" : basketIdParam  ,
-  "basket-item.create" : createBasketItemValidator,
+export const basketItemValidator = new Elysia().model({
+  "basket-item.id": basketIdParam,
+  "basket-item.create": createBasketItemValidator,
 });
 
 
@@ -418,19 +425,19 @@ const intrumentIdParam = t.Object({
 
 
 const createInstrumentValidator = t.Object({
-  instrumentToken : t.String({ minLength: 5, maxLength: 100, example: "123456", error: "INVALID_INSTRUMENT_TOKEN" }),
-  exchangeToken : t.String({ minLength: 5, maxLength: 100, example: "654321", error: "INVALID_EXCHANGE_TOKEN" }),
-  tradingSymbol : t.String({ minLength: 2, maxLength: 100, example: "TATASTEEL", error: "INVALID_TRADING_SYMBOL" }),
-  name : t.String({ minLength: 2, maxLength: 200, example: "Tata Steel Limited", error: "INVALID_INSTRUMENT_NAME" }),
-  segment : t.Enum(Segment, { example: "EQUITY", error: "INVALID_SEGMENT" }),
-  exchange : t.Enum(Exchange, { example: "NSE", error: "INVALID_EXCHANGE" }),
-  instrumentType : t.Enum(InstrumentType, { example: "STOCK", error: "INVALID_INSTRUMENT_TYPE" }),
+  instrumentToken: t.String({ minLength: 5, maxLength: 100, example: "123456", error: "INVALID_INSTRUMENT_TOKEN" }),
+  exchangeToken: t.String({ minLength: 5, maxLength: 100, example: "654321", error: "INVALID_EXCHANGE_TOKEN" }),
+  tradingSymbol: t.String({ minLength: 2, maxLength: 100, example: "TATASTEEL", error: "INVALID_TRADING_SYMBOL" }),
+  name: t.String({ minLength: 2, maxLength: 200, example: "Tata Steel Limited", error: "INVALID_INSTRUMENT_NAME" }),
+  segment: t.Enum(Segment, { example: "EQUITY", error: "INVALID_SEGMENT" }),
+  exchange: t.Enum(Exchange, { example: "NSE", error: "INVALID_EXCHANGE" }),
+  instrumentType: t.Enum(InstrumentType, { example: "STOCK", error: "INVALID_INSTRUMENT_TYPE" }),
 });
 
 
-export const instrumentValidator  = new Elysia().model({
-  "instrument.get-all" : getAllInstrumentValidator,
-  "instrument.id" : intrumentIdParam,
+export const instrumentValidator = new Elysia().model({
+  "instrument.get-all": getAllInstrumentValidator,
+  "instrument.id": intrumentIdParam,
   "instrument.create": createInstrumentValidator,
 });
 
@@ -460,12 +467,12 @@ const gttOrderIdParam = t.Object({
   gttOrderId: t.String({ minLength: 10, maxLength: 100, example: "cmhlp8iup0000kes08qi10uiz", error: "INVALID_GTT_ORDER_ID" }),
 })
 const updateGttStatusValidator = t.Object({
-  status : t.Enum(GTTStatus, { example: "ACTIVE", error: "INVALID_GTT_STATUS" }),
+  status: t.Enum(GTTStatus, { example: "ACTIVE", error: "INVALID_GTT_STATUS" }),
 })
 
-export const gttOrderValidator  = new Elysia().model({
-  "gtt-order.create" : createGttOrderValidator,
-  "gtt-order.get" : getGttOrderValidator,
-  "gtt-order.id" : gttOrderIdParam,
-  "gtt-order.update-status" : updateGttStatusValidator,
+export const gttOrderValidator = new Elysia().model({
+  "gtt-order.create": createGttOrderValidator,
+  "gtt-order.get": getGttOrderValidator,
+  "gtt-order.id": gttOrderIdParam,
+  "gtt-order.update-status": updateGttStatusValidator,
 });

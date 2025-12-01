@@ -19,10 +19,10 @@ const app = new Elysia({
   }
   )
 })
-  // .onStart(async () => {
-  //   console.log(`🚀 Server started in ${config.BUN_ENV} mode`)
-  //   await initializeKafka();
-  // })
+  .onStart(async () => {
+    console.log(`🚀 Server started in ${config.BUN_ENV} mode`)
+    await initializeKafka();
+  })
   // .onStop(async () => {
   //   process.on('SIGTERM', async () => {
   //     console.log('SIGTERM received, shutting down gracefully');
@@ -50,7 +50,9 @@ const app = new Elysia({
   // )
   .use(
     cors({
-      origin: ["http://localhost:3000", "http://localhost:3001"],
+      origin: ["http://localhost:3000", "http://localhost:3001" , "http://localhost:5173" , 
+        "http://localhost:5173"
+      ],
       credentials: true,
     })
   )

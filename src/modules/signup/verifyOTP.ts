@@ -19,7 +19,7 @@ export async function verifyOTP({ prisma, data }: IRegisterProp) {
     if (!checkCache) {
         throw new Error("OTP_EXPIRED");
     }
-    if (checkCache !== otp || checkCache !== config.MASTER_OTP) {
+    if (checkCache !== otp || otp !== config.MASTER_OTP) {
         throw new Error("INVALID_OTP");
     }
     const checkUser = await prisma.user.findUnique({

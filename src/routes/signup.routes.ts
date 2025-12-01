@@ -1,4 +1,4 @@
-import { Elysia, t } from "elysia";
+import { Elysia } from "elysia";
 import { prisma } from "../db/index";
 import { signUpValidator } from "../utils/validator";
 // import { setAuthCookies } from "../utils/setCookies";

@@ -1,4 +1,4 @@
-import { Elysia, t } from "elysia";
+import { Elysia } from "elysia";
 import { prisma } from "../db/index";
 import { authValidator } from "../utils/validator";
 import { login } from "../modules/auth/login";
@@ -32,19 +32,29 @@ export const authRouter = new Elysia({
                     return new HttpResponse(result.code, result.message, result.details).toResponse();
                 }
                 const userId = result.details?.userId;
-                const token = await accessToken.sign({ userId },);
-                auth.set({
-                    value: token,
-                    httpOnly: config.BUN_ENV === "production",
-                    secure: config.BUN_ENV === "production",
-                    maxAge: 86400, // 1 day in seconds
-                    sameSite : "lax",
-                    // sameSite: config.BUN_ENV === "production" ? "lax" : "none",
-                    // domain : config.COOKIE_DOMAIN,
-                    // priority: "high",
-                    // domain : ".moneyplant.com" \// Set your sub-domain here
-                    // partitioned: true,
-                });
+                const token = await accessToken.sign({ userId });
+                {
+                    config.BUN_ENV === "production" ?
+                        auth.set({
+                            value: token,
+                            httpOnly: true,
+                            secure: true,
+                            maxAge: 86400,
+                            sameSite: "lax",
+                            domain: ".moneyplantfx.com",
+                            path: "/"
+                        })
+                        :
+                    auth.set({
+                            value: token,
+                            httpOnly: false,   // allow frontend to read cookie during debugging
+                            secure: false,     // localhost = MUST be false
+                            maxAge: 86400,
+                            sameSite: "lax",
+                            path: "/",         // always good
+                        });
+                }
+
                 // Set auth cookies
                 // setAuthCookies(auth, accessToken, refreshToken);
                 return new HttpResponse(200, "LOGIN_SUCCESSFUL", { accessToken: token }).toResponse();

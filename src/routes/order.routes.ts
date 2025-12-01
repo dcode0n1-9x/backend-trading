@@ -1,4 +1,4 @@
-import { Elysia, t } from "elysia";
+import { Elysia } from "elysia";
 import { prisma } from "../db/index";
 import { orderValidator } from "../utils/validator";
 import { createOrder } from "../modules/order/createOrder";

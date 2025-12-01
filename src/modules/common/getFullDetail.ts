@@ -55,6 +55,7 @@ export async function getFullDetail({
         `;
         return user[0] || null;
     } catch (error) {
+        console.error("Error fetching user details:", error);
         throw new Error("FAILED_TO_FETCH_USER_DETAILS");
     }
 }

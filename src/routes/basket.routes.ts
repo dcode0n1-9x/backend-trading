@@ -16,12 +16,14 @@ export const basketRouter = new Elysia({
     }
 })
     .use(authMiddleware)
+    .use(basketValidator)
     .get(
         "/",
-        async ({ user }) => {
+        async ({ user, query }) => {
             try {
                 return await getAllBasket({
                     prisma,
+                    data: query,
                     userId: user.id,
                 })
             }
@@ -29,12 +31,12 @@ export const basketRouter = new Elysia({
                 return new HttpResponse(400, (err as Error).message).toResponse();
             }
         }, {
+        query: "basket.get-all",
         detail: {
             summary: "Get All Basket Details",
             description: "Fetches comprehensive details for the user's basket, including all basket items and related information."
         }
     })
-    .use(basketValidator)
     .post("/", async ({ body, user }) => {
         try {
             return await createBasket({

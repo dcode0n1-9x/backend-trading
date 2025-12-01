@@ -1,4 +1,4 @@
-import { Elysia, t } from "elysia";
+import { Elysia } from "elysia";
 import { prisma } from "../db/index";
 import { instrumentValidator } from "../utils/validator";
 import { createInstrument } from "../modules/instrument(Admin)/createInstrument";

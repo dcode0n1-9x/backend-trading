@@ -409,9 +409,21 @@ async function main() {
                         create: verification,
                     }
                     : undefined,
+                margin: {
+                    createMany: {
+                        data: userData.segment.map((seg) => ({
+                            type: seg,
+                        })),
+                    },
+                },
+                dailyPnls: {
+                    create: {},
+                },
+                portfolios: {
+                    create: {}
+                }
             },
         })
-
         console.log(`  ✅ User created: ${user.firstName} ${user.lastName} (${user.email})`)
     }
 
