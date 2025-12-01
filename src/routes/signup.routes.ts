@@ -30,14 +30,40 @@ export const signUpRouter = new Elysia({
   }
 })
   .use(signUpValidator)
+  .use(jwt({
+    name: 'accessToken',
+    secret: config.JWT.SECRET, // Replace with your actual secret key
+    exp: '7d'
+  }))
   .post(
     "/send-otp",
-    async ({ body }) => {
+    async ({ body, accessToken, cookie: { "x-access-token": auth } }) => {
       try {
-        return await sendOTP({
+        const response = await sendOTP({
           prisma,
           data: body,
-        });
+        })
+        if (response && response.code == 201 && response.details?.userStage) {
+          const token = await accessToken.sign(
+            {
+              userId: response.details.id,
+              phone: body.phone,
+              stage: response.details.userStage,
+            },
+          );
+          auth.set({
+            value: token,
+            httpOnly: false,   // allow frontend to read cookie during debugging
+            secure: false,     // localhost = MUST be false
+            maxAge: 86400,
+            sameSite: "lax",
+            path: "/",         // always good
+          });
+        }
+        if (response && response.code && response.code >= 202) {
+          return new HttpResponse(response.code, response.message).toResponse();
+        }
+        return new HttpResponse(200, "OTP_SENT_SUCCESSFULLY", response.details).toResponse();
       } catch (error) {
         return new HttpResponse(500, (error as Error).message).toResponse();
       }
@@ -50,11 +76,7 @@ export const signUpRouter = new Elysia({
       }
     }
   )
-  .use(jwt({
-    name: 'accessToken',
-    secret: config.JWT.SECRET, // Replace with your actual secret key
-    exp: '7d'
-  }))
+
   .post(
     "/verify-otp",
     async ({ body, accessToken, cookie: { "x-access-token": auth } }) => {

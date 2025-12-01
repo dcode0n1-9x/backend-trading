@@ -17,6 +17,7 @@ export async function sendOTP({ prisma, data }: IRegisterProp) {
   const { phone } = data;
   const isUserExists = await prisma.user.findUnique({
     where: { phone }, select: {
+      id: true,
       userVerification: {
         select: {
           stage: true
@@ -25,19 +26,19 @@ export async function sendOTP({ prisma, data }: IRegisterProp) {
     }
   });
   if (isUserExists) {
-    return new HttpResponse(201, "USER_ALREADY_EXISTS", { userStage: isUserExists.userVerification?.stage }).toResponse();
+    return { details: { userStage: isUserExists.userVerification?.stage, phone, id : isUserExists.id}, code: 201, message: "USER_ALREADY_EXISTS" }
   }
   const redisKey = `OTP:${phone}`;
   const redisCount = `OTP_COUNT:${phone}`;
   let counter = await redis.get(redisCount);
   if (Number(counter) > config.SMS.MAX_OTP_PER_DAY) {
-    return new HttpResponse(429, "OTP_LIMIT_EXCEEDED").toResponse();
+    return { code: 429, message: "OTP_LIMIT_EXCEEDED" };
   }
   await redis.incr(redisCount);
   const OTP = generateOTP();
   //  sendSMS(phone, OTP);  // Send OTP via SMS
   await redis.set(redisKey, OTP, "EX", 900);
-  return new HttpResponse(200, "OTP_SENT_SUCCESSFULLY").toResponse();
+  return { details: { OTP }, code: 200, message: "OTP_SENT_SUCCESSFULLY" };
 }
 
 
