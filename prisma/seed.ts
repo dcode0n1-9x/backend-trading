@@ -153,7 +153,7 @@ async function main() {
             dob: new Date('1978-11-30'),
             kycStatus: KYCStatus.VERIFIED,
             accountType: AccountType.HUF,
-            isVerified: true,
+            isVerified: false,
             twoFactorEnabled: false,
             segment: [Segment.EQUITY, Segment.COMMODITY],
             profile: {
@@ -200,8 +200,8 @@ async function main() {
         {
             email: 'dcode.0n1@gmail.com',
             phone: '+916376877564',
-            firstName: 'Vikram',
-            lastName: 'Singh',
+            firstName: 'Rakshak',
+            lastName: 'Khandelwal',
             panNumber: 'ABCVS6789E',
             aadhaarNumber: '275351556058',
             dob: new Date('1982-09-25'),
@@ -235,7 +235,7 @@ async function main() {
             dob: new Date('1988-12-10'),
             kycStatus: KYCStatus.VERIFIED,
             accountType: AccountType.INDIVIDUAL,
-            isVerified: true,
+            isVerified: false,
             twoFactorEnabled: true,
             twoFactorPreference: OTPPreferenceType.EMAIL,
             segment: [Segment.EQUITY, Segment.CURRENCY],
@@ -314,7 +314,7 @@ async function main() {
             dob: new Date('1993-08-20'),
             kycStatus: KYCStatus.VERIFIED,
             accountType: AccountType.INDIVIDUAL,
-            isVerified: true,
+            isVerified: false,
             twoFactorEnabled: false,
             segment: [Segment.EQUITY],
             profile: {

@@ -33,18 +33,18 @@ export const authRouter = new Elysia({
                 }
                 const userId = result.details?.userId;
                 const token = await accessToken.sign({ userId });
-                {
-                    config.BUN_ENV === "production" ?
-                        auth.set({
-                            value: token,
-                            httpOnly: true,
-                            secure: true,
-                            maxAge: 86400,
-                            sameSite: "lax",
-                            domain: ".moneyplantfx.com",
-                            path: "/"
-                        })
-                        :
+                // {
+                //     config.BUN_ENV === "production" ?
+                //         auth.set({
+                //             value: token,
+                //             httpOnly: true,
+                //             secure: true,
+                //             maxAge: 86400,
+                //             sameSite: "lax",
+                //             domain: ".moneyplantfx.com",
+                //             path: "/"
+                //         })
+                //         :
                     auth.set({
                             value: token,
                             httpOnly: false,   // allow frontend to read cookie during debugging
@@ -53,7 +53,7 @@ export const authRouter = new Elysia({
                             sameSite: "lax",
                             path: "/",         // always good
                         });
-                }
+                // }
 
                 // Set auth cookies
                 // setAuthCookies(auth, accessToken, refreshToken);
