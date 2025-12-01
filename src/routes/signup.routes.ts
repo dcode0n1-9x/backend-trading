@@ -63,7 +63,7 @@ export const signUpRouter = new Elysia({
         if (response && response.code && response.code >= 202) {
           return new HttpResponse(response.code, response.message).toResponse();
         }
-        return new HttpResponse(200, "OTP_SENT_SUCCESSFULLY", response.details).toResponse();
+        return new HttpResponse(response.code , response.message, response.details).toResponse();
       } catch (error) {
         return new HttpResponse(500, (error as Error).message).toResponse();
       }
@@ -85,8 +85,8 @@ export const signUpRouter = new Elysia({
           prisma,
           data: body,
         });
-        if (result instanceof Error) {
-          return new HttpResponse(400, result.message).toResponse();
+        if (result.code && result.code !== 200) {
+          return new HttpResponse(result.code, result.message).toResponse();
         }
         const { userStage, id } = result;
         const token = await accessToken.sign(
@@ -106,6 +106,7 @@ export const signUpRouter = new Elysia({
         });
         return new HttpResponse(200, "USER_CREATED", { userStage: userStage }).toResponse();
       } catch (error) {
+        console.log(error);
         return new HttpResponse(500, (error as Error).message).toResponse();
       }
     },

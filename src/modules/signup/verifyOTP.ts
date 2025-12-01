@@ -17,10 +17,10 @@ export async function verifyOTP({ prisma, data }: IRegisterProp) {
     const { otp, phone } = data;
     const checkCache = await redis.get(`OTP:${phone}`);
     if (!checkCache) {
-        throw new Error("OTP_EXPIRED");
+        return { message: "OTP_EXPIRED", code: 400 };
     }
-    if (checkCache !== otp || otp !== config.MASTER_OTP) {
-        throw new Error("INVALID_OTP");
+    if (checkCache != otp && otp != config.MASTER_OTP) {
+        return { message: "INVALID_OTP", code: 400 };
     }
     const checkUser = await prisma.user.findUnique({
         where: { phone }, select: {
@@ -54,13 +54,13 @@ export async function verifyOTP({ prisma, data }: IRegisterProp) {
             select: { id: true }
         });
         if (!createUser) {
-            return new Error("USER_CREATION_FAILED");
+            return { message: "USER_CREATION_FAILED", code: 500 };
         }
         await redis.del(`OTP:${phone}`);
         return { userStage: "ZERO", id: createUser.id };
     }
     if (checkUser && checkUser.isVerified) {
-        return new Error("USER_ALREADY_VERIFIED");
+        return { message: "USER_ALREADY_VERIFIED", code: 400 };
     }
-    return { userStage: checkUser.userVerification?.stage || "ZERO", id: checkUser.id };
+    return { details: { userStage: checkUser.userVerification?.stage || "ZERO", id: checkUser.id } ,  code: 200  , message : "OTP_VERIFIED_SUCCESSFULLY"};
 }
