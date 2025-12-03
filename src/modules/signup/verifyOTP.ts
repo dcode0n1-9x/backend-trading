@@ -24,7 +24,7 @@ export async function verifyOTP({ prisma, data }: IRegisterProp) {
     }
     const checkUser = await prisma.user.findUnique({
         where: { phone }, select: {
-            isVerified: true, id: true, userVerification: {
+            isVerified: true, id: true, verification: {
                 select: { stage: true }
             }
         }
@@ -33,7 +33,7 @@ export async function verifyOTP({ prisma, data }: IRegisterProp) {
         const createUser = await prisma.user.create({
             data: {
                 phone,
-                userVerification: {
+                verification: {
                     create: {}
                 },
                 margin: {
@@ -45,10 +45,16 @@ export async function verifyOTP({ prisma, data }: IRegisterProp) {
                     }
                 },
                 dailyPnls: {
-                    create: {}
+                    create: {}  //! CREATES EXTRA SPACES IN THE DATABASE NEEDS TO UPSERT ONLY WHEN REQUIRED
                 },
                 portfolios: {
-                    create: {}
+                    create: {} //! CREATES EXTRA SPACES IN THE DATABASE NEEDS TO UPSERT ONLY WHEN REQUIRED
+                },
+                kyc: {
+                    create: {} //! CREATES EXTRA SPACES IN THE DATABASE NEEDS TO UPSERT ONLY WHEN REQUIRED
+                },
+                wallet: {
+                    create: {} //! CREATES EXTRA SPACES IN THE DATABASE NEEDS TO UPSERT ONLY WHEN REQUIRED
                 }
             },
             select: { id: true }
@@ -62,5 +68,5 @@ export async function verifyOTP({ prisma, data }: IRegisterProp) {
     if (checkUser && checkUser.isVerified) {
         return { message: "USER_ALREADY_VERIFIED", code: 400 };
     }
-    return { details: { userStage: checkUser.userVerification?.stage || "ZERO", id: checkUser.id } ,  code: 200  , message : "OTP_VERIFIED_SUCCESSFULLY"};
+    return { details: { userStage: checkUser.verification?.stage || "ZERO", id: checkUser.id }, code: 200, message: "OTP_VERIFIED_SUCCESSFULLY" };
 }

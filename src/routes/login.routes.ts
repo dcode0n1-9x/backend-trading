@@ -48,9 +48,9 @@ export const authRouter = new Elysia({
                     auth.set({
                             value: token,
                             httpOnly: false,   // allow frontend to read cookie during debugging
-                            secure: false,     // localhost = MUST be false
+                            secure: true,     // localhost = MUST be false
                             maxAge: 86400,
-                            sameSite: "lax",
+                            sameSite: "none",
                             path: "/",         // always good
                         });
                 // }

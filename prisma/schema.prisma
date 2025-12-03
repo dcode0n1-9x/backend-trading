@@ -76,8 +76,9 @@ model User {
   sessions            Session[]
   trades              Trade[]
   profile             UserProfile?
-  userVerification    UserVerification?
-  kycDocument         KycDocument?
+  wallet              Wallet?
+  verification        UserVerification?
+  kyc         KycDocument?
   watchlists          Watchlist[]
   nominees            Nominee[]
   dailyPnls           DailyPnL[]
@@ -91,6 +92,8 @@ model KycDocument {
   userId      String    @unique
   aadharPhoto String?
   panPhoto    String?
+  webcam      String?
+  signature   String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -138,8 +141,6 @@ model UserProfile {
   occupation        OccupationType?
   annualIncome      String?
   tradingExperience String?
-  signature         String?
-  webcam            String?
   riskProfile       RiskProfile         @default(MODERATE)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
@@ -197,6 +198,17 @@ model FundTransaction {
   user            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, transactionType, status])
+}
+
+model Wallet {
+  id               String    @id @default(cuid())
+  userId           String    @unique
+  ledgerBalance    Float     @default(0.0) // total money
+  availableBalance Float     @default(0.0) // money they can use
+  lockedBalance    Float     @default(0.0) // blocked for orders
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Margin {
@@ -284,7 +296,7 @@ model PriceHistory {
 
 model Portfolio {
   id               String    @id @default(cuid())
-  userId           String   @unique
+  userId           String    @unique
   totalValue       Float     @default(0.0)
   investedValue    Float     @default(0.0)
   currentValue     Float     @default(0.0)
@@ -909,14 +921,13 @@ enum Permission {
   EDIT_STAFF
   DELETE_STAFF
 
-  CREATE_SUPPORT_TICKETS
-  VIEW_SUPPORT_TICKETS
-  EDIT_SUPPORT_TICKETS
-
   CREATE_USERS
   VIEW_USERS
   EDIT_USERS
   DELETE_USERS
+
+  UPDATE_KYC
+  VIEW_KYC
 
   CREATE_FUNDS
   VIEW_FUNDS

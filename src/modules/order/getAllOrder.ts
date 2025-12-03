@@ -17,7 +17,6 @@ interface IRegisterProp {
 
 export async function getAllOrders({ prisma, userId, data }: IRegisterProp) {
     const { type, search, cursor, sort = 'desc', limit = 20 } = data;
-
     // Build dynamic where clause
     const whereClause: Prisma.OrderWhereInput = {
         userId,
@@ -33,7 +32,6 @@ export async function getAllOrders({ prisma, userId, data }: IRegisterProp) {
             }
         })
     };
-
     // Cursor-based pagination query
     const orders = await prisma.order.findMany<Prisma.OrderFindManyArgs>({
         where: whereClause,
@@ -82,10 +80,8 @@ export async function getAllOrders({ prisma, userId, data }: IRegisterProp) {
             }
         }).toResponse();
     }
-
     // Calculate next cursor
     const nextCursor = orders.length === limit ? orders[orders.length - 1].id : null;
-
     return new HttpResponse(200, "ORDER_FOUND", {
         data: orders,
         pagination: {

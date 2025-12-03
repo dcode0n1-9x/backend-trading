@@ -35,7 +35,7 @@ export async function signUpLayer2({ prisma, data, userId }: IRegisterProp) {
             data: {
                 aadhaarNumber,
                 segment,
-                userVerification: {
+                verification: {
                     update: {
                         stage: "TWO"
                     }

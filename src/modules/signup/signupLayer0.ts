@@ -34,6 +34,7 @@ export async function signUpLayer0({ prisma, data, userId }: IRegisterProp) {
             where: { userId },
             select: { stage: true }
         });
+        console.log(verification);
 
         if (verification?.stage !== 'ZERO') {
             return new HttpResponse(400, `INVALID_USER_STAGE: Expected ZERO, got ${verification?.stage}`);
@@ -45,7 +46,6 @@ export async function signUpLayer0({ prisma, data, userId }: IRegisterProp) {
             data: {
                 firstName: cacheData.name,
                 email: email,
-                isVerified: true
             },
             select: {
                 id: true,
@@ -55,7 +55,7 @@ export async function signUpLayer0({ prisma, data, userId }: IRegisterProp) {
         });
 
         // Clear OTP from Redis after successful verification
-        await redis.del(`OTP:${email}`);
+        // await redis.del(`OTP:${email}`);
 
         return new HttpResponse(200, "LAYER0_COMPLETED", updatedUser).toResponse();
     });

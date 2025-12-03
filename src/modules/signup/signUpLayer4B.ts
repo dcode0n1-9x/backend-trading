@@ -60,13 +60,13 @@ export async function signUpLayer4B({ prisma, data, userId }: IRegisterProp) {
             where: { id: userId },
             data: {
                 isVerified: true,
-                userVerification: {
+                verification: {
                     update: { stage: "FOURB" } // Fixed: was 'FOURA'
                 }
             },
             include: {
                 nominees: true,
-                userVerification: true
+                verification: true
             }
         });
 

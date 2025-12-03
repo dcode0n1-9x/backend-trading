@@ -37,8 +37,6 @@ export async function forgetPassword({ prisma, data }: IRegisterProp) {
     if (!contactIdentifier) {
         throw new Error("CONTACT_METHOD_NOT_AVAILABLE");
     }
-
-
     const resetToken = crypto.randomBytes(32).toString('hex');
     const redisKey = `OTP-FORGET-PASSWORD:${resetToken}`;
     const redisCount = `OTP-FORGET-PASSWORD-COUNT:${resetToken}`;

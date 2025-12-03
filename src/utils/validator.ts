@@ -106,7 +106,6 @@ const loginBody = t.Union([
 ]);
 
 const forgetPasswordBody = {
-  userIdentifier: t.Optional(t.String({ minLength: 5, maxLength: 100, example: "<user_identifier>" })),
   panNumber: t.String({ minLength: 10, maxLength: 10, example: "ABCDE1234F" }),
   receiveOn: t.Enum(OTPPreferenceType, { example: "EMAIL" }),
 };

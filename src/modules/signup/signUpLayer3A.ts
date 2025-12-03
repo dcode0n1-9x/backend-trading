@@ -57,7 +57,7 @@ export async function signUpLayer3A({ prisma, data, userId }: IRegisterProp) {
                         }
                     }
                 },
-                userVerification: {
+                verification: {
                     update: {
                         stage: "THREEA"
                     }

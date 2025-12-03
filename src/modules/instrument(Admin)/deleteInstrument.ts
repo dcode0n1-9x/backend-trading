@@ -21,6 +21,8 @@ export async function deleteInstrument({ prisma, data }: IRegisterProp) {
         return new HttpResponse(500, "INSTRUMENT_DELETION_FAILED").toResponse();
     }
     // FOR CREATING AN ORDER BOOK FOR THE RECENT CREATED INSTRUMENTS
-    await sendMessage("instrument.delete", instrumentId, { instrument: deleteInstrument })
+
+    // WE CREATE THE ORDERBOOKS ON THE BASICS OF TRADING SYMBOL
+    await sendMessage("instrument.delete", instrumentId, { symbol: deleteInstrument.tradingSymbol })
     return new HttpResponse(200, "INSTRUMENT_DELETED_SUCCESSFULLY", { instrumentId: deleteInstrument.id }).toResponse();
 }

@@ -18,7 +18,7 @@ export async function sendOTP({ prisma, data }: IRegisterProp) {
   const isUserExists = await prisma.user.findUnique({
     where: { phone }, select: {
       id: true,
-      userVerification: {
+      verification: {
         select: {
           stage: true
         }
@@ -26,7 +26,7 @@ export async function sendOTP({ prisma, data }: IRegisterProp) {
     }
   });
   if (isUserExists) {
-    return { details: { userStage: isUserExists.userVerification?.stage, phone, id : isUserExists.id}, code: 201, message: "USER_ALREADY_EXISTS" }
+    return { details: { userStage: isUserExists.verification?.stage, phone, id : isUserExists.id}, code: 201, message: "USER_ALREADY_EXISTS" }
   }
   const redisKey = `OTP:${phone}`;
   const redisCount = `OTP_COUNT:${phone}`;

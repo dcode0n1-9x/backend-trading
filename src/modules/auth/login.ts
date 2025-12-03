@@ -17,7 +17,11 @@ export async function login({ prisma, data }: ILoginProp) {
   const { email, phone, password } = data;
   const user = await prisma.user.findFirst({
     where: { OR: [{ email }, { phone }], password: { not: null } },
-    select: { id: true, password: true, isActive: true, kycStatus: true }
+    select: {
+      id: true, password: true, isActive: true, kycStatus: true, isVerified: true, verification: {
+        select: { stage: true }
+      }
+    }
   });
   if (!user) {
     return { message: "USER_NOT_FOUND", code: 404 };
@@ -33,6 +37,10 @@ export async function login({ prisma, data }: ILoginProp) {
   const isPasswordValid = await compare(password, user.password!);
   if (!isPasswordValid) {
     return { message: "INVALID_PASSWORD", code: 401 };
+  }
+  console.log(user.isVerified);
+  if (!user.isVerified) {
+    return { message: "USER_NOT_VERIFIED", code: 403, details: { userStage: user.verification?.stage || "ZERO" } };
   }
   if (user.kycStatus !== "VERIFIED") {
     return { message: "KYC_NOT_APPROVED", code: 403, details: { kycStatus: user.kycStatus } };

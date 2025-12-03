@@ -21,7 +21,7 @@ export async function signUpLayer1({ prisma, data, userId }: IRegisterProp) {
             where: { userId },
             select: { stage: true }
         });
-
+        
         if (verification?.stage !== 'ZERO') {
             return new HttpResponse(400, `INVALID_USER_STAGE: Expected ZERO, got ${verification?.stage}`);
         }
@@ -32,7 +32,7 @@ export async function signUpLayer1({ prisma, data, userId }: IRegisterProp) {
             data: {
                 panNumber,
                 dob: new Date(dob),
-                userVerification: {
+                verification: {
                     update: {
                         stage: "ONE"
                     }

@@ -85,12 +85,42 @@ async function main() {
 
     const usersSeed = [
         {
+            email: 'dcode.0n1@gmail.com',
+            phone: '+916376877564',
+            firstName: 'Rakshak',
+            lastName: 'Khandelwal',
+            panNumber: 'KPCPK3016M',
+            aadhaarNumber: '275351556058',
+            dob: new Date('1985-03-15'),
+            kycStatus: KYCStatus.VERIFIED,
+            accountType: AccountType.INDIVIDUAL,
+            isVerified: true,
+            twoFactorEnabled: true,
+            twoFactorPreference: OTPPreferenceType.SMS,
+            segment: [Segment.EQUITY, Segment.FUTURES],
+            profile: {
+                addressLine1: '123, MG Road',
+                addressLine2: 'Koramangala',
+                city: 'Bangalore',
+                state: 'Karnataka',
+                pincode: '560034',
+                fatherName: 'Suresh Kumar',
+                motherName: 'Lakshmi Kumar',
+                maritalStatus: 'MARRIED' as any,
+                occupation: 'PRIVATE_SECTOR' as any,
+                annualIncome: 'BETWEEN_10_TO_25_LAKHS',
+                tradingExperience: 'BETWEEN_5_TO_10_YEARS',
+                riskProfile: 'HIGH' as any,
+            },
+            verification: { stage: UserStage.FOURA },
+        },
+        {
             email: 'rajesh.kumar@gmail.com',
             phone: '+919876543210',
             firstName: 'Rajesh',
             lastName: 'Kumar',
-            panNumber: 'ABCPK1234A',
-            aadhaarNumber: '123456789012',
+            panNumber: 'ABCPK1234AA',
+            aadhaarNumber: '12345678901',
             dob: new Date('1985-03-15'),
             kycStatus: KYCStatus.VERIFIED,
             accountType: AccountType.INDIVIDUAL,
@@ -153,7 +183,7 @@ async function main() {
             dob: new Date('1978-11-30'),
             kycStatus: KYCStatus.VERIFIED,
             accountType: AccountType.HUF,
-            isVerified: false,
+            isVerified: true,
             twoFactorEnabled: false,
             segment: [Segment.EQUITY, Segment.COMMODITY],
             profile: {
@@ -198,12 +228,12 @@ async function main() {
             verification: { stage: UserStage.THREEB },
         },
         {
-            email: 'dcode.0n1@gmail.com',
-            phone: '+916376877564',
-            firstName: 'Rakshak',
-            lastName: 'Khandelwal',
-            panNumber: 'ABCVS6789E',
-            aadhaarNumber: '275351556058',
+            email: 'vikram.singh@rediffmail.com',
+            phone: '+919876543214',
+            firstName: 'Vikram',
+            lastName: 'Singh',
+            panNumber: 'MNOPV7890E',
+            aadhaarNumber: '567890123456',
             dob: new Date('1982-09-25'),
             kycStatus: KYCStatus.VERIFIED,
             accountType: AccountType.INDIVIDUAL,
@@ -235,7 +265,7 @@ async function main() {
             dob: new Date('1988-12-10'),
             kycStatus: KYCStatus.VERIFIED,
             accountType: AccountType.INDIVIDUAL,
-            isVerified: false,
+            isVerified: true,
             twoFactorEnabled: true,
             twoFactorPreference: OTPPreferenceType.EMAIL,
             segment: [Segment.EQUITY, Segment.CURRENCY],
@@ -314,7 +344,7 @@ async function main() {
             dob: new Date('1993-08-20'),
             kycStatus: KYCStatus.VERIFIED,
             accountType: AccountType.INDIVIDUAL,
-            isVerified: false,
+            isVerified: true,
             twoFactorEnabled: false,
             segment: [Segment.EQUITY],
             profile: {
@@ -404,7 +434,7 @@ async function main() {
                         create: profile,
                     }
                     : undefined,
-                userVerification: verification
+                verification: verification
                     ? {
                         create: verification,
                     }
@@ -417,13 +447,20 @@ async function main() {
                     },
                 },
                 dailyPnls: {
-                    create: {},
+                    create: {}  //! CREATES EXTRA SPACES IN THE DATABASE NEEDS TO UPSERT ONLY WHEN REQUIRED
                 },
                 portfolios: {
-                    create: {}
+                    create: {} //! CREATES EXTRA SPACES IN THE DATABASE NEEDS TO UPSERT ONLY WHEN REQUIRED
+                },
+                kyc: {
+                    create: {} //! CREATES EXTRA SPACES IN THE DATABASE NEEDS TO UPSERT ONLY WHEN REQUIRED
+                },
+                wallet: {
+                    create: {} //! CREATES EXTRA SPACES IN THE DATABASE NEEDS TO UPSERT ONLY WHEN REQUIRED
                 }
             },
         })
+
         console.log(`  ✅ User created: ${user.firstName} ${user.lastName} (${user.email})`)
     }
 

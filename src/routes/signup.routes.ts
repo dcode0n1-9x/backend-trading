@@ -63,7 +63,7 @@ export const signUpRouter = new Elysia({
         if (response && response.code && response.code >= 202) {
           return new HttpResponse(response.code, response.message).toResponse();
         }
-        return new HttpResponse(response.code , response.message, response.details).toResponse();
+        return new HttpResponse(response.code, response.message, response.details).toResponse();
       } catch (error) {
         return new HttpResponse(500, (error as Error).message).toResponse();
       }
@@ -185,12 +185,11 @@ export const signUpRouter = new Elysia({
   })
   .post("/layer-3-A", async ({ body, user }) => {
     try {
-      const result = await signUpLayer3A({
+      return await signUpLayer3A({
         prisma,
         data: body,
         userId: user!.id,
       });
-      return new HttpResponse(200, "LAYER3A_COMPLETED", result).toResponse();
     } catch (error) {
       return new HttpResponse(500, (error as Error).message).toResponse();
     }

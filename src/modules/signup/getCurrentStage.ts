@@ -16,7 +16,7 @@ export async function getCurrentStage({
                 id: userId
             },
             include: {
-                userVerification: {
+                verification: {
                     select: {
                         stage: true
                     }

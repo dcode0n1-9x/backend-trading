@@ -32,10 +32,10 @@ export async function signUpLayer3C({ prisma, data, userId }: IRegisterProp) {
         const result = await tx.user.update({
             where: { id: userId },
             data: {
-                profile: {
+                kyc: {
                     update: { webcam }
                 },
-                userVerification: {
+                verification: {
                     update: { stage: "THREEC" }
                 }
             },

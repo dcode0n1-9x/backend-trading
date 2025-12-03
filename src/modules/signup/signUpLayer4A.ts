@@ -32,10 +32,11 @@ export async function signUpLayer4A({ prisma, data, userId }: IRegisterProp) {
         const result = await tx.user.update({
             where: { id: userId },
             data: {
-                profile: {
+                kyc: {
                     update: { signature }
                 },
-                userVerification: {
+                kycStatus : "SUBMITTED",
+                verification: {
                     update: { stage: "FOURA" }
                 }
             },
