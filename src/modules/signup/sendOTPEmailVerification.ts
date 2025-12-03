@@ -5,8 +5,8 @@ import { HttpResponse } from "../../utils/response/success";
 import { generateOTP } from "../../utils/utils";
 
 interface RegisterData {
-    email : string;
-    name : string
+    email: string;
+    name: string
 }
 
 interface IRegisterProp {
@@ -33,7 +33,9 @@ export async function sendOTPEmailVerification({ prisma, data }: IRegisterProp) 
         OTP,
         name
     }), "EX", 900);
-    return new HttpResponse(200, "OTP_SENT_SUCCESSFULLY").toResponse();
+    return new HttpResponse(200, "OTP_SENT_SUCCESSFULLY", {
+        otp: OTP
+    }).toResponse();
 }
 
 

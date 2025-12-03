@@ -20,6 +20,8 @@ import { signUpLayer4A } from "../modules/signup/signUpLayer4A";
 import { signUpLayer4B } from "../modules/signup/signUpLayer4B";
 import { getCurrentStage } from "../modules/signup/getCurrentStage";
 import { presignedURLWebCamera } from "../modules/signup/presignedURLWebCamera";
+import { presignedURLAadharCard } from "../modules/signup/presignedURLAadharCard";
+import { presignedURLPanCard } from "../modules/signup/presignedURLPanCard";
 
 export const signUpRouter = new Elysia({
   name: "sign-up",
@@ -148,6 +150,24 @@ export const signUpRouter = new Elysia({
       description: "Completes the initial layer of the sign-up process by confirming the email verification OTP."
     }
   })
+  .post("/presigned-pan", async ({ body, user }) => {
+    try {
+      return await presignedURLPanCard({
+        prisma,
+        data: body,
+        userId: user!.id,
+      });
+    } catch (error) {
+      return new HttpResponse(500, (error as Error).message).toResponse();
+    }
+  }
+    , {
+      body: "auth.signup.presigned",
+      detail: {
+        summary: "Generate Presigned URL for PAN Upload",
+        description: "Generates a presigned URL for uploading the user's PAN image during the sign-up process."
+      }
+    })
   .post("/layer-1",
     async ({ body, user }) => {
       try {
@@ -167,6 +187,24 @@ export const signUpRouter = new Elysia({
       description: "Completes the first layer of the sign-up process by collecting pan and dob information."
     }
   })
+  .post("/presigned-aadhar", async ({ body, user }) => {
+    try {
+      return await presignedURLAadharCard({
+        prisma,
+        data: body,
+        userId: user!.id,
+      });
+    }
+    catch (error) {
+      return new HttpResponse(500, (error as Error).message).toResponse();
+    }
+  }, {
+    body: "auth.signup.presigned",
+    detail: {
+      summary: "Generate Presigned URL for Aadhar Upload",
+      description: "Generates a presigned URL for uploading the user's aadhar image during the sign-up process."
+    }
+  })
   .post("/layer-2", async ({ body, user }) => {
     try {
       return await signUpLayer2({
@@ -184,6 +222,7 @@ export const signUpRouter = new Elysia({
       description: "Completes the second layer of the sign-up process by collecting addharNumber and segment preference of user."
     }
   })
+
   .post("/layer-3-A", async ({ body, user }) => {
     try {
       return await signUpLayer3A({
