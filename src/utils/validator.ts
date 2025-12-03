@@ -10,11 +10,11 @@ import { SortOrder } from "./types";
 
 // Signup Layers
 const sendOTPLayer = t.Object({
-  phone: t.String({ minLength: 10, maxLength: 15, example: "6376877564", error: "INVALID_PHONE_FORMAT" }),
+  phone: t.String({ minLength: 10, maxLength: 15, example: "6376877555", error: "INVALID_PHONE_FORMAT" }),
 });
 
 const verifyOTPLayer = t.Object({
-  phone: t.String({ minLength: 10, maxLength: 15, example: "6376877564", error: "INVALID_PHONE_FORMAT" }),
+  phone: t.String({ minLength: 10, maxLength: 15, example: "6376877555", error: "INVALID_PHONE_FORMAT" }),
   otp: t.String({ minLength: 6, maxLength: 6, example: "123456", error: "INVALID_OTP_FORMAT" }),
 });
 
@@ -31,12 +31,12 @@ const verificationLayer0 = t.Object({
 
 const verificationLayer1 = t.Object({
   dob: t.String({ format: "date-time", example: "1990-01-01T00:00:00Z", error: "INVALID_DOB_FORMAT" }),
-  panNumber: t.String({ minLength: 10, maxLength: 10, example: "ABCDE1234F", error: "INVALID_PAN_FORMAT" }),
+  panPhoto: t.String({ example: `https://${config.S3.BUCKET}.s3.${config.S3.REGION}.amazonaws.com/cmhk8ryhl0000kev0hxkw5cyw/kyc/pan-card`, error: "INVALID_PAN_FORMAT" })
 });
 
 const verificationLayer2 = t.Object({
   segment: t.Array(t.Enum(Segment, { example: "EQUITY", error: "INVALID_SEGMENT_FORMAT" })),
-  aadhaarNumber: t.String({ minLength: 12, maxLength: 12, example: "637687756412", error: "INVALID_AADHAAR_FORMAT" }),
+  aadharPhoto: t.String({ example: `https://${config.S3.BUCKET}.s3.${config.S3.REGION}.amazonaws.com/cmhk8ryhl0000kev0hxkw5cyw/kyc/aadhar-card`, error: "INVALID_AADHAAR_FORMAT" })
 });
 
 
@@ -55,7 +55,7 @@ const upiVariant = t.Object({
 })
 
 const bankVariant = t.Object({
-  accountNumber: t.String({ minLength: 10, maxLength: 10, example: "6376877564", error: "INVALID_ACCOUNT_NUMBER_FORMAT" }),
+  accountNumber: t.String({ minLength: 10, maxLength: 10, example: "6376877555", error: "INVALID_ACCOUNT_NUMBER_FORMAT" }),
   ifscCode: t.String({ minLength: 11, maxLength: 11, example: "SBIN0001234", error: "INVALID_IFSC_FORMAT" }),
   bankName: t.String({ minLength: 2, maxLength: 100, example: "State Bank of India", error: "INVALID_BANK_NAME_FORMAT" }),
   branchName: t.String({ minLength: 2, maxLength: 100, example: "Connaught Place", error: "INVALID_BRANCH_NAME_FORMAT" }),
@@ -84,7 +84,7 @@ const verificationLayer4B = t.Object({
   nominee: t.Array(t.Object({
     name: t.String({ minLength: 2, maxLength: 100, example: "John Doe" }),
     email: t.String({ format: "email", example: "john.doe@example.com" }),
-    phone: t.String({ minLength: 10, maxLength: 15, example: "6376877564" }),
+    phone: t.String({ minLength: 10, maxLength: 15, example: "6376877555" }),
     relationship: t.Enum(RelationshipType, { example: "SPOUSE" }),
     percentage: t.Number({ minimum: 0, maximum: 100, example: 50 }),
     panNumber: t.String({ minLength: 10, maxLength: 10, example: "ABCDE1234F" }),
@@ -100,7 +100,7 @@ const loginBody = t.Union([
     password: t.String({ minLength: 8, error: "INVALID_PASSWORD_FORMAT", example: "User@123" })
   }),
   t.Object({
-    phone: t.String({ minLength: 10, maxLength: 15, error: "INVALID_PHONE_FORMAT", example: "6376877564" }),
+    phone: t.String({ minLength: 10, maxLength: 15, error: "INVALID_PHONE_FORMAT", example: "6376877555" }),
     password: t.String({ minLength: 8, error: "INVALID_PASSWORD_FORMAT", example: "strongpassword123" })
   })
 ]);
@@ -118,14 +118,14 @@ const forgetPasswordEmailVarient = t.Object({
 
 const forgetPasswordPhoneVarient = t.Object({
   ...forgetPasswordBody,
-  phone: t.String({ minLength: 10, maxLength: 15, example: "6376877564" }),
+  phone: t.String({ minLength: 10, maxLength: 15, example: "6376877555" }),
 })
 
 const forgetPasswordValidator = t.Union([forgetPasswordEmailVarient, forgetPasswordPhoneVarient]);
 
 
 const verifyOTPForgetPasswordLayer = t.Object({
-  token: t.String({ minLength: 10, maxLength: 100, example: "abcdef6376877564" }),
+  token: t.String({ minLength: 10, maxLength: 100, example: "abcdef6376877555" }),
   password: t.String({ minLength: 8, error: "INVALID_PASSWORD_FORMAT", example: "strongpassword123" })
 });
 

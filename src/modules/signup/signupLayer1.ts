@@ -2,7 +2,7 @@ import type { PrismaClient } from "../../../generated/prisma/client";
 import { HttpResponse } from "../../utils/response/success";
 
 interface RegisterData {
-    panNumber: string;
+    panPhoto: string;
     dob: string;
 }
 
@@ -13,7 +13,7 @@ interface IRegisterProp {
 }
 
 export async function signUpLayer1({ prisma, data, userId }: IRegisterProp) {
-    const { panNumber, dob } = data;
+    const { panPhoto, dob } = data;
 
     return await prisma.$transaction(async (tx) => {
         // Validate stage
@@ -21,7 +21,7 @@ export async function signUpLayer1({ prisma, data, userId }: IRegisterProp) {
             where: { userId },
             select: { stage: true }
         });
-        
+
         if (verification?.stage !== 'ZERO') {
             return new HttpResponse(400, `INVALID_USER_STAGE: Expected ZERO, got ${verification?.stage}`);
         }
@@ -30,7 +30,11 @@ export async function signUpLayer1({ prisma, data, userId }: IRegisterProp) {
         const result = await tx.user.update({
             where: { id: userId },
             data: {
-                panNumber,
+                kyc: {
+                    update: {
+                        panPhoto
+                    }
+                },
                 dob: new Date(dob),
                 verification: {
                     update: {
@@ -41,7 +45,11 @@ export async function signUpLayer1({ prisma, data, userId }: IRegisterProp) {
             select: {
                 firstName: true,
                 email: true,
-                panNumber: true
+                kyc: {
+                    select: {
+                        panPhoto: true
+                    }
+                }
             }
         });
 

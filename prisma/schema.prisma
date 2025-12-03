@@ -11,57 +11,59 @@ datasource db {
 }
 
 model Staff {
-  id             String           @id @default(cuid())
-  email          String           @unique
+  id             String          @id @default(cuid())
+  email          String          @unique
   name           String
   dob            DateTime
   password       String
   roleId         String
-  phone          String           @unique
+  phone          String          @unique
   fcmToken       String?
   refreshToken   String?
   photo          String?
   address        String?
-  isActive       Boolean          @default(true)
+  isActive       Boolean         @default(true)
   role           Role            @relation(fields: [roleId], references: [id], onDelete: Cascade)
   supportTickets SupportTicket[]
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
 
   @@index([email, phone])
   @@index([roleId])
 }
 
 model Role {
-  id          String        @id @default(cuid())
-  name        String        @unique
-  permissions Permission[]  @default([])
-  isActive    Boolean       @default(true)
+  id          String       @id @default(cuid())
+  name        String       @unique
+  permissions Permission[] @default([])
+  isActive    Boolean      @default(true)
   staffs      Staff[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }
 
 model User {
-  id                  String              @id @default(cuid())
-  email               String?             @unique
+  id                  String             @id @default(cuid())
+  email               String?            @unique
   // userIdentifier   String            @default(dbgenerated("'MP' || LPAD(nextval('user_identifier_seq')::text, 6, '0')"))
-  phone               String              @unique
+  phone               String             @unique
   password            String?
   avatar              String?
   firstName           String?
   lastName            String?
-  panNumber           String?             @unique
-  aadhaarNumber       String?             @unique
+  panNumber           String?            @unique
+  aadhaarNumber       String?            @unique
   fcmToken            String?
   dob                 DateTime?
-  twoFactorPreference OTPPreferenceType?  @default(SMS)
-  kycStatus           KYCStatus?          @default(PENDING)
-  accountType         AccountType?        @default(INDIVIDUAL)
-  isActive            Boolean?            @default(true)
-  twoFactorEnabled    Boolean?            @default(false)
-  createdAt           DateTime?           @default(now())
-  updatedAt           DateTime?           @updatedAt
-  isVerified          Boolean             @default(false)
-  segment             Segment[]           @default([EQUITY])
+  twoFactorPreference OTPPreferenceType? @default(SMS)
+  kycStatus           KYCStatus?         @default(PENDING)
+  accountType         AccountType?       @default(INDIVIDUAL)
+  isActive            Boolean?           @default(true)
+  twoFactorEnabled    Boolean?           @default(false)
+  createdAt           DateTime?          @default(now())
+  updatedAt           DateTime?          @updatedAt
+  isVerified          Boolean            @default(false)
+  segment             Segment[]          @default([EQUITY])
   alerts              Alert[]
   bankAccounts        BankAccount[]
   baskets             Basket[]
@@ -78,29 +80,29 @@ model User {
   profile             UserProfile?
   wallet              Wallet?
   verification        UserVerification?
-  kyc         KycDocument?
+  kyc                 KycDocument?
   watchlists          Watchlist[]
   nominees            Nominee[]
   dailyPnls           DailyPnL[]
   supportTickets      SupportTicket[]
 
-  @@index([email,     phone])
+  @@index([email, phone])
 }
 
 model KycDocument {
-  id          String    @id @default(cuid())
-  userId      String    @unique
+  id          String   @id @default(cuid())
+  userId      String   @unique
   aadharPhoto String?
   panPhoto    String?
   webcam      String?
   signature   String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Nominee {
-  id           String            @id @default(cuid())
+  id           String           @id @default(cuid())
   userId       String
   name         String
   relationship RelationshipType
@@ -110,25 +112,25 @@ model Nominee {
   address      String
   panNumber    String
   percentage   Float
-  createdAt    DateTime          @default(now())
-  updatedAt    DateTime          @updatedAt
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
   user         User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
 
 model UserVerification {
-  id        String     @id @default(cuid())
-  userId    String     @unique
-  stage     UserStage  @default(ZERO)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id        String    @id @default(cuid())
+  userId    String    @unique
+  stage     UserStage @default(ZERO)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model UserProfile {
-  id                String              @id @default(cuid())
-  userId            String              @unique
+  id                String             @id @default(cuid())
+  userId            String             @unique
   addressLine1      String?
   addressLine2      String?
   city              String?
@@ -137,18 +139,18 @@ model UserProfile {
   fatherName        String?
   motherName        String?
   maritalStatus     MartialStatusType?
-  country           String?             @default("India")
+  country           String?            @default("India")
   occupation        OccupationType?
   annualIncome      String?
   tradingExperience String?
-  riskProfile       RiskProfile         @default(MODERATE)
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
+  riskProfile       RiskProfile        @default(MODERATE)
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
   user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model BankAccount {
-  id                String            @id @default(cuid())
+  id                String           @id @default(cuid())
   userId            String
   accountNumber     String?
   ifscCode          String?
@@ -158,98 +160,98 @@ model BankAccount {
   branchName        String?
   accountHolderName String?
   accountType       BankAccountType?
-  isPrimary         Boolean           @default(false)
-  isVerified        Boolean           @default(false)
-  createdAt         DateTime          @default(now())
-  updatedAt         DateTime          @updatedAt
+  isPrimary         Boolean          @default(false)
+  isVerified        Boolean          @default(false)
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
   user              User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
 
 model Session {
-  id         String    @id @default(cuid())
+  id         String   @id @default(cuid())
   userId     String
-  token      String    @unique
+  token      String   @unique
   ipAddress  String?
   userAgent  String?
   deviceType String?
-  isActive   Boolean   @default(true)
+  isActive   Boolean  @default(true)
   expiresAt  DateTime
-  createdAt  DateTime  @default(now())
+  createdAt  DateTime @default(now())
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, token])
 }
 
 model FundTransaction {
-  id              String               @id @default(cuid())
+  id              String              @id @default(cuid())
   userId          String
   transactionType FundTransactionType
   amount          Float
-  status          TransactionStatus    @default(PENDING)
+  status          TransactionStatus   @default(PENDING)
   paymentMode     PaymentMode?
-  utrNumber       String?              @unique
+  utrNumber       String?             @unique
   bankAccountId   String?
   remarks         String?
   processedAt     DateTime?
-  createdAt       DateTime             @default(now())
-  updatedAt       DateTime             @updatedAt
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
   user            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, transactionType, status])
 }
 
 model Wallet {
-  id               String    @id @default(cuid())
-  userId           String    @unique
-  ledgerBalance    Float     @default(0.0) // total money
-  availableBalance Float     @default(0.0) // money they can use
-  lockedBalance    Float     @default(0.0) // blocked for orders
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  ledgerBalance    Float    @default(0.0) // total money
+  availableBalance Float    @default(0.0) // money they can use
+  lockedBalance    Float    @default(0.0) // blocked for orders
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Margin {
-  id              String    @id @default(cuid())
+  id              String   @id @default(cuid())
   userId          String
   type            Segment
-  availableCash   Float     @default(0.0)
-  usedMargin      Float     @default(0.0)
-  availableMargin Float     @default(0.0)
-  collateralValue Float     @default(0.0)
-  openingBalance  Float     @default(0.0)
-  payin           Float     @default(0.0)
-  payout          Float     @default(0.0)
-  spanMargin      Float     @default(0.0)
-  exposureMargin  Float     @default(0.0)
-  optionPremium   Float     @default(0.0)
-  updatedAt       DateTime  @updatedAt
+  availableCash   Float    @default(0.0)
+  usedMargin      Float    @default(0.0)
+  availableMargin Float    @default(0.0)
+  collateralValue Float    @default(0.0)
+  openingBalance  Float    @default(0.0)
+  payin           Float    @default(0.0)
+  payout          Float    @default(0.0)
+  spanMargin      Float    @default(0.0)
+  exposureMargin  Float    @default(0.0)
+  optionPremium   Float    @default(0.0)
+  updatedAt       DateTime @updatedAt
   user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
 
 model Instrument {
-  id              String           @id @default(cuid())
-  instrumentToken String           @unique
+  id              String          @id @default(cuid())
+  instrumentToken String          @unique
   exchangeToken   String
   tradingSymbol   String
   name            String
   exchange        Exchange
   segment         Segment
   instrumentType  InstrumentType
-  tickSize        Float            @default(0.05)
-  lotSize         Int              @default(1)
+  tickSize        Float           @default(0.05)
+  lotSize         Int             @default(1)
   expiry          DateTime?
   strike          Float?
   isin            String?
-  isActive        Boolean          @default(true)
-  lastPrice       Float            @default(0.0)
-  lastUpdated     DateTime         @default(now())
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+  isActive        Boolean         @default(true)
+  lastPrice       Float           @default(0.0)
+  lastUpdated     DateTime        @default(now())
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
   holdings        Holding[]
   marketDepth     MarketDepth[]
   orders          Order[]
@@ -262,24 +264,24 @@ model Instrument {
 
   @@index([tradingSymbol, exchange])
   @@index([instrumentToken])
-  @@index([name,  tradingSymbol])
+  @@index([name, tradingSymbol])
 }
 
 model MarketDepth {
-  id           String      @id @default(cuid())
+  id           String     @id @default(cuid())
   instrumentId String
   side         OrderSide
   price        Float
   quantity     Int
   orders       Int
-  timestamp    DateTime    @default(now())
+  timestamp    DateTime   @default(now())
   instrument   Instrument @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
 
   @@index([instrumentId, side, timestamp])
 }
 
 model PriceHistory {
-  id           String      @id @default(cuid())
+  id           String     @id @default(cuid())
   instrumentId String
   open         Float
   high         Float
@@ -295,38 +297,38 @@ model PriceHistory {
 }
 
 model Portfolio {
-  id               String    @id @default(cuid())
-  userId           String    @unique
-  totalValue       Float     @default(0.0)
-  investedValue    Float     @default(0.0)
-  currentValue     Float     @default(0.0)
-  dayChange        Float     @default(0.0)
-  dayChangePercent Float     @default(0.0)
-  totalPnl         Float     @default(0.0)
-  totalPnlPercent  Float     @default(0.0)
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  totalValue       Float    @default(0.0)
+  investedValue    Float    @default(0.0)
+  currentValue     Float    @default(0.0)
+  dayChange        Float    @default(0.0)
+  dayChangePercent Float    @default(0.0)
+  totalPnl         Float    @default(0.0)
+  totalPnlPercent  Float    @default(0.0)
   xirr             Float?
-  updatedAt        DateTime  @updatedAt
-  createdAt        DateTime  @default(now())
+  updatedAt        DateTime @updatedAt
+  createdAt        DateTime @default(now())
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
 
 model Holding {
-  id                 String       @id @default(cuid())
+  id                 String      @id @default(cuid())
   userId             String
   instrumentId       String
   quantity           Int
   averagePrice       Float
   lastPrice          Float
-  pnl                Float        @default(0.0)
-  dayChange          Float        @default(0.0)
-  dayChangePercent   Float        @default(0.0)
-  collateralQuantity Int          @default(0)
+  pnl                Float       @default(0.0)
+  dayChange          Float       @default(0.0)
+  dayChangePercent   Float       @default(0.0)
+  collateralQuantity Int         @default(0)
   collateralType     String?
   product            ProductType
-  createdAt          DateTime     @default(now())
-  updatedAt          DateTime     @updatedAt
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
   instrument         Instrument  @relation(fields: [instrumentId], references: [id])
   user               User        @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -335,41 +337,41 @@ model Holding {
 }
 
 model Position {
-  id                String        @id @default(cuid())
+  id                String       @id @default(cuid())
   userId            String
   instrumentId      String
   product           ProductType
   quantity          Int
-  overnightQuantity Int           @default(0)
+  overnightQuantity Int          @default(0)
   averagePrice      Float
   lastPrice         Float
   value             Float
-  pnl               Float         @default(0.0)
-  m2m               Float         @default(0.0)
-  unrealised        Float         @default(0.0)
-  realised          Float         @default(0.0)
-  buyQuantity       Int           @default(0)
-  buyValue          Float         @default(0.0)
-  buyPrice          Float         @default(0.0)
-  sellQuantity      Int           @default(0)
-  sellValue         Float         @default(0.0)
-  sellPrice         Float         @default(0.0)
-  multiplier        Float         @default(1.0)
+  pnl               Float        @default(0.0)
+  m2m               Float        @default(0.0)
+  unrealised        Float        @default(0.0)
+  realised          Float        @default(0.0)
+  buyQuantity       Int          @default(0)
+  buyValue          Float        @default(0.0)
+  buyPrice          Float        @default(0.0)
+  sellQuantity      Int          @default(0)
+  sellValue         Float        @default(0.0)
+  sellPrice         Float        @default(0.0)
+  multiplier        Float        @default(1.0)
   tradingSymbol     String
   exchange          Exchange
   positionType      PositionType
-  createdAt         DateTime      @default(now())
-  updatedAt         DateTime      @updatedAt
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
   instrument        Instrument   @relation(fields: [instrumentId], references: [id])
   user              User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, instrumentId, product])
-  @@index([userId,  tradingSymbol])
+  @@index([userId, tradingSymbol])
 }
 
 model Order {
-  id                 String           @id @default(cuid())
-  orderId            String           @unique
+  id                 String          @id @default(cuid())
+  orderId            String          @unique
   userId             String
   instrumentId       String
   parentOrderId      String?
@@ -384,36 +386,36 @@ model Order {
   exchange           Exchange
   tradingSymbol      String
   quantity           Int
-  disclosedQuantity  Int              @default(0)
-  price              Float            @default(0.0)
-  triggerPrice       Float            @default(0.0)
-  averagePrice       Float            @default(0.0)
-  filledQuantity     Int              @default(0)
+  disclosedQuantity  Int             @default(0)
+  price              Float           @default(0.0)
+  triggerPrice       Float           @default(0.0)
+  averagePrice       Float           @default(0.0)
+  filledQuantity     Int             @default(0)
   pendingQuantity    Int
-  cancelledQuantity  Int              @default(0)
+  cancelledQuantity  Int             @default(0)
   status             OrderStatus
   statusMessage      String?
   tag                String?
   clientOrderId      String?
-  orderTimestamp     DateTime         @default(now())
+  orderTimestamp     DateTime        @default(now())
   exchangeUpdateTime DateTime?
   rejectedBy         String?
   cancelledBy        String?
-  createdAt          DateTime         @default(now())
-  updatedAt          DateTime         @updatedAt
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
   instrument         Instrument      @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
   user               User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   trades             Trade[]
-  modificationCount  Int              @default(0)
+  modificationCount  Int             @default(0)
 
-  @@index([userId,   status])
+  @@index([userId, status])
   @@index([orderId])
   @@index([tradingSymbol, exchange])
 }
 
 model Trade {
-  id                String           @id @default(cuid())
-  tradeId           String           @unique
+  id                String          @id @default(cuid())
+  tradeId           String          @unique
   orderId           String
   userId            String
   instrumentId      String
@@ -425,32 +427,32 @@ model Trade {
   price             Float
   value             Float
   exchangeTimestamp DateTime
-  createdAt         DateTime         @default(now())
+  createdAt         DateTime        @default(now())
   instrument        Instrument      @relation(fields: [instrumentId], references: [id])
   order             Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
   user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   charges           TradeCharges?
 
-  @@index([userId,  tradingSymbol])
+  @@index([userId, tradingSymbol])
   @@index([tradeId])
 }
 
 model TradeCharges {
-  id                String  @id @default(cuid())
-  tradeId           String  @unique
-  brokerage         Float   @default(0.0)
-  stt               Float   @default(0.0)
-  exchangeTxnCharge Float   @default(0.0)
-  gst               Float   @default(0.0)
-  sebiTurnover      Float   @default(0.0)
-  stampDuty         Float   @default(0.0)
-  totalCharges      Float   @default(0.0)
+  id                String @id @default(cuid())
+  tradeId           String @unique
+  brokerage         Float  @default(0.0)
+  stt               Float  @default(0.0)
+  exchangeTxnCharge Float  @default(0.0)
+  gst               Float  @default(0.0)
+  sebiTurnover      Float  @default(0.0)
+  stampDuty         Float  @default(0.0)
+  totalCharges      Float  @default(0.0)
   netAmount         Float
   trade             Trade  @relation(fields: [tradeId], references: [id], onDelete: Cascade)
 }
 
 model GTTOrder {
-  id            String       @id @default(cuid())
+  id            String      @id @default(cuid())
   userId        String
   gttType       GTTType
   instrumentId  String
@@ -464,11 +466,11 @@ model GTTOrder {
   quantity      Int
   product       ProductType
   orderType     OrderType
-  status        GTTStatus    @default(ACTIVE)
+  status        GTTStatus   @default(ACTIVE)
   expiresAt     DateTime?
   triggeredAt   DateTime?
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
   instrument    Instrument  @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -476,12 +478,12 @@ model GTTOrder {
 }
 
 model Watchlist {
-  id        String            @id @default(cuid())
+  id        String           @id @default(cuid())
   userId    String
   name      String
-  isDefault Boolean           @default(false)
-  createdAt DateTime          @default(now())
-  updatedAt DateTime          @updatedAt
+  isDefault Boolean          @default(false)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
   groups    WatchlistGroup[]
   user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -489,13 +491,13 @@ model Watchlist {
 }
 
 model WatchlistGroup {
-  id          String           @id @default(cuid())
+  id          String          @id @default(cuid())
   watchlistId String
   name        String
-  color       Int              @default(0)
-  sortOrder   Int              @default(autoincrement())
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  color       Int             @default(0)
+  sortOrder   Int             @default(autoincrement())
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
   watchlist   Watchlist       @relation(fields: [watchlistId], references: [id], onDelete: Cascade)
   items       WatchlistItem[]
 
@@ -503,11 +505,11 @@ model WatchlistGroup {
 }
 
 model WatchlistItem {
-  id           String          @id @default(cuid())
+  id           String         @id @default(cuid())
   groupId      String
   instrumentId String
-  sortOrder    Int             @default(autoincrement())
-  addedAt      DateTime        @default(now())
+  sortOrder    Int            @default(autoincrement())
+  addedAt      DateTime       @default(now())
   group        WatchlistGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
   instrument   Instrument     @relation(fields: [instrumentId], references: [id], onDelete: Cascade)
 
@@ -517,46 +519,46 @@ model WatchlistItem {
 }
 
 model Alert {
-  id           String     @id @default(cuid())
+  id           String    @id @default(cuid())
   userId       String
   instrumentId String?
   alertType    AlertType
   message      String
   triggerPrice Float?
   condition    String?
-  isTriggered  Boolean    @default(false)
-  isRead       Boolean    @default(false)
+  isTriggered  Boolean   @default(false)
+  isRead       Boolean   @default(false)
   triggeredAt  DateTime?
   expiresAt    DateTime?
-  createdAt    DateTime   @default(now())
+  createdAt    DateTime  @default(now())
   user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, isTriggered, isRead])
 }
 
 model Notification {
-  id               String            @id @default(cuid())
+  id               String           @id @default(cuid())
   userId           String
   notificationType NotificationType
   title            String
   message          String
-  isRead           Boolean           @default(false)
-  priority         Priority          @default(NORMAL)
-  createdAt        DateTime          @default(now())
+  isRead           Boolean          @default(false)
+  priority         Priority         @default(NORMAL)
+  createdAt        DateTime         @default(now())
   user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, isRead])
 }
 
 model Basket {
-  id          String        @id @default(cuid())
+  id          String       @id @default(cuid())
   userId      String
   name        String
   description String?
-  totalValue  Float         @default(0.0)
-  isActive    Boolean       @default(true)
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  totalValue  Float        @default(0.0)
+  isActive    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   items       BasketItem[]
 
@@ -564,7 +566,7 @@ model Basket {
 }
 
 model BasketItem {
-  id              String           @id @default(cuid())
+  id              String          @id @default(cuid())
   basketId        String
   instrumentId    String
   tradingSymbol   String
@@ -575,7 +577,7 @@ model BasketItem {
   price           Float?
   triggerPrice    Float?
   product         ProductType
-  sortOrder       Int              @default(0)
+  sortOrder       Int             @default(0)
   instrument      Instrument      @relation(fields: [instrumentId], references: [id])
   basket          Basket          @relation(fields: [basketId], references: [id], onDelete: Cascade)
 
@@ -583,7 +585,7 @@ model BasketItem {
 }
 
 model CorporateAction {
-  id               String               @id @default(cuid())
+  id               String              @id @default(cuid())
   instrumentId     String
   actionType       CorporateActionType
   exDate           DateTime
@@ -594,15 +596,15 @@ model CorporateAction {
   newSymbol        String?
   ratio            String?
   dividendAmount   Float?
-  isProcessed      Boolean              @default(false)
+  isProcessed      Boolean             @default(false)
   processedAt      DateTime?
-  createdAt        DateTime             @default(now())
+  createdAt        DateTime            @default(now())
 
   @@index([instrumentId, exDate])
 }
 
 model TradeJournal {
-  id             String    @id @default(cuid())
+  id             String   @id @default(cuid())
   userId         String
   tradeId        String?
   orderId        String?
@@ -612,47 +614,46 @@ model TradeJournal {
   strategy       String?
   emotionalState String?
   learnings      String?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   @@index([userId, date])
 }
 
 model DailyPnL {
-  id            String    @id @default(cuid())
+  id            String   @id @default(cuid())
   userId        String
-  date          DateTime  @default(now())
-  realizedPnl   Float     @default(0.0)
-  unrealizedPnl Float     @default(0.0)
-  totalPnl      Float     @default(0.0)
-  equityPnl     Float     @default(0.0)
-  foPnl         Float     @default(0.0)
-  commodityPnl  Float     @default(0.0)
-  charges       Float     @default(0.0)
-  createdAt     DateTime  @default(now())
+  date          DateTime @default(now())
+  realizedPnl   Float    @default(0.0)
+  unrealizedPnl Float    @default(0.0)
+  totalPnl      Float    @default(0.0)
+  equityPnl     Float    @default(0.0)
+  foPnl         Float    @default(0.0)
+  commodityPnl  Float    @default(0.0)
+  charges       Float    @default(0.0)
+  createdAt     DateTime @default(now())
   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, date])
 }
 
 model SupportTicket {
-  id          String        @id @default(cuid())
+  id          String       @id @default(cuid())
   userId      String
   staffId     String?
   subject     String
   description String
-  attachments String[]      @default([])
-  status      TicketStatus  @default(OPEN)
-  priority    Priority      @default(NORMAL)
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  attachments String[]     @default([])
+  status      TicketStatus @default(OPEN)
+  priority    Priority     @default(NORMAL)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   staff       Staff?       @relation(fields: [staffId], references: [id], onDelete: Cascade)
 
   @@index([userId, status])
   @@index([staffId, status])
 }
-
 
 enum TicketStatus {
   OPEN
@@ -948,7 +949,7 @@ enum Permission {
   VIEW_INSTRUMENTS
   EDIT_INSTRUMENTS
   DELETE_INSTRUMENTS
-  
+
   VIEW_TRADES
   EDIT_TRADES
   DELETE_TRADES

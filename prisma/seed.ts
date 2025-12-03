@@ -473,7 +473,6 @@ async function main() {
 
     // 3️⃣ INSTRUMENTS
     console.log('\n📈 Creating instruments...')
-
     const reliance = await prisma.instrument.upsert({
         where: { instrumentToken: '500325' },
         update: {},
@@ -487,10 +486,58 @@ async function main() {
             instrumentType: 'EQ' as any,
             tickSize: 0.05,
             lotSize: 1,
-            lastPrice: 2800.5,
+            lastPrice: 2800.50,
         },
-    })
+    });
 
+    const tcs = await prisma.instrument.upsert({
+        where: { instrumentToken: '532540' },
+        update: {},
+        create: {
+            instrumentToken: '532540',
+            exchangeToken: '532540',
+            tradingSymbol: 'TCS',
+            name: 'Tata Consultancy Services',
+            exchange: Exchange.NSE,
+            segment: Segment.EQUITY,
+            instrumentType: 'EQ' as any,
+            tickSize: 0.05,
+            lotSize: 1,
+            lastPrice: 3950.25,
+        },
+    });
+    const infy = await prisma.instrument.upsert({
+        where: { instrumentToken: '500209' },
+        update: {},
+        create: {
+            instrumentToken: '500209',
+            exchangeToken: '500209',
+            tradingSymbol: 'INFY',
+            name: 'Infosys Ltd.',
+            exchange: Exchange.NSE,
+            segment: Segment.EQUITY,
+            instrumentType: 'EQ' as any,
+            tickSize: 0.05,
+            lotSize: 1,
+            lastPrice: 1520.65,
+        },
+    });
+    const hdfc = await prisma.instrument.upsert({
+        where: { instrumentToken: '500180' },
+        update: {},
+        create: {
+            instrumentToken: '500180',
+            exchangeToken: '500180',
+            tradingSymbol: 'HDFCBANK',
+            name: 'HDFC Bank Ltd.',
+            exchange: Exchange.NSE,
+            segment: Segment.EQUITY,
+            instrumentType: 'EQ' as any,
+            tickSize: 0.05,
+            lotSize: 1,
+            lastPrice: 1580.95,
+        },
+    });
     const niftyFut = await prisma.instrument.upsert({
         where: { instrumentToken: '123456' },
         update: {},
@@ -505,11 +552,110 @@ async function main() {
             tickSize: 0.05,
             lotSize: 50,
             expiry: new Date('2025-11-27'),
-            lastPrice: 23450.2,
+            lastPrice: 23450.20,
         },
-    })
+    });
+    const bankniftyFut = await prisma.instrument.upsert({
+        where: { instrumentToken: '654321' },
+        update: {},
+        create: {
+            instrumentToken: '654321',
+            exchangeToken: '654321',
+            tradingSymbol: 'BANKNIFTY24DECFUT',
+            name: 'BANKNIFTY Index Futures',
+            exchange: Exchange.NFO,
+            segment: Segment.FUTURES,
+            instrumentType: 'FUTIDX' as any,
+            tickSize: 0.05,
+            lotSize: 15,
+            expiry: new Date('2025-12-26'),
+            lastPrice: 48950.85,
+        },
+    });
+    const niftyCe = await prisma.instrument.upsert({
+        where: { instrumentToken: '303030' },
+        update: {},
+        create: {
+            instrumentToken: '303030',
+            exchangeToken: '303030',
+            tradingSymbol: 'NIFTY24NOV23500CE',
+            name: 'NIFTY 23500 CE',
+            exchange: Exchange.NFO,
+            segment: Segment.OPTIONS,
+            instrumentType: 'OPTIDX' as any,
+            tickSize: 0.05,
+            lotSize: 50,
+            expiry: new Date('2025-11-27'),
+            strike: 23500,
+            lastPrice: 185.40,
+        },
+    });
+    const niftyPe = await prisma.instrument.upsert({
+        where: { instrumentToken: '303031' },
+        update: {},
+        create: {
+            instrumentToken: '303031',
+            exchangeToken: '303031',
+            tradingSymbol: 'NIFTY24NOV23500PE',
+            name: 'NIFTY 23500 PE',
+            exchange: Exchange.NFO,
+            segment: Segment.OPTIONS,
+            instrumentType: 'OPTIDX' as any,
+            tickSize: 0.05,
+            lotSize: 50,
+            expiry: new Date('2025-11-27'),
+            strike: 23500,
+            lastPrice: 210.75,
+        },
+    });
+    const usdinr = await prisma.instrument.upsert({
+        where: { instrumentToken: '505050' },
+        update: {},
+        create: {
+            instrumentToken: '505050',
+            exchangeToken: '505050',
+            tradingSymbol: 'USDINR24NOVFUT',
+            name: 'USDINR Currency Futures',
+            exchange: Exchange.CDS as any,
+            segment: Segment.FUTURES,
+            instrumentType: 'FUTCUR' as any,
+            tickSize: 0.0025,
+            lotSize: 1000,
+            expiry: new Date('2025-11-28'),
+            lastPrice: 83.2575,
+        },
+    });
+    const crude = await prisma.instrument.upsert({
+        where: { instrumentToken: '404040' },
+        update: {},
+        create: {
+            instrumentToken: '404040',
+            exchangeToken: '404040',
+            tradingSymbol: 'CRUDEOIL24DECFUT',
+            name: 'MCX Crude Oil Futures',
+            exchange: Exchange.MCX as any,
+            segment: Segment.FUTURES,
+            instrumentType: 'FUTCOM' as any,
+            tickSize: 1,
+            lotSize: 100,
+            expiry: new Date('2025-12-19'),
+            lastPrice: 6840,
+        },
+    });
 
-    console.log('  ✅ Instruments:', reliance.tradingSymbol, ',', niftyFut.tradingSymbol)
+    console.log(
+        '  ✅ Instruments:',
+        reliance.tradingSymbol,
+        tcs.tradingSymbol,
+        infy.tradingSymbol,
+        hdfc.tradingSymbol,
+        niftyFut.tradingSymbol,
+        bankniftyFut.tradingSymbol,
+        niftyCe.tradingSymbol,
+        niftyPe.tradingSymbol,
+        usdinr.tradingSymbol,
+        crude.tradingSymbol
+    );
 
     // 4️⃣ BANK ACCOUNTS
     console.log('\n🏦 Creating bank accounts...')

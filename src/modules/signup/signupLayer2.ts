@@ -2,7 +2,7 @@ import type { PrismaClient, Segment } from "../../../generated/prisma/client";
 import { HttpResponse } from "../../utils/response/success";
 
 interface RegisterData {
-    aadhaarNumber: string;
+    aadharPhoto: string;
     segment: Segment[];
 }
 
@@ -13,7 +13,7 @@ interface IRegisterProp {
 }
 
 export async function signUpLayer2({ prisma, data, userId }: IRegisterProp) {
-    const { aadhaarNumber, segment } = data;
+    const { aadharPhoto, segment } = data;
 
     return await prisma.$transaction(async (tx) => {
         // Validate stage
@@ -33,7 +33,11 @@ export async function signUpLayer2({ prisma, data, userId }: IRegisterProp) {
         const result = await tx.user.update({
             where: { id: userId },
             data: {
-                aadhaarNumber,
+                kyc: {
+                    update: {
+                        aadharPhoto
+                    }
+                },
                 segment,
                 verification: {
                     update: {

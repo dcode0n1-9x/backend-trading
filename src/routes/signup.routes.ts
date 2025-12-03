@@ -157,6 +157,7 @@ export const signUpRouter = new Elysia({
           userId: user!.id,
         });
       } catch (error) {
+        console.log(error);
         return new HttpResponse(500, (error as Error).message).toResponse();
       }
     }, {
