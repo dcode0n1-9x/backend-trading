@@ -45,8 +45,8 @@ model Role {
 model User {
   id                  String             @id @default(cuid())
   email               String?            @unique
-  // userIdentifier   String            @default(dbgenerated("'MP' || LPAD(nextval('user_identifier_seq')::text, 6, '0')"))
   phone               String             @unique
+  staffId             String? //if I was being created by a staff member
   password            String?
   avatar              String?
   firstName           String?
@@ -82,11 +82,22 @@ model User {
   verification        UserVerification?
   kyc                 KycDocument?
   watchlists          Watchlist[]
+  platformCharges     PlatformCharges?
   nominees            Nominee[]
   dailyPnls           DailyPnL[]
   supportTickets      SupportTicket[]
 
   @@index([email, phone])
+}
+
+model PlatformCharges {
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  equityCharges    Float    @default(5.0)
+  commodityCharges Float    @default(5.0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model KycDocument {
@@ -393,7 +404,7 @@ model Order {
   filledQuantity     Int             @default(0)
   pendingQuantity    Int
   cancelledQuantity  Int             @default(0)
-  status             OrderStatus
+  status             OrderStatus     @default(PENDING)
   statusMessage      String?
   tag                String?
   clientOrderId      String?

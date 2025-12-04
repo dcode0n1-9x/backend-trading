@@ -1,8 +1,9 @@
 import { Elysia, t } from "elysia";
-import { prisma, ProductType } from "../db/index";
+import { prisma} from "../db/index";
 import { holdingValidator } from "../utils/validator";
 import { getHolding } from "../modules/holding/getHolding";
 import { authMiddleware } from "../middleware/authMiddleware";
+import { ProductType } from "../../generated/prisma/enums";
 
 export const holdingRouter = new Elysia({
     name: "holding",
@@ -31,7 +32,6 @@ export const holdingRouter = new Elysia({
                     data,
                 });
             } catch (err) {
-                console.log(err);
                 return err;
             }
         },

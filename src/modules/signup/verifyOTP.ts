@@ -44,6 +44,9 @@ export async function verifyOTP({ prisma, data }: IRegisterProp) {
                         ]
                     }
                 },
+                platformCharges: {
+                    create : {}
+                },
                 dailyPnls: {
                     create: {}  //! CREATES EXTRA SPACES IN THE DATABASE NEEDS TO UPSERT ONLY WHEN REQUIRED
                 },

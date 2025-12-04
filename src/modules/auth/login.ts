@@ -38,7 +38,6 @@ export async function login({ prisma, data }: ILoginProp) {
   if (!isPasswordValid) {
     return { message: "INVALID_PASSWORD", code: 401 };
   }
-  console.log(user.isVerified);
   if (!user.isVerified) {
     return { message: "USER_NOT_VERIFIED", code: 403, details: { userStage: user.verification?.stage || "ZERO" } };
   }

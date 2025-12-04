@@ -19,23 +19,9 @@ const app = new Elysia({
   }
   )
 })
-  // .onStart(async () => {
-  //   await initializeKafka()
-  // })
-  // .onStop(async () => {
-  //   process.on('SIGTERM', async () => {
-  //     console.log('SIGTERM received, shutting down gracefully');
-  //     await disconnectKafka();
-  //     process.exit(0);
-  //   });
-
-  //   process.on('SIGINT', async () => {
-  //     console.log('SIGINT received, shutting down gracefully');
-  //     await disconnectKafka();
-  //     process.exit(0);
-  //   });
-  //   console.log("🛑 Server stopped")
-  // })
+  .onStart(async () => {
+    await initializeKafka()
+  })
   // .use(
   //   prometheusPlugin({
   //     metricsPath: '/metrics',

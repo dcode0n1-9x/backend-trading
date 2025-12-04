@@ -108,7 +108,6 @@ export const signUpRouter = new Elysia({
         });
         return new HttpResponse(200, "USER_CREATED", { userStage: userStage }).toResponse();
       } catch (error) {
-        console.log(error);
         return new HttpResponse(500, (error as Error).message).toResponse();
       }
     },
@@ -177,7 +176,6 @@ export const signUpRouter = new Elysia({
           userId: user!.id,
         });
       } catch (error) {
-        console.log(error);
         return new HttpResponse(500, (error as Error).message).toResponse();
       }
     }, {
@@ -241,8 +239,27 @@ export const signUpRouter = new Elysia({
     }
   }
   )
-  .post("/layer-3-B", async ({ body, user }) => {
+  .post("/layer-3-B", async ({ body, user , set}) => {
     try {
+      const isUPI = !!body.upiId;
+      const isBank =
+        !!body.accountNumber &&
+        !!body.ifscCode &&
+        !!body.bankName &&
+        !!body.branchName &&
+        !!body.accountType &&
+        !!body.accountHolderName &&
+        !!body.micrCode;
+
+      if (!isUPI && !isBank) {
+        set.status = 422;
+        return "EITHER_UPI_OR_BANK_DETAILS_REQUIRED"
+      }
+
+      if (isUPI && isBank) {
+        set.status = 422;
+        return  "ONLY_ONE_OF_UPI_OR_BANK_DETAILS_ALLOWED"
+      }
       return await signUpLayer3B({
         prisma,
         data: body,
@@ -253,6 +270,9 @@ export const signUpRouter = new Elysia({
     }
   }, {
     body: "auth.signup.layer3B",
+    error({ error, set }) {
+      console.log("Validation Error in Layer 3B SignUp: ", error);
+    },
     detail: {
       summary: "Complete Sign-Up Layer 3B",
       description: "Completes the third layer B of the sign-up process by collecting user bank account information."

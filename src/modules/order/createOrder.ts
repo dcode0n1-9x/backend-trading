@@ -45,43 +45,38 @@ export async function createOrder({ prisma, data, userId }: IRegisterProp) {
         transactionType,
         tradingSymbol,
     } = data;
-
-    // 1) Load instrument and basic checks
     const instrument = await prisma.instrument.findUnique({
-        where: { id: instrumentId },
+        where: { id: instrumentId, isActive: true }, select: {
+            tradingSymbol: true,
+            tickSize: true,
+            lotSize: true,
+            lastPrice: true,
+        }
     });
-
-    if (!instrument || !instrument.isActive) {
+    if (!instrument) {
         return new HttpResponse(400, "INVALID_OR_INACTIVE_INSTRUMENT").toResponse();
     }
-
-    // sanity: tradingSymbol should match instrument if you care
+    //! 1) Checks whether I am trading the same thingy as instrument
     if (tradingSymbol !== instrument.tradingSymbol) {
         return new HttpResponse(400, "TRADING_SYMBOL_MISMATCH").toResponse();
     }
-
-    // 2) Tick-size & lot-size validation
+    //! 2) Validate price and quantity`
     const tickSize = instrument.tickSize ?? 0.05;
     const lotSize = instrument.lotSize ?? 1;
-
-    // price should be a multiple of tickSize (within small epsilon)
     const tickMultiple = Math.round(price / tickSize);
     const tickError = Math.abs(price - tickMultiple * tickSize);
     if (tickError > 1e-6) {
         return new HttpResponse(400, "INVALID_TICK_SIZE").toResponse();
     }
-
     // quantity must be multiple of lot size
     if (quantity <= 0 || quantity % lotSize !== 0) {
         return new HttpResponse(400, "INVALID_QUANTITY_FOR_LOT_SIZE").toResponse();
     }
-
     // 3) Very simple price band check (you can improve later)
     if (instrument.lastPrice > 0) {
         const maxMovePct = 0.5; // allow +/- 50% for now
         const lower = instrument.lastPrice * (1 - maxMovePct);
         const upper = instrument.lastPrice * (1 + maxMovePct);
-
         if (price < lower || price > upper) {
             return new HttpResponse(400, "PRICE_OUT_OF_ALLOWED_RANGE").toResponse();
         }
@@ -108,23 +103,19 @@ export async function createOrder({ prisma, data, userId }: IRegisterProp) {
             return new HttpResponse(400, "INSUFFICIENT_HOLDINGS").toResponse();
         }
     }
-
     // 6) Transaction: lock funds + create order atomically
     const result = await prisma.$transaction(async (tx) => {
         // Reload wallet inside the tx
         const wallet = await tx.wallet.findUnique({
             where: { userId },
         });
-
         if (!wallet) {
-            throw new HttpResponse(400, "WALLET_NOT_FOUND");
+            throw new Error("WALLET_NOT_FOUND");
         }
-
         // Available must be >= required margin
-        if (wallet.availableBalance < requiredMargin) {
-            throw new HttpResponse(400, "INSUFFICIENT_BALANCE");
+        if (wallet.availableBalance <= requiredMargin) {
+            throw new Error("INSUFFICIENT_BALANCE")
         }
-
         // Lock margin: move from available -> locked
         await tx.wallet.update({
             where: { userId },
@@ -143,29 +134,27 @@ export async function createOrder({ prisma, data, userId }: IRegisterProp) {
                 placedBy: "H",
                 orderId,
                 pendingQuantity: quantity,
-                status: "PENDING", // PENDING -> OPEN/REJECTED after engine ack
                 ...data,
             },
         });
 
         return createOrder;
     }).catch((err) => {
-        // if we threw HttpResponse, unwrap it; otherwise generic error
-        if (err instanceof HttpResponse) {
-            return err.toResponse();
+        if (err instanceof Error) {
+            if (err.message == "WALLET_NOT_FOUND") {
+                return new HttpResponse(400, "WALLET_NOT_FOUND").toResponse();
+            }
+            if (err.message == "INSUFFICIENT_BALANCE") {
+                return new HttpResponse(400, "INSUFFICIENT_BALANCE").toResponse();
+            }
         }
-        console.error("Order tx error:", err);
         return new HttpResponse(500, "ORDER_CREATION_FAILED").toResponse();
     });
 
-    // If transaction returned a HttpResponse, just bubble it up
-    if (!(result as any).id) {
-        // result is already a response object
-        return result;
+    if (result && result.status && result.status !== 200) {
+        return result
     }
-
-    const createOrder = result as any; // the Prisma order
-
+    const createOrder = result as any  // the Prisma order
     // 7) Publish to Kafka (non-transactional, after DB is committed)
     // Define a clean DTO for the engine instead of dumping the whole Prisma object
     await sendMessage("order.create", userId, {

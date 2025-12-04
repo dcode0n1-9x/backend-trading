@@ -58,7 +58,6 @@ export const instrumentRouter = new Elysia({
                 data: params,
             });
         } catch (err) {
-            console.log(err);
             return new HttpResponse(400, (err as Error).message).toResponse();
         }
     }, {

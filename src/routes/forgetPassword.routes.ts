@@ -23,8 +23,6 @@ export const forgetPasswordRouter = new Elysia({
             if (response instanceof Error) {
                 return new HttpResponse(400, response.message).toResponse();
             }
-            console.log("Reset Token:", response.resetToken);
-            console.log(response)
             const { resetToken } = response;
             redirect(`/reset-password?token=${resetToken}`);
         },

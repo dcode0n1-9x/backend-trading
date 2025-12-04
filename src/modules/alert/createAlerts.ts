@@ -43,7 +43,6 @@ export async function createAlert({ prisma, data, userId }: IRegisterProp) {
         await sendMessage("alert.create", userId, { alert: createAlert })
         return new HttpResponse(200, "ALERT_CREATED_SUCCESSFULLY", { alertId: createAlert.id }).toResponse();
     } catch (error) {
-        console.log(error)
-        return new HttpResponse(500, "ALERT_CREATION_FAILED").toResponse();
+        return new HttpResponse(500, "ALERT_CREATION_FAILED", error).toResponse();
     }
 }

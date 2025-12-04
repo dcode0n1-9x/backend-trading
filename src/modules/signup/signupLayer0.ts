@@ -34,8 +34,6 @@ export async function signUpLayer0({ prisma, data, userId }: IRegisterProp) {
             where: { userId },
             select: { stage: true }
         });
-        console.log(verification);
-
         if (verification?.stage !== 'ZERO') {
             return new HttpResponse(400, `INVALID_USER_STAGE: Expected ZERO, got ${verification?.stage}`);
         }

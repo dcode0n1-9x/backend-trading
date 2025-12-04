@@ -28,7 +28,6 @@ export const alertRouter = new Elysia({
                     userId: user.id,
                 });
             } catch (err) {
-                console.log(err);
                 return new HttpResponse(400, (err as Error).message).toResponse();
             }
         },
@@ -39,7 +38,6 @@ export const alertRouter = new Elysia({
                 description: "Fetches comprehensive details for the user's alerts."
             }
         })
-    
     .post(
         "/",
         async ({ user, body }) => {

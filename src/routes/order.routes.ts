@@ -46,7 +46,6 @@ export const orderRouter = new Elysia({
                     userId: user.id
                 })
             } catch (error) {
-                console.error("Error creating order", error);
                 return new HttpResponse(500, "INTERNAL_SERVER_ERROR").toResponse()
             }
         }, {

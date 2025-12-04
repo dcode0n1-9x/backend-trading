@@ -10,22 +10,22 @@ import { SortOrder } from "./types";
 
 // Signup Layers
 const sendOTPLayer = t.Object({
-  phone: t.String({ minLength: 10, maxLength: 15, example: "6376877555", error: "INVALID_PHONE_FORMAT" }),
+  phone: t.String({ minLength: 10, maxLength: 15, example: "6376877553", error: "INVALID_PHONE_FORMAT" }),
 });
 
 const verifyOTPLayer = t.Object({
-  phone: t.String({ minLength: 10, maxLength: 15, example: "6376877555", error: "INVALID_PHONE_FORMAT" }),
+  phone: t.String({ minLength: 10, maxLength: 15, example: "6376877553", error: "INVALID_PHONE_FORMAT" }),
   otp: t.String({ minLength: 6, maxLength: 6, example: "123456", error: "INVALID_OTP_FORMAT" }),
 });
 
 
 const sendOTPviaEmail = t.Object({
-  email: t.String({ format: "email", example: "example@example.com", error: "INVALID_EMAIL_FORMAT" }),
+  email: t.String({ format: "email", example: "example@exampl2.com", error: "INVALID_EMAIL_FORMAT" }),
   name: t.String({ example: "John Doe", error: "INVALID_NAME_FORMAT" }),
 })
 
 const verificationLayer0 = t.Object({
-  email: t.String({ format: "email", example: "example@example.com", error: "INVALID_EMAIL_FORMAT" }),
+  email: t.String({ format: "email", example: "example@exampl2.com", error: "INVALID_EMAIL_FORMAT" }),
   otp: t.String({ minLength: 6, maxLength: 6, example: "123456", error: "INVALID_OTP_FORMAT" }),
 })
 
@@ -50,23 +50,33 @@ const verificationLayer3A = t.Object({
   occupation: t.Enum(OccupationType, { example: "STUDENT", error: "INVALID_OCCUPATION_FORMAT" }),
 })
 
-const upiVariant = t.Object({
-  upiId: t.String({ minLength: 5, maxLength: 15, example: "john.doe@bank", error: "INVALID_UPI_FORMAT" }),
+// const upiVariant = t.Object({
+//   upiId: t.String({ minLength: 5, maxLength: 15, example: "john.doe@bank", error: "INVALID_UPI_FORMAT" }),
+// })
+
+// const bankVariant = t.Object({
+//   accountNumber: t.String({ minLength: 10, maxLength: 10, example: "6376877553", error: "INVALID_ACCOUNT_NUMBER_FORMAT" }),
+//   ifscCode: t.String({ minLength: 11, maxLength: 11, example: "SBIN0001234", error: "INVALID_IFSC_FORMAT" }),
+//   bankName: t.String({ minLength: 2, maxLength: 100, example: "State Bank of India", error: "INVALID_BANK_NAME_FORMAT" }),
+//   branchName: t.String({ minLength: 2, maxLength: 100, example: "Connaught Place", error: "INVALID_BRANCH_NAME_FORMAT" }),
+//   accountType: t.Enum(BankAccountType, { example: "SAVINGS", error: "INVALID_ACCOUNT_TYPE_FORMAT" }),
+//   accountHolderName: t.String({ minLength: 2, maxLength: 100, example: "John Doe", error: "INVALID_ACCOUNT_HOLDER_NAME_FORMAT" }),
+//   micrCode: t.String({ minLength: 9, maxLength: 9, example: "110002000", error: "INVALID_MICR_CODE_FORMAT" }),
+// })
+
+// // Union of variants
+// const verificationLayer3B = t.Union([upiVariant, bankVariant]);
+
+const verificationLayer3B = t.Object({
+  upiId: t.Optional(t.String({ minLength: 5, maxLength: 15, example: "john.doe@bank", error: "INVALID_UPI_FORMAT" })),
+  accountNumber: t.Optional(t.String({ minLength: 10, maxLength: 10, example: "6376877553", error: "INVALID_ACCOUNT_NUMBER_FORMAT" })),
+  ifscCode: t.Optional(t.String({ minLength: 11, maxLength: 11, example: "SBIN0001234", error: "INVALID_IFSC_FORMAT" })),
+  bankName: t.Optional(t.String({ minLength: 2, maxLength: 100, example: "State Bank of India", error: "INVALID_BANK_NAME_FORMAT" })),
+  branchName: t.Optional(t.String({ minLength: 2, maxLength: 100, example: "Connaught Place", error: "INVALID_BRANCH_NAME_FORMAT" })),
+  accountType: t.Optional(t.Enum(BankAccountType, { example: "SAVINGS", error: "INVALID_ACCOUNT_TYPE_FORMAT" })),
+  accountHolderName: t.Optional(t.String({ minLength: 2, maxLength: 100, example: "John Doe", error: "INVALID_ACCOUNT_HOLDER_NAME_FORMAT" })),
+  micrCode: t.Optional(t.String({ minLength: 9, maxLength: 9, example: "110002000", error: "INVALID_MICR_CODE_FORMAT" })),
 })
-
-const bankVariant = t.Object({
-  accountNumber: t.String({ minLength: 10, maxLength: 10, example: "6376877555", error: "INVALID_ACCOUNT_NUMBER_FORMAT" }),
-  ifscCode: t.String({ minLength: 11, maxLength: 11, example: "SBIN0001234", error: "INVALID_IFSC_FORMAT" }),
-  bankName: t.String({ minLength: 2, maxLength: 100, example: "State Bank of India", error: "INVALID_BANK_NAME_FORMAT" }),
-  branchName: t.String({ minLength: 2, maxLength: 100, example: "Connaught Place", error: "INVALID_BRANCH_NAME_FORMAT" }),
-  accountType: t.Enum(BankAccountType, { example: "SAVINGS", error: "INVALID_ACCOUNT_TYPE_FORMAT" }),
-  accountHolderName: t.String({ minLength: 2, maxLength: 100, example: "John Doe", error: "INVALID_ACCOUNT_HOLDER_NAME_FORMAT" }),
-  micrCode: t.String({ minLength: 9, maxLength: 9, example: "110002000", error: "INVALID_MICR_CODE_FORMAT" }),
-})
-
-// Union of variants
-const verificationLayer3B = t.Union([upiVariant, bankVariant]);
-
 
 const verificationLayer3C = t.Object({
   webcam: t.String({ example: `https://${config.S3.BUCKET}.s3.${config.S3.REGION}.amazonaws.com/cmhk8ryhl0000kev0hxkw5cyw/kyc/signature`, error: "INVALID_SIGNATURE_FORMAT" })
@@ -84,7 +94,7 @@ const verificationLayer4B = t.Object({
   nominee: t.Array(t.Object({
     name: t.String({ minLength: 2, maxLength: 100, example: "John Doe" }),
     email: t.String({ format: "email", example: "john.doe@example.com" }),
-    phone: t.String({ minLength: 10, maxLength: 15, example: "6376877555" }),
+    phone: t.String({ minLength: 10, maxLength: 15, example: "6376877553" }),
     relationship: t.Enum(RelationshipType, { example: "SPOUSE" }),
     percentage: t.Number({ minimum: 0, maximum: 100, example: 50 }),
     panNumber: t.String({ minLength: 10, maxLength: 10, example: "ABCDE1234F" }),
@@ -100,7 +110,7 @@ const loginBody = t.Union([
     password: t.String({ minLength: 8, error: "INVALID_PASSWORD_FORMAT", example: "User@123" })
   }),
   t.Object({
-    phone: t.String({ minLength: 10, maxLength: 15, error: "INVALID_PHONE_FORMAT", example: "6376877555" }),
+    phone: t.String({ minLength: 10, maxLength: 15, error: "INVALID_PHONE_FORMAT", example: "6376877553" }),
     password: t.String({ minLength: 8, error: "INVALID_PASSWORD_FORMAT", example: "strongpassword123" })
   })
 ]);
@@ -118,14 +128,14 @@ const forgetPasswordEmailVarient = t.Object({
 
 const forgetPasswordPhoneVarient = t.Object({
   ...forgetPasswordBody,
-  phone: t.String({ minLength: 10, maxLength: 15, example: "6376877555" }),
+  phone: t.String({ minLength: 10, maxLength: 15, example: "6376877553" }),
 })
 
 const forgetPasswordValidator = t.Union([forgetPasswordEmailVarient, forgetPasswordPhoneVarient]);
 
 
 const verifyOTPForgetPasswordLayer = t.Object({
-  token: t.String({ minLength: 10, maxLength: 100, example: "abcdef6376877555" }),
+  token: t.String({ minLength: 10, maxLength: 100, example: "abcdef6376877553" }),
   password: t.String({ minLength: 8, error: "INVALID_PASSWORD_FORMAT", example: "strongpassword123" })
 });
 

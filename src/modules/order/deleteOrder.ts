@@ -16,7 +16,7 @@ interface IRegisterProp {
 export async function deleteOrder({ prisma, data, userId }: IRegisterProp) {
     const { orderId } = data;
     const deleteOrder = await prisma.order.delete({
-        where: { id: orderId, userId: userId },
+        where: { id: orderId, userId },
     });
     if (!deleteOrder) {
         return new HttpResponse(500, "UNABLE_TO_DELETE_ORDER").toResponse();
