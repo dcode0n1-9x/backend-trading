@@ -4,8 +4,21 @@ import { indexRouter } from "./routes/index";
 import openapi from "@elysiajs/openapi";
 import { config } from "./config/generalconfig";
 import { initializeKafka } from "./config/kafka/kafka.config";
+import { prisma } from "./db";
 // import prometheusPlugin from 'elysia-prometheus'
 
+
+
+let cachedStatus = { ok: true, lastCheck: Date.now() };
+
+setInterval(async () => {
+  try {
+    await prisma.user.findFirst({ select: { id: true } });
+    cachedStatus = { ok: true, lastCheck: Date.now() };
+  } catch (err: any) {
+    cachedStatus = { ok: false, lastCheck: Date.now() };
+  }
+}, 100_00); // every 10 seconds
 
 const app = new Elysia({
   normalize: true,
@@ -60,13 +73,14 @@ const app = new Elysia({
       }
     }
   }))
-  .get("/health", () => "Working fine", {
+  .get("/health", "OK", {
     detail: {
       tags: ["Health Check"],
       summary: "Health Check Endpoint",
       description: "Health check endpoint to verify server status"
     }
   })
+  .get("/ready", () => cachedStatus)
   .use(indexRouter.signUpRouter)
   .use(indexRouter.forgetPasswordRouter)
   .use(indexRouter.authRouter)

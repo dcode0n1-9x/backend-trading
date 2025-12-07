@@ -837,7 +837,7 @@ async function main() {
 
     const order1 = await prisma.order.create({
         data: {
-            orderId: 12333333,
+            orderId: Math.floor(100000 + Math.random() * 900000),
             userId: rajesh.id,
             instrumentId: reliance.id,
             parentOrderId: null,
