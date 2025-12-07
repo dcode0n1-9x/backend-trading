@@ -20,9 +20,9 @@ const app = new Elysia({
   }
   )
 })
-  .onStart(async () => {
-    await initializeKafka()
-  })
+  // .onStart(async () => {
+  //   await initializeKafka()
+  // })
   // .use(
   //   prometheusPlugin({
   //     metricsPath: '/metrics',
