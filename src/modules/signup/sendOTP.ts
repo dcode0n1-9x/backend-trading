@@ -38,7 +38,7 @@ export async function sendOTP({ prisma, data }: IRegisterProp) {
   const OTP = generateOTP();
   //  sendSMS(phone, OTP);  // Send OTP via SMS
   await redis.set(redisKey, OTP, "EX", 900);
-  return { details: { OTP }, code: 200, message: "OTP_SENT_SUCCESSFULLY" };
+  return {  code: 200, message: "OTP_SENT_SUCCESSFULLY" };
 }
 
 

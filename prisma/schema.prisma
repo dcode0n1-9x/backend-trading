@@ -25,6 +25,7 @@ model Staff {
   isActive       Boolean         @default(true)
   role           Role            @relation(fields: [roleId], references: [id], onDelete: Cascade)
   supportTickets SupportTicket[]
+  user           User[]
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
 
@@ -86,6 +87,7 @@ model User {
   nominees            Nominee[]
   dailyPnls           DailyPnL[]
   supportTickets      SupportTicket[]
+  staff               Staff?             @relation(fields: [staffId], references: [id], onDelete: Cascade)
 
   @@index([email, phone])
 }
@@ -382,13 +384,13 @@ model Position {
 
 model Order {
   id                 String          @id @default(cuid())
-  orderId            String          @unique
+  orderId            Int             @unique
   userId             String
   instrumentId       String
   parentOrderId      String?
   exchangeOrderId    String?
   exchangeTimestamp  DateTime?
-  placedBy           String
+  placedBy           PlacedBy        @default(USER)
   variety            OrderVariety
   orderType          OrderType
   transactionType    TransactionType
@@ -406,7 +408,7 @@ model Order {
   cancelledQuantity  Int             @default(0)
   status             OrderStatus     @default(PENDING)
   statusMessage      String?
-  tag                String?
+  tag                String? //tag = "strategy:mean_reversion_v2" for any strategy used in algos
   clientOrderId      String?
   orderTimestamp     DateTime        @default(now())
   exchangeUpdateTime DateTime?
@@ -666,6 +668,16 @@ model SupportTicket {
   @@index([staffId, status])
 }
 
+enum PlacedBy {
+  USER
+  ALGO
+  SYSTEM_RMS
+  ADMIN
+  AUTO_SQUARE_OFF
+  PARENT_ORDER
+  STRATEGY
+}
+
 enum TicketStatus {
   OPEN
   IN_PROGRESS
@@ -718,7 +730,7 @@ enum TransactionStatus {
 }
 
 enum PaymentMode {
-  UPI
+  UPI // Unified Payments Interface
   NET_BANKING
   NEFT
   RTGS
@@ -726,12 +738,12 @@ enum PaymentMode {
 }
 
 enum Exchange {
-  NSE
-  BSE
-  NFO
-  BFO
-  CDS
-  MCX
+  NSE // National Stock Exchange
+  BSE // Bombay Stock Exchange
+  NFO // NSE Futures & Options (Derivatives)
+  BFO // BSE Futures & Options (Derivatives)
+  CDS // Currency Derivatives Segment
+  MCX // Multi Commodity Exchange
 }
 
 enum Segment {
@@ -743,15 +755,15 @@ enum Segment {
 }
 
 enum InstrumentType {
-  EQ
-  FUTIDX
-  FUTSTK
-  OPTIDX
-  OPTSTK
-  FUTCOM
-  OPTCOM
-  FUTCUR
-  OPTCUR
+  EQ // Equity
+  FUTIDX // Futures - Index
+  FUTSTK // Futures - Stock
+  OPTIDX // Options - Index
+  OPTSTK // Options - Stock
+  FUTCOM // Futures - Commodity
+  OPTCOM // Options - Commodity
+  FUTCUR // Futures - Currency
+  OPTCUR // Options - Currency
 }
 
 enum OrderSide {
@@ -761,17 +773,17 @@ enum OrderSide {
 
 enum OrderVariety {
   REGULAR
-  AMO
-  BO
-  CO
+  AMO // After Market Order
+  BO // Bracket Order
+  CO // Cover Order
   ICEBERG
 }
 
 enum OrderType {
-  MARKET
-  LIMIT
-  SL
-  SLM
+  MARKET // Market Order
+  LIMIT // Limit Order
+  SL // Stop Loss
+  SLM // Stop Loss Market
 }
 
 enum TransactionType {
@@ -786,9 +798,9 @@ enum OrderValidity {
 }
 
 enum ProductType {
-  CNC
-  MIS
-  NRML
+  CNC // Cash and Carry
+  MIS // Margin Intraday Square-off
+  NRML // Normal
 }
 
 enum OrderStatus {
@@ -808,12 +820,12 @@ enum PositionType {
 
 enum GTTType {
   SINGLE
-  OCO
+  OCO // One Cancels the Other
 }
 
 enum TriggerType {
   SINGLE
-  TWO_LEG
+  TWO_LEG // Two-leg
 }
 
 enum GTTStatus {
@@ -907,7 +919,7 @@ enum OccupationType {
 }
 
 enum SettlementType {
-  QUATERLY
+  QUATERLY // Quarterly
   MONTHLY
 }
 

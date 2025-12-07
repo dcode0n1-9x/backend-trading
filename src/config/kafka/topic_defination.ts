@@ -1,7 +1,7 @@
 
 
 
-export type TopicName = "instrument.create" | "instrument.delete" | "alert.create" | "alert.update" | "alert.delete" | "order.create" | "order.update" | "order.cancelled" | "order.filled" | "order.delete" | "notification.outbound" | "kyc.layer.completed" | "holding.update" | "alert.triggered" | "audit.trail" | "basket.create" | "basket.delete" |  "basket.update" | "gtt.create" | "gtt.update" | "gtt.delete";
+export type TopicName = "instrument.create" | "instrument.delete" | "alert.create" | "alert.update" | "alert.delete" | "order.create" | "order.modify" | "order.cancelled" | "order.filled" | "order.delete" | "notification.outbound" | "kyc.layer.completed" | "holding.update" | "alert.triggered" | "audit.trail" | "basket.create" | "basket.delete" |  "basket.update" | "gtt.create" | "gtt.update" | "gtt.delete";
     
 // Topic definitions with configs
 interface TopicConfig {
@@ -55,7 +55,7 @@ export const TOPIC_DEFINITIONS: TopicConfig[] = [
         },
     },
     {
-        topic: "order.update",
+        topic: "order.modify",
         numPartitions: 6,
         // replicationFactor: 3,
         config: {

@@ -162,9 +162,9 @@ const watchlistGroupIdParam = t.Object({
 });
 
 const watchListGroupUpdateValidator = t.Object({
-  name: t.String({ minLength: 2, maxLength: 100, example: "Updated Watchlist Group", error: "INVALID_WATCHLIST_GROUP_NAME" }),
-  color: t.Number({ minimum: 1, maximum: 20, example: 5, error: "INVALID_COLOR_VALUE" }),
-  sortOrder: t.Number({ minimum: 1, maximum: 100, example: 1, error: "INVALID_SORT_ORDER" }),
+  name: t.Optional(t.String({ minLength: 2, maxLength: 100, example: "Updated Watchlist Group", error: "INVALID_WATCHLIST_GROUP_NAME" })),
+  color: t.Optional(t.Number({ minimum: 1, maximum: 20, example: 5, error: "INVALID_COLOR_VALUE" })),
+  sortOrder: t.Optional(t.Number({ minimum: 1, maximum: 100, example: 1, error: "INVALID_SORT_ORDER" })),
 });
 
 

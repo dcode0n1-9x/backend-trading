@@ -33,9 +33,7 @@ export async function sendOTPEmailVerification({ prisma, data }: IRegisterProp) 
         OTP,
         name
     }), "EX", 900);
-    return new HttpResponse(200, "OTP_SENT_SUCCESSFULLY", {
-        otp: OTP
-    }).toResponse();
+    return new HttpResponse(200, "OTP_SENT_SUCCESSFULLY").toResponse();
 }
 
 

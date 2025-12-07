@@ -1,4 +1,5 @@
 import type { PrismaClient, ProductType, Prisma } from "../../../generated/prisma/client";
+import { InstrumentFindManyArgs, InstrumentWhereInput } from "../../../generated/prisma/models";
 import { HttpResponse } from "../../utils/response/success";
 
 interface GetHoldingData {
@@ -15,7 +16,7 @@ interface IRegisterProp {
 
 export async function getAllInstrument({ prisma, data }: IRegisterProp) {
     const { search, cursor, sort = 'desc', limit = 20 } = data;
-    const whereClause: Prisma.InstrumentWhereInput = {
+    const whereClause: InstrumentWhereInput = {
         ...(search && {
             OR: [
                 { instrumentToken: { contains: search, mode: 'insensitive' } },
@@ -27,7 +28,7 @@ export async function getAllInstrument({ prisma, data }: IRegisterProp) {
     };
 
     // Cursor-based pagination query
-    const instruments = await prisma.instrument.findMany({
+    const instruments = await prisma.instrument.findMany<InstrumentFindManyArgs>({
         where: whereClause,
         orderBy: {
             createdAt: sort

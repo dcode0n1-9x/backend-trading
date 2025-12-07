@@ -32,7 +32,7 @@ export async function getFullDetail({
                 u."firstName",
                 u."lastName",
                 u.email,
-                u.segment,
+                to_json(u.segment) as segment,
                 CONCAT('****', RIGHT(u."phone", 4)) as "phone",
                 LEFT(u."phone", LENGTH(u."phone") - 10) as "countryCode",
                 CONCAT('****', RIGHT(u."panNumber", 4)) as "panNumber",

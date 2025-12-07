@@ -8,6 +8,7 @@ import { initializeKafka } from "./config/kafka/kafka.config";
 
 
 const app = new Elysia({
+  normalize: true,
   aot: true,  // build time optimization,
   prefix: "/api",
   ...(config.BUN_ENV === 'production' && {
@@ -36,7 +37,7 @@ const app = new Elysia({
   .use(
     cors({
       origin: ["http://localhost:3000", "http://localhost:3001", "http://localhost:5173",
-        "http://localhost:5173"
+        "http://localhost:5174"
       ],
       credentials: true,
     })

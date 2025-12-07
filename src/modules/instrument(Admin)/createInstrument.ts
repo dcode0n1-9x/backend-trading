@@ -26,6 +26,8 @@ export async function createInstrument({ prisma, data }: IRegisterProp) {
         return new HttpResponse(500, "INSTRUMENT_CREATION_FAILED").toResponse();
     }
     // FOR CREATING AN ORDER BOOK FOR THE RECENT CREATED INSTRUMENTS
-    await sendMessage("instrument.create", createInstrument.id, { instrument: createInstrument })
+    await sendMessage("instrument.create", createInstrument.id, {
+        instrument_id: createInstrument.id,
+    })
     return new HttpResponse(200, "INSTRUMENT_CREATED_SUCCESSFULLY", { instrumentId: createInstrument.id }).toResponse();
 }

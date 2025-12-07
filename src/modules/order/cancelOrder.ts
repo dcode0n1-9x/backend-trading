@@ -15,18 +15,23 @@ interface IRegisterProp {
 }
 
 export async function cancelOrder({ prisma, data , userId }: IRegisterProp) {
-    const { orderId, quantity } = data;
+    const { orderId} = data;
     const cancelOrder = await prisma.order.update({
-        where: { id: orderId , userId },
+        where: { id: orderId , userId , OR : [
+            { status : "PENDING" },
+            { status : "OPEN" }
+        ] },
         data: {
             cancelledBy: "USER",
-            cancelledQuantity: quantity,
             status: "CANCELLED"
         }
     })
     if (!cancelOrder) {
         return new HttpResponse(400, "UNABLE_TO_CANCEL_ORDER").toResponse()
     }
-    await sendMessage("order.cancelled", userId, { order: cancelOrder })
+    await sendMessage("order.cancelled", userId, { 
+        order_id: cancelOrder.orderId, 
+        instrument_id : cancelOrder.instrumentId    ,
+    })
     return new HttpResponse(200, "ORDER_CANCELLED_SUCCESSFULLY")
 }

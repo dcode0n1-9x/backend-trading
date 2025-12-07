@@ -837,11 +837,10 @@ async function main() {
 
     const order1 = await prisma.order.create({
         data: {
-            orderId: `ORD0001-${Date.now().toLocaleString()}`,
+            orderId: 12333333,
             userId: rajesh.id,
             instrumentId: reliance.id,
             parentOrderId: null,
-            placedBy: 'MP000001',
             variety: 'REGULAR' as any,
             orderType: OrderType.LIMIT,
             transactionType: TransactionType.BUY,

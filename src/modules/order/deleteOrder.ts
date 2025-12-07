@@ -14,6 +14,7 @@ interface IRegisterProp {
 }
 
 export async function deleteOrder({ prisma, data, userId }: IRegisterProp) {
+    // WE DONT DELETE AN ORDER WE RATHER CANCEL IT , JUST FOR THE TESTING PURPOSES WE ARE DELETING IT
     const { orderId } = data;
     const deleteOrder = await prisma.order.delete({
         where: { id: orderId, userId },
