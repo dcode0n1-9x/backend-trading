@@ -1,4 +1,4 @@
-import type { PrismaClient} from "../../../../generated/prisma/client";
+import type { PrismaClient } from "../../../../generated/prisma/client";
 import { HttpResponse } from "../../../utils/response/success";
 
 
@@ -17,7 +17,7 @@ export async function createWatchList({ prisma, data, userId }: IRegisterProp) {
     const create = await prisma.watchlist.create({
         data: {
             userId,
-            name,
+            name
         }
     });
     if (!create) {

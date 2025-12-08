@@ -9,17 +9,6 @@ import { prisma } from "./db";
 
 
 
-let cachedStatus = { ok: true, lastCheck: Date.now() };
-
-setInterval(async () => {
-  try {
-    await prisma.user.findFirst({ select: { id: true } });
-    cachedStatus = { ok: true, lastCheck: Date.now() };
-  } catch (err: any) {
-    cachedStatus = { ok: false, lastCheck: Date.now() };
-  }
-}, 100_00); // every 10 seconds
-
 const app = new Elysia({
   normalize: true,
   aot: true,  // build time optimization,
@@ -80,7 +69,6 @@ const app = new Elysia({
       description: "Health check endpoint to verify server status"
     }
   })
-  .get("/ready", () => cachedStatus)
   .use(indexRouter.signUpRouter)
   .use(indexRouter.forgetPasswordRouter)
   .use(indexRouter.authRouter)

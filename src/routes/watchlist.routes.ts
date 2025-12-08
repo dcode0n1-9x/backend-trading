@@ -1,7 +1,7 @@
 import { Elysia } from "elysia";
 import { prisma } from "../db/index";
 import { authMiddleware } from "../middleware/authMiddleware";
-import { getWatchListUser } from "../modules/watchlist/WatchList/getWatchlistAndMakeDefault";
+import { getWatchListUser } from "../modules/watchlist/WatchList/getAllWatchlist";
 import { createWatchList } from "../modules/watchlist/WatchList/createWatchlist";
 import { watchlistValidator } from "../utils/validator";
 import { deleteWatchList } from "../modules/watchlist/WatchList/deleteWatchList";
@@ -30,8 +30,7 @@ export const watchlistRouter = new Elysia({
             summary: "Get All Watchlist",
             description: "This is the end-point to fetch all the watchlist of the user"
         }
-    }
-    )
+    })
     .post("/", async ({ body, user }) => {
         return await createWatchList({
             prisma,
@@ -71,9 +70,9 @@ export const watchlistRouter = new Elysia({
     }, {
         params: "watchlist.id",
         body: "watchlist.update",
-        detail : {
-            summary : "Update the Watchlist" , 
-            description : "This is to update the name of the watchlist"
+        detail: {
+            summary: "Update the Watchlist",
+            description: "This is to update the name of the watchlist"
         }
     });
 
