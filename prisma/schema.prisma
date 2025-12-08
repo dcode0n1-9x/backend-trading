@@ -494,12 +494,14 @@ model Watchlist {
   id        String           @id @default(cuid())
   userId    String
   name      String
+  sequence  Int              @default(1)
   isDefault Boolean          @default(false)
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
   groups    WatchlistGroup[]
   user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([userId, sequence])
   @@index([userId])
 }
 

@@ -142,6 +142,7 @@ const verifyOTPForgetPasswordLayer = t.Object({
 
 const watchlistCreateValidator = t.Object({
   name: t.String({ minLength: 2, maxLength: 100, example: "My Watchlist", error: "INVALID_WATCHLIST_NAME" }),
+  sequence: t.Number({ minimum: 1, maximum: 7, example: 1, error: "INVALID_WATCHLIST_SEQUENCE" }),
 });
 
 const watchlistUpdateValidator = t.Object({
@@ -181,6 +182,10 @@ const watchListItemUpdateValidator = t.Object({
   sortOrder: t.Number({ minimum: 1, maximum: 100, example: 1, error: "INVALID_SORT_ORDER" }),
 })
 
+const getWatchListUserValidator = t.Object({
+  sequence: t.Number({ minimum: 1, maximum: 7, example: 1, error: "INVALID_WATCHLIST_SEQUENCE" }),
+});
+
 export const watchlistItemValidator = new Elysia().model({
   "watchlist-item.create": watchListItemCreateValidator,
   "watchlist-item.id": watchListItemIdParam,
@@ -196,7 +201,10 @@ export const watchlistGroupValidator = new Elysia().model({
   "watchlist-group.update": watchListGroupUpdateValidator,
 });
 
+
+
 export const watchlistValidator = new Elysia().model({
+  "watchlist.getAll": getWatchListUserValidator,
   "watchlist.create": watchlistCreateValidator,
   "watchlist.id": watchListIdParam,
   "watchlist.delete": watchListIdParam,

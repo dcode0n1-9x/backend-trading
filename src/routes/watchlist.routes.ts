@@ -18,14 +18,16 @@ export const watchlistRouter = new Elysia({
     .use(authMiddleware)
     .use(watchlistValidator)
     .get(
-        "/",
-        async ({ user }) => {
+        "/:sequence/items",
+        async ({ user, params }) => {
             return await getWatchListUser({
                 prisma,
+                data: { sequence: Number(params.sequence) },
                 userId: user.id,
             })
 
         }, {
+        params: "watchlist.getAll",
         detail: {
             summary: "Get All Watchlist",
             description: "This is the end-point to fetch all the watchlist of the user"
